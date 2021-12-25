@@ -25,7 +25,7 @@ COMPOSE_HTTP_TIMEOUT=300 docker-compose -f docker-compose.yml -f docker-compose.
    - Add property "properties for this type" (P3 should be created):
      - Language: en
      - Label: properties for this type
-     - Data type: Property -> P3
+     - Data type: Property
  - Add basic items: http://philobiblon.duckdns.org/wiki/Special:NewItem
    - Add item "entity" (Q1 should be created):
      - Language: en
