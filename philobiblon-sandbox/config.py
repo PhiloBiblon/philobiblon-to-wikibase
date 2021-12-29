@@ -9,7 +9,7 @@ should be used
 mediawiki_api_endpoint = 'http://philobiblon.duckdns.org/w/api.php'
 
 # SPARQL endpoint
-wikibase_sparql_endpoint = 'http://philobiblon.duckdns.org:8834/proxy/wdqs/bigdata/namespace/wdq/sparql'
+wikibase_sparql_endpoint = 'http://wdqs-frontend.svc/proxy/wdqs/bigdata/namespace/wdq/sparql'
 
 # Name of the Wikibase instance
 wikibase_name = 'Philobiblon sandbox'
