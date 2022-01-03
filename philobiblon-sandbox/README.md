@@ -13,33 +13,18 @@ Run in another system should be possible just changing docker images in `.env` f
 COMPOSE_HTTP_TIMEOUT=300 docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml up -d
 ```
 2. Prepare basic config in wikibase.
- - Add basic properties: http://philobiblon.duckdns.org/wiki/Special:NewProperty
-   - Add property "instance of" (P1 should be created):
-     - Language: en
-     - Label: instance of
-     - Data type: Item
-   - Add property "subclass of" (P2 should be created):
-     - Language: en
-     - Label: subclass of
-     - Data type: Item
-   - Add property "properties for this type" (P3 should be created):
-     - Language: en
-     - Label: properties for this type
-     - Data type: Property
- - Add basic items: http://philobiblon.duckdns.org/wiki/Special:NewItem
-   - Add item "entity" (Q1 should be created):
-     - Language: en
-     - Label: entity
-   - Add item "Wikidata property for an identifier" (Q2 should be created):
-     - Language: en
-     - Label: Wikidata property for an identifier
  - Create a bot
    - Login as admin to wikibase and go to http://philobiblon.duckdns.org/wiki/Special:BotPasswords
       - Name: philobot
       - Select all grants (a refinement could be possible)
-    - Save password.
-3. Ensure config.py has same P and Q numbers created in previous step (if creating from scratch in the same order, just do nothing).
-4. Update wiki.
+    - Save password inside `pb2wb/settings.py` in `WB_PASSWORD` parameter.
+ - Add basic properties and items
+```
+cd ../pb2wb
+source .env/bin/activate
+python pb_wb_init.py
+```
+3. Update wiki.
   - Update main page:
 ```
 <strong>Welcome to Philobiblon Wikibase sandbox.</strong>
@@ -120,3 +105,4 @@ docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compo
 ```
 docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml down -v
 ```
+

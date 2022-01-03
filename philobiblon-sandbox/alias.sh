@@ -1,0 +1,1 @@
+alias wiki='docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml'
