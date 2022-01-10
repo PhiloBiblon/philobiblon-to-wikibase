@@ -1,6 +1,6 @@
 # PhiloBiblon2Wikibase (beta)
 
-Migrates data from PhiloBiblon database to a Wikibase instance.
+Migrates base data from PhiloBiblon database to a Wikibase instance.
 
 Next steps assumes that you are using a Linux OS.
 
@@ -29,8 +29,17 @@ __NOTE 2__: If you want to create a wikibase instance from scratch, follow [this
 
 ## Run
 
+To create base data there are 3 scripts:
+ * pb_wb_init.py: Creates, when not exists, required P and Q Wikibase items using mapping files:
+  * Properties: conf/p_properties.csv
+  * Entites: conf/q_items.csv
+ * import_dataclip.py: Import dataclips from PhiloBiblon to Wikibase.
+ * import_base.py: Import base data for each of the 10 PhiloBiblon tables (Bibliography, Biography, Geography..).
+
 ```
 cd pb2wb
 source .env/bin/activate
-python migrate.py
+python pb_wb_init.py
+python import_dataclip.py
+python import_base.py
 ```
