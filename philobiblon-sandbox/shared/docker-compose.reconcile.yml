@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.4'
 services:
   reconcile:
     image: "${RECONCILE_IMAGE_NAME}"
@@ -8,6 +8,10 @@ services:
       - type: bind
         source: ./config.py
         target: /openrefine-wikibase/config.py
+        read_only: true
+      - type: bind
+        source: ./pb_logo.png
+        target: /openrefine-wikibase/static/pb_logo.png
         read_only: true
   redis:
     image: "redis:alpine"

@@ -59,7 +59,7 @@ avoid_items_of_class = None
 service_name = 'Philobiblon local'
 
 # URL (without the trailing slash) where this server runs
-this_host = 'http://reconcile:8000'
+this_host = 'http://wikibase.svc:8000'
 
 # The default limit on the number of results returned by us
 default_num_results = 25
@@ -98,10 +98,10 @@ image_properties = []
 image_download_pattern = 'https://upload.wikimedia.org/wikipedia/commons/thumb/%s/%s/%s/%dpx-%s'
 
 # Fallback URL of the image to use when previewing an item with no image
-fallback_image_url = this_host + '/static/wikidata.png'
+fallback_image_url = this_host + '/static/pb_logo.png'
 
 # Alt text of the fallback image
-fallback_image_alt = 'Wikidata'
+fallback_image_alt = 'PhiloBiblon'
 
 # Autodescribe endpoint to use.
 # this is used to generate automatic descriptions from item contents.
