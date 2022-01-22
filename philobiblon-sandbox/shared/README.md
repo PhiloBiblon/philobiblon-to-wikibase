@@ -4,26 +4,17 @@ Deploy of wikibase suite for Philobiblon sandbox that includes: *QuickStatements
 
 Currently this suite is running on a Rapsberry Pi 4 using special docker images, more info [here](https://github.com/jmformenti/docker-images/tree/master/raspberrypi/wikibase). For DNS resolution is using [Duck DNS](https://www.duckdns.org/).
 
-Run in another system should be possible just changing docker images in `.env` file.
-
 ## Deploy from scratch
 
 1. Up wikibase suite using docker.
 ```
 COMPOSE_HTTP_TIMEOUT=300 docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml up -d
 ```
-2. Prepare basic config in wikibase.
- - Create a bot
+2. Create a bot
    - Login as admin to wikibase and go to http://philobiblon.duckdns.org/wiki/Special:BotPasswords
       - Name: philobot
-      - Select all grants (a refinement could be possible)
-    - Save password inside `pb2wb/settings.py` in `WB_PASSWORD` parameter.
- - Add basic properties and items
-```
-cd ../pb2wb
-source .env/bin/activate
-python pb_wb_init.py
-```
+      - Select grants: "Edit existing pages" and "Create, edit, and moves pages"
+   - Save password inside `pb2wb/settings.py` in `WB_PASSWORD` parameter.
 3. Update wiki.
   - Update main page:
 ```
