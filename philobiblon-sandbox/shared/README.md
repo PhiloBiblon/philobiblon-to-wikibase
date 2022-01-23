@@ -97,3 +97,29 @@ docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compo
 docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml down -v
 ```
 
+## Move data from local to shared sandbox
+
+It is possible move wikibase data from local wikibase environment to shared sandbox simply moving few docker volumes.
+
+Docker volumes are located in: `/var/lib/docker/volumes`
+
+1. [sandbox] Make backup of current volumes in sandbox.
+```
+# cd /var/lib/docker/volumes
+# mv wikibase_mediawiki-mysql-data wikibase_mediawiki-mysql-data.bak
+# mv wikibase_elasticsearch-data wikibase_elasticsearch-data.bak
+```
+2. [local] Copy local volumes to temporary dir in sandbox.
+```
+# cd /var/lib/docker/volumes
+# scp -r wikibase_mediawiki-mysql-data wikibase_elasticsearch-data pi@<sandbox>:/tmp/data
+```
+3. [sandbox] Copy from temporary dir to the definitive place.
+```
+# mv /tmp/data/wikibase_mediawiki-mysql-data /var/lib/docker/volumes
+# chown -R 999.spi /var/lib/docker/volumes/wikibase_mediawiki-mysql-data/_data
+# mv /tmp/data/wikibase_elasticsearch-data /var/lib/docker/volumes
+# chown -R pi.pi /var/lib/docker/volumes/wikibase_mediawiki-mysql-data/_data
+# mv /var/lib/docker/volumes/wikibase_elasticsearch-data/_data/nodes /var/lib/docker/volumes/wikibase_elasticsearch-data/_data/data/nodes
+```
+
