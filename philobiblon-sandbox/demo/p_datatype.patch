@@ -1,0 +1,12 @@
+--- .env/lib/python3.8/site-packages/wikibaseintegrator/entities/property.py	2022-02-14 06:03:41.000000000 +0100
++++ .env/lib/python3.8/site-packages/wikibaseintegrator/entities/property~.py	2022-02-15 05:29:13.378475766 +0100
+@@ -56,7 +56,8 @@
+     def from_json(self, json_data: Dict[str, Any]) -> Property:
+         super().from_json(json_data=json_data)
+ 
+-        self.datatype = json_data['datatype']
++        if 'datatype' in json_data:
++            self.datatype = json_data['datatype']
+         self.labels = Labels().from_json(json_data['labels'])
+         self.descriptions = Descriptions().from_json(json_data['descriptions'])
+         self.aliases = Aliases().from_json(json_data['aliases'])
