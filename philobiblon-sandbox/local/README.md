@@ -31,6 +31,7 @@ docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compo
  - Add basic properties and items to wikibase
 ```
 cd pb2wb
+virtualenv .env
 source .env/bin/activate
 pip install -r requirements.txt
 python pb_wb_init.py
@@ -38,6 +39,10 @@ python pb_wb_init.py
 
 ## Other commands
 
+* To improve performance on massive imports, you can run several job runners in parallel by using the `--scale` option:
+```
+docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml up -d --scale wikibase_jobrunner=8
+```
 * Stop:
 ```
 docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml stop

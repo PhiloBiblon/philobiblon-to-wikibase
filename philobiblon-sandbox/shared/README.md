@@ -120,6 +120,8 @@ Docker volumes are located in: `/var/lib/docker/volumes`
 # chown -R 999.spi /var/lib/docker/volumes/wikibase_mediawiki-mysql-data/_data
 # mv /tmp/data/wikibase_elasticsearch-data /var/lib/docker/volumes
 # chown -R pi.pi /var/lib/docker/volumes/wikibase_mediawiki-mysql-data/_data
+# mkdir /var/lib/docker/volumes/wikibase_elasticsearch-data/_data/data
 # mv /var/lib/docker/volumes/wikibase_elasticsearch-data/_data/nodes /var/lib/docker/volumes/wikibase_elasticsearch-data/_data/data/nodes
 ```
 
+When elasticsearch container starts again, it take some time rebuild data.
