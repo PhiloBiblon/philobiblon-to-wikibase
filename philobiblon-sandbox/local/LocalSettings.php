@@ -26,3 +26,7 @@ $wgSitename = "Philobiblon localhost";
 /* Disable UI error-reporting  */
 /*******************************/
 #ini_set( 'display_errors', 0 );
+
+# uncomment to enable federated properties with FactGrid
+#$wgWBRepoSettings['federatedPropertiesEnabled'] = true;
+#$wgWBRepoSettings['federatedPropertiesSourceScriptUrl'] = 'https://database.factgrid.de/w/';
