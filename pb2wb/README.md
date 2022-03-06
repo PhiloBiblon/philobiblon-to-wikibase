@@ -15,7 +15,7 @@ git clone https://github.com/faulhaber/PhiloBiblon.git
 cd pb2wb
 python3 -m venv .env
 source .env/bin/activate
-pip install -f requirements.txt
+pip install -r requirements.txt
 ```
 3. Set parameters in `settings.py`, for example:
 ```
