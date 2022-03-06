@@ -37,6 +37,38 @@ pip install -r requirements.txt
 python pb_wb_init.py
 ```
 
+## Recover backup
+
+1. Stop docker containers.
+```
+docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml stop
+```
+2. Restore backups
+```
+docker run --rm --volumes-from local_wdqs_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/query-service-data.tar.gz"
+docker run --rm --volumes-from local_mysql_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/mediawiki-mysql-data.tar.gz"
+docker run --rm --volumes-from local_elasticsearch_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/elasticsearch-data.tar.gz"
+docker run --rm --volumes-from local_quickstatements_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/quickstatements-data.tar.gz"
+```
+3. Start docker containers.
+```
+docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml up -d
+```
+
+## Create backup
+
+1. Stop docker containers.
+```
+docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml stop
+```
+2. Back up container volumes.
+```
+docker run --rm -it --volumes-from local_wdqs_1 -v $(pwd):/backup ubuntu tar cvfz /backup/query-service-data.tar.gz /wdqs/data
+docker run --rm -it --volumes-from local_mysql_1 -v $(pwd):/backup ubuntu tar cvfz /backup/mediawiki-mysql-data.tar.gz /var/lib/mysql
+docker run --rm -it --volumes-from local_elasticsearch_1 -v $(pwd):/backup ubuntu tar cvfz /backup/elasticsearch-data.tar.gz /usr/share/elasticsearch/data
+docker run --rm -it --volumes-from local_quickstatements_1 -v $(pwd):/backup ubuntu tar cvfz /backup/quickstatements-data.tar.gz /quickstatements/data
+```
+
 ## Other commands
 
 * To improve performance on massive imports, you can run several job runners in parallel by using the `--scale` option:

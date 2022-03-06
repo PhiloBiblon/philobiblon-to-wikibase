@@ -103,18 +103,27 @@ It is possible move wikibase data from local wikibase environment to shared sand
 
 Docker volumes are located in: `/var/lib/docker/volumes`
 
-1. [sandbox] Make backup of current volumes in sandbox.
+1. [sandbox] Stop wikibase environment.
+```
+. alias.sh
+wiki stop
+```
+2. [sandbox] Make backup of current volumes in sandbox.
 ```
 # cd /var/lib/docker/volumes
 # mv wikibase_mediawiki-mysql-data wikibase_mediawiki-mysql-data.bak
 # mv wikibase_elasticsearch-data wikibase_elasticsearch-data.bak
 ```
-2. [local] Copy local volumes to temporary dir in sandbox.
+3. [sandbox] Remove wikibase environment.
+```
+wiki down -v
+```
+4. [local] Copy local volumes to temporary dir in sandbox.
 ```
 # cd /var/lib/docker/volumes
-# scp -r wikibase_mediawiki-mysql-data wikibase_elasticsearch-data pi@<sandbox>:/tmp/data
+# scp -r wikibase_mediawiki-mysql-data wikibase_elasticsearch-data wikibase_quickstatements-data pi@<sandbox>:/tmp/data
 ```
-3. [sandbox] Copy from temporary dir to the definitive place.
+5. [sandbox] Copy from temporary dir to the definitive place.
 ```
 # mv /tmp/data/wikibase_mediawiki-mysql-data /var/lib/docker/volumes
 # chown -R 999.spi /var/lib/docker/volumes/wikibase_mediawiki-mysql-data/_data
@@ -122,6 +131,19 @@ Docker volumes are located in: `/var/lib/docker/volumes`
 # chown -R pi.pi /var/lib/docker/volumes/wikibase_mediawiki-mysql-data/_data
 # mkdir /var/lib/docker/volumes/wikibase_elasticsearch-data/_data/data
 # mv /var/lib/docker/volumes/wikibase_elasticsearch-data/_data/nodes /var/lib/docker/volumes/wikibase_elasticsearch-data/_data/data/nodes
+# mv /tmp/data/wikibase_quickstatements-data /var/lib/docker/volumes/
+# chown -R root.root /var/lib/docker/volumes/wikibase_quickstatements-data/_data
 ```
-
-When elasticsearch container starts again, it take some time rebuild data.
+6. [sandbox] Create new wikibase environment.
+```
+COMPOSE_HTTP_TIMEOUT=300 wiki up -d
+```
+7. [sandbox] When elasticsearch container starts again, it take some time rebuild data.
+```
+$ docker logs -f wikibase_wikibase_1
+...Rebuilding Q1 till Q250
+...Rebuilding Q251 till Q500
+...Rebuilding Q501 till Q750
+...Rebuilding Q751 till Q1000
+...
+```
