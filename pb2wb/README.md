@@ -1,23 +1,20 @@
-# PhiloBiblon2Wikibase (beta)
+# PhiloBiblon2Wikibase
 
 Migrates base data from PhiloBiblon database to a Wikibase instance.
 
-Next steps assumes that you are using a Linux OS.
+![PhiloBiblon import](./assets/PhiloBiblon_import.png)
+
+Next steps assumes that you are using a Linux OS although should be similar for other OS.
 
 ## Setup environment
 
-1. Clone this repo.
+1. Create a new python virtual environment.
 ```
-git clone https://github.com/faulhaber/PhiloBiblon.git
-```
-2. Create a new python virtual environment.
-```
-cd pb2wb
-python3 -m venv .env
+virtualenv .env
 source .env/bin/activate
 pip install -r requirements.txt
 ```
-3. Set parameters in `settings.py`, for example:
+3. Set parameters in `common/settings.py`, for example:
 ```
 MEDIAWIKI_API_URL=http://localhost/api.php
 SPARQL_ENDPOINT_URL=http://localhost:8834/sparql
@@ -26,23 +23,25 @@ WB_PASSWORD=<pass>
 ```
 __NOTE 1__: Create bot credentials to access your wikibase and fill `WB_USER` and `WB_PASSWORD` parameters.
 
-__NOTE 2__: If you want to create a wikibase instance from scratch, follow [this](https://github.com/wmde/wikibase-release-pipeline/tree/main/example).
+__NOTE 2__: If you want to create a wikibase instance from scratch, follow [this](https://github.com/faulhaber/PhiloBiblon/tree/master/philobiblon-sandbox/local).
 
 ## Run
 
-To create base data there are 3 scripts:
-1. `pb_wb_init.py`: Creates, when not exists, required P and Q Wikibase items using mapping files:
+Steps to migrate data:
+1. `clean/mkclean.sh`: Clean raw CSVs.
+2. `run_init.py`: Creates, when not exists, required P and Q Wikibase items using mapping files:
    * *Properties*: `conf/p_properties.csv`
    * *Entities*: `conf/q_items.csv`
-2. `import_dataclip.py`: Import dataclips from PhiloBiblon to Wikibase.
-3. `import_base.py`: Import base data for each of the 10 PhiloBiblon tables (Bibliography, Biography, Geography..).
+3. `run_preprocess.py`: Preprocess raw CSVs.
+4. `run_base_import.py`: Import base data from cleaned CSVs to Wikibase.
+
 
 Commands:
 
 ```
-cd pb2wb
 source .env/bin/activate
-python pb_wb_init.py
-python import_dataclip.py
-python import_base.py
+bash clean/mkclean.sh
+python run_init.py
+python run_preprocess.py
+python run_base_import.py
 ```
