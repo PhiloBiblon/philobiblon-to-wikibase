@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "mediawiki": {
+    "name": "PhiloBiblon local",
+    "root": "http://wikibase.svc/wiki/",
+    "main_page": "http://wikibase.svc/wiki/Main_Page",
+    "api": "http://wikibase.svc/w/api.php"
+  },
+  "wikibase": {
+    "site_iri": "http://wikibase.svc/entity/",
+    "maxlag": 5,
+    "properties": {
+      "instance_of": "P1",
+      "subclass_of": "P2"
+    }
+  },
+  "reconciliation": {
+    "endpoint": "http://wikibase.svc:8000/${lang}/api"
+  },
+  "editgroups": {
+    "url_schema": "([[:toollabs:editgroups/b/OR/${batch_id}|details]])"
+  }
+}
