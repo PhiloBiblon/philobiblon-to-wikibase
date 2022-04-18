@@ -13,7 +13,7 @@ COMPOSE_HTTP_TIMEOUT=300 docker-compose -f docker-compose.yml -f docker-compose.
 2. Create a bot
    - Login as admin to wikibase and go to http://philobiblon.duckdns.org/wiki/Special:BotPasswords
       - Name: philobot
-      - Select grants: "Edit existing pages" and "Create, edit, and moves pages"
+      - Select grants: `Edit existing pages` and `Create, edit, and moves pages`.
    - Save password inside `pb2wb/settings.py` in `WB_PASSWORD` parameter.
 3. Update wiki.
   - Update main page:

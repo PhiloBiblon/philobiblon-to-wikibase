@@ -26,7 +26,7 @@ docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compo
  - Create a bot
    - Login as admin to wikibase and go to http://localhost/wiki/Special:BotPasswords
       - Name: philobot
-      - Select all grants (a refinement could be possible)
+      - Select grants: `Edit existing pages` and `Create, edit, and move pages`.
     - Save password inside `pb2wb/settings.py` in `WB_PASSWORD` parameter.
  - Add basic properties and items to wikibase
 ```
