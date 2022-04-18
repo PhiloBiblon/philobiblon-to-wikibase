@@ -6,14 +6,14 @@ from wikibaseintegrator import wbi_helpers
 from common.settings import MEDIAWIKI_API_URL, SPARQL_ENDPOINT_URL, WB_PASSWORD, WB_USER
 
 # local properties
-PROPERTY_INSTANCE_OF='P1'
-PROPERTY_SUBCLASS_OF='P2'
-PROPERTY_PHILOBIBLON_ID='P4'
+#PROPERTY_INSTANCE_OF='P1'
+#PROPERTY_SUBCLASS_OF='P2'
+#PROPERTY_PHILOBIBLON_ID='P4'
 
-# FactGrid federated properties
-#PROPERTY_INSTANCE_OF='P2'
-#PROPERTY_SUBCLASS_OF='P3'
-#PROPERTY_PHILOBIBLON_ID='P476'
+# FactGrid properties
+PROPERTY_INSTANCE_OF='P2'
+PROPERTY_SUBCLASS_OF='P3'
+PROPERTY_PHILOBIBLON_ID='P476'
 
 
 class WBManager():
@@ -30,14 +30,10 @@ class WBManager():
 
   # create new wikibase property
   def create_wb_p(self, label, lang='en', type='string'):
-    try:
-      p = self.wbi.property.new(datatype=type)
-      p.labels.set(language=lang, value=label)
-      p.write()
-      return p
-    except MWApiError as e:
-      print(f'Error creating P property: {str(e)}')
-      raise
+    p = self.wbi.property.new(datatype=type)
+    p.labels.set(language=lang, value=label)
+    p.write()
+    return p
 
   # get wikibase property
   def get_wb_p(self, p_number):
