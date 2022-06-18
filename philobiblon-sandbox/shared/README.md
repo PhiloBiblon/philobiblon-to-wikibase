@@ -14,7 +14,7 @@ COMPOSE_HTTP_TIMEOUT=300 docker-compose -f docker-compose.yml -f docker-compose.
    - Login as admin to wikibase and go to http://philobiblon.duckdns.org/wiki/Special:BotPasswords
       - Name: philobot
       - Select grants: `Edit existing pages` and `Create, edit, and moves pages`.
-   - Save password inside `pb2wb/settings.py` in `WB_PASSWORD` parameter.
+   - Save password inside `pb2wb/common/settings.py` in `WB_PASSWORD` parameter.
 3. Update wiki.
   - Update main page:
 ```
@@ -65,8 +65,8 @@ where <code>${PATH}</code> is your path directory where you have the CSV files o
      "site_iri": "http://philobiblon.duckdns.org/entity/",
      "maxlag": 5,
      "properties": {
-       "instance_of": "P1",
-       "subclass_of": "P2"
+       "instance_of": "P2",
+       "subclass_of": "P3"
      }
    },
    "reconciliation": {
