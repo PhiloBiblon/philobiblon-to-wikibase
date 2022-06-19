@@ -112,9 +112,6 @@ class InstitutionBaseMapper(BaseMapper):
   LABEL_COLUMN = 'MONIKER'
   DESC_COLUMN = 'TYPE'
 
-  def get_pbid(self, id):
-    return f"BETA insid {id}"
-
 
 class GeographyBaseMapper(BaseMapper):
   ID_COLUMN = 'GEOID'
@@ -127,9 +124,6 @@ class GeographyBaseMapper(BaseMapper):
   def get_select_extra_cols(self):
       return ['NAME_CLASS']
 
-  def get_pbid(self, id):
-    return f"BETA geoid {id}"
-
 
 class BibliographyBaseMapper(BaseMapper):
   ID_COLUMN = 'BIBID'
@@ -138,9 +132,6 @@ class BibliographyBaseMapper(BaseMapper):
 
   def get_select_extra_cols(self):
       return ['CREATOR_FNAME', 'CREATOR_LNAME', 'CREATOR_CNAME', 'CREATOR_ROLE']
-
-  def get_pbid(self, id):
-    return f"BETA bibid {id}"
 
   def get_label(self, df_element):
     label = None
@@ -169,9 +160,6 @@ class MsEdBaseMapper(BaseMapper):
   LABEL_COLUMN = 'MONIKER'
   DESC_COLUMN = 'MONIKER'
 
-  def get_pbid(self, id):
-    return f"BETA manid {id}"
-
   def read_csv(self, file):
     # TODO
     # df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN], encoding="iso8859-1")
@@ -186,9 +174,6 @@ class BiographyBaseMapper(BaseMapper):
 
   def get_select_extra_cols(self):
       return ['NAME_CLASS', 'NAME_FIRST', 'NAME_LAST', 'NAME_NUMBER', 'NAME_HONORIFIC', 'NAME_EPITHET']
-
-  def get_pbid(self, id):
-    return f"BETA bioid {id}"
 
   def get_label(self, df_element):
     row = df_element[df_element['NAME_CLASS']=='nativo']
@@ -205,9 +190,6 @@ class SubjectBaseMapper(BaseMapper):
   ID_COLUMN = 'SUBID'
   LABEL_COLUMN = 'HEADING_MAIN'
   DESC_COLUMN = 'HEADING_VARIANT'
-
-  def get_pbid(self, id):
-    return f"BETA subid {id}"
 
   def get_label(self, df_element):
     return df_element[df_element[self.LABEL_COLUMN].notnull()][self.LABEL_COLUMN]
@@ -228,9 +210,6 @@ class LibraryBaseMapper(BaseMapper):
   def get_select_extra_cols(self):
       return ['NAME_CLASS']
 
-  def get_pbid(self, id):
-    return f"BETA libid {id}"
-
   def read_csv(self, file):
     # TODO
     # self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN] + ([self.DESC_COLUMN] if self.DESC_COLUMN else []) + self.get_select_extra_cols(), encoding='ISO-8859-1')
@@ -244,9 +223,6 @@ class UniformTitleBaseMapper(BaseMapper):
 
   def get_select_extra_cols(self):
       return ['CLASS', 'TYPE']
-
-  def get_pbid(self, id):
-    return f"BETA texid {id}"
 
   def get_description(self, df_element):
     row = df_element[df_element[self.LABEL_COLUMN].notnull()]
@@ -273,14 +249,8 @@ class AnalyticBaseMapper(BaseMapper):
     # self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN] + ([self.DESC_COLUMN] if self.DESC_COLUMN else []) + self.get_select_extra_cols(), encoding='ISO-8859-1')
     self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN] + ([self.DESC_COLUMN] if self.DESC_COLUMN else []) + self.get_select_extra_cols())
 
-  def get_pbid(self, id):
-    return f"BETA cnum {id}"
-
 
 class CopiesBaseMapper(BaseMapper):
   ID_COLUMN = 'COPID'
   LABEL_COLUMN = 'MONIKER'
   DESC_COLUMN = None
-
-  def get_pbid(self, id):
-    return f"BETA copid {id}"

@@ -8,7 +8,7 @@ class GenericMapper:
     self.wb_manager = wb_manager
 
   def get_pbid(self, id):
-    raise NotImplementedError
+    return id
 
   def read_csv(self, file):
     raise NotImplementedError

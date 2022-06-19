@@ -57,22 +57,13 @@ class IdMapper(GenericMapper):
 class InstitutionIdMapper(IdMapper):
   ID_COLUMN = 'INSID'
 
-  def get_pbid(self, id):
-    return f"BETA insid {id}"
-
 
 class GeographyIdMapper(IdMapper):
   ID_COLUMN = 'GEOID'
 
-  def get_pbid(self, id):
-    return f"BETA geoid {id}"
-
 
 class BibliographyIdMapper(IdMapper):
   ID_COLUMN = 'BIBID'
-
-  def get_pbid(self, id):
-    return f"BETA bibid {id}"
 
 
 class MsEdIdMapper(IdMapper):
@@ -83,22 +74,13 @@ class MsEdIdMapper(IdMapper):
     # self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.DESC_COLUMN], encoding='ISO-8859-1')
     self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.DESC_COLUMN])
 
-  def get_pbid(self, id):
-    return f"BETA manid {id}"
-
 
 class BiographyIdMapper(IdMapper):
   ID_COLUMN = 'BIOID'
 
-  def get_pbid(self, id):
-    return f"BETA bioid {id}"
-
 
 class SubjectIdMapper(IdMapper):
   ID_COLUMN = 'SUBID'
-
-  def get_pbid(self, id):
-    return f"BETA subid {id}"
 
 
 class LibraryIdMapper(IdMapper):
@@ -109,15 +91,9 @@ class LibraryIdMapper(IdMapper):
     # self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.DESC_COLUMN], encoding='ISO-8859-1')
     self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.DESC_COLUMN])
 
-  def get_pbid(self, id):
-    return f"BETA libid {id}"
-
 
 class UniformTitleIdMapper(IdMapper):
   ID_COLUMN = 'TEXID'
-
-  def get_pbid(self, id):
-    return f"BETA texid {id}"
 
 
 class AnalyticIdMapper(IdMapper):
@@ -128,12 +104,6 @@ class AnalyticIdMapper(IdMapper):
     # self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.DESC_COLUMN], encoding='ISO-8859-1')
     self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.DESC_COLUMN])
 
-  def get_pbid(self, id):
-    return f"BETA cnum {id}"
-
 
 class CopiesIdMapper(IdMapper):
   ID_COLUMN = 'COPID'
-
-  def get_pbid(self, id):
-    return f"BETA copid {id}"

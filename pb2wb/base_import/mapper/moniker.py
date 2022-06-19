@@ -58,22 +58,13 @@ class MonikerMapper(GenericMapper):
 class InstitutionMonikerMapper(MonikerMapper):
   ID_COLUMN = 'INSID'
 
-  def get_pbid(self, id):
-    return f"BETA insid {id}"
-
 
 class GeographyMonikerMapper(MonikerMapper):
   ID_COLUMN = 'GEOID'
 
-  def get_pbid(self, id):
-    return f"BETA geoid {id}"
-
 
 class BibliographyMonikerMapper(MonikerMapper):
   ID_COLUMN = 'BIBID'
-
-  def get_pbid(self, id):
-    return f"BETA bibid {id}"
 
 
 class MsEdMonikerMapper(MonikerMapper):
@@ -84,22 +75,13 @@ class MsEdMonikerMapper(MonikerMapper):
     # self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN], encoding='ISO-8859-1')
     self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN])
 
-  def get_pbid(self, id):
-    return f"BETA manid {id}"
-
 
 class BiographyMonikerMapper(MonikerMapper):
   ID_COLUMN = 'BIOID'
 
-  def get_pbid(self, id):
-    return f"BETA bioid {id}"
-
 
 class SubjectMonikerMapper(MonikerMapper):
   ID_COLUMN = 'SUBID'
-
-  def get_pbid(self, id):
-    return f"BETA subid {id}"
 
 
 class LibraryMonikerMapper(MonikerMapper):
@@ -110,15 +92,9 @@ class LibraryMonikerMapper(MonikerMapper):
     # self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN], encoding='ISO-8859-1')
     self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN])
 
-  def get_pbid(self, id):
-    return f"BETA libid {id}"
-
 
 class UniformTitleMonikerMapper(MonikerMapper):
   ID_COLUMN = 'TEXID'
-
-  def get_pbid(self, id):
-    return f"BETA texid {id}"
 
 
 class AnalyticMonikerMapper(MonikerMapper):
@@ -129,12 +105,6 @@ class AnalyticMonikerMapper(MonikerMapper):
     # self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN], encoding='ISO-8859-1')
     self.df = pd.read_csv(file, usecols=[self.ID_COLUMN, self.LABEL_COLUMN])
 
-  def get_pbid(self, id):
-    return f"BETA cnum {id}"
-
 
 class CopiesMonikerMapper(MonikerMapper):
   ID_COLUMN = 'COPID'
-
-  def get_pbid(self, id):
-    return f"BETA copid {id}"
