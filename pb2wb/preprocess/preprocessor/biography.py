@@ -22,7 +22,7 @@ class BiographyPreprocessor(GenericPreprocessor):
     title_number = self.get_str_value(row['TITLE_NUMBER'])
     title_connector = self.get_str_value(row['TITLE_CONNECTOR'])
     title_geoid = self.get_value(row['TITLE_GEOID'])
-    if title_geoid:
+    if title_geoid and title_geoid != 'BETA geoid':
       title_place = places[title_geoid]
     else:
       title_place = None
@@ -30,7 +30,7 @@ class BiographyPreprocessor(GenericPreprocessor):
 
   def load_geo(self, geography_file):
     df_geo = pd.read_csv(geography_file, dtype=str)
-    df_geo = df_geo[df_geo['NAME_CLASS']=='actual'][['GEOID', 'NAME']]
+    df_geo = df_geo[df_geo['NAME_CLASS']=='GEOGRAPHY*NAME_CLASS*U'][['GEOID', 'NAME']]
     return dict(df_geo.values)
 
   def preprocess(self, biography_file, geography_file, processed_dir):

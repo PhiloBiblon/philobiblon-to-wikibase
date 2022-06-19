@@ -1,5 +1,7 @@
 import os
-from .preprocessor.biography import BiographyPreprocessor, GenericPreprocessor
+from .preprocessor.generic import GenericPreprocessor
+from .preprocessor.biography import BiographyPreprocessor
+from .preprocessor.institution import InstitutionPreprocessor
 from common.settings import CLEAN_DIR, PROCESSED_DIR
 
 def get_full_path(file):
@@ -14,7 +16,7 @@ def preprocess():
   BiographyPreprocessor().preprocess(get_full_path('BETA/beta_biography.csv'), get_full_path('BETA/beta_geography.csv'), beta_processed_dir)
   GenericPreprocessor().preprocess(get_full_path('BETA/beta_copies.csv'), beta_processed_dir)
   GenericPreprocessor().preprocess(get_full_path('BETA/beta_geography.csv'), beta_processed_dir)
-  GenericPreprocessor().preprocess(get_full_path('BETA/beta_institutions.csv'), beta_processed_dir)
+  InstitutionPreprocessor().preprocess(get_full_path('BETA/beta_institutions.csv'), beta_processed_dir)
   GenericPreprocessor().preprocess(get_full_path('BETA/beta_library.csv'), beta_processed_dir)
   GenericPreprocessor().preprocess(get_full_path('BETA/beta_ms_ed.csv'), beta_processed_dir)
   GenericPreprocessor().preprocess(get_full_path('BETA/beta_subject.csv'), beta_processed_dir)
