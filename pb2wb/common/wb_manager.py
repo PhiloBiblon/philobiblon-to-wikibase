@@ -97,3 +97,14 @@ class WBManager():
       return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
     else:
       return None
+
+  def get_q_by_label(self, label, lang):
+    results= wbi_helpers.execute_sparql_query(f"""SELECT ?item WHERE {{
+        ?item rdfs:label ?itemLabel.
+        FILTER(REGEX(?itemLabel, "^{label}$"@{lang}, "i")).
+        FILTER CONTAINS(str(?item), '/Q')
+      }}""")
+    if results['results']['bindings']:
+      return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
+    else:
+      return None

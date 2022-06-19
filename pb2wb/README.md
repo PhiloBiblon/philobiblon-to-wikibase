@@ -41,7 +41,7 @@ Commands:
 ```
 source .env/bin/activate
 bash clean/mkclean.sh
-python run_init.py
+python run_init.py --firsttime
 python run_preprocess.py
 python run_base_import.py
 ```
