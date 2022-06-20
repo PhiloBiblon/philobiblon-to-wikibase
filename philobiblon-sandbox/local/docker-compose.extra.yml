@@ -89,6 +89,7 @@ services:
      - WIKIBASE_HOST=${WIKIBASE_HOST}
      - WDQS_HOST=wdqs.svc
      - WDQS_PORT=9999
+     - WIKIBASE_MAX_DAYS_BACK=365
      # CONFIG - WIKIBASE_SCHEME can be set to 'https' if the updater should expect https concept uris
 
   quickstatements:

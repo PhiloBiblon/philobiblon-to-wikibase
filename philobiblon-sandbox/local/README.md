@@ -65,11 +65,16 @@ docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compo
 
 Note: the current state of the sandbox will be completely thrown away and replaced with the starter set.
 
-1. Copy [this file](https://drive.google.com/file/d/1gAHhZiBStncGIByBjhpFoVCC0vxcayiF/view?usp=sharing) from the google drive
+1. Copy [this file](https://drive.google.com/file/d/1z6SYWppcGCdjq5b4smDNkHP84XaFTASF/view?usp=sharing) from the google drive
 
 2. Unzip the contents and move or copy them to `philobiblon-sandbox/local`
 
-3. Do these commands
+3. Stop docker containers.
+```
+docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml stop
+```
+
+4. Do these commands
 
 ```
 docker run --rm --volumes-from local_wdqs_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/query-service-data.tar.gz"
@@ -78,7 +83,7 @@ docker run --rm --volumes-from local_elasticsearch_1 -v $(pwd):/backup ubuntu ba
 docker run --rm --volumes-from local_quickstatements_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/quickstatements-data.tar.gz"
 ```
 
-4. Bring the sandbox up again:
+5. Bring the sandbox up again:
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml up -d
@@ -145,3 +150,28 @@ docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compo
 docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compose.reconcile.yml up -d --scale wikibase_jobrunner=8
 ```
 
+## Troubleshooting
+
+### Search in wikibase is not working
+
+When you are using wikibase search input and no results are returned, look for this error in elasticsearch container:
+
+```
+docker logs local_elasticsearch_1 | grep "RDF store reports the last update time is before the minimum safe poll time."
+```
+
+If you get this error, then the problem is that there are data that is not processed and then ignored. You need to follow the next steps:
+
+1. Run this query in quickstatemens to obtain the date with data:
+
+```
+SELECT * WHERE { http://wikibase.svc <http://schema.org/dateModified> ?o . }
+```
+
+2. Stop docker containers.
+
+3. Increase parameter `WIKIBASE_MAX_DAYS_BACK` in `docker-compose.extra.yml` to include the date obtained in step 1.
+
+4. Start docker containers.
+
+After that search option should work again, can take some minutes process all the data.
