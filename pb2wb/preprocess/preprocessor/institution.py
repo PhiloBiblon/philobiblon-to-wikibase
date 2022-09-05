@@ -34,24 +34,79 @@ class InstitutionPreprocessor(GenericPreprocessor):
 
     # Add label
     df_ins = self.add_new_column_from_value(df_ins, 'NAME_CLASS', 'INSTITUTIONS*NAME_CLASS*U', 'LABEL', 'NAME')
+    df_ins = self.move_last_column_after(df_ins, 'NAME_CLASS')
     self.set_column_value_by_condition(df_ins, 'LABEL.str.len()>0', 'NAME', '')
+
+    # TODO Add description
 
     # Name edit box
     df_ins['NAME_LANG'] = df_ins.apply (lambda row: self.get_name_lang(row), axis=1)
-    df_ins = self.move_last_column_to(df_ins, self.get_column_index(df_ins, 'NAME_CLASS') + 1)
+    df_ins = self.move_last_column_after(df_ins, 'NAME_CLASS')
+    ## deprecated columns, finally we'll use string for precision date
+    ## df_ins = self.add_precisiondate_column(df_ins, 'NAME_BDQ')
+    ## df_ins = self.move_last_column_after(df_ins, 'NAME_BDQ')
+    ## df_ins = self.add_precisiondate_column(df_ins, 'NAME_EDQ')
+    ## df_ins = self.move_last_column_after(df_ins, 'NAME_EDQ')
+    df_ins = self.add_new_column_by_condition(df_ins, 'NAME_Q.str.len()>0 & NAME_Q==\'?\'', 'NAME_Q_LABEL', 'Questionable statement')
+    df_ins = self.move_last_column_after(df_ins, 'NAME_Q')
+
 
     # Milestone edit box
     self.set_column_value_by_condition(df_ins, 'MILESTONE_CLASS.str.len()==0 & (MILESTONE_DETAIL.str.len()>0 | MILESTONE_Q.str.len()>0 | MILESTONE_GEOID.str.len()>0 | MILESTONE_GEOIDQ.str.len()>0 | MILESTONE_BD.str.len()>0 | MILESTONE_BDQ.str.len()>0 | MILESTONE_ED.str.len()>0 | MILESTONE_EDQ.str.len()>0 | MILESTONE_BASIS.str.len()>0)', 'MILESTONE_CLASS', 'Type of event')
-    df_ins  = self.add_new_column_by_condition(df_ins, "MILESTONE_CLASS=='INSTITUTIONS*MILESTONE_CLASS*C'", 'MILESTONE_CLASS_C', 'Noble Family', 'MILESTONE_CLASS')
-    self.set_column_value_by_condition(df_ins, "MILESTONE_CLASS=='INSTITUTIONS*MILESTONE_CLASS*C'", 'MILESTONE_CLASS', '')
+    df_ins = self.add_new_column_by_condition(df_ins, 'MILESTONE_Q.str.len()>0 & MILESTONE_Q==\'?\'', 'MILESTONE_Q_LABEL', 'Questionable statement')
+    df_ins = self.move_last_column_after(df_ins, 'MILESTONE_Q')
+    df_ins = self.add_new_column_by_condition(df_ins, 'MILESTONE_GEOIDQ.str.len()>0 & MILESTONE_GEOIDQ==\'?\'', 'MILESTONE_GEOIDQ_LABEL', 'Questionable statement')
+    df_ins = self.move_last_column_after(df_ins, 'MILESTONE_GEOIDQ')
+    ## deprecated columns, finally we'll use string for precision date
+    ## df_ins = self.add_precisiondate_column(df_ins, 'MILESTONE_BDQ')
+    ## df_ins = self.move_last_column_after(df_ins, 'MILESTONE_BDQ')
+    ## df_ins = self.add_precisiondate_column(df_ins, 'MILESTONE_EDQ')
+    ## df_ins = self.move_last_column_after(df_ins, 'MILESTONE_EDQ')
+
+    # Related places
+    df_ins = self.add_new_column_by_condition(df_ins, 'RELATED_GEOIDQ.str.len()>0 & RELATED_GEOIDQ==\'?\'', 'RELATED_GEOIDQ_LABEL', 'Questionable statement')
+    df_ins = self.move_last_column_after(df_ins, 'RELATED_GEOIDQ')
+    ## deprecated columns, finally we'll use string for precision date
+    ## df_ins = self.add_precisiondate_column(df_ins, 'RELATED_GEOBDQ')
+    ## df_ins = self.move_last_column_after(df_ins, 'RELATED_GEOBDQ')
+    ## df_ins = self.add_precisiondate_column(df_ins, 'RELATED_GEOEDQ')
+    ## df_ins = self.move_last_column_after(df_ins, 'RELATED_GEOEDQ')
+
+    # Related institutions
+    df_ins = self.add_new_column_by_condition(df_ins, 'RELATED_INSIDQ.str.len()>0 & RELATED_INSIDQ==\'?\'', 'RELATED_INSIDQ_LABEL', 'Questionable statement')
+    df_ins = self.move_last_column_after(df_ins, 'RELATED_INSIDQ')
+    ## deprecated columns, finally we'll use string for precision date
+    ## df_ins = self.add_precisiondate_column(df_ins, 'RELATED_INSBDQ')
+    ## df_ins = self.move_last_column_after(df_ins, 'RELATED_INSBDQ')
+    ## df_ins = self.add_precisiondate_column(df_ins, 'RELATED_INSEDQ')
+    ## df_ins = self.move_last_column_after(df_ins, 'RELATED_INSEDQ')
+
+    # Related bibliographies
+    df_ins = self.add_new_column_by_condition(df_ins, 'RELATED_BIBCLASS.str.len()>0', 'RELATED_BIBQ_LABEL', 'Catalogue entry')
+    df_ins = self.move_last_column_after(df_ins, 'RELATED_BIBCLASS')
+
+    # Related bibliographies
+    df_ins = self.add_new_column_by_condition(df_ins, 'RELATED_MANCLASS.str.len()>0', 'RELATED_MANQ_LABEL', 'Mentioned in')
+    df_ins = self.move_last_column_after(df_ins, 'RELATED_MANCLASS')
 
     # Internet edit box
     df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*EMA', 'INTERNET_CLASS_EMA', 'INTERNET_ADDRESS', 'mailto:{value}')
+    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
+    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*DOI', 'INTERNET_CLASS_DOI', 'INTERNET_ADDRESS')
+    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
+    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*CAT', 'INTERNET_CLASS_CAT', 'INTERNET_ADDRESS')
+    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
+    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URN', 'INTERNET_CLASS_URN', 'INTERNET_ADDRESS')
+    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
+    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URI', 'INTERNET_CLASS_URI', 'INTERNET_ADDRESS')
+    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
     df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URL', 'INTERNET_CLASS_URL', 'INTERNET_ADDRESS')
+    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
  
     # Notes
     df_ins = self.split_str_column_by_size(df_ins, 'NOTES', self.CHARS_MAX_LEN)
 
+    # Apply safety validations
     self.check_rows_empty_classes(df_ins, ['NAME_CLASS', 'INTERNET_CLASS'])
 
     df_ins.to_csv(os.path.join(processed_dir, os.path.basename(file)), index=False, quoting=csv.QUOTE_ALL)

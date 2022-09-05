@@ -1,8 +1,8 @@
+import argparse
 from init import init
-import sys
 
-first_time = False
-if len(sys.argv) == 2 and sys.argv[1] == '--firsttime':
-  first_time = True
+parser = argparse.ArgumentParser()
+parser.add_argument("--firsttime", help="Tries to create untyped properties, i.e, it uses the P number but indeed is not created.", action="store_true")
+args = parser.parse_args()
 
-init.init(first_time)
+init.init(args.firsttime)
