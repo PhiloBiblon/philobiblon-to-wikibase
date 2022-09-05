@@ -42,11 +42,6 @@ class InstitutionPreprocessor(GenericPreprocessor):
     # Name edit box
     df_ins['NAME_LANG'] = df_ins.apply (lambda row: self.get_name_lang(row), axis=1)
     df_ins = self.move_last_column_after(df_ins, 'NAME_CLASS')
-    ## deprecated columns, finally we'll use string for precision date
-    ## df_ins = self.add_precisiondate_column(df_ins, 'NAME_BDQ')
-    ## df_ins = self.move_last_column_after(df_ins, 'NAME_BDQ')
-    ## df_ins = self.add_precisiondate_column(df_ins, 'NAME_EDQ')
-    ## df_ins = self.move_last_column_after(df_ins, 'NAME_EDQ')
     df_ins = self.add_new_column_by_condition(df_ins, 'NAME_Q.str.len()>0 & NAME_Q==\'?\'', 'NAME_Q_LABEL', 'Questionable statement')
     df_ins = self.move_last_column_after(df_ins, 'NAME_Q')
 
@@ -57,29 +52,14 @@ class InstitutionPreprocessor(GenericPreprocessor):
     df_ins = self.move_last_column_after(df_ins, 'MILESTONE_Q')
     df_ins = self.add_new_column_by_condition(df_ins, 'MILESTONE_GEOIDQ.str.len()>0 & MILESTONE_GEOIDQ==\'?\'', 'MILESTONE_GEOIDQ_LABEL', 'Questionable statement')
     df_ins = self.move_last_column_after(df_ins, 'MILESTONE_GEOIDQ')
-    ## deprecated columns, finally we'll use string for precision date
-    ## df_ins = self.add_precisiondate_column(df_ins, 'MILESTONE_BDQ')
-    ## df_ins = self.move_last_column_after(df_ins, 'MILESTONE_BDQ')
-    ## df_ins = self.add_precisiondate_column(df_ins, 'MILESTONE_EDQ')
-    ## df_ins = self.move_last_column_after(df_ins, 'MILESTONE_EDQ')
 
     # Related places
     df_ins = self.add_new_column_by_condition(df_ins, 'RELATED_GEOIDQ.str.len()>0 & RELATED_GEOIDQ==\'?\'', 'RELATED_GEOIDQ_LABEL', 'Questionable statement')
     df_ins = self.move_last_column_after(df_ins, 'RELATED_GEOIDQ')
-    ## deprecated columns, finally we'll use string for precision date
-    ## df_ins = self.add_precisiondate_column(df_ins, 'RELATED_GEOBDQ')
-    ## df_ins = self.move_last_column_after(df_ins, 'RELATED_GEOBDQ')
-    ## df_ins = self.add_precisiondate_column(df_ins, 'RELATED_GEOEDQ')
-    ## df_ins = self.move_last_column_after(df_ins, 'RELATED_GEOEDQ')
 
     # Related institutions
     df_ins = self.add_new_column_by_condition(df_ins, 'RELATED_INSIDQ.str.len()>0 & RELATED_INSIDQ==\'?\'', 'RELATED_INSIDQ_LABEL', 'Questionable statement')
     df_ins = self.move_last_column_after(df_ins, 'RELATED_INSIDQ')
-    ## deprecated columns, finally we'll use string for precision date
-    ## df_ins = self.add_precisiondate_column(df_ins, 'RELATED_INSBDQ')
-    ## df_ins = self.move_last_column_after(df_ins, 'RELATED_INSBDQ')
-    ## df_ins = self.add_precisiondate_column(df_ins, 'RELATED_INSEDQ')
-    ## df_ins = self.move_last_column_after(df_ins, 'RELATED_INSEDQ')
 
     # Related bibliographies
     df_ins = self.add_new_column_by_condition(df_ins, 'RELATED_BIBCLASS.str.len()>0', 'RELATED_BIBQ_LABEL', 'Catalogue entry')
