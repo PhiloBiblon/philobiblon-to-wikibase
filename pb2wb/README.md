@@ -21,7 +21,7 @@ SPARQL_ENDPOINT_URL=http://localhost:8834/sparql
 WB_USER=Admin@philobot
 WB_PASSWORD=<pass>
 ```
-__NOTE 1__: Create bot credentials to access your wikibase and fill `WB_USER` and `WB_PASSWORD` parameters.
+__NOTE 1__: Create bot credentials to access your wikibase and fill `WB_USER` and `WB_PASSWORD` parameters. Only required `Edit existing pages` and `Create, edit, and move pages` permissions.
 
 __NOTE 2__: If you want to create a wikibase instance from scratch, follow [this](https://github.com/faulhaber/PhiloBiblon/tree/master/philobiblon-sandbox/local).
 
