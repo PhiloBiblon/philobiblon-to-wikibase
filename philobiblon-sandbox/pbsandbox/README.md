@@ -10,13 +10,13 @@ Install these tools:
 ## Configure OpenRefine
 
 1. Add local dns name `pbsandbox.svc` for reconciler.
- * In linux:
+   * In linux:
+   
+   ![](./assets/HostsFileLinux.png)
 
-        ![](./assets/HostsFileLinux.png)
-
- * In windows:
-
-        ![](./assets/HostsFileWindows.png)
+   * In windows:
+   
+   ![](./assets/HostsFileWindows.png)
 
 2. Run reconciler
 ```
@@ -25,16 +25,16 @@ docker-compose up -d
 ```
 
 3. Configure our Wikibase sandbox in OpenRefine.
-        1. Go to option `Extensions: Wikidata`
-        <img src="./assets/SelectWikidata.png" height="250px"/>
-
-        2. Choose `Select Wikibase instance` -> `Add instance`
-        3. Copy & paste the content of [pbsandbox-manifest.json](./pbsandbox-manifest.json) in the text area.
-        4. And click on `Add Wikibase` button.
-        <img src="./assets/AddWikibaseInstance.png" height="250px"/>
-
-        5. After that we can select `PB sandbox` option.
-        <img src="./assets/SelectWikibaseInstance.png" height="250px"/>
+   1. Go to option `Extensions: Wikidata`.
+   <img src="./assets/SelectWikidata.png" height="80px"/>
+   
+   2. Choose `Select Wikibase instance` -> `Add instance`
+   3. Copy & paste the content of [pbsandbox-manifest.json](./pbsandbox-manifest.json) in the text area.
+   4. And click on `Add Wikibase` button.
+   <img src="./assets/AddWikibaseInstance.png" height="250px"/>
+   
+   5. After that we can select `PB sandbox` option.
+   <img src="./assets/SelectWikibaseInstance.png" height="250px"/>
 
 ## Other commands
 
