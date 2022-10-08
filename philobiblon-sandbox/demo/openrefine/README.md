@@ -82,14 +82,7 @@ docker run --name openrefine -d --net=host -v $(pwd)/data/:/data:z felixlohmeier
 	3. Create `quondam` item and add statement `instance of` with `Name class dataclip`.
 	<img src="./assets/CreateQuondamItem.png" height="250px"/>
 
-9. Reconcile column `NAME_CLASS` using new Q items created.
-	1. Reconcile column. `NAME_CLASS` -> `Reconcile` -> `Start reconciling` -> `PhiloBiblon local (en)` -> `Name class dataclip` -> `Start reconciling...`.
-	<img src="./assets/ReconcileNameClassColumn.png" height="250px"/>
-
-	2. After that we can verify that about 75% of values are matched.
-	<img src="./assets/VerifyNameClassReconcile.png" height="250px"/>
-
-10. Configure our Wikibase sandbox in OpenRefine.
+9. Configure our Wikibase sandbox in OpenRefine.
 	1. Go to option `Extensions: Wikidata`
 	2. Choose `Select Wikibase instance` -> `Add instance`
 	3. Copy & paste the content of [local-wikibase-manifest.json](./local-wikibase-manifest.json) in the text area.
@@ -98,6 +91,13 @@ docker run --name openrefine -d --net=host -v $(pwd)/data/:/data:z felixlohmeier
 
 	5. After that we can select `PhiloBiblon local` option.
 	<img src="./assets/SelectWikibaseInstance.png" height="250px"/>
+
+10. Reconcile column `NAME_CLASS` using new Q items created.
+	1. Reconcile column. `NAME_CLASS` -> `Reconcile` -> `Start reconciling` -> `PhiloBiblon local (en)` -> `Name class dataclip` -> `Start reconciling...`.
+	<img src="./assets/ReconcileNameClassColumn.png" height="250px"/>
+
+	2. After that we can verify that about 75% of values are matched.
+	<img src="./assets/VerifyNameClassReconcile.png" height="250px"/>
 
 11. Create a Wikibase schema to import our data.
 	1. Go to option `Extensions: Wikidata` -> `Edit Wikibase schema`

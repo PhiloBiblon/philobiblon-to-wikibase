@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  reconcile:
+    image: jmformenti/openrefine-wikibase_reconcile:latest
+    ports:
+      - "8001:8000"
+    volumes:
+      - type: bind
+        source: ./config.py
+        target: /openrefine-wikibase/config.py
+        read_only: true
+      - type: bind
+        source: ./pb_logo.png
+        target: /openrefine-wikibase/static/pb_logo.png
+        read_only: true
+  redis:
+    image: "redis:alpine"
+    expose:
+      - "6379" 

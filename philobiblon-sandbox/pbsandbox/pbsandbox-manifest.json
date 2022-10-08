@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "mediawiki": {
+    "name": "PB sandbox",
+    "root": "https://pbsandbox.wikibase.cloud/wiki/",
+    "main_page": "https://pbsandbox.wikibase.cloud/wiki/Main_Page",
+    "api": "https://pbsandbox.wikibase.cloud/w/api.php"
+  },
+  "wikibase": {
+    "site_iri": "https://pbsandbox.wikibase.cloud/entity/",
+    "maxlag": 5,
+    "properties": {
+      "instance_of": "P2",
+      "subclass_of": "P3"
+    }
+  },
+  "reconciliation": {
+    "endpoint": "http://pbsandbox.svc:8001/${lang}/api"
+  }
+}
