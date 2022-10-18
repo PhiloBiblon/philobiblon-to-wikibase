@@ -30,3 +30,18 @@ $wgSitename = "Philobiblon localhost";
 # uncomment to enable federated properties with FactGrid
 #$wgWBRepoSettings['federatedPropertiesEnabled'] = true;
 #$wgWBRepoSettings['federatedPropertiesSourceScriptUrl'] = 'https://database.factgrid.de/w/';
+
+$wgWBRepoSettings['string-limits'] = [
+    'multilang' => [
+        'length' => 250,
+    ],
+    'VT:monolingualtext' => [
+        'length' => 400,
+    ],
+    'VT:string' => [
+        'length' => 1500,
+    ],
+    'PT:url' => [
+        'length' => 500,
+    ],
+];

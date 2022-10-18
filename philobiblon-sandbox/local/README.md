@@ -79,7 +79,7 @@ docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compo
 ```
 docker run --rm --volumes-from local_wdqs_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/query-service-data.tar.gz"
 docker run --rm --volumes-from local_mysql_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/mediawiki-mysql-data.tar.gz"
-docker run --rm --volumes-from local_elasticsearch_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/elasticsearch-data.tar.gz"
+docker run --rm --volumes-from local_elasticsearch_1 -v $(pwd):/backup ubuntu bash -c "cd / && rm -r usr/share/elasticsearch/data/nodes/0/indices/* && tar xvfz /backup/elasticsearch-data.tar.gz"
 docker run --rm --volumes-from local_quickstatements_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/quickstatements-data.tar.gz"
 ```
 
@@ -134,7 +134,7 @@ These are the same commands that are used to get the sandbox into the starter st
 ```
 docker run --rm --volumes-from local_wdqs_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/query-service-data.tar.gz"
 docker run --rm --volumes-from local_mysql_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/mediawiki-mysql-data.tar.gz"
-docker run --rm --volumes-from local_elasticsearch_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/elasticsearch-data.tar.gz"
+docker run --rm --volumes-from local_elasticsearch_1 -v $(pwd):/backup ubuntu bash -c "cd / && rm -r usr/share/elasticsearch/data/nodes/0/indices/* && tar xvfz /backup/elasticsearch-data.tar.gz"
 docker run --rm --volumes-from local_quickstatements_1 -v $(pwd):/backup ubuntu bash -c "cd / && tar xvfz /backup/quickstatements-data.tar.gz"
 ```
 
@@ -153,6 +153,8 @@ docker-compose -f docker-compose.yml -f docker-compose.extra.yml -f docker-compo
 ## Troubleshooting
 
 ### Search in wikibase is not working
+
+#### Option 1
 
 When you are using wikibase search input and no results are returned, look for this error in elasticsearch container:
 
@@ -175,3 +177,15 @@ SELECT * WHERE { http://wikibase.svc <http://schema.org/dateModified> ?o . }
 4. Start docker containers.
 
 After that search option should work again, can take some minutes process all the data.
+
+#### Option 2
+
+Check elasticsearch index status.
+
+```
+docker exec -it local_elasticsearch_1 bash
+curl 'localhost:9200/_cat/indices?v'
+```
+
+Each index has a directory inside `/usr/share/elasticsearch/data/nodes/0/indices`.
+
