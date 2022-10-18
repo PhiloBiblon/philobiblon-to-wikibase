@@ -34,6 +34,8 @@ Steps to migrate data:
    * *Entities*: `conf/q_items.csv`
 3. `run_preprocess.py`: Preprocess raw CSVs.
 4. `run_base_import.py`: Import base data from cleaned CSVs to Wikibase.
+5. Import preprocessed CSVs to OpenRefine and process them.
+6. `run_postprocess.py`: Postprocess QS files exported from QuickStatements.
 
 
 Commands:
@@ -44,4 +46,5 @@ bash clean/mkclean.sh
 python run_init.py --first-time
 python run_preprocess.py
 python run_base_import.py
+python run_postprocess.py
 ```

@@ -1,5 +1,5 @@
 import argparse
-from preprocess import preprocess
+from postprocess import postprocess
 from common import enums
 
 parser = argparse.ArgumentParser()
@@ -7,6 +7,6 @@ parser.add_argument("--table", help="Only preprocess this table.")
 args = parser.parse_args()
 
 if args.table:
-  preprocess.preprocess(enums.Table[args.table.upper()])
+  postprocess.postprocess(enums.Table[args.table.upper()])
 else:
-  preprocess.preprocess(None)
+  postprocess.postprocess(None)
