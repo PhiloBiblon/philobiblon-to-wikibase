@@ -32,11 +32,12 @@ Steps to migrate data:
 2. `run_init.py`: Creates, when not exists, required P and Q Wikibase items using mapping files:
    * *Properties*: `conf/p_properties.csv`
    * *Entities*: `conf/q_items.csv`
-3. `run_preprocess.py`: Preprocess raw CSVs.
-4. `run_base_import.py`: Import base data from cleaned CSVs to Wikibase.
+3. `run_base_import.py`: Import base data from cleaned CSVs to Wikibase.
+4. `run_preprocess.py`: Preprocess raw CSVs.
 5. Import preprocessed CSVs to OpenRefine and process them.
 6. `run_postprocess.py`: Postprocess QS files exported from QuickStatements.
-
+7. Import QS files to Wikibase using QuickStatements.
+8. `run_notes.py`: Import notes to talk page for each Q item.
 
 Commands:
 
@@ -44,7 +45,32 @@ Commands:
 source .env/bin/activate
 bash clean/mkclean.sh
 python run_init.py --first-time
-python run_preprocess.py
 python run_base_import.py
+python run_preprocess.py
+(OpenRefine reconciliation and export)
 python run_postprocess.py
+(QuickStatements import)
+python run_notes.py
 ```
+
+It is possible to process only one table too:
+
+```
+python run_preprocess.py --table <table>
+(OpenRefine reconciliation and export)
+python run_postprocess.py --table <table>
+(QuickStatements import)
+python run_notes.py --table <table>
+```
+
+where `<table>` can be:
+* ANALYTIC
+* BIBLIOGRAPHY
+* BIOGRAPHY
+* COPIES
+* GEOGRAPHY
+* INSTITUTIONS
+* LIBRARY
+* MS_ED
+* SUBJECT
+* UNIFORM_TITLE

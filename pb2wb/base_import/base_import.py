@@ -1,11 +1,11 @@
 import os
 import base_import.mapper.moniker as mapper
 from common.wb_manager import WBManager
-from common.settings import PRE_PROCESSED_DIR
+from common.settings import CLEAN_DIR
 
 
 def get_full_input_path(file):
-  return os.path.join(PRE_PROCESSED_DIR, file)
+  return os.path.join(CLEAN_DIR, file)
 
 def base_import():
   print('Preparing wikibase connection ...')

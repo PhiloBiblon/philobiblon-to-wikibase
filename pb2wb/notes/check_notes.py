@@ -13,8 +13,6 @@ for file in filenames:
     if not pd.isnull(row['NOTES']):
       total_notes += 1
       notes_len = len(row['NOTES'])
-      if notes_len > 400:
-        long_notes += 1
-        print(f'{row[0]} : {notes_len}')
+      print(f'{row[0]},{notes_len}')
 
 print(f'{long_notes} / {total_notes} are too much longer ')

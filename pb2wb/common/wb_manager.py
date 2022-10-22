@@ -5,15 +5,11 @@ from wikibaseintegrator import wbi_helpers
 
 from common.settings import MEDIAWIKI_API_URL, SPARQL_ENDPOINT_URL, WB_PASSWORD, WB_USER
 
-# local properties
-#PROPERTY_INSTANCE_OF='P1'
-#PROPERTY_SUBCLASS_OF='P2'
-#PROPERTY_PHILOBIBLON_ID='P4'
-
 # FactGrid properties
 PROPERTY_INSTANCE_OF='P2'
 PROPERTY_SUBCLASS_OF='P3'
 PROPERTY_PHILOBIBLON_ID='P476'
+PROPERTY_NOTES='P817'
 
 
 class WBManager():
