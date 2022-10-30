@@ -22,6 +22,8 @@ COMPOSE_HTTP_TIMEOUT=300 docker-compose -f docker-compose.yml -f docker-compose.
 
 Consult the [https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents User's Guide] for information on using the wiki software.
 
+Sorted properties: [[MediaWiki:Wikibase-SortedProperties]]
+
 ==Getting started==
 *[[Help:Sandbox|Getting started with the sandbox]]
 *[https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Configuration_settings Configuration settings list]
@@ -30,7 +32,7 @@ Consult the [https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents Use
 *[https://www.mediawiki.org/wiki/Special:MyLanguage/Localisation#Translation_resources Localise MediaWiki for your language]
 *[https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Combating_spam Learn how to combat spam on your wiki]
 ```
- - Create Help:Sandbox page:
+ - Create `Help:Sandbox` page:
 ```
 Firsts steps to use Philobiblon Wikibase sandbox.
 
@@ -78,8 +80,29 @@ where <code>${PATH}</code> is your path directory where you have the CSV files o
  }
 more info [https://docs.openrefine.org/manual/wikibase/configuration#check-the-format-of-the-manifest here].
 
-
 4. Happy open refining!
+```
+
+- Create `MediaWiki:Wikibase-SortedProperties` page:
+```
+==== Institutions ====
+* P476 (PhiloBiblon ID)
+* P2 (Instance of)
+* P34 (Name history)
+* P137 (History)
+* P47 (Localisation)
+* P232 (Institution(s) mentioned)
+* P12 (Research literature)
+* P143 (Mentioned in)
+* P146 (Online information)
+* P634 (DOI)
+* P438 (Online catalogue)
+* P744 (URN formatter)
+* P722 (Email address)
+* P703 (Associated persons)
+* P73 (Note)
+* P799 (Dataset status)
+* P17 (Dataset complaint)
 ```
 
 ## Other commands
