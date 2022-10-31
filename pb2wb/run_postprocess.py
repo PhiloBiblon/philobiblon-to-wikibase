@@ -4,9 +4,11 @@ from common import enums
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--table", help="Only preprocess this table.")
+parser.add_argument("--force-new-statements", help="Forces to create always new statements.", action="store_true")
 args = parser.parse_args()
 
+table = None
 if args.table:
-  postprocess.postprocess(enums.Table[args.table.upper()])
-else:
-  postprocess.postprocess(None)
+  table = enums.Table[args.table.upper()]
+
+postprocess.postprocess(table=table, force_new_statements=args.force_new_statements)

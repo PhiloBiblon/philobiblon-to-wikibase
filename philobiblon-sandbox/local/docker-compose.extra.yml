@@ -13,6 +13,7 @@ services:
       - ./extra-install.sh:/extra-install.sh
     environment:
       <<: *wikibase_extra_variables
+      QS_PUBLIC_SCHEME_HOST_AND_PORT:
 
   wikibase_jobrunner:
     environment:
@@ -29,7 +30,7 @@ services:
          - elasticsearch.svc
     environment:
       discovery.type: single-node
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true"
 
   wdqs-frontend:
     image: "${WDQS_FRONTEND_IMAGE_NAME}"
@@ -97,6 +98,7 @@ services:
     restart: unless-stopped
     volumes:
       - quickstatements-data:/quickstatements/data
+      - ./quickstatements.php:/var/www/html/quickstatements/public_html/quickstatements.php
     ports:
       - "${QUICKSTATEMENTS_PORT}:80"
     depends_on:
@@ -107,8 +109,8 @@ services:
          - ${QUICKSTATEMENTS_HOST}
     environment:
       - QUICKSTATEMENTS_HOST
+      - QS_PUBLIC_SCHEME_HOST_AND_PORT
       - WIKIBASE_SCHEME_AND_HOST=http://wikibase-docker.svc
-      - QS_PUBLIC_SCHEME_HOST_AND_PORT=http://${QUICKSTATEMENTS_HOST}:${QUICKSTATEMENTS_PORT}
       - WB_PUBLIC_SCHEME_HOST_AND_PORT=http://${WIKIBASE_HOST}:${WIKIBASE_PORT}
       - WB_PROPERTY_NAMESPACE=122
       - "WB_PROPERTY_PREFIX=Property:"

@@ -102,6 +102,7 @@ more info [https://docs.openrefine.org/manual/wikibase/configuration#check-the-f
 * P703 (Associated persons)
 * P73 (Note)
 * P799 (Dataset status)
+* P817 (Notes)
 * P17 (Dataset complaint)
 ```
 
