@@ -86,8 +86,8 @@ more info [https://docs.openrefine.org/manual/wikibase/configuration#check-the-f
 - Create `MediaWiki:Wikibase-SortedProperties` page:
 ```
 ==== Institutions ====
-* P476 (PhiloBiblon ID)
 * P2 (Instance of)
+* P476 (PhiloBiblon ID)
 * P34 (Name history)
 * P137 (History)
 * P47 (Localisation)
