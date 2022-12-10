@@ -100,6 +100,7 @@ more info [https://docs.openrefine.org/manual/wikibase/configuration#check-the-f
 * P744 (URN formatter)
 * P722 (Email address)
 * P703 (Associated persons)
+* P422 (Subject heading)
 * P73 (Note)
 * P799 (Dataset status)
 * P817 (Notes)

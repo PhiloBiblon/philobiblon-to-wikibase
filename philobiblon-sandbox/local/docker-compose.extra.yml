@@ -60,6 +60,7 @@ services:
       - WIKIBASE_HOST=${WIKIBASE_HOST}
       - WDQS_HOST=wdqs.svc
       - WDQS_PORT=9999
+      - HEAP_SIZE=4g
     expose:
       - 9999
 
