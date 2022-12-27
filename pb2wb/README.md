@@ -28,7 +28,7 @@ __NOTE 2__: If you want to create a wikibase instance from scratch, follow [this
 ## Run
 
 Steps to migrate data:
-1. `clean/mkclean.sh`: Clean raw CSVs.
+1. `bash clean/mkclean.sh`: Clean raw CSVs.
 2. `run_init.py`: Creates, when not exists, required P and Q Wikibase items using mapping files:
    * *Properties*: `conf/p_properties.csv`
    * *Entities*: `conf/q_items.csv`
