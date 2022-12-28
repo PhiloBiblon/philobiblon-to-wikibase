@@ -17,3 +17,4 @@ six==1.16.0
 ujson==5.1.0
 urllib3==1.26.8
 wikibaseintegrator==0.12.0rc1
+csvkit
