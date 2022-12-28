@@ -22,11 +22,11 @@ class InstitutionPreprocessor(GenericPreprocessor):
     'INSTITUTIONS*NAME_CLASS*H': 'nld',
     'INSTITUTIONS*NAME_CLASS*U': 'es'
   }
-  DATACLIP_FILENAME = 'BETA - Institutions - Description.csv'
+  DATACLIP_FILENAME = 'INS_dataclips.csv'
 
   def __init__(self) -> None:
     super().__init__()
-    self.df_dataclip = pd.read_csv(os.path.join(DATACLIP_DIR, 'BETA', self.DATACLIP_FILENAME), dtype=str, keep_default_na=False)
+    self.df_dataclip = pd.read_csv(os.path.join(DATACLIP_DIR, self.DATACLIP_FILENAME), dtype=str, keep_default_na=False)
   
   def get_name_lang(self, row):
     name_class = row['NAME_CLASS']

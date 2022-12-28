@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Note: the schema for the dataclips may change when we get the next drop from John
+
 pbbase=`git rev-parse --show-toplevel`
 cd $pbbase/data
 
@@ -44,7 +46,9 @@ for f in `ls ./raw/BETA/dataclips | grep csv$`
 do
     echo 'checking for illegal utf8 in BETA: ' $f
     cat $pbbase/data/raw/BETA/dataclips/$f | bash $pbbase/pbcsv/utf8check.sh
-    cat $pbbase/data/raw/BETA/dataclips/$f | bash $pbbase/pbcsv/utf8clean.sh > $pbbase/data/clean/BETA/dataclips/$f
+    cat $pbbase/data/raw/BETA/dataclips/$f | bash $pbbase/pbcsv/utf8clean.sh | \
+        csvformat -M '@' | tr '\n@' ' \n' | \
+        (echo "code,Status,Records,Bounds,Muster,es,en,Factgrid P#,Factgrid Q#,Wikidata P#,Wikidata Q#"; cat -) > $pbbase/data/clean/BETA/dataclips/$f
 done
 
 # Clean the datadict

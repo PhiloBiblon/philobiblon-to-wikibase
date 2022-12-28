@@ -3,7 +3,7 @@ SPARQL_ENDPOINT_URL = 'http://localhost:8834/proxy/wdqs/bigdata/namespace/wdq/sp
 WB_USER = 'Admin@philobot'
 WB_PASSWORD = 'XXX'
 
-DATACLIP_DIR = '../data/dataclips'
+DATACLIP_DIR = '../data/clean/BETA/dataclips/'
 CLEAN_DIR = '../data/clean'
 PRE_PROCESSED_DIR = '../data/processed/pre'
 OPENREFINE_PROCESSED_DIR = '../data/processed/or'
