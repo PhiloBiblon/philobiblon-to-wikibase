@@ -48,7 +48,7 @@ do
     cat $pbbase/data/raw/BETA/dataclips/$f | bash $pbbase/pbcsv/utf8check.sh
     cat $pbbase/data/raw/BETA/dataclips/$f | bash $pbbase/pbcsv/utf8clean.sh | \
         csvformat -M '@' | tr '\n@' ' \n' | \
-        (echo "code,Status,Records,Bounds,Muster,es,en,Factgrid P#,Factgrid Q#,Wikidata P#,Wikidata Q#"; cat -) > $pbbase/data/clean/BETA/dataclips/$f
+        (echo "code,Status,Records,Bounds,Muster,es,en,Factgrid P#,Factgrid Q#,Wikidata P#,Wikidata Q#,unnamed1,unnamed2,unnamed3"; cat -) > $pbbase/data/clean/BETA/dataclips/$f
 done
 
 # Clean the datadict
