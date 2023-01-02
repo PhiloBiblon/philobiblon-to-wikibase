@@ -12,7 +12,7 @@ class GenericPreprocessor:
     :param format_str: format string
     :param value: value to format
     :return: formatted value
-    """ 
+    """
     if value:
       return format_str.format(value = value)
     return ''
@@ -135,7 +135,7 @@ class GenericPreprocessor:
 
   def add_new_column_from_value(self, df, from_column_name, from_value, new_column_name, column_name_value, format_str = None):
     """
-    Creates a new column (new_colum_name) when an existing column (from_column_name) contains a particular value (from_value), 
+    Creates a new column (new_colum_name) when an existing column (from_column_name) contains a particular value (from_value),
     the value for the new column is taken from another column (column_name_value). If format_str is setted, the return value is formatted.
 
     :param df: dataframe
@@ -191,6 +191,33 @@ class GenericPreprocessor:
     :return dataframe updated
     """
     df[column_name + '_LABEL'] = df.apply(lambda row: self.get_label_for_precisiondate(row[column_name]), axis=1)
+    return df
+
+  def add_new_column_from_mapping(self, df, from_column_name, mapping_df, mapping_from_column, mapping_to_column,
+                                  new_column_name, default_value = None):
+    """
+    Creates a new column (new_column_name) by using an existing column (from_column_name) as a lookup into a mapping_df (e.g. a dataclips df),
+    using the mapping_from_column to look up keys and the mapping_to_column to extract values. If there is no match, the defautlt_value
+    is returned. If there are multiple matches (there shouldn't!), the first is used.
+
+    :param df: dataframe
+    :param from_column_name: existing column to check
+    :param mapping_df: df to use as a lookup table (e.g. dataclips)
+    :param mapping_from_column: column in the mapping_df to match
+    :param mapping_to_column: column in the mapping_df to return if there is a match
+    :param new_column_name: new column name
+    :param default_value: default value to return if no match
+    :return dataframe updated
+    """
+    def get_value(in_series):
+      key = in_series[from_column_name]
+      rows = mapping_df.loc[mapping_df[mapping_from_column] == key, mapping_to_column]
+      if rows.empty:
+        return default_value
+      value = rows.iloc[0]
+      return value if value is not None else default_value
+
+    df[new_column_name] = df.apply(get_value, axis=1)
     return df
 
   def preprocess(self, file, processed_dir):

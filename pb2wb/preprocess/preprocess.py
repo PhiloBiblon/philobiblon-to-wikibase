@@ -2,6 +2,7 @@ import os
 from .preprocessor.generic import GenericPreprocessor
 from .preprocessor.biography import BiographyPreprocessor
 from .preprocessor.institution import InstitutionPreprocessor
+from .preprocessor.geography import GeographyPreprocessor
 from common.settings import CLEAN_DIR, PRE_PROCESSED_DIR
 from common.enums import Table
 
@@ -10,7 +11,7 @@ def get_full_input_path(file):
 
 def preprocess(table):
   beta_pre_processed_dir = os.path.join(PRE_PROCESSED_DIR, 'BETA')
-  os.makedirs(beta_pre_processed_dir, exist_ok=False)
+  os.makedirs(beta_pre_processed_dir, exist_ok=True)
 
   if table is None or table is Table.ANALYTIC:
     GenericPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_analytic.csv'), beta_pre_processed_dir)
@@ -21,7 +22,7 @@ def preprocess(table):
   if table is None or table is Table.COPIES:
     GenericPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_copies.csv'), beta_pre_processed_dir)
   if table is None or table is Table.GEOGRAPHY:
-    GenericPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_geography.csv'), beta_pre_processed_dir)
+    GeographyPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_geography.csv'), beta_pre_processed_dir)
   if table is None or table is Table.INSTITUTIONS:
     InstitutionPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_institutions.csv'), beta_pre_processed_dir)
   if table is None or table is Table.LIBRARY:
