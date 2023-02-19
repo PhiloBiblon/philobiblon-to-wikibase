@@ -19,10 +19,10 @@ class InstitutionPreprocessor(GenericPreprocessor):
     'INSTITUTIONS*NAME_CLASS*G': 'de',
     'INSTITUTIONS*NAME_CLASS*F': 'fr',
     'INSTITUTIONS*NAME_CLASS*I': 'it',
-    'INSTITUTIONS*NAME_CLASS*H': 'nld',
+    'INSTITUTIONS*NAME_CLASS*H': 'nl',
     'INSTITUTIONS*NAME_CLASS*U': 'es'
   }
-  DATACLIP_FILENAME = 'INS_dataclips.csv'
+  DATACLIP_FILENAME = 'beta_dataclips.csv'
 
   def __init__(self) -> None:
     super().__init__()
@@ -38,7 +38,7 @@ class InstitutionPreprocessor(GenericPreprocessor):
     return ''
 
   def lookupDictionary(self, code, lang):    
-    cell_value = self.df_dataclip.loc[self.df_dataclip['code']==code][lang]
+    cell_value = self.df_dataclip.loc[self.df_dataclip['code']==f'BETA {code}'][lang]
     if cell_value.empty == True:
       return None
     else:

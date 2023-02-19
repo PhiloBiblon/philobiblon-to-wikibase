@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "mediawiki": {
+    "name": "PB UI development",
+    "root": "https://pbuidev.wikibase.cloud/wiki/",
+    "main_page": "https://pbuidev.wikibase.cloud/wiki/Main_Page",
+    "api": "https://pbuidev.wikibase.cloud/w/api.php"
+  },
+  "wikibase": {
+    "site_iri": "https://pbuidev.wikibase.cloud/entity/",
+    "maxlag": 5,
+    "properties": {
+      "instance_of": "P2",
+      "subclass_of": "P3"
+    }
+  },
+  "reconciliation": {
+    "endpoint": "http://pbuidev.svc:8002/${lang}/api"
+  }
+}

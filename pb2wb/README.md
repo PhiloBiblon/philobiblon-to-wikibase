@@ -48,7 +48,7 @@ python run_init.py --first-time
 python run_base_import.py
 python run_preprocess.py
 (OpenRefine reconciliation and export)
-python run_postprocess.py
+python run_postprocess.py --force-new-statements
 (QuickStatements import)
 python run_notes.py
 ```
@@ -58,7 +58,7 @@ It is possible to process only one table too:
 ```
 python run_preprocess.py --table <table>
 (OpenRefine reconciliation and export)
-python run_postprocess.py --table <table>
+python run_postprocess.py --table <table> --force-new-statements
 (QuickStatements import)
 python run_notes.py --table <table>
 ```

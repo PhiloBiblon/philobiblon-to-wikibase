@@ -40,7 +40,7 @@ rm -rf ./clean/raw_links
 
 # For compatibility (BETA only) we will also link clean csvs into $pbbase/data/clean/BETA
 
-ln -f $pbbase/data/clean/BETA/csvs/*.csv $pbbase/data/clean/BETA
+### ln -f $pbbase/data/clean/BETA/csvs/*.csv $pbbase/data/clean/BETA
 
 # Clean the BETA dataclips
 
@@ -56,8 +56,8 @@ do
     echo 'checking for illegal utf8 in BETA dataclips: ' $f
     cat $pbbase/data/clean/raw_links/$f | bash $pbbase/pbcsv/utf8check.sh
     cat $pbbase/data/clean/raw_links/$f | bash $pbbase/pbcsv/utf8clean.sh | \
-        csvformat -M '@' | tr '\n@' ' \n' | \
-        (echo "code,Status,Records,Bounds,Muster,es,en,Factgrid P#,Factgrid Q#,Wikidata P#,Wikidata Q#,unnamed1,unnamed2,unnamed3"; cat -) > $pbbase/data/clean/BETA/dataclips/$f
+        csvformat -M '@' | tr '\n@' ' \n' | sed 1d | \
+        (echo "code,class,status,census,es,en,unk1,unk2"; cat -) > $pbbase/data/clean/BETA/dataclips/$f
 done
 
 # Now we can throw away the raw_links directory

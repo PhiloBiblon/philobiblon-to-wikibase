@@ -1,9 +1,8 @@
 from wikibaseintegrator import WikibaseIntegrator, wbi_login
 from wikibaseintegrator.wbi_config import config as wbi_config
-from wikibaseintegrator.wbi_exceptions import MWApiError
 from wikibaseintegrator import wbi_helpers
 
-from common.settings import MEDIAWIKI_API_URL, SPARQL_ENDPOINT_URL, WB_PASSWORD, WB_USER
+from common.settings import MEDIAWIKI_API_URL, SPARQL_ENDPOINT_URL, WB_PASSWORD, WB_USER, SPARQL_PREFIX
 
 # FactGrid properties
 PROPERTY_INSTANCE_OF='P2'
@@ -65,7 +64,7 @@ class WBManager():
     results = wbi_helpers.execute_sparql_query(f"""SELECT ?item WHERE {{
       ?item wdt:{PROPERTY_PHILOBIBLON_ID} '{pbid}'.
       FILTER CONTAINS(str(?item), '/Q')
-    }}""")
+    }}""", prefix = SPARQL_PREFIX)
     if results['results']['bindings']:
       return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
     else:
@@ -76,7 +75,7 @@ class WBManager():
     results = wbi_helpers.execute_sparql_query(f"""SELECT ?p WHERE {{
       ?p wdt:{PROPERTY_PHILOBIBLON_ID} '{pbid}'.
       FILTER CONTAINS(str(?p), '/P')
-    }}""")
+    }}""", prefix = SPARQL_PREFIX)
     if results['results']['bindings']:
       return self.wbi.property.get(results['results']['bindings'][0]['p']['value'].split('/')[-1])
     else:
@@ -88,7 +87,7 @@ class WBManager():
         ?item wdt:{PROPERTY_INSTANCE_OF}* wd:{q_dataclip.id}.
         ?item rdfs:label ?itemLabel.
         FILTER(CONTAINS(LCASE(?itemLabel), '{value.lower()}')).
-      }}""")
+      }}""", prefix = SPARQL_PREFIX)
     if results['results']['bindings']:
       return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
     else:
@@ -99,7 +98,7 @@ class WBManager():
         ?item rdfs:label ?itemLabel.
         FILTER(REGEX(?itemLabel, "^{label}$"@{lang}, "i")).
         FILTER CONTAINS(str(?item), '/Q')
-      }}""")
+      }}""", prefix = SPARQL_PREFIX)
     if results['results']['bindings']:
       return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
     else:

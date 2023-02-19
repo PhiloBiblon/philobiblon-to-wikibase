@@ -32,3 +32,6 @@ with open(f'{PYWIKIBOT_DIR}/user-password.py', 'w') as f:
 import pywikibot
 
 site = pywikibot.Site(MY_LANG, FAMILY_NAME)
+
+# hack to allow pywikibot login in the wikibase cloud instances
+site.userinfo['rights'].append('edit')
