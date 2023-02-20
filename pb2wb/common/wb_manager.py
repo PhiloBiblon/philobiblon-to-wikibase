@@ -93,6 +93,7 @@ class WBManager():
     else:
       return None
 
+  # search a wb entity by its label
   def get_q_by_label(self, label, lang):
     results= wbi_helpers.execute_sparql_query(f"""SELECT ?item WHERE {{
         ?item rdfs:label ?itemLabel.
@@ -101,5 +102,13 @@ class WBManager():
       }}""", prefix = SPARQL_PREFIX)
     if results['results']['bindings']:
       return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
+    else:
+      return None
+
+  # run an SPARQL query
+  def runSparQlQuery(self, query):
+    results = wbi_helpers.execute_sparql_query(query, prefix = SPARQL_PREFIX)
+    if results['results']['bindings']:
+      return results['results']['bindings']
     else:
       return None

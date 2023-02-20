@@ -74,3 +74,21 @@ where `<table>` can be:
 * MS_ED
 * SUBJECT
 * UNIFORM_TITLE
+
+## Developer tips
+
+### Run SPARQL query
+
+1. Configure Wikibase connection properties in `common/settings.py` (`MEDIAWIKI_API_URL`, `SPARQL_ENDPOINT_URL`, `WB_USER`, `WB_PASSWORD` and `SPARQL_PREFIX`).
+
+2. Run the query.
+```
+from common.wb_manager import WBManager
+
+print('Preparing wikibase connection ...')
+wb_manager = WBManager()
+
+results = wb_manager.runSparQlQuery("SELECT ?item ?value { ?item wdt:P476 ?value }")
+
+print(len(results))
+```
