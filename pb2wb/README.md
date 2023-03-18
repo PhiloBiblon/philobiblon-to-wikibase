@@ -92,3 +92,51 @@ results = wb_manager.runSparQlQuery("SELECT ?item ?value { ?item wdt:P476 ?value
 
 print(len(results))
 ```
+
+### Run a simple sparql and get all results as a CSV
+
+1. Configure Wikibase connection properties in `common/settings.py` (`MEDIAWIKI_API_URL`, `SPARQL_ENDPOINT_URL`, `WB_USER`, `WB_PASSWORD` and `SPARQL_PREFIX`).
+
+2. Run this script. This example retrieves all items with PBIDs.
+```
+python util/run_simple_sparql.py --query "SELECT ?item ?value { ?item wdt:P476 ?value }"
+```
+
+### Find missing dataclips (if any)
+
+Make a temp directory:
+
+```
+mkdir -p tmp
+```
+
+Get the pbitems (as above example):
+
+```
+python util/run_simple_sparql.py --query "SELECT ?item ?value { ?item wdt:P476 ?value }" > ./tmp/pbitems.csv
+```
+
+Extract the pbid only
+
+```
+cat ./tmp/pbitems.csv | csvcut -c value | tail +2 | sort > ./tmp/pbitems.txt
+```
+
+Remember the column names from the big dataclip
+
+```
+head -1 ../data/clean/BETA/dataclips/beta_dataclips.csv > ./tmp/dataclip-columns.txt
+```
+
+Get the full dataclips, drop the "Invalid" ones, use join to find the items tbd - put back the column names
+
+```
+cat ../data/clean/BETA/dataclips/beta_dataclips.csv  | sed 's/BETA //' | grep -v Invalid | tail +2 | sort | join -v 1 -t , - ./tmp/pbitems.txt  | (cat ./tmp/dataclip-columns.txt; cat -) > ./tmp/dataclips-tbd.csv
+```
+
+Massage into the q-items format for `run_init.py`
+
+```
+cat ./tmp/dataclips-tbd.csv | csvstack -n lang -g en - | csvstack -n QNUMBER -g '' - | csvsql --query "select QNUMBER, en as LABEL, lang as LANG, code as ALIAS, code as PBID from stdin" - > ./tmp/q_items.csv
+```
+
