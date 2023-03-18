@@ -15,7 +15,7 @@ def isfloat(num):
         return False
 
 class BiographyPreprocessor(GenericPreprocessor):
-  DATACLIP_FILENAME = 'BIO_dataclips.csv'
+  DATACLIP_FILENAME = 'beta_dataclips.csv'
 
   def __init__(self) -> None:
     super().__init__()

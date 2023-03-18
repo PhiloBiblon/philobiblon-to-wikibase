@@ -7,7 +7,7 @@ from common.settings import DATACLIP_DIR
 from .generic import GenericPreprocessor
 
 class GeographyPreprocessor(GenericPreprocessor):
-  DATACLIP_FILENAME = 'GEO_dataclips.csv'
+  DATACLIP_FILENAME = 'beta_dataclips.csv'
 
   def __init__(self) -> None:
     super().__init__()
