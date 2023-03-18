@@ -130,7 +130,7 @@ Massage into the q-items format for `run_init.py`
 cat ./tmp/dataclips-tbd.csv | csvstack -n lang -g en - | csvstack -n QNUMBER -g '' - | csvsql --query "select QNUMBER, en as LABEL, lang as LANG, code as ALIAS, code as PBID from stdin" - > ./tmp/q_items.csv
 ```
 
-### Create a lookup table of PBID to q-number
+### Create a lookup table of PBID to QNUMBER
 
 Begin as above: Get the pbitems
 ```
