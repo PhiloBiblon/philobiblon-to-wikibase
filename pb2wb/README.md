@@ -105,38 +105,38 @@ python util/run_simple_sparql.py --query "SELECT ?item ?value { ?item wdt:P476 ?
 ### Find missing dataclips (if any)
 
 Make a temp directory:
-
 ```
 mkdir -p tmp
 ```
-
 Get the pbitems (as above example):
-
 ```
 python util/run_simple_sparql.py --query "SELECT ?item ?value { ?item wdt:P476 ?value }" > ./tmp/pbitems.csv
 ```
-
 Extract the pbid only
-
 ```
 cat ./tmp/pbitems.csv | csvcut -c value | tail +2 | sort > ./tmp/pbitems.txt
 ```
-
 Remember the column names from the big dataclip
-
 ```
 head -1 ../data/clean/BETA/dataclips/beta_dataclips.csv > ./tmp/dataclip-columns.txt
 ```
-
 Get the full dataclips, drop the "Invalid" ones, use join to find the items tbd - put back the column names
-
 ```
 cat ../data/clean/BETA/dataclips/beta_dataclips.csv  | sed 's/BETA //' | grep -v Invalid | tail +2 | sort | join -v 1 -t , - ./tmp/pbitems.txt  | (cat ./tmp/dataclip-columns.txt; cat -) > ./tmp/dataclips-tbd.csv
 ```
-
 Massage into the q-items format for `run_init.py`
 
 ```
 cat ./tmp/dataclips-tbd.csv | csvstack -n lang -g en - | csvstack -n QNUMBER -g '' - | csvsql --query "select QNUMBER, en as LABEL, lang as LANG, code as ALIAS, code as PBID from stdin" - > ./tmp/q_items.csv
 ```
 
+### Create a lookup table of PBID to q-number
+
+Begin as above: Get the pbitems
+```
+python util/run_simple_sparql.py --query "SELECT ?item ?value { ?item wdt:P476 ?value }" > ./tmp/pbitems.csv
+```
+Clean them up and massage them slightly
+```
+cat ./tmp/pbitems.csv | sed 's@http.*/Q@Q@' | csvsql --query "select value as PBID, item as QNUMBER from stdin" - > ./tmp/lookup.csv
+```
