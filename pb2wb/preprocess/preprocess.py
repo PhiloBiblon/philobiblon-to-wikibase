@@ -1,5 +1,4 @@
 import os
-from .preprocessor.generic import GenericPreprocessor
 from .preprocessor.analytic import AnalyticPreprocessor
 from .preprocessor.bibliography import BibliographyPreprocessor
 from .preprocessor.biography import BiographyPreprocessor
@@ -43,8 +42,7 @@ def preprocess(table):
     GeographyPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_geography.csv'), beta_pre_processed_dir,
                                        qnumber_lookup_file)
   if table is None or table is Table.INSTITUTIONS:
-    InstitutionPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_institutions.csv'),
-                                         beta_pre_processed_dir, qnumber_lookup_file)
+    InstitutionPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_institutions.csv'), beta_pre_processed_dir)
   if table is None or table is Table.LIBRARY:
     LibraryPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_library.csv'), beta_pre_processed_dir,
                                      qnumber_lookup_file)

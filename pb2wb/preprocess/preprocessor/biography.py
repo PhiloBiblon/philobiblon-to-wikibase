@@ -106,9 +106,10 @@ class BiographyPreprocessor(GenericPreprocessor):
       'INTERNET_CLASS'
     ]
 
-    for field in id_fields + dataclip_fields:
-      df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER', field + '_QNUMBER')
-      df = self.move_last_column_after(df, field)
+    if lookup_df is not None:
+      for field in id_fields + dataclip_fields:
+        df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER', field + '_QNUMBER')
+        df = self.move_last_column_after(df, field)
 
     # expanded title isn't working yet - we can make do with the Moniker
     # df['EXPANDED_TITLE'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo), axis=1)
