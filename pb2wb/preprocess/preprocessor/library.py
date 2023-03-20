@@ -6,30 +6,40 @@ from datetime import datetime
 from common.settings import DATACLIP_DIR
 from .generic import GenericPreprocessor
 
-class GeographyPreprocessor(GenericPreprocessor):
+class LibraryPreprocessor(GenericPreprocessor):
   DATACLIP_FILENAME = 'beta_dataclips.csv'
 
   def __init__(self) -> None:
     super().__init__()
     self.df_dataclip = pd.read_csv(os.path.join(DATACLIP_DIR, self.DATACLIP_FILENAME), dtype=str, keep_default_na=False)
 
-  def make_desc(self, row):
-    if row['NAME'] != row['MONIKER']:
-      return row['MONIKER']
-    return ""
-
   def preprocess(self, file, processed_dir, qnumber_lookup_file):
-    print(f'{datetime.now()} INFO: Processing geography ..')
-    df = pd.read_csv(file, dtype=str, keep_default_na=False)
+    print(f'{datetime.now()} INFO: Processing library ..')
 
+    df = pd.read_csv(file, dtype=str, keep_default_na=False)
     lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
 
     # enumerate the pb base item (id) fields
     id_fields = [
-      'GEOID', 'RELATED_GEOID', 'RELATED_BIBID', 'RELATED_MANID', 'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
+      'LIBID',
+      'RELATED_GEOID',
+      'RELATED_INSID',
+      'RELATED_BIBID',
+      'SUBJECT_BIOID',
+      'SUBJECT_GEOID',
+      'SUBJECT_INSID',
+      'SUBJECT_SUBID'
     ]
+
     dataclip_fields = [
-      'NAME_CLASS', 'CLASS', 'TYPE', 'RELATED_GEOCLASS'
+      'NAME_CLASS',
+      'LIBCODE_CLASS',
+      'CLASS',
+      'TYPE',
+      'RELATED_GEOCLASS',
+      'RELATED_INSCLASS',
+      'RELATED_BIBCLASS',
+      'INTERNET_CLASS'
     ]
 
     for field in id_fields + dataclip_fields:
