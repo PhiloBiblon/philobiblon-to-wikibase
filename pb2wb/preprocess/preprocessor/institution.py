@@ -2,6 +2,7 @@ from glob import escape
 import os
 import csv
 import pandas as pd
+from datetime import datetime
 
 from common.settings import DATACLIP_DIR
 from .generic import GenericPreprocessor
@@ -51,7 +52,7 @@ class InstitutionPreprocessor(GenericPreprocessor):
     return desc.strip()
 
   def preprocess(self, file, processed_dir):
-    print('INFO: Processing institutions ..')
+    print(f'{datetime.now()} INFO: Processing institutions ..')
     df_ins = pd.read_csv(file, dtype=str, keep_default_na=False)
 
     # Class
@@ -108,4 +109,4 @@ class InstitutionPreprocessor(GenericPreprocessor):
     self.check_rows_empty_classes(df_ins, ['NAME_CLASS', 'INTERNET_CLASS'])
 
     df_ins.to_csv(os.path.join(processed_dir, os.path.basename(file)), index=False, quoting=csv.QUOTE_ALL)
-    print('INFO: done.')
+    print(f'{datetime.now()} INFO: done')

@@ -1,8 +1,7 @@
 import os
 import pandas as pd
 import csv
-import math
-import random
+from datetime import datetime
 
 from common.settings import DATACLIP_DIR
 from .generic import GenericPreprocessor
@@ -15,20 +14,11 @@ def isfloat(num):
         return False
 
 class BiographyPreprocessor(GenericPreprocessor):
-  DATACLIP_FILENAME = 'BIO_dataclips.csv'
+  DATACLIP_FILENAME = 'beta_dataclips.csv'
 
   def __init__(self) -> None:
     super().__init__()
     self.df_dataclip = pd.read_csv(os.path.join(DATACLIP_DIR, self.DATACLIP_FILENAME), dtype=str, keep_default_na=False)
-    self.runid = random.randint(0,999999)
-
-  def decorate_with_runid(self, s):
-    if len(str(s)) == 0:
-      return s
-    return f'{self.runid} {s}'
-
-  def quote_string(self, s):
-    return f'"{s}"'
 
   def get_value(self, cell):
     if cell and cell == cell:
@@ -76,32 +66,56 @@ class BiographyPreprocessor(GenericPreprocessor):
     df = df[df['NAME_CLASS']=='GEOGRAPHY*NAME_CLASS*U'][['GEOID', 'NAME']]
     return dict(df.values)
 
-  def make_label(self, row):
-    return row['BIOID'] if len(row['EXPANDED_NAME']) == 0 else row['EXPANDED_NAME']
-
-  def make_desc(self, row):
-    if row['EXPANDED_NAME'] != row['MONIKER']:
-      return row['MONIKER']
-    return ""
-
-  def preprocess(self, biography_file, geography_file, processed_dir):
-    print('INFO: Processing biography ..')
+  def preprocess(self, biography_file, geography_file, processed_dir, qnumber_lookup_file):
+    print(f'{datetime.now()} INFO: Processing biography ..')
     # we could load geo to resolve titles e.g. "King of Castille" - but this isn't working yet
     # dict_geo = self.load_geo(geography_file)
 
     df = pd.read_csv(biography_file, dtype=str, keep_default_na=False)
+    lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
 
-    # explanded title isn't working yet - we can make do with the Moniker
+    # enumerate the pb base item (id) fields
+    id_fields = [
+      'BIOID',
+      'TITLE_GEOID',
+      'MILESTONE_GEOID',
+      'AFFILIATION_GEOID',
+      'RELATED_BIOID',
+      'RELATED_INSID',
+      'RELATED_BIBID',
+      'RELATED_MANID',
+      'SUBJECT_GEOID',
+      'SUBJECT_INSID',
+      'SUBJECT_SUBID'
+    ]
+
+    dataclip_fields = [
+      'NAME_CLASS',
+      'NAME_HONORIFIC',
+      'TITLE',
+      'TITLE_NUMBER',
+      'TITLE_CONNECTOR',
+      'MILESTONE_CLASS',
+      'AFFILIATION_CLASS',
+      'AFFILIATION_TYPE',
+      'SEX',
+      'RELATED_BIOCLASS',
+      'RELATED_INSCLASS',
+      'RELATED_BIBCLASS',
+      'RELATED_MANCLASS',
+      'INTERNET_CLASS'
+    ]
+
+    if lookup_df is not None:
+      for field in id_fields + dataclip_fields:
+        df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER', field + '_QNUMBER')
+        df = self.move_last_column_after(df, field)
+
+    # expanded title isn't working yet - we can make do with the Moniker
     # df['EXPANDED_TITLE'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo), axis=1)
 
     # Expanded name is pretty much ok
     df['EXPANDED_NAME'] = df.apply (lambda row: self.get_expanded_name(row), axis=1)
 
-    # Create columns for direct consumption by quickstatements csv
-    df['Len'] = df.apply (lambda row: self.decorate_with_runid(self.make_label(row)), axis=1)
-    df['Den'] = df.apply (lambda row: self.decorate_with_runid(self.make_desc(row)), axis=1)
-    df['Aen'] = df.apply (lambda row: self.decorate_with_runid(row["BIOID"]), axis=1)
-    df['P-PBID'] = df.apply (lambda row: self.quote_string(row["BIOID"]), axis=1)
-
     df.to_csv(os.path.join(processed_dir, os.path.basename(biography_file)), index=False, quoting=csv.QUOTE_ALL)
-    print('INFO: done.')
+    print(f'{datetime.now()} INFO: done')
