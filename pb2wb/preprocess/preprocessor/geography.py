@@ -29,7 +29,7 @@ class GeographyPreprocessor(GenericPreprocessor):
       'GEOID', 'RELATED_GEOID', 'RELATED_BIBID', 'RELATED_MANID', 'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
     ]
     dataclip_fields = [
-      'NAME_CLASS', 'CLASS', 'TYPE', 'RELATED_GEOCLASS'
+      'NAME_CLASS', 'CLASS', 'TYPE', 'RELATED_GEOCLASS', 'INTERNET_CLASS'
     ]
 
     if lookup_df is not None:

@@ -20,6 +20,7 @@ class AnalyticPreprocessor(GenericPreprocessor):
 
     # enumerate the pb base item (id) fields
     id_fields = [
+      'CNUM',
       'TEXT_MANID',
       'TEXT_UNIID',
       'COMMENT_BIOID',
