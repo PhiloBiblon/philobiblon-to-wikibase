@@ -44,7 +44,7 @@ Commands:
 ```
 source .env/bin/activate
 bash clean/mkclean.sh
-python run_init.py --first-time
+python run_init.py
 python run_base_import.py
 python run_preprocess.py
 (OpenRefine reconciliation and export)

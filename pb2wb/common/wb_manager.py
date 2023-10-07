@@ -105,6 +105,17 @@ class WBManager():
     else:
       return None
 
+  def get_last_p(self):
+    results= wbi_helpers.execute_sparql_query(f"""SELECT ?p WHERE {{
+        ?p rdf:type wikibase:Property.
+      }}
+      ORDER BY DESC(STRLEN(str(?p))) DESC(?p)
+      LIMIT 1""", prefix=SPARQL_PREFIX)
+    if results['results']['bindings']:
+      return self.wbi.property.get(results['results']['bindings'][0]['p']['value'].split('/')[-1])
+    else:
+      return None
+
   # run an SPARQL query
   def runSparQlQuery(self, query):
     results = wbi_helpers.execute_sparql_query(query, prefix = SPARQL_PREFIX)

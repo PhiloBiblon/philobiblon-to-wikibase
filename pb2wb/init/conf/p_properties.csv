@@ -10,7 +10,7 @@ P8,Part of,en,wikibase-item
 P9,Includes,en,wikibase-item
 P10,Inventory position,en,string
 P11,Title,en,string
-P12,Reception / secondary discussion,en,wikibase-item
+P12,Secondary literature,en,wikibase-item
 P13,Subunit of,en,wikibase-item
 P14,In leading position,en,wikibase-item
 P15,Media type,en,wikibase-item
@@ -32,7 +32,7 @@ P30,Old inventory position,en,string
 P31,,,
 P32,<Eye witnesses>,en,wikibase-item
 P33,Persons mentioned,en,wikibase-item
-P34,Name history,en,monolingualtext
+P34,Naming,en,monolingualtext
 P35,Literal statement,en,string
 P36,,,
 P37,Date of baptism,en,time
@@ -43,7 +43,7 @@ P41,Terminus post quem,en,time
 P42,,,
 P43,Terminus ante quem,en,time
 P44,Date of receipt,en,time
-P45,Beginning of events reported,en,time
+P45,Start time of reported events,en,time
 P46,End of events reported,en,time
 P47,Localisation,en,wikibase-item
 P48,Coordinate location,en,globe-coordinate
@@ -54,17 +54,17 @@ P52,Indication the object existed,en,wikibase-item
 P53,<Wikimedia language code>,en,string
 P54,Page(s),en,string
 P55,Image number,en,string
-P56,Nick name/ name used,en,string
+P56,Nickname/ name used,en,string
 P57,<naming>,en,string
 P58,Number of inhabitants,en,quantity
-P59,Height,en,quantity
+P59,Height (measure of vertical distance) / human height,en,quantity
 P60,Width,en,quantity
 P61,"Depth, thickness",en,quantity
 P62,,,
 P63,Translation of,en,wikibase-item
 P64,Published in,en,wikibase-item
 P65,Answer on,en,wikibase-item
-P66,Organisation signing responsible,en,wikibase-item
+P66,Organization signing responsible  / organiser,en,wikibase-item
 P67,Financed by,en,wikibase-item
 P68,Transcribed by,en,wikibase-item
 P69,Online transcript,en,url
@@ -108,7 +108,7 @@ P106,Date,en,time
 P107,Number of pages/ leaves/ sheets/ columns/ lines,en,quantity
 P108,<number of sheets>,en,quantity
 P109,,,
-P110,Actually,en,wikibase-item
+P110,Can mean,en,wikibase-item
 P111,Address (in words),en,string
 P112,Date [string],en,string
 P113,Coding key,en,wikibase-item
@@ -222,7 +222,7 @@ P220,In his/her personal service,en,wikibase-item
 P221,<Acquainted with>,en,wikibase-item
 P222,Date of publication,en,time
 P223,<Translation into English>,en,wikibase-item
-P224,Contribution / Program item,en,wikibase-item
+P224,Agenda / Program,en,wikibase-item
 P225,<Happened in the course of>,en,wikibase-item
 P226,Stored in,en,wikibase-item
 P227,<Godparent(s)>,en,wikibase-item
@@ -261,12 +261,12 @@ P259,Absent,en,wikibase-item
 P260,,,
 P261,FactGrid Collection of Information,en,url
 P262,FactGrid merger candidate,en,wikibase-item
-P263,Working hypothesis,en,wikibase-item
+P263,State of work,en,wikibase-item
 P264,Presented by,en,wikibase-item
 P265,Closest equivalent,en,wikibase-item
 P266,<offices held>,en,wikibase-item
 P267,Organisational context,en,wikibase-item
-P268,Initiator,en,wikibase-item
+P268,Initiated by,en,wikibase-item
 P269,Proposed by,en,wikibase-item
 P270,<Foster father>,en,wikibase-item
 P271,<Foster mother>,en,wikibase-item
@@ -332,7 +332,7 @@ P330,Apprenticeship,en,wikibase-item
 P331,<patent>,en,url
 P332,Layout of positions,en,wikibase-property
 P333,Qualifying sub-properties,en,wikibase-property
-P334,Property to use instead,en,wikibase-property
+P334,FactGrid Property to use instead,en,wikibase-property
 P335,Daughter lodge(s),en,wikibase-item
 P336,Mother lodge / Grand lodge,en,wikibase-item
 P337,Main lodge,en,wikibase-item
@@ -397,7 +397,7 @@ P395,Gold content (g),en,quantity
 P396,Conversion rate(s),en,quantity
 P397,Mass,en,quantity
 P398,Duration,en,quantity
-P399,Basic unit,en,wikibase-item
+P399,Subunits,en,wikibase-item
 P400,Plus,en,quantity
 P401,Material composition,en,wikibase-item
 P402,Percentage,en,quantity
@@ -431,7 +431,7 @@ P429,Geographical coverage,en,wikibase-item
 P430,Recognised by,en,wikibase-item
 P431,affiliated Lodges,en,wikibase-item
 P432,Date of finding,en,time
-P433,Twitter username,en,external-id
+P433,X handle,en,external-id
 P434,Associated place,en,wikibase-item
 P435,<FactGrid document page>,en,external-id
 P436,Merger with,en,wikibase-item
@@ -558,7 +558,7 @@ P556,Wikimedia Commons image of grave or memorial,en,commonsMedia
 P557,Intervened on behalf of,en,wikibase-item
 P558,Reason for persecution,en,wikibase-item
 P559,Delivered to,en,wikibase-item
-P560,Personal status,en,wikibase-item
+P560,Status assignments,en,wikibase-item
 P561,<Transparency of the author information>,en,wikibase-item
 P562,<Transparency of the place of publication>,en,wikibase-item
 P563,<Transparency of publication date>,en,wikibase-item
@@ -651,7 +651,7 @@ P649,Contributor to,en,wikibase-item
 P650,INE ID (Spain),en,external-id
 P651,INE ID (Portugal),en,external-id
 P652,BNE-ID,en,external-id
-P653,Number of copies,en,quantity
+P653,Number of copies printed,en,quantity
 P654,Number of copies extant,en,quantity
 P655,RISM ID,en,external-id
 P656,CTHS ID person,en,external-id
@@ -668,7 +668,7 @@ P666,Number of participants,en,quantity
 P667,Frauen in Bewegung 1848–1938 ID,en,external-id
 P668,DNB-Info ID,en,external-id
 P669,Matriculation number,en,quantity
-P670,"Romanised transcript, Library of Congress style",en,string
+P670,Romanised transcription,en,string
 P671,Pleiades ID,en,external-id
 P672,Google Knowledge Graph ID,en,external-id
 P673,Income,en,quantity
@@ -798,7 +798,7 @@ P796,Item for this sense,en,wikibase-item
 P797,Object of procedure,en,wikibase-item
 P798,Produces,en,wikibase-item
 P799,Dataset status,en,wikibase-item
-P800,Binding <string>,en,string
+P800,Binding*,en,string
 P801,Visual work component,en,wikibase-item
 P802,Alternate shelfmark,en,string
 P803,Registry number,en,string
@@ -813,7 +813,7 @@ P811,PRELIB archival document ID,en,external-id
 P812,PRELIB periodical ID,en,external-id
 P813,Sandrart.net person ID,en,external-id
 P814,Geographic compatriotism,en,wikibase-item
-P815,Language equivalent,en,wikibase-item
+P815,Synonym,en,wikibase-item
 P816,SSNE person ID,en,external-id
 P817,Notes,en,url
 P818,Renewal date,en,time
@@ -822,10 +822,8 @@ P820,Object has role,en,wikibase-item
 P821,ISNI-ID,en,external-id
 P822,ISO 639-1,en,external-id
 P823,Stance towards object,en,wikibase-item
-#P824,Preceding Lexemes in stemma,en,wikibase-lexeme
-P824,,,
-#P825,Self classification [Lexeme],en,wikibase-lexeme
-P825,,,
+P824,Preceding Lexemes in stemma,en,wikibase-lexeme
+P825,Self classification [Lexeme],en,wikibase-lexeme
 P826,Wikidata lexeme,en,external-id
 P827,WorldCat Title ID,en,external-id
 P828,Transparency of the information provided,en,wikibase-item
@@ -854,7 +852,7 @@ P850,Reference source,en,wikibase-item
 P851,Number of employees,en,quantity
 P852,FactGrid project space,en,url
 P853,Period,en,wikibase-item
-P854,Dynasty,en,wikibase-item
+P854,In the the reign / dynasty / time frame,en,wikibase-item
 P855,Lobid-GND,en,external-id
 P856,Check,en,wikibase-item
 P857,Workplace,en,wikibase-property
@@ -868,7 +866,7 @@ P864,Exclusion criterion / incompatible with Membership in,en,wikibase-item
 P865,Professional address,en,wikibase-item
 P866,Minimum age,en,quantity
 P867,Maximum age,en,quantity
-P868,Variant version,en,wikibase-item
+P868,Normalization variant,en,wikibase-item
 P869,Likelihood (percent),en,quantity
 P870,ISO 3166-1 alpha-2 code,en,external-id
 P871,ISO 3166-1 alpha-3 code,en,external-id
@@ -899,8 +897,80 @@ P895,Appropriate clothing,en,wikibase-item
 P896,,en,wikibase-property
 P897,,en,wikibase-property
 P898,External matching,en,wikibase-item
-P899,Significant aspects,en,wikibase-property
+P899,Object properties,en,wikibase-property
 P900,Completeness,en,wikibase-item
 P901,Usability,en,wikibase-item
 P902,Methodical Approach,en,wikibase-item
 P903,Data format,en,wikibase-item
+P904,OhdAB-ges ID,en,external-id
+P905,OhdAB field of statement,en,wikibase-item
+P906,OhdAB01 (Field of professions),en,wikibase-item
+P907,OhdAB02 (Main group of professions),en,wikibase-item
+P908,OhdAB03 (Group of professions),en,wikibase-item
+P909,OhdAB04 (Subgroup of professions),en,wikibase-item
+P910,OhdAB05 (Branch of professions),en,wikibase-item
+P911,OhdAB06 (Level of expertise),en,wikibase-item
+P912,Speech act qualities,en,wikibase-item
+P913,,en,string
+P914,OhdAB standard designation,en,monolingualtext
+P915,HISCO-ID,en,external-id
+P916,Bookbinding,en,wikibase-item
+P917,second family name in Spanish name,en,wikibase-item
+P918,<What is the basic functionality of this speech act/ type of text?>,en,wikibase-item
+P919,<How is the speech act by and large supposed to reach its aim?>,en,wikibase-item
+P920,<How exactly is the speech act supposed to reach its goal?>,en,wikibase-item
+P921,<Preparatory condition of the speech act>,en,wikibase-item
+P922,<How sincere is the speech act formulated?>,en,wikibase-item
+P923,API endpoint URL,en,url
+P924,Deutsche Digitale Bibliothek Item ID,en,external-id
+P925,Under the rule of,en,wikibase-item
+P926,Place of issue,en,wikibase-item
+P927,Document attested by,en,wikibase-item
+P928,Authenticity of the document confirmed by,en,wikibase-item
+P929,Petitioner,en,wikibase-item
+P930,Group listings / Engaged in,en,wikibase-item
+P931,Latin Place Names ID,en,external-id
+P932,BARTOC Vocabularies ID,en,external-id
+P933,Year of the time frame,en,quantity
+P934,Patronym or matronym for this person,en,wikibase-item
+P935,Patrocinium,en,wikibase-item
+P936,Object types,en,wikibase-item
+P937,How to reference information,en,wikibase-item
+P938,Use,en,wikibase-item
+P939,Versioning,en,wikibase-item
+P940,Technology,en,wikibase-item
+P941,SPARQL endpoint URL,en,url
+P942,Number of hierarchy levels,en,quantity
+P943,Rent (per annum),en,quantity
+P944,Tax (per annum),en,quantity
+P945,Host,en,wikibase-item
+P946,Pastor's database ID,en,external-id
+P947,Webhosting,en,wikibase-item
+P948,Ontology / data model,en,url
+P949,Contact person,en,wikibase-item
+P950,Cite as,en,monolingualtext
+P951,Geomorphology,en,wikibase-item
+P952,Origin of the watercourse,en,wikibase-item
+P953,Mouth of the watercourse,en,wikibase-item
+P954,Chemical formula,en,string
+P955,Average,en,quantity
+P956,Hydromorphology,en,wikibase-item
+P957,Troop strength,en,quantity
+P958,<>,en,wikibase-property
+P959,BDTNS ID,en,external-id
+P960,ORACC ID,en,external-id
+P961,ÖSTAT number,en,external-id
+P962,SIMC ID,en,external-id
+P963,Czech municipality ID,en,external-id
+P964,"Possible identification, link to external information",en,url
+P965,Equivalent property elsewhere,en,url
+P966,Equivalent class,en,url
+P967,Weapons category,en,wikibase-item
+P968,EU Knowledge Graph item ID,en,external-id
+P969,Falk Regiment ID,en,external-id
+P970,Name attribute,en,monolingualtext
+P971,Arrivals,en,wikibase-item
+P972,Departures,en,wikibase-item
+P973,Weekday,en,wikibase-item
+P974,Time of arrival,en,string
+P975,Time of departure,en,string

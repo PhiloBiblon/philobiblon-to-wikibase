@@ -6,8 +6,18 @@ from common.wb_manager import PROPERTY_PHILOBIBLON_ID, WBManager
 MAP_PROPS_FILE = 'init/conf/p_properties.csv'
 MAP_ITEMS_FILE = 'init/conf/q_items.csv'
 
-def create_wb_p_safely(first_time, wb_manager, p_number, label, lang, type):
-  if not first_time and not type:
+def get_p_numeric(p_number):
+  return int(p_number[1:])
+
+def get_last_p_number(wb_manager):
+    last_p = wb_manager.get_last_p()
+    if last_p:
+      return last_p.id
+    else:
+      return None
+
+def create_wb_p_safely(wb_manager, p_number, label, lang, type, last_p_number):
+  if not type and last_p_number and get_p_numeric(p_number) <= get_p_numeric(last_p_number):
     print(f"WARN: Ignoring property {p_number} without type...")
     return None
 
@@ -84,15 +94,17 @@ def create_wb_q_safely(wb_manager, q_number, label, lang, alias, pbid):
   return q_item
 
 
-def init(first_time, only_properties, only_qitems):
+def init(only_properties, only_qitems):
   print('Preparing wikibase connection ...')
   wb_manager = WBManager()
-
+  
   if not only_qitems:
+    last_p_number = get_last_p_number(wb_manager)
+    print(f'Last existing property {last_p_number}')
     df_props = pd.read_csv(MAP_PROPS_FILE, comment='#')
     df_props = df_props.where(pd.notnull(df_props), None)
     for _, row in df_props.iterrows():
-      create_wb_p_safely(first_time, wb_manager, row['PNUMBER'], row['LABEL'], row['LANG'], row['TYPE'])
+      create_wb_p_safely(wb_manager, row['PNUMBER'], row['LABEL'], row['LANG'], row['TYPE'], last_p_number)
 
   if not only_properties:
     df_items = pd.read_csv(MAP_ITEMS_FILE, comment='#', keep_default_na=False)
