@@ -8,7 +8,8 @@ Run the `mkclean.sh` script to create a `clean` directory. It can be run from an
 repo. The following example assumes you are in the `data` directory:
 
 ```
-bash mkclean.sh
+. clean/set_iconv.sh
+bash clean/mkclean.sh
 ```
 
 This will create a `clean` directory with a `BETA` sub-directory. Note:
