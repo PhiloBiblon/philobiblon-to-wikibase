@@ -3,7 +3,7 @@ from postprocess import postprocess
 from common import enums
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--table", help="Only preprocess this table.")
+parser.add_argument("--table", help="Only postprocess this table.")
 parser.add_argument("--force-new-statements", help="Forces to create always new statements.", action="store_true")
 args = parser.parse_args()
 
