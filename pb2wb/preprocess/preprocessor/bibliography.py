@@ -17,7 +17,8 @@ class BibliographyPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Processing bibliography ..')
 
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
-    lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
+    # lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
+    lookup_df = None
 
     # enumerate the pb base item (id) fields
     id_fields = [
@@ -47,6 +48,10 @@ class BibliographyPreprocessor(GenericPreprocessor):
       for field in id_fields + dataclip_fields:
         df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER', field + '_QNUMBER')
         df = self.move_last_column_after(df, field)
+
+    df['CREATOR_FULLNAME'] = df['CREATOR_FNAME'] + ' ' + df['CREATOR_LNAME']
+
+
 
     df.to_csv(os.path.join(processed_dir, os.path.basename(file)), index=False, quoting=csv.QUOTE_ALL)
     print(f'{datetime.now()} INFO: done')
