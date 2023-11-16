@@ -13,7 +13,9 @@ from common.settings import CLEAN_DIR, PRE_PROCESSED_DIR
 from common.enums import Table
 
 def get_full_input_path(file):
-  return os.path.join(CLEAN_DIR, file)
+  res = os.path.join(CLEAN_DIR, file)
+  print(f'get_full_input_path {res =}')
+  return res
 
 def preprocess(table):
   qnumber_lookup_file = get_full_input_path('BETA/lookup.csv')
@@ -29,7 +31,8 @@ def preprocess(table):
                                       qnumber_lookup_file)
   if table is None or table is Table.BIBLIOGRAPHY:
     BibliographyPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_bibliography.csv'), beta_pre_processed_dir,
-                                     qnumber_lookup_file)
+                                          None)
+                                     # qnumber_lookup_file) temporarily, so the processor runs quicker
   if table is None or table is Table.BIOGRAPHY:
     BiographyPreprocessor().preprocess(get_full_input_path('BETA/csvs/beta_biography.csv'),
                                        get_full_input_path('BETA/csvs/beta_geography.csv'),
