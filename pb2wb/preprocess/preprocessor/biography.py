@@ -72,7 +72,17 @@ class BiographyPreprocessor(GenericPreprocessor):
     # dict_geo = self.load_geo(geography_file)
 
     df = pd.read_csv(biography_file, dtype=str, keep_default_na=False)
-    lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
+
+    # splitting Affiliation_type
+    clazz = ['ORD','PRO','REL']
+    for c in clazz:
+        value = 'BIOGRAPHY*AFFILIATION_CLASS*' + c
+        new_col_name = 'AFFILIATION_TYPE_' + c
+        df[new_col_name] = (df['AFFILIATION_CLASS'] == value) * 1 * df['AFFILIATION_TYPE']  
+        df = self.move_last_column_after(df, 'AFFILIATION_TYPE')
+
+    lookup_df = None
+    #lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
 
     # enumerate the pb base item (id) fields
     id_fields = [
