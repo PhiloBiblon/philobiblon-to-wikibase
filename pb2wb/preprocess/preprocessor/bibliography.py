@@ -17,7 +17,18 @@ class BibliographyPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Processing bibliography ..')
 
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
-    lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
+
+    
+    df['CREATOR_FULLNAME'] = df['CREATOR_FNAME'] + ' ' + df['CREATOR_LNAME']
+    df = self.move_last_column_after(df, 'CREATOR_LNAME')
+      
+    df['ADJUNCT_FULLNAME'] = df['ADJUNCT_FNAME'] + ' ' + df['ADJUNCT_LNAME']
+    df = self.move_last_column_after(df, 'ADJUNCT_LNAME')
+
+    # the following None initialization is temporary (set for testing)
+    lookup_df = None
+      
+    # lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
 
     # enumerate the pb base item (id) fields
     id_fields = [
