@@ -17,7 +17,16 @@ class MsEdPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Processing ms_ed ..')
 
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
-    lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
+    clazz = ['C', 'F', 'A', 'R', 'B', 'I', 'CIBN45', 'E']
+
+    for c in clazz:
+        value = 'MS_ED*RELATED_LIBCALLNOCLASS*' + c
+        new_col_name = 'RELATED_CALLNO_' + c
+        df[new_col_name] = (df['RELATED_LIBCALLNOCLASS'] == value) * 1 * df['RELATED_LIBCALLNO']    
+        df = self.move_last_column_after(df, 'RELATED_LIBCALLNO')
+
+    lookup_df = None
+    #lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
 
     # enumerate the pb base item (id) fields
     id_fields = [

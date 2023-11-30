@@ -44,7 +44,8 @@ class UniformTitlePreprocessor(GenericPreprocessor):
       'RELATED_BIBCLASS',
       'RELATED_MANCLASS',
       'RELATED_UNICLASS',
-      'INTERNET_CLASS'
+      'INTERNET_CLASS',
+      'TYPE'
     ]
 
     if lookup_df is not None:
