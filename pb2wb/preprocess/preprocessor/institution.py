@@ -55,6 +55,35 @@ class InstitutionPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Processing institutions ..')
     df_ins = pd.read_csv(file, dtype=str, keep_default_na=False)
 
+    lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
+
+    # enumerate the pb base item (id) fields
+    id_fields = ["INSID",
+                 "MILESTONE_GEOID",
+                 "RELATED_GEOID",
+                 "RELATED_INSID",
+                 "RELATED_BIBID",
+                 "RELATED_MANID",
+                 "SUBJECT_BIOID",
+                 "SUBJECT_GEOID",
+                 "SUBJECT_SUBID"
+    ]
+    dataclip_fields = ["NAME_CLASS", 
+                       "MILESTONE_CLASS", 
+                       "CLASS", "TYPE", 
+                       "RELATED_GEOCLASS", 
+                       "RELATED_INSCLASS", 
+                       "RELATED_BIBCLASS", 
+                       "RELATED_MANCLASS", 
+                       "INTERNET_CLASS"
+    ]
+
+    if lookup_df is not None:
+      for field in id_fields + dataclip_fields:
+        df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER', field + '_QNUMBER')
+        df = self.move_last_column_after(df, field)
+
+
     # Class
     self.set_column_value_by_condition(df_ins, 'CLASS.str.len()>0 & CLASS==\'INSTITUTIONS*CLASS*OTHER\'', 'CLASS', '')
 
