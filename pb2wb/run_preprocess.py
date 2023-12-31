@@ -1,6 +1,7 @@
 import argparse
-from preprocess import preprocess
+
 from common import enums
+from preprocess import preprocess
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--bib', type=str, default="BETA",
@@ -13,7 +14,5 @@ args = parser.parse_args()
 
 if args.table:
   args.table = enums.Table[args.table.upper()]
-
-print(f'{args = }')
 
 preprocess.preprocess(args.bib, args.table, args.lookup)

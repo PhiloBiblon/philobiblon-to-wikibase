@@ -5,6 +5,7 @@ import textwrap
 from datetime import datetime
 
 import pandas as pd
+import numpy as np
 
 from common.settings import CLEAN_DIR, PRE_PROCESSED_DIR
 
@@ -234,31 +235,24 @@ class GenericPreprocessor:
     return df
 
   def add_new_column_from_mapping(self, df, from_column_name, mapping_df, mapping_from_column, mapping_to_column,
-                                  new_column_name, default_value = None):
+                                  new_column_name, default_value=np.nan):
     """
-    Creates a new column (new_column_name) by using an existing column (from_column_name) as a lookup into a mapping_df (e.g. a dataclips df),
-    using the mapping_from_column to look up keys and the mapping_to_column to extract values. If there is no match, the defautlt_value
+    Creates a new column (new_column_name) by using an existing column (from_column_name) as a lookup into a mapping_df,
+    using the mapping_from_column to look up keys and the mapping_to_column to extract values. If there is no match, the default_value
     is returned. If there are multiple matches (there shouldn't!), the first is used.
-
-    :param df: dataframe
-    :param from_column_name: existing column to check
-    :param mapping_df: df to use as a lookup table (e.g. dataclips)
-    :param mapping_from_column: column in the mapping_df to match
-    :param mapping_to_column: column in the mapping_df to return if there is a match
-    :param new_column_name: new column name
-    :param default_value: default value to return if no match
-    :return dataframe updated
     """
-    def get_value(in_series):
-      key = in_series[from_column_name]
-      rows = mapping_df.loc[mapping_df[mapping_from_column] == key, mapping_to_column]
-      if rows.empty:
-        return default_value
-      value = rows.iloc[0]
-      return value if value is not None else default_value
+    # Create a mapping DataFrame
+    mapping = mapping_df[[mapping_from_column, mapping_to_column]].copy()
 
-    df[new_column_name] = df.apply(get_value, axis=1)
-    return df
+    # Merge the original DataFrame with the mapping DataFrame
+    merged_df = pd.merge(df, mapping, left_on=from_column_name, right_on=mapping_from_column, how='left')
+
+    merged_df[new_column_name] = merged_df[mapping_to_column].fillna(default_value)
+
+    # Drop unnecessary columns from the merged DataFrame
+    merged_df = merged_df.drop([mapping_from_column, mapping_to_column], axis=1)
+
+    return merged_df
 
   def reconcile_by_lookup(self, df, fields):
     if not self.qnumber_lookup_file:
