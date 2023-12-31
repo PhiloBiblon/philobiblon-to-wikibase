@@ -5,7 +5,6 @@ WB_USER = 'Admin@philobot'
 WB_PASSWORD = 'guacr5u8jm3eo9qrknitf36jjbtt2eha'
 SPARQL_PREFIX = None
 
-DATACLIP_DIR = '../data/clean/BETA/dataclips/'
 CLEAN_DIR = '../data/clean'
 PRE_PROCESSED_DIR = '../data/processed/pre'
 OPENREFINE_PROCESSED_DIR = '../data/processed/or'
