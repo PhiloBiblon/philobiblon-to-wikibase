@@ -1,9 +1,49 @@
+import csv
 import os
-import shutil
 import re
 import textwrap
+from datetime import datetime
+
+import pandas as pd
+
+from common.settings import CLEAN_DIR, PRE_PROCESSED_DIR
 
 class GenericPreprocessor:
+
+  def __init__(self, top_level_bib=None, qnumber_lookup_file=None):
+    self.top_level_bib = top_level_bib
+    self.TABLE = None
+
+    if qnumber_lookup_file:
+      # if qnumber file does not begin with a slash or dot
+      if not qnumber_lookup_file.startswith('/') and not qnumber_lookup_file.startswith('.'):
+        # the qnumber file should be composed of the clean dir, the top_level_bib and the qnumber_lookup_file
+        qnumber_lookup_file = os.path.join(CLEAN_DIR, self.top_level_bib, qnumber_lookup_file)
+      if not os.path.isfile(qnumber_lookup_file):
+        raise Exception(f'qnumber_lookup_file not found: {qnumber_lookup_file}')
+    self.qnumber_lookup_file = qnumber_lookup_file
+
+    self.processed_dir = os.path.join(PRE_PROCESSED_DIR, self.top_level_bib)
+    # validate that the processed dir exists
+    if not os.path.isdir(self.processed_dir):
+      raise Exception(f'processed dir not found: {self.processed_dir}')
+
+    # the dataclip_file file should be composed of the clean dir, the top_level_bib, the string 'dataclips',
+    # the top_level_bib in lower case, and the string '_dataclips.csv'
+    self.dataclip_file = os.path.join(CLEAN_DIR, self.top_level_bib, 'dataclips',
+                                      self.top_level_bib.lower() + '_dataclips.csv')
+
+  def get_input_csv(self, table=None):
+    """
+    Returns the path of the input csv file by concatenating the clean dir, the top_level_bib,
+    the string 'csvs', top_level_bib in lower case,  an underscore, the lower case table name, and the string '.csv'.
+    """
+    file = os.path.join(CLEAN_DIR, self.top_level_bib, 'csvs',
+                        self.top_level_bib.lower() + '_' + table.value.lower() + '.csv')
+    # validate that the file exists
+    if not os.path.isfile(file):
+      raise Exception(f'File not found: {file}')
+    return file
 
   def get_format_str(self, format_str, value):
     """
@@ -220,5 +260,16 @@ class GenericPreprocessor:
     df[new_column_name] = df.apply(get_value, axis=1)
     return df
 
-  def preprocess(self, file, processed_dir):
-    shutil.copyfile(file, os.path.join(processed_dir, os.path.basename(file)))
+  def reconcile_by_lookup(self, df, fields):
+    if not self.qnumber_lookup_file:
+      return df
+    lookup_df = pd.read_csv(self.qnumber_lookup_file, dtype=str, keep_default_na=False)
+    for field in fields:
+      df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER', field + '_QNUMBER')
+      df = self.move_last_column_after(df, field)
+    return df
+
+  def write_result_csv(self, df, file):
+    output_csv = os.path.join(self.processed_dir, os.path.basename(file))
+    print(f'{datetime.now()} INFO: Output csv: {output_csv}')
+    df.to_csv(output_csv, index=False, quoting=csv.QUOTE_ALL)

@@ -4,7 +4,7 @@ import csv
 import pandas as pd
 from datetime import datetime
 
-from common.settings import DATACLIP_DIR
+from common.enums import Table
 from .generic import GenericPreprocessor
 
 class InstitutionPreprocessor(GenericPreprocessor):
@@ -25,10 +25,12 @@ class InstitutionPreprocessor(GenericPreprocessor):
   }
   DATACLIP_FILENAME = 'beta_dataclips.csv'
 
-  def __init__(self) -> None:
-    super().__init__()
-    self.df_dataclip = pd.read_csv(os.path.join(DATACLIP_DIR, self.DATACLIP_FILENAME), dtype=str, keep_default_na=False)
-  
+  TABLE = Table.INSTITUTIONS
+
+  def __init__(self, top_level_bib=None, qnumber_lookup_file=None) -> None:
+    super().__init__(top_level_bib, qnumber_lookup_file)
+    self.df_dataclip = pd.read_csv(self.dataclip_file, dtype=str, keep_default_na=False)
+
   def get_name_lang(self, row):
     name_class = row['NAME_CLASS']
     if name_class:
@@ -51,11 +53,12 @@ class InstitutionPreprocessor(GenericPreprocessor):
     desc = str(item_class or '') + ' ' + str(item_type or '')
     return desc.strip()
 
-  def preprocess(self, file, processed_dir):
+  def preprocess(self):
     print(f'{datetime.now()} INFO: Processing institutions ..')
-    df_ins = pd.read_csv(file, dtype=str, keep_default_na=False)
 
-    lookup_df = pd.read_csv(qnumber_lookup_file, dtype=str, keep_default_na=False)
+    file = self.get_input_csv(InstitutionPreprocessor.TABLE)
+    print(f'{datetime.now()} INFO: Input csv: {file}')
+    df_ins = pd.read_csv(file, dtype=str, keep_default_na=False)
 
     # enumerate the pb base item (id) fields
     id_fields = ["INSID",
@@ -78,11 +81,8 @@ class InstitutionPreprocessor(GenericPreprocessor):
                        "INTERNET_CLASS"
     ]
 
-    if lookup_df is not None:
-      for field in id_fields + dataclip_fields:
-        df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER', field + '_QNUMBER')
-        df = self.move_last_column_after(df, field)
-
+    # add new columns for the qnumbers using the lookup table if supplied
+    df_ins = self.reconcile_by_lookup(df_ins, id_fields + dataclip_fields)
 
     # Class
     self.set_column_value_by_condition(df_ins, 'CLASS.str.len()>0 & CLASS==\'INSTITUTIONS*CLASS*OTHER\'', 'CLASS', '')
@@ -137,5 +137,5 @@ class InstitutionPreprocessor(GenericPreprocessor):
     # Apply safety validations
     self.check_rows_empty_classes(df_ins, ['NAME_CLASS', 'INTERNET_CLASS'])
 
-    df_ins.to_csv(os.path.join(processed_dir, os.path.basename(file)), index=False, quoting=csv.QUOTE_ALL)
+    self.write_result_csv(df_ins, file)
     print(f'{datetime.now()} INFO: done')
