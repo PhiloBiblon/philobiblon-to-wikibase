@@ -1,7 +1,6 @@
 import os
 
-from common.enums import Table
-from common.settings import CLEAN_DIR, PRE_PROCESSED_DIR
+from common.settings import PRE_PROCESSED_DIR
 from .preprocessor.analytic import AnalyticPreprocessor
 from .preprocessor.bibliography import BibliographyPreprocessor
 from .preprocessor.biography import BiographyPreprocessor
