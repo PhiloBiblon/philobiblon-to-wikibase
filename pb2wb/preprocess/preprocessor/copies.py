@@ -27,6 +27,9 @@ class CopiesPreprocessor(GenericPreprocessor):
         df[new_col_name] = (df['RELATED_LIBCALLNOCLASS'] == value) * 1 * df['RELATED_LIBCALLNO']    
         df = self.move_last_column_after(df, 'RELATED_LIBCALLNO')
 
+    # Internet edit box
+    df = self.split_internet_class(df)
+
     # enumerate the pb base item (id) fields
     id_fields = [
       'COPID',
@@ -45,6 +48,7 @@ class CopiesPreprocessor(GenericPreprocessor):
       'SUBJECT_SUBID'
     ]
     dataclip_fields = [
+      'STATUS',
       'MATERIAL',
       'FORMAT',
       'LEAF_CLASS',

@@ -20,11 +20,15 @@ class MsEdPreprocessor(GenericPreprocessor):
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
     clazz = ['C', 'F', 'A', 'R', 'B', 'I', 'CIBN45', 'E']
 
+    libcallnoclass = 'RELATED_LIBCALLNOCLASS'
     for c in clazz:
         value = 'MS_ED*RELATED_LIBCALLNOCLASS*' + c
         new_col_name = 'RELATED_CALLNO_' + c
-        df[new_col_name] = (df['RELATED_LIBCALLNOCLASS'] == value) * 1 * df['RELATED_LIBCALLNO']    
+        df[new_col_name] = (df[libcallnoclass] == value) * 1 * df['RELATED_LIBCALLNO']    
         df = self.move_last_column_after(df, 'RELATED_LIBCALLNO')
+
+    # Internet edit box
+    df = self.split_internet_class(df)
 
     # enumerate the pb base item (id) fields
     id_fields = [
@@ -49,6 +53,7 @@ class MsEdPreprocessor(GenericPreprocessor):
     ]
 
     dataclip_fields = [
+      'STATUS',
       'MATERIAL',
       'FORMAT',
       'LEAF_CLASS',
@@ -63,7 +68,7 @@ class MsEdPreprocessor(GenericPreprocessor):
       'MILESTONE_CLASS',
       'CLASS',
       'RELATED_BIOCLASS',
-      'RELATED_LIBCALLNOCLASS',
+      libcallnoclass,
       'RELATED_LIBEVENTCLASS',
       'RELATED_BIBCLASS',
       'RELATED_MANCLASS',

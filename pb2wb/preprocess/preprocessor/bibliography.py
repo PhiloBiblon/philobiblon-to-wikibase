@@ -26,6 +26,9 @@ class BibliographyPreprocessor(GenericPreprocessor):
     df['ADJUNCT_FULLNAME'] = df['ADJUNCT_FNAME'] + ' ' + df['ADJUNCT_LNAME']
     df = self.move_last_column_after(df, 'ADJUNCT_LNAME')
 
+    # Internet edit box
+    df = self.split_internet_class(df)
+
     # enumerate the pb base item (id) fields
     id_fields = [
       'BIBID',
@@ -46,6 +49,7 @@ class BibliographyPreprocessor(GenericPreprocessor):
       'TYPE',
       'MEDIUM',
       'CLASS',
+      'STATUS',
       'RELATED_BIBCLASS',
       'INTERNET_CLASS'
     ]

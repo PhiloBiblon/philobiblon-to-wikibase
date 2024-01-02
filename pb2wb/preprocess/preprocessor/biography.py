@@ -85,6 +85,9 @@ class BiographyPreprocessor(GenericPreprocessor):
         df[new_col_name] = (df['AFFILIATION_CLASS'] == value) * 1 * df['AFFILIATION_TYPE']  
         df = self.move_last_column_after(df, 'AFFILIATION_TYPE')
 
+    # Internet edit box
+    df = self.split_internet_class(df)
+
     # enumerate the pb base item (id) fields
     id_fields = [
       'BIOID',
@@ -109,6 +112,8 @@ class BiographyPreprocessor(GenericPreprocessor):
       'MILESTONE_CLASS',
       'AFFILIATION_CLASS',
       'AFFILIATION_TYPE',
+      # Note: the next line is columns that were created by the split above
+      'AFFILIATION_TYPE_PRO', 'AFFILIATION_TYPE_ORD', 'AFFILIATION_TYPE_REL',
       'SEX',
       'RELATED_BIOCLASS',
       'RELATED_INSCLASS',
