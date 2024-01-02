@@ -19,6 +19,9 @@ class SubjectPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
 
+    # Internet edit box
+    df = self.split_internet_class(df)
+
     # enumerate the pb base item (id) fields
     id_fields = [
       'SUBID',
@@ -29,6 +32,8 @@ class SubjectPreprocessor(GenericPreprocessor):
     ]
 
     dataclip_fields = [
+      'HEADING_MAIN',
+      'HEADING_VARIANT',
       'HM_CLASS',
       'HM_TYPE',
       'HV_CLASS',

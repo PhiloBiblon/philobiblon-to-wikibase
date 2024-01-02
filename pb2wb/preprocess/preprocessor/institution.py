@@ -1,6 +1,3 @@
-from glob import escape
-import os
-import csv
 import pandas as pd
 from datetime import datetime
 
@@ -121,19 +118,8 @@ class InstitutionPreprocessor(GenericPreprocessor):
     df_ins = self.move_last_column_after(df_ins, 'RELATED_MANCLASS')
 
     # Internet edit box
-    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*EMA', 'INTERNET_CLASS_EMA', 'INTERNET_ADDRESS', 'mailto:{value}')
-    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
-    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*DOI', 'INTERNET_CLASS_DOI', 'INTERNET_ADDRESS')
-    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
-    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*CAT', 'INTERNET_CLASS_CAT', 'INTERNET_ADDRESS')
-    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
-    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URN', 'INTERNET_CLASS_URN', 'INTERNET_ADDRESS')
-    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
-    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URI', 'INTERNET_CLASS_URI', 'INTERNET_ADDRESS')
-    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
-    df_ins = self.add_new_column_from_value(df_ins, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URL', 'INTERNET_CLASS_URL', 'INTERNET_ADDRESS')
-    df_ins = self.move_last_column_after(df_ins, 'INTERNET_CLASS')
- 
+    df_ins = self.split_internet_class(df_ins)
+
     # Apply safety validations
     self.check_rows_empty_classes(df_ins, ['NAME_CLASS', 'INTERNET_CLASS'])
 

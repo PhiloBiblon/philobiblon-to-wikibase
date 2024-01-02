@@ -94,11 +94,15 @@ class GenericPreprocessor:
     prefix_columns = class_column[:len(class_column)-6]
     r = re.compile(f'{prefix_columns}.*')
 
-    condition = f'{class_column}.str.len()==0 & (' + ' | '.join([ f'{col_to_check}.str.len()>0' for col_to_check in list(filter(r.match, df.columns))]) + ')'
+    box_columns = list(filter(r.match, df.columns))
+    condition = f'{class_column}.str.len()==0 & ((' + ' | '.join([ f'{col_to_check}.str.len()>0'
+                                                                   for col_to_check in box_columns]) + '))'
     check_result = df.query(condition)
     if len(check_result) > 0:
       print(f'WARNING: Class column {class_column} empty but with data in {len(check_result)} rows:')
-      print(f"   {check_result['INSID'].tolist()}")
+      box_columns.insert(0, check_result.columns[0])
+      json_result = check_result[box_columns].head().to_json(orient='records')
+      print(json_result)
       return True
     return False
 
@@ -174,10 +178,11 @@ class GenericPreprocessor:
     else:
       return None
 
-  def add_new_column_from_value(self, df, from_column_name, from_value, new_column_name, column_name_value, format_str = None):
+  def add_new_column_from_value(self, df, from_column_name, from_value, new_column_name, column_name_value,
+                                format_str=None):
     """
     Creates a new column (new_colum_name) when an existing column (from_column_name) contains a particular value (from_value),
-    the value for the new column is taken from another column (column_name_value). If format_str is setted, the return value is formatted.
+    the value for the new column is taken from another column (column_name_value). If format_str is set, the return value is formatted.
 
     :param df: dataframe
     :param from_column_name: existing column to check
@@ -187,8 +192,22 @@ class GenericPreprocessor:
     :param format_str: format_string
     :return dataframe updated
     """
-    df[new_column_name] = df.apply(lambda row: self.get_from_value(from_value, row[from_column_name], row[column_name_value], format_str), axis=1)
-    return df
+    pd.options.mode.chained_assignment = 'raise'
+    df_copy = df.copy()
+    condition_mask = df_copy[from_column_name] == from_value
+    if condition_mask.any():
+        # Apply the condition to get values from column_name_value only when the condition is True
+        new_column_values = df_copy[column_name_value].where(condition_mask, df_copy[from_column_name])
+        if format_str and new_column_values.any():
+          do_format = lambda x: x if x is None or not isinstance(x, str) or x == '' else format_str.format(
+            value=x)
+          new_column_values = new_column_values.apply(do_format)
+        df_copy[new_column_name] = new_column_values
+    else:
+        # Handle the case where the condition is not met
+        df_copy[new_column_name] = ""
+
+    return df_copy
 
   def split_str_column_by_size(self, df, column_name, max_size):
     """
@@ -235,7 +254,7 @@ class GenericPreprocessor:
     return df
 
   def add_new_column_from_mapping(self, df, from_column_name, mapping_df, mapping_from_column, mapping_to_column,
-                                  new_column_name, default_value=np.nan):
+                                  new_column_name, default_value=""):
     """
     Creates a new column (new_column_name) by using an existing column (from_column_name) as a lookup into a mapping_df,
     using the mapping_from_column to look up keys and the mapping_to_column to extract values. If there is no match, the default_value
@@ -267,3 +286,24 @@ class GenericPreprocessor:
     output_csv = os.path.join(self.processed_dir, os.path.basename(file))
     print(f'{datetime.now()} INFO: Output csv: {output_csv}')
     df.to_csv(output_csv, index=False, quoting=csv.QUOTE_ALL)
+
+  def split_internet_class(self, df):
+    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*EMA',
+                                        'INTERNET_CLASS_EMA', 'INTERNET_ADDRESS', 'mailto:{value}')
+    df = self.move_last_column_after(df, 'INTERNET_CLASS')
+    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*DOI',
+                                        'INTERNET_CLASS_DOI', 'INTERNET_ADDRESS')
+    df = self.move_last_column_after(df, 'INTERNET_CLASS')
+    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*CAT',
+                                        'INTERNET_CLASS_CAT', 'INTERNET_ADDRESS')
+    df = self.move_last_column_after(df, 'INTERNET_CLASS')
+    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URN',
+                                        'INTERNET_CLASS_URN', 'INTERNET_ADDRESS')
+    df = self.move_last_column_after(df, 'INTERNET_CLASS')
+    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URI',
+                                        'INTERNET_CLASS_URI', 'INTERNET_ADDRESS')
+    df = self.move_last_column_after(df, 'INTERNET_CLASS')
+    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URL',
+                                        'INTERNET_CLASS_URL', 'INTERNET_ADDRESS')
+    df = self.move_last_column_after(df, 'INTERNET_CLASS')
+    return df

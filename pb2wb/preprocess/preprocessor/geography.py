@@ -24,6 +24,9 @@ class GeographyPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
 
+    # Internet edit box
+    df = self.split_internet_class(df)
+
     # enumerate the pb base item (id) fields
     id_fields = [
       'GEOID', 'RELATED_GEOID', 'RELATED_BIBID', 'RELATED_MANID', 'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
