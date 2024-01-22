@@ -27,12 +27,17 @@ class GeographyPreprocessor(GenericPreprocessor):
     # Internet edit box
     df = self.split_internet_class(df)
 
+    # Split RELATED_GEOID
+    df = self.split_column_by_clip(df, 'RELATED_GEOCLASS', 'RELATED_GEOID', 'GEOGRAPHY*RELATED_GEOCLASS',
+                                   ['P', 'S'])
+
     # enumerate the pb base item (id) fields
     id_fields = [
-      'GEOID', 'RELATED_GEOID', 'RELATED_BIBID', 'RELATED_MANID', 'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
+      'GEOID', 'RELATED_GEOID_S', 'RELATED_GEOID_P', 'RELATED_BIBID', 'RELATED_MANID',
+      'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
     ]
     dataclip_fields = [
-      'NAME_CLASS', 'CLASS', 'TYPE', 'RELATED_GEOCLASS', 'INTERNET_CLASS'
+      'NAME_CLASS', 'CLASS', 'TYPE', 'RELATED_GEOCLASS', 'RELATED_BIBCLASS', 'RELATED_MANCLASS', 'INTERNET_CLASS'
     ]
 
     # add new columns for the qnumbers using the lookup table if supplied

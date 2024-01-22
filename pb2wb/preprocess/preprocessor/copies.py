@@ -19,13 +19,9 @@ class CopiesPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
 
-    clazz = ['C', 'F', 'A', 'R', 'B', 'I', 'CIBN45', 'E']
-
-    for c in clazz:
-        value = 'MS_ED*RELATED_LIBCALLNOCLASS*' + c
-        new_col_name = 'RELATED_CALLNO_' + c
-        df[new_col_name] = (df['RELATED_LIBCALLNOCLASS'] == value) * 1 * df['RELATED_LIBCALLNO']    
-        df = self.move_last_column_after(df, 'RELATED_LIBCALLNO')
+    # Split RELATED_LIBCALLNO
+    df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',
+                                   ['C', 'F', 'A', 'R', 'B', 'I', 'CIBN45', 'E'])
 
     # Internet edit box
     df = self.split_internet_class(df)
