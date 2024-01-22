@@ -37,6 +37,7 @@ class AnalyticPreprocessor(GenericPreprocessor):
       'SUBJECT_SUBID'
     ]
     dataclip_fields = [
+      'DOCUMENT_LANGUAGE',
       'TEXT_LOCCLASS',
       'INC_EXP_CLASS',
       'VARIANT_NAMECLASS',

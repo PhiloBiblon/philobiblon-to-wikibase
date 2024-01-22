@@ -3,11 +3,12 @@ import os
 import re
 import textwrap
 from datetime import datetime
+from itertools import zip_longest
 
 import pandas as pd
-import numpy as np
 
 from common.settings import CLEAN_DIR, PRE_PROCESSED_DIR
+
 
 class GenericPreprocessor:
 
@@ -55,7 +56,7 @@ class GenericPreprocessor:
     :return: formatted value
     """
     if value:
-      return format_str.format(value = value)
+      return format_str.format(value=value)
     return ''
 
   def move_last_column_to(self, df, index):
@@ -91,12 +92,12 @@ class GenericPreprocessor:
     return df.columns.get_loc(column_name)
 
   def check_rows_empty_class(self, df, class_column):
-    prefix_columns = class_column[:len(class_column)-6]
+    prefix_columns = class_column[:len(class_column) - 6]
     r = re.compile(f'{prefix_columns}.*')
 
     box_columns = list(filter(r.match, df.columns))
-    condition = f'{class_column}.str.len()==0 & ((' + ' | '.join([ f'{col_to_check}.str.len()>0'
-                                                                   for col_to_check in box_columns]) + '))'
+    condition = f'{class_column}.str.len()==0 & ((' + ' | '.join([f'{col_to_check}.str.len()>0'
+                                                                  for col_to_check in box_columns]) + '))'
     check_result = df.query(condition)
     if len(check_result) > 0:
       print(f'WARNING: Class column {class_column} empty but with data in {len(check_result)} rows:')
@@ -106,7 +107,7 @@ class GenericPreprocessor:
       return True
     return False
 
-  def check_rows_empty_classes(self, df, columns_to_check = None):
+  def check_rows_empty_classes(self, df, columns_to_check=None):
     """
     Check that passed columns not contain empty rows.
 
@@ -169,7 +170,7 @@ class GenericPreprocessor:
     df[new_column_name] = df[existing_column_name]
     return df
 
-  def get_from_value(self, from_value, from_column_value, value, format_str = None):
+  def get_from_value(self, from_value, from_column_value, value, format_str=None):
     if from_column_value == from_value:
       if format_str:
         return self.get_format_str(format_str, value)
@@ -181,7 +182,7 @@ class GenericPreprocessor:
   def add_new_column_from_value(self, df, from_column_name, from_value, new_column_name, column_name_value,
                                 format_str=None):
     """
-    Creates a new column (new_colum_name) when an existing column (from_column_name) contains a particular value (from_value),
+    Creates a new column (new_column_name) when an existing column (from_column_name) contains a particular value (from_value),
     the value for the new column is taken from another column (column_name_value). If format_str is set, the return value is formatted.
 
     :param df: dataframe
@@ -196,16 +197,16 @@ class GenericPreprocessor:
     df_copy = df.copy()
     condition_mask = df_copy[from_column_name] == from_value
     if condition_mask.any():
-        # Apply the condition to get values from column_name_value only when the condition is True
-        new_column_values = df_copy[column_name_value].where(condition_mask, df_copy[from_column_name])
-        if format_str and new_column_values.any():
-          do_format = lambda x: x if x is None or not isinstance(x, str) or x == '' else format_str.format(
-            value=x)
-          new_column_values = new_column_values.apply(do_format)
-        df_copy[new_column_name] = new_column_values
+      # Apply the condition to get values from column_name_value only when the condition is True
+      new_column_values = df_copy[column_name_value].where(condition_mask, "")
+      if format_str and new_column_values.any():
+        do_format = lambda x: x if x is None or not isinstance(x, str) or x == '' else format_str.format(
+          value=x)
+        new_column_values = new_column_values.apply(do_format)
+      df_copy[new_column_name] = new_column_values
     else:
-        # Handle the case where the condition is not met
-        df_copy[new_column_name] = ""
+      # Handle the case where the condition is not met
+      df_copy[new_column_name] = ""
 
     return df_copy
 
@@ -254,19 +255,19 @@ class GenericPreprocessor:
     return df
 
   def add_new_column_from_mapping(self, df, from_column_name, mapping_df, mapping_from_column, mapping_to_column,
-                                  new_column_name, default_value=""):
-    """
-    Creates a new column (new_column_name) by using an existing column (from_column_name) as a lookup into a mapping_df,
-    using the mapping_from_column to look up keys and the mapping_to_column to extract values. If there is no match, the default_value
-    is returned. If there are multiple matches (there shouldn't!), the first is used.
-    """
+                                  new_column_name, default_value="", no_match_value=""):
     # Create a mapping DataFrame
     mapping = mapping_df[[mapping_from_column, mapping_to_column]].copy()
 
     # Merge the original DataFrame with the mapping DataFrame
     merged_df = pd.merge(df, mapping, left_on=from_column_name, right_on=mapping_from_column, how='left')
 
-    merged_df[new_column_name] = merged_df[mapping_to_column].fillna(default_value)
+    # Use default_value if 'from_column_name' is empty (including empty strings) and no match is found in mapping
+    merged_df[new_column_name] = merged_df.apply(lambda row: default_value
+    if pd.isna(row[mapping_to_column]) and (pd.isna(row[from_column_name]) or row[from_column_name] == '')
+    else no_match_value
+    if pd.isna(row[mapping_to_column]) and not (pd.isna(row[from_column_name]) or row[from_column_name] == '')
+    else row[mapping_to_column], axis=1)
 
     # Drop unnecessary columns from the merged DataFrame
     merged_df = merged_df.drop([mapping_from_column, mapping_to_column], axis=1)
@@ -278,7 +279,8 @@ class GenericPreprocessor:
       return df
     lookup_df = pd.read_csv(self.qnumber_lookup_file, dtype=str, keep_default_na=False)
     for field in fields:
-      df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER', field + '_QNUMBER')
+      df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER',
+                                            field + '_QNUMBER', no_match_value="LOOKUP_FAILED")
       df = self.move_last_column_after(df, field)
     return df
 
@@ -287,23 +289,17 @@ class GenericPreprocessor:
     print(f'{datetime.now()} INFO: Output csv: {output_csv}')
     df.to_csv(output_csv, index=False, quoting=csv.QUOTE_ALL)
 
-  def split_internet_class(self, df):
-    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*EMA',
-                                        'INTERNET_CLASS_EMA', 'INTERNET_ADDRESS', 'mailto:{value}')
-    df = self.move_last_column_after(df, 'INTERNET_CLASS')
-    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*DOI',
-                                        'INTERNET_CLASS_DOI', 'INTERNET_ADDRESS')
-    df = self.move_last_column_after(df, 'INTERNET_CLASS')
-    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*CAT',
-                                        'INTERNET_CLASS_CAT', 'INTERNET_ADDRESS')
-    df = self.move_last_column_after(df, 'INTERNET_CLASS')
-    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URN',
-                                        'INTERNET_CLASS_URN', 'INTERNET_ADDRESS')
-    df = self.move_last_column_after(df, 'INTERNET_CLASS')
-    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URI',
-                                        'INTERNET_CLASS_URI', 'INTERNET_ADDRESS')
-    df = self.move_last_column_after(df, 'INTERNET_CLASS')
-    df = self.add_new_column_from_value(df, 'INTERNET_CLASS', 'UNIVERSAL*INTERNET_CLASS*URL',
-                                        'INTERNET_CLASS_URL', 'INTERNET_ADDRESS')
-    df = self.move_last_column_after(df, 'INTERNET_CLASS')
+  def split_column_by_clip(self, df, clip_column: str, split_column: str, clip_base: str, clip_exts,
+                           format_strs=[]):
+    for clip_ext, format_str in zip_longest(clip_exts, format_strs):
+      df = self.add_new_column_from_value(df, clip_column, f'{clip_base}*{clip_ext}',
+                                          f'{split_column}_{clip_ext}', split_column,
+                                          format_str=format_str)
+      df = self.move_last_column_after(df, split_column)
     return df
+
+  def split_internet_class(self, df):
+    return self.split_column_by_clip(df, 'INTERNET_CLASS', 'INTERNET_ADDRESS',
+                                     'UNIVERSAL*INTERNET_CLASS',
+                                     ['EMA', 'DOI', 'CAT', 'URN', 'URI', 'URL'],
+                                     format_strs=['mailto:{value}'])

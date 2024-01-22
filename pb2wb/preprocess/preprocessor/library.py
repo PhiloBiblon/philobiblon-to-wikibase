@@ -38,6 +38,7 @@ class LibraryPreprocessor(GenericPreprocessor):
     dataclip_fields = [
       'NAME_CLASS',
       'LIBCODE_CLASS',
+      'PHONE_LOC',
       'CLASS',
       'TYPE',
       'RELATED_GEOCLASS',

@@ -77,13 +77,9 @@ class BiographyPreprocessor(GenericPreprocessor):
     # we could load geo to resolve titles e.g. "King of Castille" - but this isn't working yet
     # dict_geo = self.load_geo(geography_file)
 
-    # splitting Affiliation_type
-    clazz = ['ORD','PRO','REL']
-    for c in clazz:
-        value = 'BIOGRAPHY*AFFILIATION_CLASS*' + c
-        new_col_name = 'AFFILIATION_TYPE_' + c
-        df[new_col_name] = (df['AFFILIATION_CLASS'] == value) * 1 * df['AFFILIATION_TYPE']  
-        df = self.move_last_column_after(df, 'AFFILIATION_TYPE')
+    # Split Affiliation_type
+    df = self.split_column_by_clip(df, 'AFFILIATION_CLASS', 'AFFILIATION_TYPE', 'BIOGRAPHY*AFFILIATION_CLASS',
+                                   ['ORD', 'PRO', 'REL'])
 
     # Internet edit box
     df = self.split_internet_class(df)

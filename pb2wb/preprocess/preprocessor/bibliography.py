@@ -29,6 +29,10 @@ class BibliographyPreprocessor(GenericPreprocessor):
     # Internet edit box
     df = self.split_internet_class(df)
 
+    # Split ID_NUMBER
+    df = self.split_column_by_clip(df, 'ID_CLASS', 'ID_NUMBER', 'BIBLIOGRAPHY*ID_CLASS',
+                                   ['DOI', 'EISBN', 'ISBN', 'ISBN-10', 'ISBN-13', 'ISSN', 'ISSN-E'])
+
     # enumerate the pb base item (id) fields
     id_fields = [
       'BIBID',
