@@ -1,5 +1,6 @@
 import pandas as pd
 from wikibaseintegrator.datatypes import Item, String
+from wikibaseintegrator import Qualifiers
 import textwrap
 
 from .generic import GenericMapper
@@ -46,9 +47,13 @@ class MonikerMapper(GenericMapper):
     label = self.prepare_label(pbid, df_element)
 
     if label:
-      item.labels.set(language='en', value=label)
-      item.aliases.set(language='en', values=pbid)
+      item.labels.set(language='es', value=label)
+      item.aliases.set(language='es', values=pbid)
       item.claims.add(String(value=pbid, prop_nr=PROPERTY_PHILOBIBLON_ID))
+      qualifiers = Qualifiers()
+      qualifiers.add(Item(value='Q6', prop_nr='P700'))
+      item.claims.add(Item(value='Q4', prop_nr='P131', qualifiers=qualifiers))
+      item.claims.add(Item(value='Q5', prop_nr='P17'))
       
       return item, is_new
     else:
