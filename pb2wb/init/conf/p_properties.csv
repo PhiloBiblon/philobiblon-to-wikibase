@@ -2,7 +2,7 @@ PNUMBER,LABEL,LANG,TYPE
 P1,,,
 P2,Instance of,en,wikibase-item
 P3,Subclass of,en,wikibase-item
-P4,,en,string
+P4,* Qualifier,en,string
 P5,Title page transcript,en,string
 P6,Continuation of,en,wikibase-item
 P7,Continued by,en,wikibase-item
@@ -64,7 +64,7 @@ P62,,,
 P63,Translation of,en,wikibase-item
 P64,Published in,en,wikibase-item
 P65,Answer on,en,wikibase-item
-P66,Organization signing responsible  / organiser,en,wikibase-item
+P66,Organisational responsibility,en,wikibase-item
 P67,Financed by,en,wikibase-item
 P68,Transcribed by,en,wikibase-item
 P69,Online transcript,en,url
@@ -109,7 +109,7 @@ P107,Number of pages/ leaves/ sheets/ columns/ lines,en,quantity
 P108,<number of sheets>,en,quantity
 P109,,,
 P110,Can mean,en,wikibase-item
-P111,Address (in words),en,string
+P111,* Address,en,string
 P112,Date [string],en,string
 P113,Coding key,en,wikibase-item
 P114,Original of this,en,wikibase-item
@@ -154,13 +154,13 @@ P152,House name,en,string
 P153,Address name(s),en,string
 P154,Gender,en,wikibase-item
 P155,How sure is this?,en,wikibase-item
-P156,Online presence,en,url
+P156,Website,en,url
 P157,"<PPN link, GBV (Common Library Network) book search>",en,url
 P158,Preservation,en,wikibase-item
 P159,Collected by,en,wikibase-item
 P160,Educating institution,en,wikibase-item
 P161,Teacher,en,wikibase-item
-P162,Cause of death,en,wikibase-item
+P162,Medical cause of death,en,wikibase-item
 P163,FactGrid user page,en,url
 P164,Position held,en,wikibase-item
 P165,Career statement,en,wikibase-item
@@ -211,7 +211,7 @@ P209,Regular meeting point,en,wikibase-item
 P210,Hosted,en,wikibase-item
 P211,Last professional status,en,wikibase-item
 P212,Ethnic background,en,wikibase-item
-P213,,en,wikibase-item
+P213,Target language,en,wikibase-item
 P214,Date of last will,en,time
 P215,Aristocratic tenures,en,wikibase-item
 P216,Place of detention,en,wikibase-item
@@ -229,7 +229,7 @@ P227,<Godparent(s)>,en,wikibase-item
 P228,<Biological father>,en,wikibase-item
 P229,Provenance,en,wikibase-item
 P230,Affair with,en,wikibase-item
-P231,Met with,en,wikibase-item
+P231,Encounter,en,wikibase-item
 P232,Institution(s) mentioned,en,wikibase-item
 P233,Linking back to,en,wikibase-item
 P234,Connection to preceding,en,wikibase-item
@@ -242,7 +242,7 @@ P240,Place of publication as (misleadingly) stated,en,wikibase-item
 P241,Place of publication (without fictitious information),en,wikibase-item
 P242,Events witnessed,en,wikibase-item
 P243,Topic,en,wikibase-item
-P244,Autobiography,en,wikibase-item
+P244,Autobiography / diaries,en,wikibase-item
 P245,<Unhappily loved by>,en,wikibase-item
 P246,<Loved unhappily>,en,wikibase-item
 P247,Surname,en,wikibase-item
@@ -263,11 +263,11 @@ P261,FactGrid Collection of Information,en,url
 P262,FactGrid merger candidate,en,wikibase-item
 P263,State of work,en,wikibase-item
 P264,Presented by,en,wikibase-item
-P265,Closest equivalent,en,wikibase-item
+P265,Functional equivalent,en,wikibase-item
 P266,<offices held>,en,wikibase-item
 P267,Organisational context,en,wikibase-item
 P268,Initiated by,en,wikibase-item
-P269,Proposed by,en,wikibase-item
+P269,Proposed / introduced by,en,wikibase-item
 P270,<Foster father>,en,wikibase-item
 P271,<Foster mother>,en,wikibase-item
 P272,<Foster child>,en,wikibase-item
@@ -278,16 +278,16 @@ P276,Specific data set,en,wikibase-item
 P277,Subject has role,en,wikibase-item
 P278,Subscriptions signed,en,wikibase-item
 P279,Number of pieces,en,quantity
-P280,Economic use of the property,en,wikibase-item
+P280,Real estate use,en,wikibase-item
 P281,Building history,en,wikibase-item
 P282,"<""Typ"">",en,string
 P283,<GND test>,en,wikibase-item
 P284,<GND test 2>,en,wikibase-item
-P285,<Enemy of>,en,wikibase-item
+P285,Conflicting tenet,en,wikibase-item
 P286,Geographical space covered,en,wikibase-item
-P287,<GND test 3>,en,wikibase-item
+P287,Type of organisation,en,wikibase-item
 P288,<GND test 4>,en,string
-P289,<GND test5>,en,time
+P289,Gregorian calendar adopted,en,time
 P290,First known date,en,time
 P291,Last known date,en,time
 P292,Publication interval,en,wikibase-item
@@ -295,7 +295,7 @@ P293,Members,en,wikibase-item
 P294,Abbreviation,en,wikibase-item
 P295,From,en,wikibase-item
 P296,Stay in,en,wikibase-item
-P297,Territorial affiliation,en,wikibase-item
+P297,Territorial integration,en,wikibase-item
 P298,Translated,en,monolingualtext
 P299,Holding this position,en,wikibase-item
 P300,Follower of,en,wikibase-item
@@ -330,14 +330,14 @@ P328,Represented by,en,wikibase-item
 P329,Present holding,en,wikibase-item
 P330,Apprenticeship,en,wikibase-item
 P331,<patent>,en,url
-P332,Layout of positions,en,wikibase-property
+P332,Organigram,en,wikibase-property
 P333,Qualifying sub-properties,en,wikibase-property
 P334,FactGrid Property to use instead,en,wikibase-property
 P335,Daughter lodge(s),en,wikibase-item
 P336,Mother lodge / Grand lodge,en,wikibase-item
 P337,Main lodge,en,wikibase-item
 P338,Founding members,en,wikibase-item
-P339,occasion,en,wikibase-item
+P339,Occasion,en,wikibase-item
 P340,Marriage witness,en,wikibase-item
 P341,Pseudonym,en,wikibase-item
 P342,Worshipful Master,en,wikibase-item
@@ -362,7 +362,7 @@ P360,Implemented by,en,wikibase-item
 P361,Degrees worked,en,wikibase-item
 P362,Constituted by,en,wikibase-item
 P363,Strict Observance order name,en,wikibase-item
-P364,Sample item,en,wikibase-item
+P364,FactGrid property example,en,wikibase-item
 P365,<Ritual(s)>,en,wikibase-item
 P366,IdRef ID,en,external-id
 P367,BnF ID,en,external-id
@@ -402,7 +402,7 @@ P400,Plus,en,quantity
 P401,Material composition,en,wikibase-item
 P402,Percentage,en,quantity
 P403,Silver content,en,quantity
-P404,Length,en,quantity
+P404,Length /distance,en,quantity
 P405,Fineness (/1000),en,quantity
 P406,Number making a unit,en,quantity
 P407,Matching,en,quantity
@@ -419,19 +419,19 @@ P417,Heir(ess),en,wikibase-item
 P418,GeoNames ID,en,external-id
 P419,Subsidiary,en,wikibase-item
 P420,Subclass,en,wikibase-item
-P421,Propagated views,en,wikibase-item
-P422,Subject,en,wikibase-item
+P421,Propagated view,en,wikibase-item
+P422,Subject heading,en,wikibase-item
 P423,Definition,en,monolingualtext
 P424,Harmonia Universalis ID,en,external-id
 P425,Precision of localisation,en,wikibase-item
 P426,War deployment,en,wikibase-item
-P427,* Matriculation number [string],en,string
+P427,Matriculation number [string],en,string
 P428,Next higher organisational level,en,wikibase-item
-P429,Geographical coverage,en,wikibase-item
+P429,Geo-organisational definition,en,wikibase-item
 P430,Recognised by,en,wikibase-item
 P431,affiliated Lodges,en,wikibase-item
 P432,Date of finding,en,time
-P433,X handle,en,external-id
+P433,Twitter / X handle,en,external-id
 P434,Associated place,en,wikibase-item
 P435,<FactGrid document page>,en,external-id
 P436,Merger with,en,wikibase-item
@@ -473,7 +473,7 @@ P471,Klosterdatenbank ID,en,external-id
 P472,Germania Sacra database of persons ID,en,external-id
 P473,Repertorium Germanicum ID,en,external-id
 P474,Abbot,en,wikibase-item
-P475,Brother-in-law,en,wikibase-item
+P475,<Brother-in-law>,en,wikibase-item
 P476,PhiloBiblon ID,en,external-id
 P477,,,
 P478,,,
@@ -517,9 +517,9 @@ P515,Purpose,en,wikibase-item
 P516,Alternatively,en,wikibase-item
 P517,RAG ID,en,external-id
 P518,Technical realisation,en,wikibase-item
-P519,IdRef,en,external-id
+P519,,en,external-id
 P520,Original note,en,string
-P521,Rite,en,wikibase-item
+P521,Rite / rule / system,en,wikibase-item
 P522,<Street or place of address>,en,wikibase-item
 P523,Territory granting the indigenate,en,wikibase-item
 P524,Installed by,en,wikibase-item
@@ -553,12 +553,12 @@ P551,Date of premiere,en,time
 P552,Architect,en,wikibase-item
 P553,<Contribution>,en,wikibase-item
 P554,Philosophical system,en,wikibase-item
-P555,Legal basis,en,wikibase-item
+P555,Text justification / legal basis,en,wikibase-item
 P556,Wikimedia Commons image of grave or memorial,en,commonsMedia
 P557,Intervened on behalf of,en,wikibase-item
 P558,Reason for persecution,en,wikibase-item
 P559,Delivered to,en,wikibase-item
-P560,Status assignments,en,wikibase-item
+P560,Status,en,wikibase-item
 P561,<Transparency of the author information>,en,wikibase-item
 P562,<Transparency of the place of publication>,en,wikibase-item
 P563,<Transparency of publication date>,en,wikibase-item
@@ -569,7 +569,7 @@ P567,Protagonist(s),en,wikibase-item
 P568,Plot ingredient,en,wikibase-item
 P569,Social sphere of events,en,wikibase-item
 P570,Reception promises (literal),en,wikibase-item
-P571,,en,wikibase-item
+P571,Transport connection,en,wikibase-item
 P572,Title aspects,en,wikibase-item
 P573,Target group,en,wikibase-item
 P574,Inter-textual allusions,en,wikibase-item
@@ -587,8 +587,8 @@ P585,ESTC-ID,en,external-id
 P586,Family,en,wikibase-item
 P587,Designed to state,en,wikibase-item
 P588,Religious or spiritual practice and experiences,en,wikibase-item
-P589,Subject of investigation in the field of,en,wikibase-item
-P590,Work presented here,en,wikibase-item
+P589,Knowledge embedding,en,wikibase-item
+P590,Work context,en,wikibase-item
 P591,Influenced by,en,wikibase-item
 P592,Request FactGrid,en,url
 P593,Request name,en,wikibase-item
@@ -606,7 +606,7 @@ P604,<Shared household with>,en,wikibase-item
 P605,ISBN-10,en,external-id
 P606,ISBN-13,en,external-id
 P607,Favoured party,en,wikibase-item
-P608,Field of knowledge,en,wikibase-item
+P608,Area of knowledge covered,en,wikibase-item
 P609,Customer of,en,wikibase-item
 P610,Bossu ID,en,external-id
 P611,Visual work components by,en,wikibase-item
@@ -659,7 +659,7 @@ P657,Payment sender,en,wikibase-item
 P658,Payment transactor,en,wikibase-item
 P659,Payment recipient,en,wikibase-item
 P660,Vergue ID,en,external-id
-P661,Political orientation,en,wikibase-item
+P661,Political stance,en,wikibase-item
 P662,,en,string
 P663,Maps and plans,en,wikibase-item
 P664,Opposing,en,wikibase-item
@@ -719,7 +719,7 @@ P717,Capacity,en,quantity
 P718,Brand,en,wikibase-item
 P719,GitHub username,en,external-id
 P720,FactGrid List,en,url
-P721,Source <string>,en,string
+P721,* Source,en,string
 P722,Email address,en,url
 P723,Living people protection class,en,wikibase-item
 P724,Digest,en,monolingualtext
@@ -756,11 +756,11 @@ P754,Typology,en,wikibase-item
 P755,Column(s),en,string
 P756,Fly leaf/ Fly leaves,en,string
 P757,Plate(s),en,string
-P758,Constitution,en,wikibase-item
+P758,Form of government,en,wikibase-item
 P759,Flag,en,commonsMedia
 P760,Per,en,wikibase-item
-P761,Fictionalises,en,wikibase-item
-P762,Fictional appearance in,en,wikibase-item
+P761,Depicts in text or staging,en,wikibase-item
+P762,Depicted in text or dramatic action,en,wikibase-item
 P763,PRELIB person ID,en,external-id
 P764,PRELIB organization ID,en,external-id
 P765,ISO 639-3,en,external-id
@@ -855,7 +855,7 @@ P853,Period,en,wikibase-item
 P854,In the the reign / dynasty / time frame,en,wikibase-item
 P855,Lobid-GND,en,external-id
 P856,Check,en,wikibase-item
-P857,Workplace,en,wikibase-property
+P857,<Workplace>,en,wikibase-property
 P858,EPSG CRS,en,wikibase-property
 P859,Scale (1:n),en,quantity
 P860,,,
@@ -883,7 +883,7 @@ P881,Infrastructure,en,wikibase-item
 P882,Deutsches Rechtswörterbuch,en,external-id
 P883,Item count from,en,quantity
 P884,Item count to,en,quantity
-P885,<Series integration>,en,wikibase-item
+P885,Circumstances of death,en,wikibase-item
 P886,Apartment,en,wikibase-item
 P887,Dataset link,en,url
 P888,Female form of label,en,monolingualtext
@@ -897,19 +897,19 @@ P895,Appropriate clothing,en,wikibase-item
 P896,,en,wikibase-property
 P897,,en,wikibase-property
 P898,External matching,en,wikibase-item
-P899,Object properties,en,wikibase-property
+P899,Object type properties,en,wikibase-property
 P900,Completeness,en,wikibase-item
 P901,Usability,en,wikibase-item
 P902,Methodical Approach,en,wikibase-item
 P903,Data format,en,wikibase-item
-P904,OhdAB-ges ID,en,external-id
-P905,OhdAB field of statement,en,wikibase-item
-P906,OhdAB01 (Field of professions),en,wikibase-item
-P907,OhdAB02 (Main group of professions),en,wikibase-item
-P908,OhdAB03 (Group of professions),en,wikibase-item
-P909,OhdAB04 (Subgroup of professions),en,wikibase-item
-P910,OhdAB05 (Branch of professions),en,wikibase-item
-P911,OhdAB06 (Level of expertise),en,wikibase-item
+P904,OhdAB ID,en,external-id
+P905,<OhdAB field of statement>,en,wikibase-item
+P906,<OhdAB01 (Field of professions)>,en,wikibase-item
+P907,<OhdAB02 (Main group of professions)>,en,wikibase-item
+P908,<OhdAB03 (Group of professions)>,en,wikibase-item
+P909,<OhdAB04 (Subgroup of professions)>,en,wikibase-item
+P910,<OhdAB05 (Branch of professions)>,en,wikibase-item
+P911,OhdAB Level of expertise,en,wikibase-item
 P912,Speech act qualities,en,wikibase-item
 P913,,en,string
 P914,OhdAB standard designation,en,monolingualtext
@@ -933,7 +933,7 @@ P931,Latin Place Names ID,en,external-id
 P932,BARTOC Vocabularies ID,en,external-id
 P933,Year of the time frame,en,quantity
 P934,Patronym or matronym for this person,en,wikibase-item
-P935,Patrocinium,en,wikibase-item
+P935,Patron saint,en,wikibase-item
 P936,Object types,en,wikibase-item
 P937,How to reference information,en,wikibase-item
 P938,Use,en,wikibase-item
@@ -968,9 +968,99 @@ P966,Equivalent class,en,url
 P967,Weapons category,en,wikibase-item
 P968,EU Knowledge Graph item ID,en,external-id
 P969,Falk Regiment ID,en,external-id
-P970,Name attribute,en,monolingualtext
-P971,Arrivals,en,wikibase-item
-P972,Departures,en,wikibase-item
+P970,Origin attribute,en,monolingualtext
+P971,Transport connection from,en,wikibase-item
+P972,Transport connection to,en,wikibase-item
 P973,Weekday,en,wikibase-item
 P974,Time of arrival,en,string
 P975,Time of departure,en,string
+P976,Ability,en,wikibase-item
+P977,Wikibase World Item ID,en,external-id
+P978,External tutorial,en,wikibase-item
+P979,Wikimedia map location,en,commonsMedia
+P980,Iconclass ID,en,external-id
+P981,Troop contributors,en,wikibase-item
+P982,Possible further item connections,en,wikibase-item
+P983,Latin version,en,wikibase-item
+P984,Organises information under the headings,en,wikibase-item
+P985,Find a Grave memorial ID,en,external-id
+P986,Postal code,en,string
+P987,Etymological components,en,wikibase-item
+P988,Etymological explanation,en,monolingualtext
+P989,Service provider,en,wikibase-item
+P990,Evaluation,en,wikibase-item
+P991,Iconclass identification of individual motifs,en,external-id
+P992,Wikibase Browser,en,url
+P993,Information about transport connections,en,wikibase-item
+P994,PhiloBiblon vocabulary term,en,string
+P995,Services offered,en,wikibase-item
+P996,Arrival,en,wikibase-item
+P997,Departure,en,wikibase-item
+P998,Francke Foundations Bio ID,en,external-id
+P999,Sustainability,en,wikibase-item
+P1000,Organisational layout,en,wikibase-item
+P1001,Function,en,wikibase-item
+P1002,Gallica ID,en,external-id
+P1003,Diocese,en,wikibase-item
+P1004,Incunables de la Biblioteca Nacional ID,en,string
+P1005,Merchandise,en,wikibase-item
+P1006,Geonames Feature Code,en,wikibase-item
+P1007,OhdAB category,en,wikibase-item
+P1008,* Article,en,string
+P1009,Applies to jurisdiction,en,wikibase-item
+P1010,Leaseholder,en,wikibase-item
+P1011,Leaser,en,wikibase-item
+P1012,Interest claim (per annum),en,quantity
+P1013,Feudal obligation,en,quantity
+P1014,Capital burden,en,quantity
+P1015,Compulsory obligation towards,en,wikibase-item
+P1016,Live stock,en,quantity
+P1017,Number of objects within a collection,en,quantity
+P1018,Field of offices in the Roman Catholic Church,en,wikibase-item
+P1019,Capital return of the property,en,quantity
+P1020,Area,en,quantity
+P1021,family name identical to this given name,en,wikibase-item
+P1022,Organisational aspects,en,wikibase-item
+P1023,Pronunciation (IPA),en,monolingualtext
+P1024,Sejm-Wielki.pl profile ID,en,external-id
+P1025,Ordained / consecrated by,en,wikibase-item
+P1026,KOATUU-ID,en,external-id
+P1027,DFG subject classification,en,wikibase-item
+P1028,Destination,en,wikibase-item
+P1029,Object's side,en,wikibase-item
+P1030,Line,en,string
+P1031,Literal translation,en,string
+P1032,Room number,en,string
+P1033,Area ID,en,string
+P1034,3D model,en,url
+P1035,Well-Known Text Geometry,en,string
+P1036,exception to constraint,en,wikibase-item
+P1037,constraint status,en,wikibase-item
+P1038,class,en,wikibase-item
+P1039,,,
+P1040,item of property constraint,en,wikibase-item
+P1041,minimum date (property constraint),en,time
+P1042,maximum date (property constraint),en,time
+P1043,Wikimedia Commons namespace,en,string
+P1044,format as a regular expression,en,string
+P1045,syntax clarification,en,monolingualtext
+P1046,constraint scope,en,wikibase-item
+P1047,,,
+P1048,separator,en,wikibase-property
+P1049,property scope,en,wikibase-item
+P1050,KATOTTH ID,en,external-id
+P1051,Object mentioned,en,wikibase-item
+P1052,Identification Document,en,wikibase-item
+P1053,* Secondary literature,en,string
+P1054,* Contains documents of,en,string
+P1055,Catalogus Professorum Halensis ID,en,external-id
+P1056,"Internetportal Westfälische Geschichte ID, Persons entry",en,external-id
+P1057,Mainzer Ingrossaturbücher ID,en,external-id
+P1058,Matrikelportal Rostock (since 1419) ID,en,external-id
+P1059,Deutsche Inschriften Online ID,en,external-id
+P1060,Circumcision Date (religious),en,time
+P1061,Journal database ID,en,external-id
+P1062,Peerage person ID,en,external-id
+P1063,epidat-Database ID,en,external-id
+P1064,PMB person ID,en,external-id
+P1065,Maitron ID,en,external-id
