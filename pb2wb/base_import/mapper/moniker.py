@@ -1,6 +1,6 @@
 import pandas as pd
 from wikibaseintegrator.datatypes import Item, String
-from wikibaseintegrator import Qualifiers
+from wikibaseintegrator.models import Qualifiers
 import textwrap
 
 from .generic import GenericMapper
