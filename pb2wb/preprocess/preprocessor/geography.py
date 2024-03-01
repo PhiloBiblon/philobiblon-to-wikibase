@@ -73,6 +73,7 @@ class GeographyPreprocessor(GenericPreprocessor):
     # adding the name_lang column
     df['NAME_LANG'] = df.apply (lambda row: self.get_name_lang(row), axis=1)
 
+    df = self.move_last_column_after(df, 'NAME_CLASS')
 
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')

@@ -25,7 +25,7 @@ class SubjectPreprocessor(GenericPreprocessor):
     super().__init__(top_level_bib, qnumber_lookup_file)
 
   def get_name_lang(self, row):
-    name_class = row['NAME_CLASS']
+    name_class = row['HV_CLASS']
     if name_class:
       if name_class in self.NAME_CLASS_TO_LANG:
         return self.NAME_CLASS_TO_LANG[name_class]
@@ -69,6 +69,8 @@ class SubjectPreprocessor(GenericPreprocessor):
 
     # adding the name_lang column
     df['NAME_LANG'] = df.apply (lambda row: self.get_name_lang(row), axis=1)
-  
+
+    df = self.move_last_column_after(df, 'HV_CLASS')
+      
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')
