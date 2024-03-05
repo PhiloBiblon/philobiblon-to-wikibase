@@ -301,5 +301,5 @@ class GenericPreprocessor:
   def split_internet_class(self, df):
     return self.split_column_by_clip(df, 'INTERNET_CLASS', 'INTERNET_ADDRESS',
                                      'UNIVERSAL*INTERNET_CLASS',
-                                     ['EMA', 'DOI', 'CAT', 'URN', 'URI', 'URL'],
+                                     ['EMA', 'DOI', 'CAT', 'URN', 'URI', 'URL', 'VIAF'],
                                      format_strs=['mailto:{value}'])
