@@ -95,9 +95,10 @@ class WBManager():
 
   # search a wb entity by its label
   def get_q_by_label(self, label, lang):
+    label_regex = label.replace('(', '\\\\(').replace(')', '\\\\)')
     results= wbi_helpers.execute_sparql_query(f"""SELECT ?item WHERE {{
         ?item rdfs:label ?itemLabel.
-        FILTER(REGEX(?itemLabel, "^{label}$"@{lang}, "i")).
+        FILTER(REGEX(?itemLabel, "^{label_regex}$"@{lang}, "i")).
         FILTER CONTAINS(str(?item), '/Q')
       }}""", prefix = SPARQL_PREFIX)
     if results['results']['bindings']:

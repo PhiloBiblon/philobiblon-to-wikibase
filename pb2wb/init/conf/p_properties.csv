@@ -51,7 +51,7 @@ P49,Begin date,en,time
 P50,End date,en,time
 P51,Primary source,en,wikibase-item
 P52,Indication the object existed,en,wikibase-item
-P53,<Wikimedia language code>,en,string
+P53,Wikimedia language code,en,string
 P54,Page(s),en,string
 P55,Image number,en,string
 P56,Nickname/ name used,en,string
@@ -134,7 +134,7 @@ P132,Place of marriage,en,wikibase-item
 P133,Present involved,en,wikibase-item
 P134,Transmitted by,en,wikibase-item
 P135,Reviewed in,en,wikibase-item
-P136,Historical holding,en,wikibase-item
+P136,Collections that owned specimens,en,wikibase-item
 P137,History,en,wikibase-item
 P138,Online digitisation,en,url
 P139,Illuminati code name of,en,wikibase-item
@@ -263,7 +263,7 @@ P261,FactGrid Collection of Information,en,url
 P262,FactGrid merger candidate,en,wikibase-item
 P263,State of work,en,wikibase-item
 P264,Presented by,en,wikibase-item
-P265,Functional equivalent,en,wikibase-item
+P265,Equivalent in other organizations,en,wikibase-item
 P266,<offices held>,en,wikibase-item
 P267,Organisational context,en,wikibase-item
 P268,Initiated by,en,wikibase-item
@@ -295,7 +295,7 @@ P293,Members,en,wikibase-item
 P294,Abbreviation,en,wikibase-item
 P295,From,en,wikibase-item
 P296,Stay in,en,wikibase-item
-P297,Territorial integration,en,wikibase-item
+P297,Territorial localisation,en,wikibase-item
 P298,Translated,en,monolingualtext
 P299,Holding this position,en,wikibase-item
 P300,Follower of,en,wikibase-item
@@ -536,7 +536,7 @@ P534,<place of detention>,en,wikibase-item
 P535,TEI ID,en,external-id
 P536,Date of artifact,en,time
 P537,CERL Thesaurus ID,en,external-id
-P538,Historical county,en,wikibase-item
+P538,Historic county,en,wikibase-item
 P539,Composer,en,wikibase-item
 P540,Work to be subscribed,en,wikibase-item
 P541,"Recording, online information",en,url
@@ -627,7 +627,7 @@ P625,Predominant gender usage,en,wikibase-item
 P626,Economic sector of the career statement,en,wikibase-item
 P627,Property constraint,en,wikibase-item
 P628,Relation constraint,en,wikibase-item
-P629,Relative without exact statement,en,wikibase-item
+P629,Family in the broader field of possibilities,en,wikibase-item
 P630,Opposite of,en,wikibase-item
 P631,First documented in,en,wikibase-item
 P632,<Digest in French>,en,string
@@ -737,7 +737,7 @@ P735,Patronage,en,wikibase-item
 P736,Statistics,en,wikibase-item
 P737,Set by,en,wikibase-item
 P738,Registrar,en,wikibase-item
-P739,Fighting on the side of,en,wikibase-item
+P739,Siding with,en,wikibase-item
 P740,Extra-stemmatic relationship,en,wikibase-item
 P741,ADB (Wikisource),en,external-id
 P742,Historical continuum,en,wikibase-item
@@ -759,7 +759,7 @@ P757,Plate(s),en,string
 P758,Form of government,en,wikibase-item
 P759,Flag,en,commonsMedia
 P760,Per,en,wikibase-item
-P761,Depicts in text or staging,en,wikibase-item
+P761,Fictionalises / stages,en,wikibase-item
 P762,Depicted in text or dramatic action,en,wikibase-item
 P763,PRELIB person ID,en,external-id
 P764,PRELIB organization ID,en,external-id
@@ -859,7 +859,7 @@ P857,<Workplace>,en,wikibase-property
 P858,EPSG CRS,en,wikibase-property
 P859,Scale (1:n),en,quantity
 P860,,,
-P861,Region,en,wikibase-item
+P861,Regional localisation,en,wikibase-item
 P862,Legal form,en,wikibase-item
 P863,Admission requirement / required membership,en,wikibase-item
 P864,Exclusion criterion / incompatible with Membership in,en,wikibase-item
@@ -878,7 +878,7 @@ P876,ISO 639-2,en,external-id
 P877,In words,en,monolingualtext
 P878,GND network graph,en,external-id
 P879,Subject paid,en,quantity
-P880,Objekt paid,en,quantity
+P880,Object paid,en,quantity
 P881,Infrastructure,en,wikibase-item
 P882,Deutsches Rechtswörterbuch,en,external-id
 P883,Item count from,en,quantity
@@ -1064,3 +1064,17 @@ P1062,Peerage person ID,en,external-id
 P1063,epidat-Database ID,en,external-id
 P1064,PMB person ID,en,external-id
 P1065,Maitron ID,en,external-id
+P1066,Relationship through,en,wikibase-item
+P1067,Grave Row,en,quantity
+P1068,"family database ""Juden im Deutschen Reich"" ID",en,external-id
+P1069,Administrative localisation,en,wikibase-item
+P1070,Internal WIAG ID - Offices,en,wikibase-item
+P1071,Internal WIAG ID - Office_Institution_Date,en,string
+P1072,German municipality key,en,external-id
+P1073,GOV-ID,en,external-id
+P1074,Archaeological Project,en,url
+P1075,GOV - Group of Types,en,wikibase-item
+P1076,Official version,en,wikibase-item
+P1077,GOV-Type of Object,en,wikibase-item
+P1078,Grammatical Particle,en,wikibase-item
+P1079,"Banns of marriage, date",en,time
