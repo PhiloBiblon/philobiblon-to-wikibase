@@ -29,12 +29,12 @@ def create_wb_p_safely(wb_manager, p_number, label, lang, type, last_p_number):
         if p_item.labels.get(lang) == label:
           print(f'INFO: P property {p_number} already exists and is OK.')
         else:
-          print(f"INFO: P property {p_number} updating label from '{p_item.labels.get(lang)}' to '{label}'.")
+          print(f"INFO: P property {p_number} updating label from '{p_item.labels.get(lang)}' to '{label}' ({lang}).")
           p_item.labels.set(language=lang, value=label)
           p_item.write()
       else:
         raise Exception(f"""ERROR: P property {p_number} already exists with different type!
-          (label: existing '{p_item.labels.get(lang)}' vs expected '{label}', type: existing '{p_item.datatype}' vs expected '{type}'""")
+          (label: existing '{p_item.labels.get(lang)}' vs expected '{label}' ({lang}), type: existing '{p_item.datatype}' vs expected '{type}'""")
     else:
       try:
         p_item = wb_manager.create_wb_p(label, lang, type)
@@ -83,7 +83,7 @@ def create_wb_q_safely(wb_manager, q_number, label, lang, alias, pbid):
   if q_item:
     if is_valid_existing_q(q_item, lang, pbid):
       if q_item.labels.get(lang) != label:
-          print(f"INFO: Q item {q_item.id} updating label from '{q_item.labels.get(lang)}' to '{label}'.")
+          print(f"INFO: Q item {q_item.id} updating label from '{q_item.labels.get(lang)}' to '{label}' ({lang}).")
           q_item.labels.set(language=lang, value=label)
           q_item.write()
       else:
