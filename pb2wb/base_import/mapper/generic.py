@@ -9,6 +9,20 @@ class GenericMapper:
 
   def __init__(self, wb_manager):
     self.wb_manager = wb_manager
+    self.skip_existing = True
+    self.sample_size = 10
+
+  def with_skip_existing(self, b: bool):
+    self.skip_existing = b
+    return self
+
+  def with_dry_run(self, b: bool):
+    self.dry_run = b
+    return self
+
+  def with_sample_size(self, i: int):
+    self.sample_size = i
+    return self
 
   def get_pbid(self, id):
     return id
@@ -20,8 +34,14 @@ class GenericMapper:
     raise NotImplementedError
 
   def update_wb(self):
-    for id in self.get_df_ids():
+    print(f'{self.sample_size = }')
+    for id in self.get_df_ids()[:self.sample_size] if self.sample_size > 0 else self.get_df_ids():
       pbid = self.get_pbid(id)
+      if self.skip_existing:
+        item = self.wb_manager.get_q_by_pbid(pbid)
+        if item is not None:
+          print(f"Skipping item PBID={pbid} mapped with existing {item.id}")
+          continue
       df_element = self.df[self.df[self.ID_COLUMN]==id]
       updated = self.update_wb_element(pbid, df_element)
 

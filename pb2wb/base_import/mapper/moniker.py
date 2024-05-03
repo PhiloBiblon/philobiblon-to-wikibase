@@ -3,6 +3,7 @@ from wikibaseintegrator.datatypes import Item, String
 from wikibaseintegrator.models import Qualifiers
 import textwrap
 
+from common.enums import Table
 from .generic import GenericMapper
 from common.wb_manager import PROPERTY_PHILOBIBLON_ID
 
@@ -61,18 +62,22 @@ class MonikerMapper(GenericMapper):
 
 
 class InstitutionMonikerMapper(MonikerMapper):
+  TABLE = Table.INSTITUTIONS
   ID_COLUMN = 'INSID'
 
 
 class GeographyMonikerMapper(MonikerMapper):
+  TABLE = Table.GEOGRAPHY
   ID_COLUMN = 'GEOID'
 
 
 class BibliographyMonikerMapper(MonikerMapper):
+  TABLE = Table.BIBLIOGRAPHY
   ID_COLUMN = 'BIBID'
 
 
 class MsEdMonikerMapper(MonikerMapper):
+  TABLE = Table.MS_ED
   ID_COLUMN = 'MANID'
 
   def read_csv(self, file):
@@ -82,14 +87,17 @@ class MsEdMonikerMapper(MonikerMapper):
 
 
 class BiographyMonikerMapper(MonikerMapper):
+  TABLE = Table.BIOGRAPHY
   ID_COLUMN = 'BIOID'
 
 
 class SubjectMonikerMapper(MonikerMapper):
+  TABLE = Table.SUBJECT
   ID_COLUMN = 'SUBID'
 
 
 class LibraryMonikerMapper(MonikerMapper):
+  TABLE = Table.LIBRARY
   ID_COLUMN = 'LIBID'
 
   def read_csv(self, file):
@@ -99,10 +107,12 @@ class LibraryMonikerMapper(MonikerMapper):
 
 
 class UniformTitleMonikerMapper(MonikerMapper):
+  TABLE = Table.UNIFORM_TITLE
   ID_COLUMN = 'TEXID'
 
 
 class AnalyticMonikerMapper(MonikerMapper):
+  TABLE = Table.ANALYTIC
   ID_COLUMN = 'CNUM'
 
   def read_csv(self, file):
@@ -112,4 +122,5 @@ class AnalyticMonikerMapper(MonikerMapper):
 
 
 class CopiesMonikerMapper(MonikerMapper):
+  TABLE = Table.COPIES
   ID_COLUMN = 'COPID'
