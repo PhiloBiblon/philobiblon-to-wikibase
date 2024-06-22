@@ -1,4 +1,6 @@
 import os
+
+import numpy as np
 import pandas as pd
 import csv
 from datetime import datetime
@@ -32,18 +34,15 @@ class BiographyPreprocessor(GenericPreprocessor):
     else:
       return None
 
-  def get_expanded_title(self, row, places):
-    # this isn't working yet, and may not be needed...
-    title = self.get_str_value(row['TITLE'])
-    title_number = self.get_str_value(row['TITLE_NUMBER'])
-    title_connector = self.get_str_value(row['TITLE_CONNECTOR'])
+  def get_expanded_title(self, row, places, lang):
+    title = self.lookupDataclip(row['TITLE'], lang) or ''
+    title_connector = self.lookupDataclip(row['TITLE_CONNECTOR'], lang) or ''
     title_geoid = self.get_value(row['TITLE_GEOID'])
-    # this is broken since we now have dataclip paths
     if title_geoid and title_geoid != 'BETA geoid':
-      title_place = places[title_geoid]
+      title_place = places.get(title_geoid, '')
     else:
-      title_place = None
-    return ' '.join(filter(None, [title_number, title, title_connector, title_place])).replace("d’ ", "d’")
+      title_place = ''
+    return ' '.join(filter(None, [title, title_connector, title_place])).replace("d’ ", "d’")
 
   def get_expanded_name(self, row):
     names = []
@@ -74,8 +73,7 @@ class BiographyPreprocessor(GenericPreprocessor):
     df = pd.read_csv(biography_file, dtype=str, keep_default_na=False)
 
     geography_file = self.get_input_csv(Table.GEOGRAPHY)
-    # we could load geo to resolve titles e.g. "King of Castille" - but this isn't working yet
-    # dict_geo = self.load_geo(geography_file)
+    dict_geo = self.load_geo(geography_file)
 
     # Split Affiliation_type
     df = self.split_column_by_clip(df, 'AFFILIATION_CLASS', 'AFFILIATION_TYPE', 'BIOGRAPHY*AFFILIATION_CLASS',
@@ -119,11 +117,42 @@ class BiographyPreprocessor(GenericPreprocessor):
     ]
 
     # add new columns for the qnumbers using the lookup table if supplied
-    df = self.reconcile_by_lookup(df, id_fields + dataclip_fields)
+    df = self.reconcile_base_objects_by_lookup(df, id_fields)
+    df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
 
+    milestone_primary_column = 'MILESTONE_CLASS'
+    milestone_secondary_column = 'MILESTONE_DETAIL'
+    milestone_columns = [
+      'MILESTONE_Q',
+      'MILESTONE_GEOID',
+      'MILESTONE_GEOIDQ',
+      'MILESTONE_BD',
+      'MILESTONE_BDQ',
+      'MILESTONE_ED',
+      'MILESTONE_EDQ',
+      'MILESTONE_BASIS'
+    ]
+    milestone_default_secondary_nonempty = "EVENT"
+    milestone_default_empty_secondary = "RES"
 
-    # expanded title isn't working yet - we can top_level_bib do with the Moniker
-    # df['EXPANDED_TITLE'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo), axis=1)
+    # if both the primary and secondary are empty, but at least one other column is non-empty,
+    # we use the "milestone_default_empty_secondary"
+    df[milestone_primary_column] = (
+      np.where(((df[milestone_primary_column] == '') &
+                (df[milestone_secondary_column] == '') &
+                (df[milestone_columns].replace('', np.nan).notna().any(axis=1))),
+               milestone_default_empty_secondary, df[milestone_primary_column]))
+
+    # if the primary is empty but the secondary is not, we use the "milestone_default_secondary_nonempty"
+    df[milestone_primary_column] = (
+      np.where(((df[milestone_primary_column] == '') &
+                (df[milestone_secondary_column] != '')),
+               milestone_default_secondary_nonempty, df[milestone_primary_column]))
+
+    df['EXPANDED_TITLE_EN'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo, 'en'), axis=1)
+    df = self.move_last_column_after(df, 'TITLE_BASIS')
+    df['EXPANDED_TITLE_U'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo, self.top_level_bib.language_code()), axis=1)
+    df = self.move_last_column_after(df, 'EXPANDED_TITLE_EN')
 
     # Expanded name is pretty much ok
     df['EXPANDED_NAME'] = df.apply (lambda row: self.get_expanded_name(row), axis=1)

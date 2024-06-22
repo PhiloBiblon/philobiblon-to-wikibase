@@ -1,9 +1,18 @@
 from enum import Enum
 
-class Origin(Enum):
+class Bibliography(Enum):
   BETA = 'BETA'
   BITAGAP = 'BITAGAP'
   BITECA = 'BITECA'
+
+  def language_code(self):
+    if self == Bibliography.BETA:
+      return "es"
+    if self == Bibliography.BITAGAP:
+      return "pt"
+    if self == Bibliography.BITECA:
+      return "ca"
+
 
 class Table(Enum):
   ANALYTIC = 'ANALYTIC'
