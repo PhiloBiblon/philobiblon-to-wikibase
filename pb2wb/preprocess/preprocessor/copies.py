@@ -65,7 +65,8 @@ class CopiesPreprocessor(GenericPreprocessor):
     ]
 
     # add new columns for the qnumbers using the lookup table if supplied
-    df = self.reconcile_by_lookup(df, id_fields + dataclip_fields)
+    df = self.reconcile_base_objects_by_lookup(df, id_fields)
+    df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
 
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')

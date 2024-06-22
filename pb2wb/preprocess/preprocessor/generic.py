@@ -7,12 +7,14 @@ from itertools import zip_longest
 
 import pandas as pd
 
-from common.settings import CLEAN_DIR, PRE_PROCESSED_DIR
+from common.enums import Bibliography
+from common.settings import (CLEAN_DIR, PRE_PROCESSED_DIR, BASE_OBJECT_RECONCILIATION_ERROR,
+                             DATACLIP_RECONCILIATION_ERROR)
 
 
 class GenericPreprocessor:
 
-  def __init__(self, top_level_bib=None, qnumber_lookup_file=None):
+  def __init__(self, top_level_bib=Bibliography.BETA, qnumber_lookup_file=None):
     self.top_level_bib = top_level_bib
     self.TABLE = None
 
@@ -20,28 +22,47 @@ class GenericPreprocessor:
       # if qnumber file does not begin with a slash or dot
       if not qnumber_lookup_file.startswith('/') and not qnumber_lookup_file.startswith('.'):
         # the qnumber file should be composed of the clean dir, the top_level_bib and the qnumber_lookup_file
-        qnumber_lookup_file = os.path.join(CLEAN_DIR, self.top_level_bib, qnumber_lookup_file)
+        qnumber_lookup_file = os.path.join(CLEAN_DIR, self.top_level_bib.value, qnumber_lookup_file)
       if not os.path.isfile(qnumber_lookup_file):
         raise Exception(f'qnumber_lookup_file not found: {qnumber_lookup_file}')
     self.qnumber_lookup_file = qnumber_lookup_file
 
-    self.processed_dir = os.path.join(PRE_PROCESSED_DIR, self.top_level_bib)
+    self.processed_dir = os.path.join(PRE_PROCESSED_DIR, self.top_level_bib.value)
     # validate that the processed dir exists
     if not os.path.isdir(self.processed_dir):
       raise Exception(f'processed dir not found: {self.processed_dir}')
 
     # the dataclip_file file should be composed of the clean dir, the top_level_bib, the string 'dataclips',
     # the top_level_bib in lower case, and the string '_dataclips.csv'
-    self.dataclip_file = os.path.join(CLEAN_DIR, self.top_level_bib, 'dataclips',
-                                      self.top_level_bib.lower() + '_dataclips.csv')
+    self.dataclip_file = os.path.join(CLEAN_DIR, self.top_level_bib.value, 'dataclips',
+                                      self.top_level_bib.value.lower() + '_dataclips.csv')
+    self.df_dataclip = pd.read_csv(self.dataclip_file, dtype=str, keep_default_na=False)
+
+  def lookupDataclip(self, code, lang):
+    cell_value = self.df_dataclip.loc[self.df_dataclip['code']==f'{self.top_level_bib.value} {code}'][lang]
+    if cell_value.empty == True:
+      return None
+    else:
+      return cell_value.values[0]
 
   def get_input_csv(self, table=None):
     """
     Returns the path of the input csv file by concatenating the clean dir, the top_level_bib,
     the string 'csvs', top_level_bib in lower case,  an underscore, the lower case table name, and the string '.csv'.
     """
-    file = os.path.join(CLEAN_DIR, self.top_level_bib, 'csvs',
-                        self.top_level_bib.lower() + '_' + table.value.lower() + '.csv')
+    file = os.path.join(CLEAN_DIR, self.top_level_bib.value, 'csvs',
+                        self.top_level_bib.value.lower() + '_' + table.value.lower() + '.csv')
+    # validate that the file exists
+    if not os.path.isfile(file):
+      raise Exception(f'File not found: {file}')
+    return file
+
+  def get_dataclip_csv(self):
+    """
+    Returns the path of the dataclip csv file from the clean dir and  top_level_bib
+    """
+    file = os.path.join(CLEAN_DIR, self.top_level_bib.value, 'dataclips',
+                        self.top_level_bib.value.lower() + '_dataclips.csv')
     # validate that the file exists
     if not os.path.isfile(file):
       raise Exception(f'File not found: {file}')
@@ -274,13 +295,21 @@ class GenericPreprocessor:
 
     return merged_df
 
-  def reconcile_by_lookup(self, df, fields):
+  def reconcile_base_objects_by_lookup(self, df, fields):
+    df = self.reconcile_by_lookup(df, fields, no_match_value=BASE_OBJECT_RECONCILIATION_ERROR)
+    return df
+
+  def reconcile_dataclips_by_lookup(self, df, fields):
+    df = self.reconcile_by_lookup(df, fields, no_match_value=DATACLIP_RECONCILIATION_ERROR)
+    return df
+
+  def reconcile_by_lookup(self, df, fields, no_match_value):
     if not self.qnumber_lookup_file:
       return df
     lookup_df = pd.read_csv(self.qnumber_lookup_file, dtype=str, keep_default_na=False)
     for field in fields:
       df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER',
-                                            field + '_QNUMBER', no_match_value="LOOKUP_FAILED")
+                                            field + '_QNUMBER', no_match_value=no_match_value)
       df = self.move_last_column_after(df, field)
     return df
 

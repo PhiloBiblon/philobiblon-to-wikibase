@@ -1,5 +1,6 @@
 import os
 
+from common.enums import Bibliography
 from common.settings import PRE_PROCESSED_DIR
 from .preprocessor.analytic import AnalyticPreprocessor
 from .preprocessor.bibliography import BibliographyPreprocessor
@@ -13,9 +14,12 @@ from .preprocessor.subject import SubjectPreprocessor
 from .preprocessor.uniform_title import UniformTitlePreprocessor
 
 
-def preprocess(top_level_bib="BETA", table=None, qnumber_lookup_file=None):
-  beta_pre_processed_dir = os.path.join(PRE_PROCESSED_DIR, 'BETA')
-  os.makedirs(beta_pre_processed_dir, exist_ok=True)
+def preprocess(top_level_bib=Bibliography.BETA, table=None, qnumber_lookup_file=None):
+
+  pre_processed_dir = os.path.join(PRE_PROCESSED_DIR, top_level_bib.value)
+  os.makedirs(pre_processed_dir, exist_ok=True)
+  if qnumber_lookup_file == 'None':
+      qnumber_lookup_file = None
 
   for processor in [AnalyticPreprocessor, BibliographyPreprocessor, BiographyPreprocessor, CopiesPreprocessor,
                     GeographyPreprocessor, InstitutionPreprocessor, LibraryPreprocessor, MsEdPreprocessor,

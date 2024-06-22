@@ -20,13 +20,11 @@ class InstitutionPreprocessor(GenericPreprocessor):
     'INSTITUTIONS*NAME_CLASS*H': 'nl',
     'INSTITUTIONS*NAME_CLASS*U': 'es'
   }
-  DATACLIP_FILENAME = 'beta_dataclips.csv'
 
   TABLE = Table.INSTITUTIONS
 
   def __init__(self, top_level_bib=None, qnumber_lookup_file=None) -> None:
     super().__init__(top_level_bib, qnumber_lookup_file)
-    self.df_dataclip = pd.read_csv(self.dataclip_file, dtype=str, keep_default_na=False)
 
   def get_name_lang(self, row):
     name_class = row['NAME_CLASS']
@@ -37,16 +35,9 @@ class InstitutionPreprocessor(GenericPreprocessor):
         return self.UNKNOWN_LANG
     return ''
 
-  def lookupDictionary(self, code, lang):    
-    cell_value = self.df_dataclip.loc[self.df_dataclip['code']==f'BETA {code}'][lang]
-    if cell_value.empty == True:
-      return None
-    else:
-      return cell_value.values[0]
-
   def get_desc(self, row, lang):
-    item_class = self.lookupDictionary(row['CLASS'], lang)
-    item_type = self.lookupDictionary(row['TYPE'], lang)
+    item_class = self.lookupDataclip(row['CLASS'], lang)
+    item_type = self.lookupDataclip(row['TYPE'], lang)
     desc = str(item_class or '') + ' ' + str(item_type or '')
     return desc.strip()
 
@@ -79,7 +70,8 @@ class InstitutionPreprocessor(GenericPreprocessor):
     ]
 
     # add new columns for the qnumbers using the lookup table if supplied
-    df_ins = self.reconcile_by_lookup(df_ins, id_fields + dataclip_fields)
+    df_ins = self.reconcile_base_objects_by_lookup(df_ins, id_fields)
+    df_ins = self.reconcile_dataclips_by_lookup(df_ins, dataclip_fields)
 
     # Class
     self.set_column_value_by_condition(df_ins, 'CLASS.str.len()>0 & CLASS==\'INSTITUTIONS*CLASS*OTHER\'', 'CLASS', '')
