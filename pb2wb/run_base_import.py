@@ -12,7 +12,7 @@ parser.add_argument('--skip_existing', action='store_true',
 parser.add_argument('--dry_run', action='store_true',
                     help='Dry run: do not side-effect the wikibase')
 parser.add_argument('--sample_size', type=int, default=0,
-                    help='Specify the sample size as a positive integer (default: 0)')
+                    help='Specify the sample size as a positive integer (default: 0 means process all)')
 parser.add_argument("--table", help="Table to process. Default is process all")
 args = parser.parse_args()
 
