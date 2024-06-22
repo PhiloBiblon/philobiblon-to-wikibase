@@ -8,7 +8,7 @@ def get_full_input_path(file):
 
 def postprocess(table=None, force_new_statements=False):
   beta_post_processed_dir = os.path.join(POST_PROCESSED_DIR, 'BETA')
-  os.makedirs(beta_post_processed_dir, exist_ok=False)
+  os.makedirs(beta_post_processed_dir, exist_ok=True)
 
   if table is None or table is Table.ANALYTIC:
     GenericPostprocessor().postprocess(get_full_input_path('BETA/beta_analytic.qs'), beta_post_processed_dir, force_new_statements)
