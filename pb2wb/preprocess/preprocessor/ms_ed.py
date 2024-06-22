@@ -23,13 +23,18 @@ class MsEdPreprocessor(GenericPreprocessor):
     df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',
                                    ['C', 'F', 'A', 'R', 'B', 'I', 'CIBN45', 'E'])
 
+    # Split MILESTONE_MAKER
+    df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_MAKER_ID', 'MS_ED*MILESTONE_CLASS',
+                                   ['P', 'W'])
+
     # Internet edit box
     df = self.split_internet_class(df)
 
     # enumerate the pb base item (id) fields
     id_fields = [
       'MANID',
-      'MILESTONE_MAKER_ID',
+      'MILESTONE_MAKER_ID_P',
+      'MILESTONE_MAKER_ID_W',
       'MILESTONE_FUNDER_ID',
       'MILESTONE_GEOID',
       'OWNER_ID',
