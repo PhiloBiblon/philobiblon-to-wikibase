@@ -36,6 +36,17 @@ __NOTE 1__: It is recommended that you use a bot account on the wikibase. See [h
 
 __NOTE 2__: The `RECONCILIATION_ERROR_OBJECT` is an object used during pre-processing to indicate errors without breaking quick statements. This setting can't yet be specified if you have an empty wikibase. Look for more information in the pre-processing section below. 
 
+### To be documented
+
+Here are some other environment setup issues that should perhaps be better documented.
+
+* On Macs, managing python versions can be an issue. The documentation and scripts use just `python` not `python3`. 
+  One way to manage this is to use `pyenv`. I am using python version 3.9.19, but newer versions probably work fine. 
+* The utf-9 cleanup step requires a different version of `iconv` than is present by default on a mac. I had success 
+  with `brew install libiconv` followed by putting the brew version forward in the path.
+* We saw a problem with pandas and numpy version incompatibility. This was worked around by removing the version 
+  specifications in requirements.txt.
+
 ## Summary of steps 
 
 The following steps are detailed in separate sections below. You may not need to do all of them.
