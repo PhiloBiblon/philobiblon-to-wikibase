@@ -332,3 +332,37 @@ class GenericPreprocessor:
                                      'UNIVERSAL*INTERNET_CLASS',
                                      ['EMA', 'DOI', 'CAT', 'URN', 'URI', 'URL', 'VIAF'],
                                      format_strs=['mailto:{value}'])
+
+  def split_column_by_predicate(self, df, source_column, predicate, true_extension='true', false_extension='false'):
+    """
+    Splits the values of a specified column into two new columns based on a predicate function.
+
+    Parameters:
+    df (pd.DataFrame): The DataFrame to be processed.
+    source_column (str): The name of the column to apply the predicate on.
+    predicate (Callable[[pd.Series], bool]): A function that takes a row (pd.Series) and returns True or False.
+    true_extension (Optional[str]): The suffix for the column name where predicate is True. Defaults to 'true'.
+    false_extension (Optional[str]): The suffix for the column name where predicate is False. Defaults to 'false'.
+
+    Returns:
+    pd.DataFrame: The DataFrame with two new columns based on the predicate results.
+    """
+    true_column_name = f'{source_column}_{true_extension}'
+    false_column_name = f'{source_column}_{false_extension}'
+
+    print(f'{true_column_name = } {false_column_name = }')
+
+    new_df = df.copy()
+
+    # Initialize new columns with empty strings
+    new_df[true_column_name] = ''
+    new_df[false_column_name] = ''
+
+    # Apply the predicate to the source_column and populate the true and false columns
+    new_df[true_column_name] = new_df.apply(lambda row: row[source_column] if predicate(row) else '', axis=1)
+    new_df[false_column_name] = new_df.apply(lambda row: '' if predicate(row) else row[source_column], axis=1)
+
+    new_df = self.move_last_column_after(new_df, source_column)
+    new_df = self.move_last_column_after(new_df, source_column)
+
+    return new_df
