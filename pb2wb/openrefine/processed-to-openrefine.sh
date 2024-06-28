@@ -15,12 +15,12 @@ if [[ -z $version ]]; then
   tag=${today}
 fi  
 
-## Identify location of processed files on local machine
-echo "Looking for processed files on local machine"
+## Identify location of philobiblon-private-master on local machine
+echo "Looking for processed file path on local machine"
 if processed_path=`find ~ -type d -name "philobiblon-private-master" 2>&1 | grep -v "Operation not permitted"`; then
-  echo "Using processed file path: ${processed_path}"
+  echo "Using processed file base path: ${processed_path}"
 else
-  echo "Unable to find processed files, please verify files exist"
+  echo "Unable to find base file path, please verify philobiblon-private-master directory exists"
   exit 1
 fi
 
