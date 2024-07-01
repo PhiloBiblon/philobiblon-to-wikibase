@@ -29,6 +29,6 @@ echo "Proceeding using the tag: ${tag}"
 ## Loop through processed files and create openrefine projects with updated version number
 for f in ${processed_path}/data/processed/pre/BETA/*
 do
-  echo $f && echo openrefine-client -H philobiblon.cog.berkeley.edu -P 3333 --projectName=`basename $f | sed 's/.csv/.'${tag}'/'` --create $f
+  echo $f && openrefine-client -H philobiblon.cog.berkeley.edu -P 3333 --projectName=`basename $f | sed 's/.csv/.'${tag}'/'` --create $f
 done
 

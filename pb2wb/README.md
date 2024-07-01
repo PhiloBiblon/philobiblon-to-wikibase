@@ -165,9 +165,8 @@ where `<table>` can be:
 This step to be executed once preprocessed data has been made available
 1. Intall openrefine-client using pip.  Note, openrefine client requires python 2.7.  (pyenv can be used to set python version locally, 2.7.18 used here)
 ```python2 -m pip install openrefine-client --user```
-2. Verify $PATH is set in user shell profile.  openrefine-client installed to /.local/bin which may not be in user $PATH.  If needed, add to $PATH.
-```export PATH="~/.local/bin/:$PATH"```
-3. From `philobiblon-to-wikibase/pb2wb/openrefine` directory on local machine, execute the following script `processed-to-openrefine.sh`.
+2. Verify $PATH is set in user shell profile.  openrefine-client installed to /.local/bin which may not be in user $PATH.  If needed, add to $PATH.  Bash example:  ```export PATH="~/.local/bin/:$PATH" && source ~/.bash_profile```
+3. From philobiblon-to-wikibase/pb2wb/openrefine directory on local machine, execute the following script processed-to-openrefine.sh. Example:
 ```bash processed-to-openrefine.sh``` or ```./processed-to-openrefine.sh```.  Alternate tag can be applied with -t arg.  Example: ```bash processed-to-openrefine.sh -t test-tag```
 4. Verify new projects with correct tag have been created in openrefine.
 ```openrefine-client --list -H philobiblon.cog.berkeley.edu -P 3333```
