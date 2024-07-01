@@ -1,8 +1,8 @@
-import os
-import pandas as pd
-import csv
 from datetime import datetime
 
+import pandas as pd
+
+from common.data_dictionary import DATADICT
 from common.enums import Table
 from .generic import GenericPreprocessor
 
@@ -18,6 +18,17 @@ class MsEdPreprocessor(GenericPreprocessor):
     file = self.get_input_csv(MsEdPreprocessor.TABLE)
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
+
+    # propagate the MILESTONE_CLASS through enlargers
+    key_columns = ['MANID', 'MILESTONE_MAKER_IDP']
+    columns_to_propagate = ['MILESTONE_CLASS']
+    df = self.propagate_enlarger(df, key_columns, columns_to_propagate)
+
+    # now fill in any remaining missing MILESTONE_CLASS values
+    key = 'MILESTONE_CLASS'
+    cols = DATADICT['ms_ed']['milestones']['columns']
+    default_val = DATADICT['ms_ed']['milestones']['default']
+    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
 
     # Split RELATED_LIBCALLNO
     df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',
