@@ -350,8 +350,6 @@ class GenericPreprocessor:
     true_column_name = f'{source_column}_{true_extension}'
     false_column_name = f'{source_column}_{false_extension}'
 
-    print(f'{true_column_name = } {false_column_name = }')
-
     new_df = df.copy()
 
     # Initialize new columns with empty strings
@@ -366,3 +364,37 @@ class GenericPreprocessor:
     new_df = self.move_last_column_after(new_df, source_column)
 
     return new_df
+
+  def insert_default_for_missing_key(self, df, key, cols, default_val):
+    """
+    Inserts default_val in the 'key' column for rows where:
+    - key is empty string
+    - at least one value in 'cols' is not empty string
+
+    Args:
+        df: pandas DataFrame
+        key: str, name of the column to insert default value
+        cols: list, list of column names to check for non-empty values
+        default_val: str, value to insert in the key column
+
+    Returns:
+        pandas DataFrame, the modified DataFrame
+    """
+    condition = (df[key] == '') | (df[key].isna())  # Check for empty string or None
+    condition &= df[cols].any(axis=1)  # Check if any value in 'cols' is not empty
+    # Apply the default value to the key column for rows that meet the condition
+    df.loc[condition, key] = default_val
+    return df
+
+  def propagate_enlarger(self, df, key_columns, columns_to_propagate):
+    def propagate_first_values(group, columns):
+      for column in columns:
+        first_value = group[column].iloc[0]
+        group[column] = first_value
+      return group
+
+    # Apply the function to each group, but only if the group is not empty
+    out_df = df.copy()
+    out_df[columns_to_propagate] = out_df.groupby(key_columns, group_keys=False).apply(
+      lambda group: propagate_first_values(group, columns_to_propagate))[columns_to_propagate]
+    return out_df

@@ -1,12 +1,12 @@
-import os
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
-import csv
-from datetime import datetime
 
+from common.data_dictionary import DATADICT
 from common.enums import Table
 from .generic import GenericPreprocessor
+
 
 def isfloat(num):
     try:
@@ -74,6 +74,12 @@ class BiographyPreprocessor(GenericPreprocessor):
 
     geography_file = self.get_input_csv(Table.GEOGRAPHY)
     dict_geo = self.load_geo(geography_file)
+
+    # fill in any missing MILESTONE_CLASS values
+    key = 'MILESTONE_CLASS'
+    cols = DATADICT['biography']['milestones']['columns']
+    default_val = DATADICT['biography']['milestones']['default']
+    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
 
     # Split Affiliation_type
     df = self.split_column_by_clip(df, 'AFFILIATION_CLASS', 'AFFILIATION_TYPE', 'BIOGRAPHY*AFFILIATION_CLASS',

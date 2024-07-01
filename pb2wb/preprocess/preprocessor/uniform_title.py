@@ -1,10 +1,11 @@
-import os
-import pandas as pd
-import csv
 from datetime import datetime
 
+import pandas as pd
+
+from common.data_dictionary import DATADICT
 from common.enums import Table
 from .generic import GenericPreprocessor
+
 
 class UniformTitlePreprocessor(GenericPreprocessor):
   TABLE = Table.UNIFORM_TITLE
@@ -51,6 +52,12 @@ class UniformTitlePreprocessor(GenericPreprocessor):
       'INTERNET_CLASS',
       'TYPE'
     ]
+
+    # fill in any missing MILESTONE_CLASS values
+    key = 'MILESTONE_CLASS'
+    cols = DATADICT['uniform_title']['milestones']['columns']
+    default_val = DATADICT['uniform_title']['milestones']['default']
+    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
 
     # add new columns for the qnumbers using the lookup table if supplied
     df = self.reconcile_base_objects_by_lookup(df, id_fields)
