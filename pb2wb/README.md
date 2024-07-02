@@ -79,7 +79,7 @@ Note: this step is configured by these files:
 
 ## Get the raw data
 
-The raw data lives in g-drive. Directions for fetching it are in the philobiblon-private repository. Those steps will result in populating a `data/raw` directory. After creating the raw dataset, link that directory to `../data` using a command like this:
+The raw data lives in g-drive. Directions for fetching it are in the philobiblon-private repository: [here](https://github.com/PhiloBiblon/philobiblon-private/blob/master/data/README.md). Those steps will result in populating a `data/raw` directory. After creating the raw dataset, link that directory to `../data` using a command like this:
 ```commandline
 ln -s ../../philobiblon-private/data ..
 ```
@@ -164,12 +164,20 @@ where `<table>` can be:
 
 This step to be executed once preprocessed data has been made available
 1. Intall openrefine-client using pip.  Note, openrefine client requires python 2.7.  (pyenv can be used to set python version locally, 2.7.18 used here)
-```python2 -m pip install openrefine-client --user```
-2. Verify $PATH is set in user shell profile.  openrefine-client installed to /.local/bin which may not be in user $PATH.  If needed, add to $PATH.  Bash example:  ```export PATH="~/.local/bin/:$PATH" && source ~/.bash_profile```
-3. From philobiblon-to-wikibase/pb2wb/openrefine directory on local machine, execute the following script processed-to-openrefine.sh. Example:
-```bash processed-to-openrefine.sh``` or ```./processed-to-openrefine.sh```.  Alternate tag can be applied with -t arg.  Example: ```bash processed-to-openrefine.sh -t test-tag```
+```commandline
+python2 -m pip install openrefine-client --user
+```
+2. Verify $PATH is set in user shell profile.  openrefine-client installed to /.local/bin which may not be in user $PATH.  If needed, add to $PATH.
+   Bash example:
+   ```commandline
+   export PATH="~/.local/bin/:$PATH" && source ~/.bash_profile
+   ```
+3. From philobiblon-to-wikibase/pb2wb/openrefine directory on local machine, execute the following script processed-to-openrefine.sh.
+   Example:```bash processed-to-openrefine.sh``` or ```./processed-to-openrefine.sh```.  Alternate tag can be applied with -t arg.  Example: ```bash processed-to-openrefine.sh -t test-tag```
 4. Verify new projects with correct tag have been created in openrefine.
-```openrefine-client --list -H philobiblon.cog.berkeley.edu -P 3333```
+   ```commandline
+   openrefine-client --list -H philobiblon.cog.berkeley.edu -P 3333
+   ```
 
 ## Model the Schemas using OpenRefine, and Create QuickStatements files
 
