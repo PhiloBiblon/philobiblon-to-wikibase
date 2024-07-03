@@ -44,6 +44,6 @@ PREFIX wd:<https://philobiblon.cog.berkeley.edu/entity/>
 PREFIX wdt:<https://philobiblon.cog.berkeley.edu/prop/direct/>
 """
 
-BASE_OBJECT_RECONCILIATION_ERROR = 'Q51063'
+BASE_OBJECT_RECONCILIATION_ERROR = 'Q51453'
 DATACLIP_RECONCILIATION_ERROR = 'Q51419'
 
