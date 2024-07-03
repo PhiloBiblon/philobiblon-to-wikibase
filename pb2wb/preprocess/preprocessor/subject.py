@@ -53,8 +53,6 @@ class SubjectPreprocessor(GenericPreprocessor):
     ]
 
     dataclip_fields = [
-      'HEADING_MAIN',
-      'HEADING_VARIANT',
       'HM_CLASS',
       'HM_TYPE',
       'HV_CLASS',
