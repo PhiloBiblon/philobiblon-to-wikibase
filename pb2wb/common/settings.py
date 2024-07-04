@@ -17,6 +17,7 @@ SPARQL_PREFIX = None
 
 BASE_OBJECT_RECONCILIATION_ERROR = 'changeme'
 DATACLIP_RECONCILIATION_ERROR = 'changeme'
+P799_OK_VALUES = ['changeme']
 
 # pbsandbox.cloud
 
@@ -32,6 +33,7 @@ PREFIX wdt: <https://pbsandbox.wikibase.cloud/prop/direct/>
 
 BASE_OBJECT_RECONCILIATION_ERROR = 'changeme'
 DATACLIP_RECONCILIATION_ERROR = 'changeme'
+P799_OK_VALUES = ['changeme']
 
 # pb.cog
 
@@ -46,4 +48,4 @@ PREFIX wdt:<https://philobiblon.cog.berkeley.edu/prop/direct/>
 
 BASE_OBJECT_RECONCILIATION_ERROR = 'Q51453'
 DATACLIP_RECONCILIATION_ERROR = 'Q51419'
-
+P799_OK_VALUES = ['Q49620']

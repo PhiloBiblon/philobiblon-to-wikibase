@@ -3,14 +3,19 @@ import re
 from datetime import datetime
 from datetime import date
 
-# Detect empty "Dataset status" statements
-PATTERN_EMPTY_DATASET_STATUS = '^(.*)\tP799\tQ(\d*)$'
+from common.settings import P799_OK_VALUES
 
 PATTERN_STATEMENT = '^Q(\d*)\tP(\d*)\t(.*)$'
 PATTERN_DATE = '\+\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/\d{1,2}'
 
 class GenericPostprocessor:
   SPANISH_START_GREGORIAN = date(1582, 10, 15)
+
+  def check_empty_p799(self, s):
+    l = s.split('\t')
+    if len(l) != 3 or l[1] != 'P799' or l[2] not in P799_OK_VALUES:
+      return False
+    return True
 
   def update_command(self, line):
     if re.match(PATTERN_STATEMENT, line):
@@ -37,7 +42,7 @@ class GenericPostprocessor:
     with open(file, 'r') as input:
       with open(processed_file, 'w') as output:        
           for line in input:
-              if not re.match(PATTERN_EMPTY_DATASET_STATUS, line):
+              if not self.check_empty_p799(line):
                 if force_new_statements:
                   line = self.update_command(line)
                 line = self.julian_dates(line)
