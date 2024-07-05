@@ -13,7 +13,7 @@ class GenericPostprocessor:
 
   def check_empty_p799(self, s):
     l = s.split('\t')
-    if len(l) != 3 or l[1] != 'P799' or l[2] not in P799_OK_VALUES:
+    if len(l) != 3 or l[1] != 'P799' or l[2] not in P799_OK_VALUES.values():
       return False
     return True
 
