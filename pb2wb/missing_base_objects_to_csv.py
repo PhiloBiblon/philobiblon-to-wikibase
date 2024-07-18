@@ -1,37 +1,33 @@
 import csv
 import subprocess
 import pandas as pd
-from common.settings import BASE_IMPORT_OBJECTS
 
 files = ['beta_analytic.csv', 'beta_biography.csv', 'beta_geography.csv', 'beta_library.csv', 'beta_subject.csv',      
           'beta_bibliography.csv', 'beta_copies.csv', 'beta_institutions.csv', 'beta_ms_ed.csv', 'beta_uniform_title.csv']
 
-def perform_inner_join(input_file, updated_df, output_file, first_column_name, second_column_name):
+def perform_bash_command(command):
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    print(result.stdout)
+    result_list = result.stdout.split('\n')
+    return result_list
+
+def perform_inner_join(input_file, string_list, output_file):
     # Read the input csv file
     df = pd.read_csv(input_file)
     
-    # Perform inner join with the updated dataframe
-    result = pd.merge(df, updated_df, on=[first_column_name], how='inner')
+    # Perform inner join with the string list
+    first_column_name = df.columns[0]
+    result = df[df[first_column_name].isin(string_list)]
     
     # Write the result to the output csv file
     result.to_csv(output_file, index=False)
-         
+
 for file in files:
-    print(f'Processing file: {file}')
+    print(file)
+    command = f'cat ../data/processed/pre/BETA/{file} | grep Q51453 | csvcut -c1 | sort | uniq'
+    output = perform_bash_command(command)
+    print(output)
     input_file = f'../data/clean/BETA/csvs/{file}'
-    output_file = f'updated_{file}'
-    print(f'Using input file: {file}')
-    df = pd.read_csv(f'../data/processed/pre/BETA/{file}')
-    first_column_name = df.columns[0]
-
-    # Search qnum value that represents the BASE_OBJECT_RECONCILIATION_ERROR
-    search_string = BASE_IMPORT_OBJECTS['PBCOG']['BASE_OBJECT_RECONCILIATION_ERROR']
-    print(f'Filtering against string: {search_string}')
-    filtered_file = f'filtered_{file}'
-    filtered_df = df[df.eq(search_string).any(axis=1)]
-
-    # Select unique id and qnum values from the filtered dataframe
-    updated_df = filtered_df.loc[:, [first_column_name, second_column_name]].drop_duplicates()
-    
-    # Launch join operation
-    perform_inner_join(input_file, updated_df, output_file, first_column_name, second_column_name)
+    output_file = f'test_{file}'
+    search_string = output
+    perform_inner_join(input_file, search_string, output_file)
