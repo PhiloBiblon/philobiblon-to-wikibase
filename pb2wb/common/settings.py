@@ -17,6 +17,7 @@ SPARQL_PREFIX = None
 
 BASE_OBJECT_RECONCILIATION_ERROR = 'changeme'
 DATACLIP_RECONCILIATION_ERROR = 'changeme'
+P799_OK_VALUES = {}  #changeme
 
 # pbsandbox.cloud
 
@@ -32,6 +33,7 @@ PREFIX wdt: <https://pbsandbox.wikibase.cloud/prop/direct/>
 
 BASE_OBJECT_RECONCILIATION_ERROR = 'changeme'
 DATACLIP_RECONCILIATION_ERROR = 'changeme'
+P799_OK_VALUES = {}  #changeme
 
 # pb.cog
 
@@ -46,6 +48,7 @@ PREFIX wdt:<https://philobiblon.cog.berkeley.edu/prop/direct/>
 
 BASE_OBJECT_RECONCILIATION_ERROR = 'Q51453'
 DATACLIP_RECONCILIATION_ERROR = 'Q51419'
+P799_OK_VALUES = {}  #changeme
 
 BASE_IMPORT_OBJECTS = {
     'LOCAL_WB':
@@ -60,7 +63,8 @@ BASE_IMPORT_OBJECTS = {
       'WB_PASSWORD': 'changeme',
       'SPARQL_PREFIX': None,
       'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
-      'DATACLIP_RECONCILIATION_ERROR': 'changeme'
+      'DATACLIP_RECONCILIATION_ERROR': 'changeme',
+      'P799_OK_VALUES': {} #changeme
     },
     'PBSANDBOX':
       {'BIB':{
@@ -76,7 +80,8 @@ BASE_IMPORT_OBJECTS = {
         PREFIX wd:<https://pbsandbox.wikibase.cloud/entity/>
         PREFIX wdt:<https://pbsandbox.wikibase.cloud/prop/direct/>""",
       'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
-      'DATACLIP_RECONCILIATION_ERROR': 'changeme'
+      'DATACLIP_RECONCILIATION_ERROR': 'changeme',
+      'P799_OK_VALUES': {} #changeme
     },
     'PBCOG':
       {'BIB':{
@@ -92,7 +97,28 @@ BASE_IMPORT_OBJECTS = {
         PREFIX wd:<https://philobiblon.cog.berkeley.edu/entity/>
         PREFIX wdt:<https://philobiblon.cog.berkeley.edu/prop/direct/>""",
       'BASE_OBJECT_RECONCILIATION_ERROR': 'Q51453',
-      'DATACLIP_RECONCILIATION_ERROR': 'Q51419'
+      'DATACLIP_RECONCILIATION_ERROR': 'Q51419',
+      'P799_OK_VALUES': {
+        'ANALYTIC*STATUS*1C': 'Q49472',
+        'ANALYTIC*STATUS*1DC': 'Q49473',
+        'ANALYTIC*STATUS*1F': 'Q49474',
+        'ANALYTIC*STATUS*1I': 'Q49475',
+        'ANALYTIC*STATUS*1TC': 'Q49476',
+        'ANALYTIC*STATUS*1TF': 'Q49477',
+        'ANALYTIC*STATUS*2C': 'Q49478',
+        'ANALYTIC*STATUS*2I': 'Q49479',
+        'BIBLIOGRAPHY*STATUS*1C': 'Q49617',
+        'BIBLIOGRAPHY*STATUS*1FC': 'Q49618',
+        'BIBLIOGRAPHY*STATUS*1FI': 'Q49619',
+        'BIBLIOGRAPHY*STATUS*1I': 'Q49620',
+        'BIBLIOGRAPHY*STATUS*2C': 'Q49621',
+        'BIBLIOGRAPHY*STATUS*2I': 'Q49622',
+        'MS_ED*STATUS*1C': 'Q50708',
+        'MS_ED*STATUS*1F': 'Q50709',
+        'MS_ED*STATUS*1I': 'Q50710',
+        'MS_ED*STATUS*2C': 'Q50711',
+        'MS_ED*STATUS*2I': 'Q50712'
+      }
     },
     'FACTGRID': {
     'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'changeme'},
@@ -106,5 +132,6 @@ BASE_IMPORT_OBJECTS = {
       'SPARQL_PREFIX': """'changeme'
         """,
       'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
-      'DATACLIP_RECONCILIATION_ERROR': 'changeme'
+      'DATACLIP_RECONCILIATION_ERROR': 'changeme',
+      'P799_OK_VALUES': {} #changeme
     }
