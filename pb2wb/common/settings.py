@@ -37,8 +37,8 @@ DATACLIP_RECONCILIATION_ERROR = 'changeme'
 
 MEDIAWIKI_API_URL = "https://philobiblon.cog.berkeley.edu/w/api.php"
 SPARQL_ENDPOINT_URL = "https://philobiblon.cog.berkeley.edu/query/bigdata/namespace/wdq/sparql"
-WB_USER = 'changeme'
-WB_PASSWORD = 'changeme'
+WB_USER = 'Jason Hatfield'
+WB_PASSWORD = 'w3wHfMpuEqY87nJ'
 SPARQL_PREFIX = """
 PREFIX wd:<https://philobiblon.cog.berkeley.edu/entity/>
 PREFIX wdt:<https://philobiblon.cog.berkeley.edu/prop/direct/>
@@ -47,3 +47,26 @@ PREFIX wdt:<https://philobiblon.cog.berkeley.edu/prop/direct/>
 BASE_OBJECT_RECONCILIATION_ERROR = 'Q51453'
 DATACLIP_RECONCILIATION_ERROR = 'Q51419'
 
+BASE_IMPORT_OBJECTS = {
+    'PBCOG':
+      {'BIB':{
+        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4'},
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q51436'},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q51437'}
+        },
+      'MEDIAWIKI_API_URL': "https://philobiblon.cog.berkeley.edu/w/api.php",
+      'SPARQL_ENDPOINT_URL': "https://philobiblon.cog.berkeley.edu/query/bigdata/namespace/wdq/sparql",
+      'WB_USER': 'Jason Hatfield',
+      'WB_PASSWORD': 'w3wHfMpuEqY87nJ',
+      'SPARQL_PREFIX': """
+        PREFIX wd:<https://philobiblon.cog.berkeley.edu/entity/>
+        PREFIX wdt:<https://philobiblon.cog.berkeley.edu/prop/direct/>""",
+      'BASE_OBJECT_RECONCILIATION_ERROR': 'Q51453',
+      'DATACLIP_RECONCILIATION_ERROR': 'Q51419'
+    },
+    'FACTGRID': {
+    'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': ''},
+    'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': ''},
+    'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': ''}
+    }
+}
