@@ -48,6 +48,36 @@ BASE_OBJECT_RECONCILIATION_ERROR = 'Q51453'
 DATACLIP_RECONCILIATION_ERROR = 'Q51419'
 
 BASE_IMPORT_OBJECTS = {
+    'LOCAL_WB':
+      {'BIB':{
+        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'changeme'},
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'changeme'},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'changeme'}
+        },
+      'MEDIAWIKI_API_URL': "http://localhost/api.php",
+      'SPARQL_ENDPOINT_URL': "http://localhost:8834/proxy/wdqs/bigdata/namespace/wdq/sparql",
+      'WB_USER': 'changeme',
+      'WB_PASSWORD': 'changeme',
+      'SPARQL_PREFIX': None,
+      'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
+      'DATACLIP_RECONCILIATION_ERROR': 'changeme'
+    },
+    'PBSANDBOX':
+      {'BIB':{
+        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'changeme'},
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'changeme'},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'changeme'}
+        },
+      'MEDIAWIKI_API_URL': "https://pbsandbox.wikibase.cloud/api.php",
+      'SPARQL_ENDPOINT_URL': "https://pbsandbox.wikibase.cloud/query/bigdata/namespace/wdq/sparql",
+      'WB_USER': 'changeme',
+      'WB_PASSWORD': 'changeme',
+      'SPARQL_PREFIX': """
+        PREFIX wd:<https://pbsandbox.wikibase.cloud/entity/>
+        PREFIX wdt:<https://pbsandbox.wikibase.cloud/prop/direct/>""",
+      'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
+      'DATACLIP_RECONCILIATION_ERROR': 'changeme'
+    },
     'PBCOG':
       {'BIB':{
         'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4'},
@@ -65,8 +95,16 @@ BASE_IMPORT_OBJECTS = {
       'DATACLIP_RECONCILIATION_ERROR': 'Q51419'
     },
     'FACTGRID': {
-    'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': ''},
-    'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': ''},
-    'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': ''}
+    'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'changeme'},
+    'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'changeme'},
+    'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'changeme'}
+    },
+      'MEDIAWIKI_API_URL': "",
+      'SPARQL_ENDPOINT_URL': "",
+      'WB_USER': 'changeme',
+      'WB_PASSWORD': 'changeme',
+      'SPARQL_PREFIX': """'changeme'
+        """,
+      'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
+      'DATACLIP_RECONCILIATION_ERROR': 'changeme'
     }
-}
