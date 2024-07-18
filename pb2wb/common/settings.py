@@ -56,8 +56,8 @@ BASE_IMPORT_OBJECTS = {
         },
       'MEDIAWIKI_API_URL': "https://philobiblon.cog.berkeley.edu/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://philobiblon.cog.berkeley.edu/query/bigdata/namespace/wdq/sparql",
-      'WB_USER': 'Jason Hatfield',
-      'WB_PASSWORD': 'w3wHfMpuEqY87nJ',
+      'WB_USER': 'changeme',
+      'WB_PASSWORD': 'changeme',
       'SPARQL_PREFIX': """
         PREFIX wd:<https://philobiblon.cog.berkeley.edu/entity/>
         PREFIX wdt:<https://philobiblon.cog.berkeley.edu/prop/direct/>""",
