@@ -8,28 +8,27 @@ bibliographies = ['BETA', 'BITAGAP', 'BITECA']
 
 # Parse command line arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('--choice', default='BETA', choices=bibliographies, help='Specify a choice from the list')
-
-#parser.add_argument("--bib", nargs="+", default="BETA", help="Name of bibliographies to process. Default is BETA.")
+parser.add_argument('--bib', default='BETA', choices=bibliographies, help='Specify a bibliography from the list.  Default is BETA.')
 args = parser.parse_args()
 
 # Access command line arguments
-bibliography = args.choice
+bibliography = args.bib
 
 # Libraries
 bibliographies = ['BETA', 'BITAGAP', 'BITECA']
 
+# Find the csv's
 files = os.listdir(f'../data/raw/{bibliography}/csvs')
-print(files)
-#tables = []
+print(f'Found the following files: {files}')
 table_dict = {}
 table_names = ['bio', 'ins', 'geo', 'ana', 'ms_ed', 'bib', 'cop', 'lib', 'uni', 'sub']
 for name in table_names:
     for file in files:
         if name.upper() in file:
-            print(f'Processing read for {bibliography} {name}')
+            print(f'Processing read for {bibliography} {name} using {file}')
             table_dict[name] = pd.read_csv(f'../data/raw/{bibliography}/csvs/{file}')
 
+# Assign the tables
 bio = table_dict['bio']
 ins = table_dict['ins']
 geo = table_dict['geo']
@@ -65,7 +64,6 @@ def main():
     
     orphans.to_csv(f'{bibliography}_orphans.csv')
     inward = remove_inward(sub, "SUBID")
-    print(inward)
 
     # No outward pointing orphans
     geo_o = outward_only(geo, "GEOID")
@@ -87,9 +85,8 @@ def main():
 
     for i in np.arange(len(arrs2)):
         new = pd.DataFrame({names[i]: arrs2[i]})
-    
         orphans2 = pd.concat([orphans2, new], axis = 1)
-    
+
     orphans2.to_csv(f'{bibliography}_outward_orphans.csv')
 
     # No inward pointing orphans
@@ -105,10 +102,11 @@ def main():
     lib_i = remove_inward(lib, "LIBID")
 
     arrs3 = [lib_i, bio_i, geo_i, ins_i, ana_i, ms_ed_i, bib_i, cop_i, uni_i, sub_i]
+
     for arr in arrs3:
         if type(arr) == 'pandas.core.frame.DataFrame':
             arr = arr[0]
-        
+
     len(arrs3)
     names = ["library", "biography", "geography", "institutions", "analytic", "ms_ed", 
          "bibliography", "copies", "uniform_title", "subject"]
@@ -135,70 +133,55 @@ def find_refs(table, id_type):
     sub.name = "sub"
 
     refs = []
-
     table2 = table.drop([id_type], axis = 1)
-
     tables = [bio, ins, geo, ana, ms_ed, bib, cop, lib, uni, sub]
     
     for i in np.arange(9):
         if tables[i].name == table.name:
            tables.pop(i)
-    
     tables.append(table2)
 
     for t in tables:
         for column in t.columns: 
             if all([type(t[column].values[i]) != str for i in np.arange(len(t[column]))]):
                 t = t.drop([column], axis = 1)
-            elif any(t[column].str.contains('BETA ' + id_type.lower()).dropna()): 
+            elif any(t[column].str.contains(bibliography + " " + id_type.lower()).dropna()):
                 continue
             else: 
                 t = t.drop([column], axis = 1) 
-
         for column in t.columns:
-            refs.extend(np.unique(t[column].dropna())) 
-            
+            refs.extend(np.unique(t[column].dropna()))
     return refs
 
 def remove_inward(table, id_type):
-    
     refs = find_refs(table, id_type)
-    
-    ids = np.unique(table[id_type])
-    
+    ids = table[id_type].unique()
     orphans = pd.DataFrame(ids)
 
     for i in np.arange(len(orphans[0])):
         if orphans.iloc[i, 0] in refs:
             orphans.iloc[i,0] = np.nan
-
     return orphans.dropna()[0]
 
 def remove_outward(table, id_type, orphans):
-    
     final_orphans = []
-    
     table = table[table[id_type].isin(orphans)]
-    #print(table)
     
     for column in table.columns: 
         if all([type(table[column].values[i]) != str for i in np.arange(len(table[column]))]):
             table = table.drop([column], axis = 1)
-        elif any(table[column].str.contains('BETA ').dropna()):                 
+        elif any(table[column].str.contains(bibliography + " ").dropna()):
             continue
         else: 
             table = table.drop([column], axis = 1)
-        #print(table)
     
     if table.empty:
         return None
     table = table.groupby(id_type).agg('count')
     
-    
     for i in np.arange(table.shape[0]):
         if not any(table.iloc[i, :].values):
             final_orphans = np.append(final_orphans, table.index[i])
-
     return final_orphans
 
 def get_orphans(table, id_type):

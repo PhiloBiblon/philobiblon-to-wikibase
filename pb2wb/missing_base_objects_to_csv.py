@@ -1,5 +1,4 @@
 import csv
-import subprocess
 import pandas as pd
 from common.settings import BASE_IMPORT_OBJECTS
 
