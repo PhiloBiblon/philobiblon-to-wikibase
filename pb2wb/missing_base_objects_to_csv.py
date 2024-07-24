@@ -22,8 +22,8 @@ cwd = os.getcwd()
 updated_path = f'{cwd}/updated/{bibliography}'
 Path(f'{updated_path}').mkdir(parents=True, exist_ok=True)
 
-files = [f'{bibliography}_analytic.csv', f'{bibliography}_biography.csv', f'{bibliography}_geography.csv', f'{bibliography}_institutions.csv',
-         f'{bibliography}_library.csv', f'{bibliography}_subject.csv', f'{bibliography}_bibliography.csv', f'{bibliography}_copies.csv',
+files = [f'{bibliography}_analytic.csv', f'{bibliography}_biography.csv', f'{bibliography}_geography.csv', f'{bibliography}_institutions.csv', \
+         f'{bibliography}_library.csv', f'{bibliography}_subject.csv', f'{bibliography}_bibliography.csv', f'{bibliography}_copies.csv', \
          f'{bibliography}_institutions.csv', f'{bibliography}_ms_ed.csv', f'{bibliography}_uniform_title.csv']
 
 def perform_inner_join(input_file, updated_df, output_file, first_column_name):
