@@ -38,10 +38,10 @@ def perform_inner_join(input_file, updated_df, output_file, first_column_name):
 
 for file in files:
     print(f'Processing file: {file}')
-    input_file = '../data/clean/' + str.upper(f'{bibliography}') + f'/csvs/{file}'
+    input_file = f'../data/clean/{bibliography.lower()}/csvs/{file}'
     output_file = f'{updated_path}/{file}'
     print(f'Using input file: {file}')
-    pre_df = pd.read_csv('../data/processed/pre/' + str.upper(f'{bibliography}') + f'/{file}')
+    pre_df = pd.read_csv(f'../data/processed/pre/{bibliography.upper()}/{file}')
     first_column_name = pre_df.columns[0]
 
     # Search qnum value that represents the BASE_OBJECT_RECONCILIATION_ERROR
