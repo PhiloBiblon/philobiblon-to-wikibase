@@ -92,8 +92,8 @@ BASE_IMPORT_OBJECTS = {
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'changeme'},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'changeme'}
         },
-      'MEDIAWIKI_API_URL': "https://pbsandbox.wikibase.cloud/api.php",
-      'SPARQL_ENDPOINT_URL': "https://pbsandbox.wikibase.cloud/query/bigdata/namespace/wdq/sparql",
+      'MEDIAWIKI_API_URL': "https://pbsandbox.wikibase.cloud/w/api.php",
+      'SPARQL_ENDPOINT_URL': "https://pbsandbox.wikibase.cloud/query/sparql",
       'WB_USER': 'changeme',
       'WB_PASSWORD': 'changeme',
       'SPARQL_PREFIX': """

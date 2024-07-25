@@ -16,12 +16,13 @@ def get_full_input_path(bib, table, updated):
     return os.path.join(CLEAN_DIR, file)
 
 
-def base_import(bib='BETA', table=None, skip_existing=False, dry_run=False, sample_size=0, updated=False):
+def base_import(bib='BETA', table=None, skip_existing=False, dry_run=False, sample_size=0, updated=False, wb='PBSANDBOX'):
     print('Preparing wikibase connection ...')
+    print(f'Using wikibase: {wb}')
     if dry_run:
         wb_manager = None
     else:
-        wb_manager = WBManager()
+        wb_manager = WBManager(wb=wb)
 
     for mapper_class in [AnalyticMonikerMapper, BibliographyMonikerMapper, BiographyMonikerMapper, CopiesMonikerMapper,
               GeographyMonikerMapper, InstitutionMonikerMapper, LibraryMonikerMapper, MsEdMonikerMapper,
@@ -32,7 +33,8 @@ def base_import(bib='BETA', table=None, skip_existing=False, dry_run=False, samp
             mapper = (mapper_class(wb_manager).
                       with_sample_size(sample_size).
                       with_dry_run(dry_run).
-                      with_skip_existing(skip_existing))
+                      with_skip_existing(skip_existing).
+                      with_wb(wb))
             mapper.migrate( path)
 
     print('done.')
