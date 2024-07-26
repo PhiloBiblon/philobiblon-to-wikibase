@@ -24,10 +24,6 @@ class GenericMapper:
     self.sample_size = i
     return self
 
-  def with_wb(self, wb):
-    self.wb = wb
-    return self
-
   def get_pbid(self, id):
     return id
 

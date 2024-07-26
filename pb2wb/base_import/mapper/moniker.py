@@ -6,6 +6,7 @@ import textwrap
 from common.enums import Table
 from .generic import GenericMapper
 from common.wb_manager import PROPERTY_PHILOBIBLON_ID
+from common.settings import BASE_IMPORT_OBJECTS, TEMP_DIR
 
 
 class MonikerMapper(GenericMapper):
@@ -28,7 +29,7 @@ class MonikerMapper(GenericMapper):
       return None
 
     label = label.values[0]
-    
+
     # TODO force encoding to utf8 because of problems in charset in CSVs
     # label = label.encode('iso8859-1').decode('utf8')
     # check max length for descriptions in wikibase
@@ -38,6 +39,10 @@ class MonikerMapper(GenericMapper):
     return label
 
   def to_wb_entity(self, pbid, df_element):
+    wb = TEMP_DIR['TEMP_WB']
+    bib = TEMP_DIR['TEMP_BIB']
+    LANGUAGE = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['Language']
+    QNUMBER = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['qnum']
     is_new = True
     item = self.wb_manager.get_q_by_pbid(pbid)
     if not item:
@@ -48,12 +53,12 @@ class MonikerMapper(GenericMapper):
     label = self.prepare_label(pbid, df_element)
 
     if label:
-      item.labels.set(language='es', value=label)
-      item.aliases.set(language='es', values=pbid)
+      item.labels.set(language=LANGUAGE, value=label)
+      item.aliases.set(language=LANGUAGE, values=pbid)
       item.claims.add(String(value=pbid, prop_nr=PROPERTY_PHILOBIBLON_ID))
       qualifiers = Qualifiers()
       qualifiers.add(Item(value='Q6', prop_nr='P700'))
-      item.claims.add(Item(value='Q4', prop_nr='P131', qualifiers=qualifiers))
+      item.claims.add(Item(value=QNUMBER, prop_nr='P131', qualifiers=qualifiers))
       item.claims.add(Item(value='Q5', prop_nr='P17'))
       
       return item, is_new

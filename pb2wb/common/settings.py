@@ -73,9 +73,9 @@ P799_OK_VALUES = {
 BASE_IMPORT_OBJECTS = {
     'LOCAL_WB':
       {'BIB':{
-        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'changeme'},
-        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'changeme'},
-        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'changeme'}
+        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4'},
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q4'},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q4'}
         },
       'MEDIAWIKI_API_URL': "http://localhost/api.php",
       'SPARQL_ENDPOINT_URL': "http://localhost:8834/proxy/wdqs/bigdata/namespace/wdq/sparql",
@@ -88,14 +88,14 @@ BASE_IMPORT_OBJECTS = {
     },
     'PBSANDBOX':
       {'BIB':{
-        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'changeme'},
-        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'changeme'},
-        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'changeme'}
+        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4'},
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q4'},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q4'}
         },
       'MEDIAWIKI_API_URL': "https://pbsandbox.wikibase.cloud/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://pbsandbox.wikibase.cloud/query/sparql",
-      'WB_USER': 'changeme',
-      'WB_PASSWORD': 'changeme',
+-     'WB_USER': 'changeme',
+-     'WB_PASSWORD': 'changeme',
       'SPARQL_PREFIX': """
         PREFIX wd:<https://pbsandbox.wikibase.cloud/entity/>
         PREFIX wdt:<https://pbsandbox.wikibase.cloud/prop/direct/>""",
@@ -155,3 +155,5 @@ BASE_IMPORT_OBJECTS = {
       'DATACLIP_RECONCILIATION_ERROR': 'changeme',
       'P799_OK_VALUES': {} #changeme
     }
+
+TEMP_DIR = {'TEMP_WB': 'PBSANDBOX', 'TEMP_BIB': 'BETA'}

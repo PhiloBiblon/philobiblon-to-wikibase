@@ -1,7 +1,7 @@
 from wikibaseintegrator import WikibaseIntegrator, wbi_login
 from wikibaseintegrator.wbi_config import config as wbi_config
 from wikibaseintegrator import wbi_helpers
-from common.settings import BASE_IMPORT_OBJECTS
+from common.settings import BASE_IMPORT_OBJECTS, TEMP_DIR
 
 # FactGrid properties
 PROPERTY_INSTANCE_OF='P2'
@@ -12,7 +12,8 @@ PROPERTY_NOTES='P817'
 
 class WBManager():
 
-  def __init__(self, wb='PBSANDBOX'):
+  def __init__(self):
+    wb = TEMP_DIR['TEMP_WB']
     wbi_config['MEDIAWIKI_API_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['MEDIAWIKI_API_URL']
     wbi_config['SPARQL_ENDPOINT_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_ENDPOINT_URL']
     user = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
