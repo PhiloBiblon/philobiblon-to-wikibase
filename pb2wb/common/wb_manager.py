@@ -1,8 +1,7 @@
 from wikibaseintegrator import WikibaseIntegrator, wbi_login
 from wikibaseintegrator.wbi_config import config as wbi_config
 from wikibaseintegrator import wbi_helpers
-
-from common.settings import MEDIAWIKI_API_URL, SPARQL_ENDPOINT_URL, WB_PASSWORD, WB_USER, SPARQL_PREFIX
+from common.settings import BASE_IMPORT_OBJECTS, TEMP_DICT
 
 # FactGrid properties
 PROPERTY_INSTANCE_OF='P2'
@@ -14,10 +13,14 @@ PROPERTY_NOTES='P817'
 class WBManager():
 
   def __init__(self):
-    wbi_config['MEDIAWIKI_API_URL'] = MEDIAWIKI_API_URL
-    wbi_config['SPARQL_ENDPOINT_URL'] = SPARQL_ENDPOINT_URL
-
-    login_instance = wbi_login.Login(user=WB_USER, password=WB_PASSWORD)
+    wb = TEMP_DICT['TEMP_WB']
+    wbi_config['MEDIAWIKI_API_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['MEDIAWIKI_API_URL']
+    wbi_config['SPARQL_ENDPOINT_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_ENDPOINT_URL']
+    user = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
+    print(f'Using user: {user}')
+    password = BASE_IMPORT_OBJECTS[f'{wb}']['WB_PASSWORD']
+    self.prefix = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_PREFIX']
+    login_instance = wbi_login.Login(user, password)
     self.wbi = WikibaseIntegrator(login=login_instance)
 
   def get_wbi(self):
@@ -64,7 +67,7 @@ class WBManager():
     results = wbi_helpers.execute_sparql_query(f"""SELECT ?item WHERE {{
       ?item wdt:{PROPERTY_PHILOBIBLON_ID} '{pbid}'.
       FILTER CONTAINS(str(?item), '/Q')
-    }}""", prefix = SPARQL_PREFIX)
+    }}""", self.prefix)
     if results['results']['bindings']:
       return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
     else:
@@ -75,7 +78,7 @@ class WBManager():
     results = wbi_helpers.execute_sparql_query(f"""SELECT ?p WHERE {{
       ?p wdt:{PROPERTY_PHILOBIBLON_ID} '{pbid}'.
       FILTER CONTAINS(str(?p), '/P')
-    }}""", prefix = SPARQL_PREFIX)
+    }}""", prefix=self.prefix)
     if results['results']['bindings']:
       return self.wbi.property.get(results['results']['bindings'][0]['p']['value'].split('/')[-1])
     else:
@@ -87,7 +90,7 @@ class WBManager():
         ?item wdt:{PROPERTY_INSTANCE_OF}* wd:{q_dataclip.id}.
         ?item rdfs:label ?itemLabel.
         FILTER(CONTAINS(LCASE(?itemLabel), '{value.lower()}')).
-      }}""", prefix = SPARQL_PREFIX)
+      }}""", self.prefix)
     if results['results']['bindings']:
       return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
     else:
@@ -100,7 +103,7 @@ class WBManager():
         ?item rdfs:label ?itemLabel.
         FILTER(REGEX(?itemLabel, "^{label_regex}$"@{lang}, "i")).
         FILTER CONTAINS(str(?item), '/Q')
-      }}""", prefix = SPARQL_PREFIX)
+      }}""", self.prefix)
     if results['results']['bindings']:
       return self.wbi.item.get(results['results']['bindings'][0]['item']['value'].split('/')[-1])
     else:
@@ -111,7 +114,7 @@ class WBManager():
         ?p rdf:type wikibase:Property.
       }}
       ORDER BY DESC(STRLEN(str(?p))) DESC(?p)
-      LIMIT 1""", prefix=SPARQL_PREFIX)
+      LIMIT 1""", self.prefix)
     if results['results']['bindings']:
       return self.wbi.property.get(results['results']['bindings'][0]['p']['value'].split('/')[-1])
     else:
@@ -119,7 +122,7 @@ class WBManager():
 
   # run an SPARQL query
   def runSparQlQuery(self, query):
-    results = wbi_helpers.execute_sparql_query(query, prefix = SPARQL_PREFIX)
+    results = wbi_helpers.execute_sparql_query(query, self.prefix)
     if results['results']['bindings']:
       return results['results']['bindings']
     else:
