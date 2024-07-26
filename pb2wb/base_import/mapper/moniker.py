@@ -6,7 +6,7 @@ import textwrap
 from common.enums import Table
 from .generic import GenericMapper
 from common.wb_manager import PROPERTY_PHILOBIBLON_ID
-from common.settings import BASE_IMPORT_OBJECTS, TEMP_DIR
+from common.settings import BASE_IMPORT_OBJECTS, TEMP_DICT
 
 
 class MonikerMapper(GenericMapper):
@@ -39,8 +39,8 @@ class MonikerMapper(GenericMapper):
     return label
 
   def to_wb_entity(self, pbid, df_element):
-    wb = TEMP_DIR['TEMP_WB']
-    bib = TEMP_DIR['TEMP_BIB']
+    wb = TEMP_DICT['TEMP_WB']
+    bib = TEMP_DICT['TEMP_BIB']
     LANGUAGE = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['Language']
     QNUMBER = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['qnum']
     is_new = True

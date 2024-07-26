@@ -4,7 +4,7 @@ from base_import.mapper.moniker import (AnalyticMonikerMapper, BibliographyMonik
                                         CopiesMonikerMapper, GeographyMonikerMapper, InstitutionMonikerMapper,
                                         LibraryMonikerMapper, MsEdMonikerMapper, SubjectMonikerMapper,
                                         UniformTitleMonikerMapper)
-from common.settings import CLEAN_DIR, TEMP_DIR
+from common.settings import CLEAN_DIR, TEMP_DICT
 from common.wb_manager import WBManager
 
 
@@ -18,9 +18,8 @@ def get_full_input_path(bib, table, updated):
 def base_import(bib='BETA', table=None, skip_existing=False, dry_run=False, sample_size=0, updated=False, wb='PBSANDBOX'):
     print('Preparing wikibase connection ...')
     print(f'Using wikibase: {wb} and bibliography: {bib}')
-    TEMP_DIR['TEMP_WB'] = wb
-    TEMP_DIR['TEMP_BIB'] = bib
-    print(TEMP_DIR)
+    TEMP_DICT['TEMP_WB'] = wb
+    TEMP_DICT['TEMP_BIB'] = bib
 
     if dry_run:
         wb_manager = None
