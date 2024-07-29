@@ -1,6 +1,7 @@
 import traceback
 import sys
 import time
+from common.settings import TEMP_DICT
 
 
 class GenericMapper:
@@ -11,6 +12,7 @@ class GenericMapper:
     self.wb_manager = wb_manager
     self.skip_existing = True
     self.sample_size = 10
+    self.DRYRUN = TEMP_DICT['DRYRUN']
 
   def with_skip_existing(self, b: bool):
     self.skip_existing = b
@@ -51,6 +53,9 @@ class GenericMapper:
       while not updated and num_attempts > 0:
         try:
           item, is_new = self.to_wb_entity(pbid, df_element)
+          if self.DRYRUN:
+            print(f"DRYRUN: Stopping before writing item PBID={pbid} mapped with {'new' if is_new else 'existing'} {item.id}")
+            break
           item.write()
           print(f"Writing item PBID={pbid} mapped with {'new' if is_new else 'existing'} {item.id}")
           updated = True
