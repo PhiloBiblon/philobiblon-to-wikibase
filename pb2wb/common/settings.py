@@ -94,8 +94,8 @@ BASE_IMPORT_OBJECTS = {
         },
       'MEDIAWIKI_API_URL': "https://pbsandbox.wikibase.cloud/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://pbsandbox.wikibase.cloud/query/sparql",
--     'WB_USER': 'changeme',
--     'WB_PASSWORD': 'changeme',
+      'WB_USER': 'changeme',
+      'WB_PASSWORD': 'changeme',
       'SPARQL_PREFIX': """
         PREFIX wd:<https://pbsandbox.wikibase.cloud/entity/>
         PREFIX wdt:<https://pbsandbox.wikibase.cloud/prop/direct/>""",
