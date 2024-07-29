@@ -23,11 +23,9 @@ def base_import(bib='BETA', table=None, skip_existing=False, dry_run=False, samp
     print(f'Using wikibase: {wb} and bibliography: {bib}')
     TEMP_DICT['TEMP_WB'] = wb
     TEMP_DICT['TEMP_BIB'] = bib
+    TEMP_DICT['DRYRUN'] = dry_run
 
-    if dry_run:
-        wb_manager = None
-    else:
-        wb_manager = WBManager()
+    wb_manager = WBManager()
 
     for mapper_class in [AnalyticMonikerMapper, BibliographyMonikerMapper, BiographyMonikerMapper, CopiesMonikerMapper,
               GeographyMonikerMapper, InstitutionMonikerMapper, LibraryMonikerMapper, MsEdMonikerMapper,

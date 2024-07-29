@@ -156,4 +156,4 @@ BASE_IMPORT_OBJECTS = {
       'P799_OK_VALUES': {} #changeme
     }
 
-TEMP_DICT = {'TEMP_WB': 'PBSANDBOX', 'TEMP_BIB': 'BETA'}
+TEMP_DICT = {'TEMP_WB': 'PBSANDBOX', 'TEMP_BIB': 'BETA', 'DRYRUN': False}
