@@ -21,8 +21,8 @@ def get_full_input_path(bib, table, updated, spot):
 def base_import(bib='BETA', table=None, skip_existing=False, dry_run=False, sample_size=0, updated=False, wb='PBSANDBOX', spot=False):
     print('Preparing wikibase connection ...')
     print(f'Using wikibase: {wb} and bibliography: {bib}')
-    TEMP_DICT['TEMP_WB'] = wb
-    TEMP_DICT['TEMP_BIB'] = bib
+    TEMP_DICT['TEMP_WB'] = wb.upper()
+    TEMP_DICT['TEMP_BIB'] = bib.upper()
     TEMP_DICT['DRYRUN'] = dry_run
 
     wb_manager = WBManager()
