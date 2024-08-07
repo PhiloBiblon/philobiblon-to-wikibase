@@ -46,10 +46,16 @@ for csv_file_path in files:
     data = pd.read_csv(csv_file_path)
     # Find the first column name from the CSV
     first_column_name = data.columns[0]
-    # Print the output
+    # Print the id of the first column
     print("First column name:", first_column_name)
-    # Group the data by "MANID" column and export to csv
+    # Extract the 3rd element after the second empty space in the string
+    data['id'] = data[first_column_name].str.split(" ").str[2]
     grouped_data = data.groupby(first_column_name).first()
+    # Sort the dataframe by the 'id' column
+    grouped_data.sort_values('id', inplace=True)
+    # Drop the 'id' column
+    grouped_data.drop('id', axis=1, inplace=True)
+    # Export the grouped data to a new CSV file
     grouped_data.to_csv(csv_output_path)
 
 print(f'Complete. See the updated files in the first_row/{bibliography} directory.')
