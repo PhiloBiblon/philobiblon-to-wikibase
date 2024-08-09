@@ -23,36 +23,6 @@ class UniformTitlePreprocessor(GenericPreprocessor):
     # Internet edit box
     df = self.split_internet_class(df)
 
-    # enumerate the pb base item (id) fields
-    id_fields = [
-      'TEXID',
-      'AUTHOR_ID',
-      'MILESTONE_GEOID',
-      'RELATED_BIOID',
-      'RELATED_BIBID',
-      'RELATED_MANID',
-      'RELATED_UNIID',
-      'SUBJECT_BIOID',
-      'SUBJECT_GEOID',
-      'SUBJECT_INSID',
-      'SUBJECT_SUBID'
-    ]
-
-    dataclip_fields = [
-      'INC_EXP_CLASS',
-      'LANGUAGE_TEXT',
-      'LANGUAGE_ORIG',
-      'LANGUAGE_INTR',
-      'MILESTONE_CLASS',
-      'CLASS',
-      'RELATED_BIOCLASS',
-      'RELATED_BIBCLASS',
-      'RELATED_MANCLASS',
-      'RELATED_UNICLASS',
-      'INTERNET_CLASS',
-      'TYPE'
-    ]
-
     # fill in any missing MILESTONE_CLASS values
     key = 'MILESTONE_CLASS'
     cols = DATADICT['uniform_title']['milestones']['columns']
@@ -60,6 +30,9 @@ class UniformTitlePreprocessor(GenericPreprocessor):
     df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
 
     # add new columns for the qnumbers using the lookup table if supplied
+    id_fields = DATADICT['uniform_title']['id_fields']
+    dataclip_fields = DATADICT['uniform_title']['dataclip_fields']
+
     df = self.reconcile_base_objects_by_lookup(df, id_fields)
     df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
 

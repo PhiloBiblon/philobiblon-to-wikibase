@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 
 from common.enums import Table
+from common.data_dictionary import DATADICT
 from .generic import GenericPreprocessor
 
 class GeographyPreprocessor(GenericPreprocessor):
@@ -58,16 +59,10 @@ class GeographyPreprocessor(GenericPreprocessor):
     df = self.split_column_by_clip(df, 'RELATED_GEOCLASS', 'RELATED_GEOID', 'GEOGRAPHY*RELATED_GEOCLASS',
                                    ['P', 'S'])
 
-    # enumerate the pb base item (id) fields
-    id_fields = [
-      'GEOID', 'RELATED_GEOID_S', 'RELATED_GEOID_P', 'RELATED_BIBID', 'RELATED_MANID',
-      'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
-    ]
-    dataclip_fields = [
-      'NAME_CLASS', 'CLASS', 'TYPE', 'RELATED_GEOCLASS', 'RELATED_BIBCLASS', 'RELATED_MANCLASS', 'INTERNET_CLASS'
-    ]
-
     # add new columns for the qnumbers using the lookup table if supplied
+    id_fields = DATADICT['geography']['id_fields']
+    dataclip_fields = DATADICT['geography']['dataclip_fields']
+
     df = self.reconcile_base_objects_by_lookup(df, id_fields)
     df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
 
