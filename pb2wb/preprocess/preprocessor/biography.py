@@ -133,42 +133,10 @@ class BiographyPreprocessor(GenericPreprocessor):
                                         true_extension='OBJECT', false_extension='SUBJECT')
 
     # enumerate the pb base item (id) fields
-    id_fields = [
-      'BIOID',
-      'TITLE_GEOID',
-      'MILESTONE_GEOID',
-      'AFFILIATION_GEOID',
-      'RELATED_BIOID_SUBJECT',
-      'RELATED_BIOID_OBJECT',
-      'RELATED_INSID',
-      'RELATED_BIBID',
-      'RELATED_MANID',
-      'SUBJECT_GEOID',
-      'SUBJECT_INSID',
-      'SUBJECT_SUBID'
-    ]
-
-    dataclip_fields = [
-      'NAME_CLASS',
-      'NAME_NUMBER',
-      'NAME_HONORIFIC',
-      'TITLE',
-      'TITLE_NUMBER',
-      'TITLE_CONNECTOR',
-      'MILESTONE_CLASS',
-      'AFFILIATION_CLASS',
-      'AFFILIATION_TYPE',
-      # Note: the next line is columns that were created by the split above
-      'AFFILIATION_TYPE_PRO', 'AFFILIATION_TYPE_ORD', 'AFFILIATION_TYPE_REL',
-      'SEX',
-      'RELATED_BIOCLASS',
-      'RELATED_INSCLASS',
-      'RELATED_BIBCLASS',
-      'RELATED_MANCLASS',
-      'INTERNET_CLASS'
-    ]
 
     # add new columns for the qnumbers using the lookup table if supplied
+    id_fields = DATADICT['biography']['id_fields']
+    dataclip_fields = DATADICT['biography']['dataclip_fields']
     df = self.reconcile_base_objects_by_lookup(df, id_fields)
     df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
 

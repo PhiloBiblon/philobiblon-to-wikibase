@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime
 
 from common.enums import Table
+from common.data_dictionary import DATADICT
 from .generic import GenericPreprocessor
 
 class InstitutionPreprocessor(GenericPreprocessor):
@@ -48,28 +49,10 @@ class InstitutionPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df_ins = pd.read_csv(file, dtype=str, keep_default_na=False)
 
-    # enumerate the pb base item (id) fields
-    id_fields = ["INSID",
-                 "MILESTONE_GEOID",
-                 "RELATED_GEOID",
-                 "RELATED_INSID",
-                 "RELATED_BIBID",
-                 "RELATED_MANID",
-                 "SUBJECT_BIOID",
-                 "SUBJECT_GEOID",
-                 "SUBJECT_SUBID"
-    ]
-    dataclip_fields = ["NAME_CLASS", 
-                       "MILESTONE_CLASS", 
-                       "CLASS", "TYPE", 
-                       "RELATED_GEOCLASS", 
-                       "RELATED_INSCLASS", 
-                       "RELATED_BIBCLASS", 
-                       "RELATED_MANCLASS", 
-                       "INTERNET_CLASS"
-    ]
-
     # add new columns for the qnumbers using the lookup table if supplied
+    id_fields = DATADICT['institution']['id_fields']
+    dataclip_fields = DATADICT['institution']['dataclip_fields']
+
     df_ins = self.reconcile_base_objects_by_lookup(df_ins, id_fields)
     df_ins = self.reconcile_dataclips_by_lookup(df_ins, dataclip_fields)
 

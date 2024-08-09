@@ -60,56 +60,10 @@ class MsEdPreprocessor(GenericPreprocessor):
     # Internet edit box
     df = self.split_internet_class(df)
 
-    # enumerate the pb base item (id) fields
-    id_fields = [
-      'MANID',
-      'MILESTONE_MAKER_ID_P',
-      'MILESTONE_MAKER_ID_W',
-      'MILESTONE_FUNDER_ID',
-      'MILESTONE_GEOID_P',
-      'MILESTONE_GEOID_W',
-      'OWNER_ID',
-      'OWNER_GEOID',
-      'FIRST_ANAID',
-      'FIRST_TEXID',
-      'RELATED_BIOID',
-      'RELATED_LIBID',
-      'RELATED_LIBEVENTGEOID',
-      'RELATED_BIBID',
-      'RELATED_MANID',
-      'RELATED_UNIID',
-      'RELATED_UNILANGUAGE',
-      'SUBJECT_BIOID',
-      'SUBJECT_GEOID',
-      'SUBJECT_INSID',
-      'SUBJECT_SUBID'
-    ]
-
-    dataclip_fields = [
-      'STATUS',
-      'MATERIAL',
-      'FORMAT',
-      'LEAF_CLASS',
-      'SIZE_CLASS',
-      'PAGE_CLASS',
-      'HAND_CLASS',
-      'FONT_CLASS',
-      'WATERMARK_CLASS',
-      'GRAPHIC_CLASS',
-      'MUSIC_CLASS',
-      'FEATURE_CLASS',
-      'MILESTONE_CLASS',
-      'CLASS',
-      'RELATED_BIOCLASS',
-      'RELATED_LIBCALLNOCLASS',
-      'RELATED_LIBEVENTCLASS',
-      'RELATED_BIBCLASS',
-      'RELATED_MANCLASS',
-      'RELATED_UNICLASS',
-      'INTERNET_CLASS'
-    ]
-
     # add new columns for the qnumbers using the lookup table if supplied
+    id_fields = DATADICT['ms_ed']['id_fields']
+    dataclip_fields = DATADICT['ms_ed']['dataclip_fields']
+
     df = self.reconcile_base_objects_by_lookup(df, id_fields)
     df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
 

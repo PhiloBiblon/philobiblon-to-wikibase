@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 
 from common.enums import Table
+from common.data_dictionary import DATADICT
 from .generic import GenericPreprocessor
 
 class SubjectPreprocessor(GenericPreprocessor):
@@ -43,26 +44,10 @@ class SubjectPreprocessor(GenericPreprocessor):
     # Internet edit box
     df = self.split_internet_class(df)
 
-    # enumerate the pb base item (id) fields
-    id_fields = [
-      'SUBID',
-      'HB_SUBID',
-      'HR_SUBID',
-      'RELATED_BIBID',
-      'RELATED_MANID'
-    ]
-
-    dataclip_fields = [
-      'HM_CLASS',
-      'HM_TYPE',
-      'HV_CLASS',
-      'HV_TYPE',
-      'RELATED_BIBCLASS',
-      'RELATED_MANCLASS',
-      'INTERNET_CLASS'
-    ]
-
     # add new columns for the qnumbers using the lookup table if supplied
+    id_fields = DATADICT['subject']['id_fields']
+    dataclip_fields = DATADICT['subject']['dataclip_fields']
+
     df = self.reconcile_base_objects_by_lookup(df, id_fields)
     df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
 

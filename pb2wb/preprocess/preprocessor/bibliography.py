@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 
 from common.enums import Table
+from common.data_dictionary import DATADICT
 from .generic import GenericPreprocessor
 
 class BibliographyPreprocessor(GenericPreprocessor):
@@ -33,32 +34,9 @@ class BibliographyPreprocessor(GenericPreprocessor):
     df = self.split_column_by_clip(df, 'ID_CLASS', 'ID_NUMBER', 'BIBLIOGRAPHY*ID_CLASS',
                                    ['DOI', 'EISBN', 'ISBN', 'ISBN-10', 'ISBN-13', 'ISSN', 'ISSN-E'])
 
-    # enumerate the pb base item (id) fields
-    id_fields = [
-      'BIBID',
-      'RELATED_LIBID',
-      'RELATED_BIBID',
-      'SUBJECT_BIOID',
-      'SUBJECT_GEOID',
-      'SUBJECT_INSID',
-      'SUBJECT_SUBID'
-    ]
-
-    dataclip_fields = [
-      'CREATOR_ROLE',
-      'ADJUNCT_ROLE',
-      'LOCATION_CLASS',
-      'ID_CLASS',
-      'FORM',
-      'TYPE',
-      'MEDIUM',
-      'CLASS',
-      'STATUS',
-      'RELATED_BIBCLASS',
-      'INTERNET_CLASS'
-    ]
-
     # add new columns for the qnumbers using the lookup table if supplied
+    id_fields = DATADICT['bibliography']['id_fields']
+    dataclip_fields = DATADICT['bibliography']['dataclip_fields']
     df = self.reconcile_base_objects_by_lookup(df, id_fields)
     df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
 
