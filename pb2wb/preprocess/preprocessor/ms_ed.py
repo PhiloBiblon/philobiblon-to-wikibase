@@ -34,20 +34,27 @@ class MsEdPreprocessor(GenericPreprocessor):
     df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',
                                    ['C', 'F', 'A', 'R', 'B', 'I', 'CIBN45', 'E'])
 
+    # split MILESTONE columns by ms vs. ed
     # Split MILESTONE_MAKER
     df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_MAKER_ID', 'MS_ED*MILESTONE_CLASS',
                                    ['P', 'W'])
-
     # Split MILESTONE_GEOID
     df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_GEOID', 'MS_ED*MILESTONE_CLASS',
                                    ['P', 'W'])
-
-    # Split MILESTONE_MAKER
+    # Split MILESTONE_BD
     df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_BD', 'MS_ED*MILESTONE_CLASS',
                                    ['P', 'W'])
-
-    # Split MILESTONE_MAKER
+    # Split MILESTONE_BDQ
+    df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_BDQ', 'MS_ED*MILESTONE_CLASS',
+                                   ['P', 'W'])
+    # Split MILESTONE_ED
     df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_ED', 'MS_ED*MILESTONE_CLASS',
+                                   ['P', 'W'])
+    # Split MILESTONE_EDQ
+    df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_EDQ', 'MS_ED*MILESTONE_CLASS',
+                                   ['P', 'W'])
+    # Split MILESTONE_BASIS
+    df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_BASIS', 'MS_ED*MILESTONE_CLASS',
                                    ['P', 'W'])
 
     # Internet edit box
@@ -71,6 +78,7 @@ class MsEdPreprocessor(GenericPreprocessor):
       'RELATED_BIBID',
       'RELATED_MANID',
       'RELATED_UNIID',
+      'RELATED_UNILANGUAGE',
       'SUBJECT_BIOID',
       'SUBJECT_GEOID',
       'SUBJECT_INSID',
