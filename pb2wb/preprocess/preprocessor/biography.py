@@ -150,6 +150,7 @@ class BiographyPreprocessor(GenericPreprocessor):
 
     dataclip_fields = [
       'NAME_CLASS',
+      'NAME_NUMBER',
       'NAME_HONORIFIC',
       'TITLE',
       'TITLE_NUMBER',
