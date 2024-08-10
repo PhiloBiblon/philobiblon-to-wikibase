@@ -26,8 +26,8 @@ class MsEdPreprocessor(GenericPreprocessor):
 
     # now fill in any remaining missing MILESTONE_CLASS values
     key = 'MILESTONE_CLASS'
-    cols = DATADICT['ms_ed']['milestones']['columns']
-    default_val = DATADICT['ms_ed']['milestones']['default']
+    cols = DATADICT[MsEdPreprocessor.TABLE.value]['milestones']['columns']
+    default_val = DATADICT[MsEdPreprocessor.TABLE.value]['milestones']['default']
     df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
 
     # Split RELATED_LIBCALLNO
@@ -61,11 +61,7 @@ class MsEdPreprocessor(GenericPreprocessor):
     df = self.split_internet_class(df)
 
     # add new columns for the qnumbers using the lookup table if supplied
-    id_fields = DATADICT['ms_ed']['id_fields']
-    dataclip_fields = DATADICT['ms_ed']['dataclip_fields']
-
-    df = self.reconcile_base_objects_by_lookup(df, id_fields)
-    df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
+    df = self.add_qnumber_columns(df, MsEdPreprocessor.TABLE)
 
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')

@@ -50,11 +50,7 @@ class InstitutionPreprocessor(GenericPreprocessor):
     df_ins = pd.read_csv(file, dtype=str, keep_default_na=False)
 
     # add new columns for the qnumbers using the lookup table if supplied
-    id_fields = DATADICT['institution']['id_fields']
-    dataclip_fields = DATADICT['institution']['dataclip_fields']
-
-    df_ins = self.reconcile_base_objects_by_lookup(df_ins, id_fields)
-    df_ins = self.reconcile_dataclips_by_lookup(df_ins, dataclip_fields)
+    df_ins = self.add_qnumber_columns(df_ins, InstitutionPreprocessor.TABLE)
 
     # Class
     self.set_column_value_by_condition(df_ins, 'CLASS.str.len()>0 & CLASS==\'INSTITUTIONS*CLASS*OTHER\'', 'CLASS', '')

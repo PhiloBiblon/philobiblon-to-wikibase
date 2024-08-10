@@ -25,16 +25,12 @@ class UniformTitlePreprocessor(GenericPreprocessor):
 
     # fill in any missing MILESTONE_CLASS values
     key = 'MILESTONE_CLASS'
-    cols = DATADICT['uniform_title']['milestones']['columns']
-    default_val = DATADICT['uniform_title']['milestones']['default']
+    cols = DATADICT[UniformTitlePreprocessor.TABLE.value]['milestones']['columns']
+    default_val = DATADICT[UniformTitlePreprocessor.TABLE.value]['milestones']['default']
     df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
 
     # add new columns for the qnumbers using the lookup table if supplied
-    id_fields = DATADICT['uniform_title']['id_fields']
-    dataclip_fields = DATADICT['uniform_title']['dataclip_fields']
-
-    df = self.reconcile_base_objects_by_lookup(df, id_fields)
-    df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
+    df = self.add_qnumber_columns(df, UniformTitlePreprocessor.TABLE)
 
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')

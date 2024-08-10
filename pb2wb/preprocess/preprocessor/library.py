@@ -25,11 +25,7 @@ class LibraryPreprocessor(GenericPreprocessor):
     df = self.split_internet_class(df)
 
     # add new columns for the qnumbers using the lookup table if supplied
-    id_fields = DATADICT['library']['id_fields']
-    dataclip_fields = DATADICT['library']['dataclip_fields']
-
-    df = self.reconcile_base_objects_by_lookup(df, id_fields)
-    df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
+    df = self.add_qnumber_columns(df, LibraryPreprocessor.TABLE)
 
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')
