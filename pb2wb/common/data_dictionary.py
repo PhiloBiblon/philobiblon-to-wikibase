@@ -1,9 +1,11 @@
+from common.enums import Table
+
 # This is a representation of the data dictionary
 
 # Eventually, it should contain every column for every table, organized by editbox
 
 DATADICT = {
-    'analytic': {
+    Table.ANALYTIC.value: {
         'id_fields': [
             'CNUM',
             'TEXT_MANID',
@@ -31,7 +33,7 @@ DATADICT = {
             'INTERNET_CLASS'
         ]
     },
-    'bibliography': {
+    Table.BIBLIOGRAPHY.value: {
         'id_fields': [
             'BIBID',
             'RELATED_LIBID',
@@ -55,7 +57,7 @@ DATADICT = {
             'INTERNET_CLASS'
         ]
     },
-    'biography': {
+    Table.BIOGRAPHY.value: {
         'milestones': {
             'primary': 'MILESTONE_CLASS',
             'columns': [
@@ -105,7 +107,7 @@ DATADICT = {
             'INTERNET_CLASS'
         ]
     },
-    'copies': {
+    Table.COPIES.value: {
         'id_fields': [
             'COPID',
             'TEXT_MANID',
@@ -143,7 +145,7 @@ DATADICT = {
             'INTERNET_CLASS'
         ]
     },
-    'geography': {
+    Table.GEOGRAPHY.value: {
         'id_fields': [
             'GEOID', 'RELATED_GEOID_S', 'RELATED_GEOID_P', 'RELATED_BIBID', 'RELATED_MANID',
             'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
@@ -152,7 +154,7 @@ DATADICT = {
             'NAME_CLASS', 'CLASS', 'TYPE', 'RELATED_GEOCLASS', 'RELATED_BIBCLASS', 'RELATED_MANCLASS', 'INTERNET_CLASS'
         ]
     },
-    'institution': {
+    Table.INSTITUTIONS.value: {
         'id_fields': [
             "INSID",
             "MILESTONE_GEOID",
@@ -175,7 +177,7 @@ DATADICT = {
             "INTERNET_CLASS"
         ]
     },
-    'library': {
+    Table.LIBRARY.value: {
         'id_fields': [
             'LIBID',
             'RELATED_GEOID',
@@ -198,7 +200,7 @@ DATADICT = {
             'INTERNET_CLASS'
         ]
     },
-    'ms_ed': {
+    Table.MS_ED.value: {
         'milestones': {
             'primary': 'MILESTONE_CLASS',
             'columns': [
@@ -269,7 +271,7 @@ DATADICT = {
             'INTERNET_CLASS'
         ]
     },
-    'subject': {
+    Table.SUBJECT.value: {
         'id_fields': [
             'SUBID',
             'HB_SUBID',
@@ -287,7 +289,7 @@ DATADICT = {
             'INTERNET_CLASS'
         ]
     },
-    'uniform_title': {
+    Table.UNIFORM_TITLE.value: {
         'milestones': {
             'primary': 'MILESTONE_CLASS',
             'columns': [

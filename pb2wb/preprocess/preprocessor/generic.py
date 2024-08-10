@@ -8,6 +8,7 @@ from itertools import zip_longest
 import pandas as pd
 
 from common.enums import Bibliography
+from common.data_dictionary import DATADICT
 from common.settings import (CLEAN_DIR, PRE_PROCESSED_DIR, BASE_OBJECT_RECONCILIATION_ERROR,
                              DATACLIP_RECONCILIATION_ERROR)
 
@@ -398,3 +399,11 @@ class GenericPreprocessor:
     out_df[columns_to_propagate] = out_df.groupby(key_columns, group_keys=False).apply(
       lambda group: propagate_first_values(group, columns_to_propagate))[columns_to_propagate]
     return out_df
+
+  def add_qnumber_columns(self, df, table):
+    # add new columns for the qnumbers using the lookup table if supplied
+    id_fields = DATADICT[table.value]['id_fields']
+    dataclip_fields = DATADICT[table.value]['dataclip_fields']
+    df = self.reconcile_base_objects_by_lookup(df, id_fields)
+    df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
+    return df

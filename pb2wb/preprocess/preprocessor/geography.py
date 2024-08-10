@@ -60,11 +60,7 @@ class GeographyPreprocessor(GenericPreprocessor):
                                    ['P', 'S'])
 
     # add new columns for the qnumbers using the lookup table if supplied
-    id_fields = DATADICT['geography']['id_fields']
-    dataclip_fields = DATADICT['geography']['dataclip_fields']
-
-    df = self.reconcile_base_objects_by_lookup(df, id_fields)
-    df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
+    df = self.add_qnumber_columns(df, GeographyPreprocessor.TABLE)
 
     # adding the name_lang column
     df['NAME_LANG'] = df.apply (lambda row: self.get_name_lang(row), axis=1)

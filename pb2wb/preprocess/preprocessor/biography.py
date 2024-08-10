@@ -77,8 +77,8 @@ class BiographyPreprocessor(GenericPreprocessor):
 
     # fill in any missing MILESTONE_CLASS values
     key = 'MILESTONE_CLASS'
-    cols = DATADICT['biography']['milestones']['columns']
-    default_val = DATADICT['biography']['milestones']['default']
+    cols = DATADICT[BiographyPreprocessor.TABLE.value]['milestones']['columns']
+    default_val = DATADICT[BiographyPreprocessor.TABLE.value]['milestones']['default']
     df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
 
     # Split Affiliation_type
@@ -135,10 +135,7 @@ class BiographyPreprocessor(GenericPreprocessor):
     # enumerate the pb base item (id) fields
 
     # add new columns for the qnumbers using the lookup table if supplied
-    id_fields = DATADICT['biography']['id_fields']
-    dataclip_fields = DATADICT['biography']['dataclip_fields']
-    df = self.reconcile_base_objects_by_lookup(df, id_fields)
-    df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
+    df = self.add_qnumber_columns(df, BiographyPreprocessor.TABLE)
 
     milestone_primary_column = 'MILESTONE_CLASS'
     milestone_secondary_column = 'MILESTONE_DETAIL'
