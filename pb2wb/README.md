@@ -185,15 +185,22 @@ TBD
 
 ## Run the Postprocessor
 
-`run_postprocess.py`: Postprocess QS files exported from QuickStatements.
-
-Details TBD
+* `run_postprocess.py`: Postprocess QS files exported from QuickStatements.
+Alternate Method:
+* From pb2wd path, open `postprocess.ipynb` in jupyter.  Adjust tablenames to be processed in section 3 of playbook if needed.
+* Execute playbook.  Processed files will be present in ../data/processed/post/BETA/ directory path.
 
 ## Run the Postprocessor
 
 ## Import QS files to Wikibase using QuickStatements
 
-TBD
+1. Open [quickstatements link](https://philobiblon.cog.berkeley.edu/qs/#/)
+2. From page, click on new batch button
+3. Open post processed table to be imported from ../data/processed/post/BETA/ with a text editor (not from terminal).  Copy contents to clipboard.
+4. Paste copied contents into batch window on quickstatements page.
+5. Click import v1 commands button and review on following page.  If updates are accurate, proceed to click the `run` button to update.
+6. Spot validate updated Q items in https://philobiblon.cog.berkeley.edu
+
 
 ## Import the Notes
 
