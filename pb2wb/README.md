@@ -186,7 +186,7 @@ TBD
 ## Run the Postprocessor
 
 * `run_postprocess.py`: Postprocess QS files exported from QuickStatements.
-Alternate Method:
+## Alternate Postprocessor Method:
 * From pb2wd path, open `postprocess.ipynb` in jupyter.  Adjust tablenames to be processed in section 3 of playbook if needed.
 * Execute playbook.  Processed files will be present in ../data/processed/post/BETA/ directory path.
 
