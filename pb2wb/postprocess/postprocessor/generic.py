@@ -13,9 +13,9 @@ class GenericPostprocessor:
 
   def check_empty_p799(self, s):
     l = s.split('\t')
-    if len(l) != 3 or l[1] != 'P799' or l[2] not in P799_OK_VALUES.values():
-      return False
-    return True
+    if len(l) == 3 and l[1] == 'P799' and l[2].lstrip('\"').rstrip("\n"'\"') in P799_OK_VALUES.values():
+      return True
+    return False
 
   def update_command(self, line):
     if re.match(PATTERN_STATEMENT, line):
