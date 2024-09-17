@@ -2,6 +2,7 @@ from wikibaseintegrator import WikibaseIntegrator, wbi_login
 from wikibaseintegrator.wbi_config import config as wbi_config
 from wikibaseintegrator import wbi_helpers
 from common.settings import BASE_IMPORT_OBJECTS, TEMP_DICT
+from wikibaseintegrator.wbi_exceptions import MWApiError
 
 # FactGrid properties
 PROPERTY_INSTANCE_OF='P2'
@@ -50,10 +51,21 @@ class WBManager():
 
   # create wikibase item
   def create_wb_q(self, label, lang='en'):
-    item = self.wbi.item.new()
-    item.labels.set(language=lang, value=label)
-    item.write()
-    return item
+    try:
+      item = self.wbi.item.new()
+      item.labels.set(language=lang, value=label)
+      item.write()
+      return item
+    except MWApiError as error:
+      # Handle the rate limit error
+      if "Como medida contra los abusos" in str(error):
+        print(f"Rate limit exceeded. Error message: {error}")
+        time.sleep(60)  # Wait for 60 seconds before retrying
+        item.write()  # Retry the write operation
+        return item
+      else:
+        # Handle any other type of MWApiErrors
+        print(f"Unexpected error: {error}")
 
   # get wikibase item
   def get_wb_q(self, q_number):

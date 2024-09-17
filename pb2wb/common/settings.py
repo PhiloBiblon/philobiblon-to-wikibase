@@ -3,7 +3,9 @@
 CLEAN_DIR = '../data/clean'
 PRE_PROCESSED_DIR = '../data/processed/pre'
 OPENREFINE_PROCESSED_DIR = '../data/processed/or'
+OPENREFINE_COLAB_PROCESSED_DIR = '115pNT9ue480HAr996XbGRwWCLHFJK_V_'
 POST_PROCESSED_DIR = '../data/processed/post'
+POST_PROCESSED_COLAB_DIR = '1nwwRmmW-XYgq0Rd0RFAxjIgDlJpupPAs'
 
 # Wikibase-instance-specific Settings
 # Be careful not to check in secrets!
@@ -106,7 +108,7 @@ BASE_IMPORT_OBJECTS = {
     },
     'PBCOG':
       {'BIB':{
-        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4'},
+        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4', 'p17': 'Q5', 'P700': 'Q6'},
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q51436'},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q51437'}
         },
@@ -142,20 +144,25 @@ BASE_IMPORT_OBJECTS = {
         'MS_ED*STATUS*2I': 'Q50712'
       }
     },
-    'FACTGRID': {
-    'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'changeme'},
-    'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'changeme'},
-    'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'changeme'}
-    },
-      'MEDIAWIKI_API_URL': "",
-      'SPARQL_ENDPOINT_URL': "",
+    'FACTGRID':
+      {'BIB':{
+        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q254471', 'p17': 'Q425065', 'p700': 'Q447226'},
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810'},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809'}
+      },
+      'MEDIAWIKI_API_URL': "https://database.factgrid.de/w/api.php",
+      'SPARQL_ENDPOINT_URL': "https://database.factgrid.de/sparql",
       'WB_USER': 'changeme',
       'WB_PASSWORD': 'changeme',
-      'SPARQL_PREFIX': """'changeme'
-        """,
+      'SPARQL_PREFIX': """
+        PREFIX wd:<https://database.factgrid.de/entity/>
+        PREFIX wdt:<https://database.factgrid.de/prop/direct/>""",
       'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
       'DATACLIP_RECONCILIATION_ERROR': 'changeme',
-      'P799_OK_VALUES': {} #changeme
+      'P799_OK_VALUES': {
+        'PHILOBILON_RECORD_CREATED': 'Q447227'
+      }
     }
+}
 
 TEMP_DICT = {'TEMP_WB': 'PBSANDBOX', 'TEMP_BIB': 'BETA', 'DRYRUN': False}

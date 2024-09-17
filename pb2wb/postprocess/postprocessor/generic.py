@@ -5,8 +5,8 @@ from datetime import date
 
 from common.settings import P799_OK_VALUES
 
-PATTERN_STATEMENT = '^Q(\d*)\tP(\d*)\t(.*)$'
-PATTERN_DATE = '\+\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/\d{1,2}'
+PATTERN_STATEMENT = r'^Q(\d*)\tP(\d*)\t(.*)$'
+PATTERN_DATE = r'\+\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/\d{1,2}'
 
 class GenericPostprocessor:
   SPANISH_START_GREGORIAN = date(1582, 10, 15)
