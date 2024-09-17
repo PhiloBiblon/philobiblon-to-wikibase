@@ -3,9 +3,7 @@
 CLEAN_DIR = '../data/clean'
 PRE_PROCESSED_DIR = '../data/processed/pre'
 OPENREFINE_PROCESSED_DIR = '../data/processed/or'
-OPENREFINE_COLAB_PROCESSED_DIR = '115pNT9ue480HAr996XbGRwWCLHFJK_V_'
 POST_PROCESSED_DIR = '../data/processed/post'
-POST_PROCESSED_COLAB_DIR = '1nwwRmmW-XYgq0Rd0RFAxjIgDlJpupPAs'
 
 # Wikibase-instance-specific Settings
 # Be careful not to check in secrets!
