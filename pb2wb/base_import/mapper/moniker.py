@@ -43,6 +43,8 @@ class MonikerMapper(GenericMapper):
     bib = TEMP_DICT['TEMP_BIB']
     LANGUAGE = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['Language']
     QNUMBER = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['qnum']
+    P700 = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['p700']
+    P17 = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['p17']
     is_new = True
     item = self.wb_manager.get_q_by_pbid(pbid)
     if not item:
@@ -59,9 +61,9 @@ class MonikerMapper(GenericMapper):
       item.aliases.set(language=LANGUAGE, values=pbid)
       item.claims.add(String(value=pbid, prop_nr=PROPERTY_PHILOBIBLON_ID))
       qualifiers = Qualifiers()
-      qualifiers.add(Item(value='Q6', prop_nr='P700'))
+      qualifiers.add(Item(value=P700, prop_nr='P700'))
       item.claims.add(Item(value=QNUMBER, prop_nr='P131', qualifiers=qualifiers))
-      item.claims.add(Item(value='Q5', prop_nr='P17'))
+      item.claims.add(Item(value=P17, prop_nr='P17'))
       
       return item, is_new
     else:
