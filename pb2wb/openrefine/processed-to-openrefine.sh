@@ -11,11 +11,13 @@ do
     esac
 done
 
+## Check if tag is supplied
 if [[ -z $tag ]]; then
   echo "Alternate project tag not supplied, using default date: ${today}"
   tag=${today}
 fi  
 
+## Check if table is supplied
 if [[ -z $table ]]; then
   echo "Table not supplied, default to all tables"
   table=None
