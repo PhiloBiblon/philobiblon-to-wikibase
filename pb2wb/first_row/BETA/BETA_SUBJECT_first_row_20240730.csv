@@ -1,0 +1,339 @@
+SUBID,HEADING_MAIN,HM_CLASS,HM_TYPE,HM_FIELD,HM_BASIS,HEADING_VARIANT,HV_CLASS,HV_TYPE,HV_FIELD,HV_BASIS,HB_SUBID,HB_BASIS,HR_SUBID,HR_BASIS,RELATED_BIBCLASS,RELATED_BIBID,RELATED_BIBVOL,RELATED_BIBLOC,RELATED_BIBITEM,RELATED_MANCLASS,RELATED_MANID,RELATED_MANVOL,RELATED_MANLOC,RELATED_MANITEM,NOTES,VERIFY,ENTERED,ENTERED_BY,UPDATED,UPDATED_BY,INTERNET_CLASS,INTERNET_ADDRESS,INTERNET_SERVICE,INTERNET_LASTSEEN,MONIKER
+BETA subid 1001,Literatura española hasta 1500,SUBJECT*HM_CLASS*GENRE,,,,Literatura espanyola cap a 1500,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1250,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Literatura española hasta 1500
+BETA subid 1002,Alegoría,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Al·legoria,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,12.0,,,,,,,Faulhaber: Used to include allegory as a literary form as well as collections of allegories,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Alegoría
+BETA subid 1003,Apologética,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Apologètica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,LC: ‘Here are entered works explaining Christianity and defending it against criticism‘’,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Apologética
+BETA subid 1004,Autobiografía,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Autobiografia,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2024-04-15,FAULHABER,,,,,Autobiografía
+BETA subid 1005,Debates,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Debats,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Debates
+BETA subid 1006,Diálogo,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Diàleg,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Diálogo
+BETA subid 1007,Literatura didáctica,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Didàctic,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1250,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2024-04-15,FAULHABER,,,,,Literatura didáctica
+BETA subid 1008,Doctrinal,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Doctrinal,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Doctrinal
+BETA subid 1009,Elegía,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Elegia,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1250,,BETA subid 1120,Faulhaber,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Elegía
+BETA subid 1010,Épica,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Èpica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Épica
+BETA subid 1011,Epístolas,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Cartas,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2024-04-15,FAULHABER,,,,,Epístolas
+BETA subid 1012,Epitalamios,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Epitalamis,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Epitalamios
+BETA subid 1013,Exempla,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Exempla,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Exempla
+BETA subid 1014,Glosa,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Glossa,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2012-01-12,App Service - MCR,,,,,Glosa
+BETA subid 1015,Gnómico - Literatura gnómica,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Gnòmic,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1250,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Gnómico - Literatura gnómica
+BETA subid 1016,"Hagiografía - Vidas de santos - Santos, biografía",SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Santos Biografía,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1058,,,,,BETA bibid 2749,,12.0,,,,,,,LC: Hagiography: “Here are entered works on the writing and critical study of the lives of the saints”,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,"Hagiografía - Vidas de santos - Santos, biografía"
+BETA subid 1017,Historia,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Història,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Historia
+BETA subid 1018,Lírica,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Lyric poetry,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1234,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-29,FAULHABER,2024-04-15,FAULHABER,,,,,Lírica
+BETA subid 1019,Misceláneas,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Miscel·lanis,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Misceláneas
+BETA subid 1020,Novelas,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Novel·les,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1097,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Novelas
+BETA subid 1021,Panegírico - Loor,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Panegíric,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1250,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Panegírico - Loor
+BETA subid 1022,Planto,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Plany,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,309.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Planto
+BETA subid 1023,Retórica,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Retòrica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,"LC: “Here are entered advanced level works on the skillful or artistic organization of oral or written discourse, usually for exposition or persuasion’.’",,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Retórica
+BETA subid 1024,Poética,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Poètica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,BETA subid 1234,,,BETA bibid 2749,,12.0,,,,,,,LC: ‘Here [under Poetry] are entered general works on poetry and works limited to the philosophy of poetry. Works discussing collectively the technique and philosophy of poetry and works limited to the technique of poetry are entered under Poetics”,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Poética
+BETA subid 1025,Romance,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Romanç,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Romance
+BETA subid 1026,Romances poéticos,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Romancero,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Romances poéticos
+BETA subid 1027,Sátira,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Sàtira,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2024-04-15,FAULHABER,,,,,Sátira
+BETA subid 1028,Teatro,,,,{I}Cronología{/I},Teatre,SUBJECT*HV_CLASS*CAT,,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,"LC: “Here [under DRAMA] are entered works on drama as a literary form. Works on drama as acted on the stage are entered under THEATER.”<br /><br />No sé si hace la misma distinción entre TEATRE y DRAMA en catalán o entre TEATRO y DRAMA en castellano. De todas maneras se pueden dividir si se cree necesario.<br />",,2008-04-30,FAULHABER,2024-05-08,FAULHABER,,,,,Teatro
+BETA subid 1029,Tratados,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Tractats,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Tratados
+BETA subid 1030,Viajes,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Viatges,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,12.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Viajes
+BETA subid 1031,Artúrico,SUBJECT*HM_CLASS*LITERARYMOVEMENT,,,{I}Cronología{/I},Artúric,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,13.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Artúrico
+BETA subid 1032,Poesía cancioneril,SUBJECT*HM_CLASS*LITERARYMOVEMENT,,,{I}Cronología{/I},Cancioneril (movimiento poético),SUBJECT*HV_CLASS*SPANISH,,,,,,,,,BETA bibid 2749,,13.0,,,,,,,,,2008-04-30,FAULHABER,2016-01-07,FAULHABER,,,,,Poesía cancioneril
+BETA subid 1033,Clerecía,SUBJECT*HM_CLASS*LITERARYMOVEMENT,,,{I}Cronología{/I},Clerecia,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,13.0,,,,,,,,,2008-04-30,FAULHABER,2012-01-12,App Service - MCR,,,,,Clerecía
+BETA subid 1034,Juglaría,SUBJECT*HM_CLASS*LITERARYMOVEMENT,,,{I}Cronología{/I},Juglaría,SUBJECT*HV_CLASS*SPANISH,,,,,,,,,BETA bibid 2749,,13.0,,,,,,,,,2008-04-30,FAULHABER,2012-01-12,App Service - MCR,,,,,Juglaría
+BETA subid 1035,Mariología,,,,{I}Cronología{/I},Mariologia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1058,,BETA subid 1066,,,BETA bibid 2749,,323.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Mariología
+BETA subid 1036,Prehumanismo,SUBJECT*HM_CLASS*LITERARYMOVEMENT,,,{I}Cronología{/I},Prehumanisme,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,13.0,,,,,,,,,2008-04-30,FAULHABER,2015-08-23,FAULHABER,,,,,Prehumanismo
+BETA subid 1037,Humanismo,SUBJECT*HM_CLASS*LITERARYMOVEMENT,,,{I}Cronología{/I},Humanisme,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,13.0,,,,,,,,,2008-04-29,FAULHABER,2015-08-23,FAULHABER,,,,,Humanismo
+BETA subid 1038,Anales,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Annals,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1017,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2012-01-12,App Service - MCR,,,,,Anales
+BETA subid 1039,Himnos,SUBJECT*HM_CLASS*GENRE,,,,Himnos,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1040,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-01,FAULHABER,,,,,Himnos
+BETA subid 1040,Música,,SUBJECT*HM_TYPE*MARC,,LC,Música,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-01,FAULHABER,,,,,Música
+BETA subid 1041,Judíos,,,,,Jueus,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-01,FAULHABER,,,,,Judíos
+BETA subid 1042,Conversos,,,,,Conversos,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-01,FAULHABER,,,,,Conversos
+BETA subid 1043,Consolatoria,SUBJECT*HM_CLASS*GENRE,,,,Consolación,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-01,FAULHABER,,,,,Consolatoria
+BETA subid 1044,Cristología,,SUBJECT*HM_TYPE*MARC,,LC,cristología,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1080,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-01,FAULHABER,,,,,Cristología
+BETA subid 1045,Medicina,,,,,Medicina,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-01,FAULHABER,,,,,Medicina
+BETA subid 1046,Recetas,,,,,Recetes,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,BETA subid 1047,,,,,,,,,,,,LC: “Here are entered general recipe books. Works containing only cooking recipes are entered under |a Cookery. |i Works containing recipes of interest to machinists and other artisans are entered under |a Workshop recipes”,,2008-04-29,FAULHABER,2011-12-01,FAULHABER,,,,,Recetas
+BETA subid 1047,Cocina,,,,,Cuina,SUBJECT*HV_CLASS*CAT,,,LC,BETA subid 1194,,,,,,,,,,,,,,"LC: “Here are entered works on the art of cooking, as well as works that consist of collections of recipes. Works on the cookery of specific places are entered under Cookery 	subdivided by the name of the place. Works on national cuisines and styles of cooking are entered under headings of the type Cookery, American, [Chinese, etc.], 	which may be further subdivided to designate regional styles, e.g. Cookery, American--Southern style; Cookery, Chinese--Sichuan style”",,2008-04-29,FAULHABER,2024-05-08,FAULHABER,,,,,Cocina
+BETA subid 1048,Veterinaria,,,,,albeitería,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1045,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-01,FAULHABER,,,,,Veterinaria
+BETA subid 1049,Ginecología,,,,,Ginecologia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1045,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-01,FAULHABER,,,,,Ginecología
+BETA subid 1050,Genealogía,,SUBJECT*HM_TYPE*MARC,,LC,Genealogia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1017,,,,,,,,,,,,,,,,1992-07-26,FAULHABER,2011-12-01,FAULHABER,,,,,Genealogía
+BETA subid 1051,Heráldica,,,,,Heràldica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,1992-07-26,FAULHABER,2011-12-02,FAULHABER,,,,,Heráldica
+BETA subid 1052,"Granada, guerra de (1482-1492)",SUBJECT*HM_CLASS*EVENT,,,,"Granada, guerra de (1483-1492)",SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1992-07-26,FAULHABER,2011-12-02,FAULHABER,,,,,"Granada, guerra de (1482-1492)"
+BETA subid 1053,Agricultura,,,,,Agricultura,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1992-07-30,FAULHABER,2011-12-02,FAULHABER,,,,,Agricultura
+BETA subid 1054,Astronomía,,,,,Astronomia,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1079,,,,,,,,,,,,,,,,1992-07-30,FAULHABER,2011-12-02,FAULHABER,,,,,Astronomía
+BETA subid 1055,Astrología,,,,,Astrologia,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1081,,,,,,,,,,,,,,,,1992-07-30,FAULHABER,2011-12-02,FAULHABER,,,,,Astrología
+BETA subid 1056,Biografía,SUBJECT*HM_CLASS*GENRE,,,,Biografia,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1017,,,,,,,,,,,,,,,,1992-07-30,FAULHABER,2011-12-02,FAULHABER,,,,,Biografía
+BETA subid 1057,Iglesia católica - Liturgia,,,,,Església católica - Liturgia,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,,,,,,,,,,,,,,,,1992-11-22,FAULHABER,2014-09-23,FAULHABER,,,,,Iglesia católica - Liturgia
+BETA subid 1058,Religión,,,,,Religió,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,{I}Cronología{/I},,,BETA subid 1110,,,BETA bibid 2749,,,,,,,,,,,1993-01-12,FAULHABER,2022-01-25,FAULHABER,,,,,Religión
+BETA subid 1059,Filosofía moral,,,,,Filosofia moral,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1089,,,,,,,,,,,,,,,,1993-01-12,FAULHABER,2011-12-02,FAULHABER,,,,,Filosofía moral
+BETA subid 1060,Moriscos - conversos musulmanes,,,,,Moriscs,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1993-01-17,FAULHABER,2011-12-02,FAULHABER,,,,,Moriscos - conversos musulmanes
+BETA subid 1061,Botánica,,,,,Botánica,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1079,,,,,,,,,,,,,,,,1993-02-08,FAULHABER,2011-12-02,FAULHABER,,,,,Botánica
+BETA subid 1062,Política - Administración,,,,{I}Cronología{/I},Administració,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,,,,,,,,,,1993-08-06,FAULHABER,2015-08-23,FAULHABER,,,,,Política - Administración
+BETA subid 1063,Guerra,,,,,Guerra,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1993-09-06,FAULHABER,2011-12-02,FAULHABER,,,,,Guerra
+BETA subid 1065,Ciencia militar,,,,,Ciència militar,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,1993-09-06,FAULHABER,2011-12-02,FAULHABER,,,,,Ciencia militar
+BETA subid 1066,Mariolatría,,,,,Mariolatría,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1016,,BETA subid 1035,,,,,,,,,,,,,,1994-02-22,FAULHABER,2011-12-02,FAULHABER,,,,,Mariolatría
+BETA subid 1067,Santa María - Biografía,,,,,"Santa Maria, Biografia",SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1016,,,,,,,,,,,,,,,,1994-02-22,FAULHABER,2011-12-10,FAULHABER,,,,,Santa María - Biografía
+BETA subid 1068,Santiago - apóstol,,,,,Santiago,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1016,,,,,,,,,,,,,,,,1994-02-22,FAULHABER,2011-12-10,FAULHABER,,,,,Santiago - apóstol
+BETA subid 1069,Epístola amorosa,SUBJECT*HM_CLASS*GENRE,,,,Epístola amorosa,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1011,,,,,,,,,,,,,,,,1994-02-27,FAULHABER,2011-12-02,FAULHABER,,,,,Epístola amorosa
+BETA subid 1070,Cetrería,,,,,cetrería,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1071,,,,,,,,,,,,,,,,1994-07-07,FAULHABER,2011-12-02,FAULHABER,,,,,Cetrería
+BETA subid 1071,Caza,,,,,Caza,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,1994-07-07,FAULHABER,2011-12-02,FAULHABER,,,,,Caza
+BETA subid 1072,Comuneros - rebelión de los,SUBJECT*HM_CLASS*EVENT,,,,"Comuners, rebelió dels",SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1994-07-10,FAULHABER,2011-12-10,FAULHABER,,,,,Comuneros - rebelión de los
+BETA subid 1073,Biblia,,,,,Biblia,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1058,,,,,,,,,,,,,,,,1994-08-08,FAULHABER,2011-12-02,FAULHABER,,,,,Biblia
+BETA subid 1074,Biblia. Nuevo Testamento,,,,,Biblia. Nou Testament,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1073,,,,,,,,,,,,,,,,1994-08-08,FAULHABER,2022-02-20,FAULHABER,,,,,Biblia. Nuevo Testamento
+BETA subid 1075,Sermones,,,,,Sermons,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1231,,,,,,,,,,,,,,,,2011-12-10,FAULHABER,2022-02-21,FAULHABER,,,,,Sermones
+BETA subid 1076,Biblia. Antiguo Testamento,,,,,Biblia. Vell Testament,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1073,,,,,,,,,,,,,,,,1994-08-08,FAULHABER,2012-05-22,FAULHABER,,,,,Biblia. Antiguo Testamento
+BETA subid 1077,Ascética,,,,{I}Cronología{/I},ascetisme,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,,,,,,,,,,1994-08-09,FAULHABER,2015-08-23,FAULHABER,,,,,Ascética
+BETA subid 1078,Misoginia - Antifeminismo,,,,{I}Cronología{/I},Misoginia,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,LC,,,,,,,BETA bibid 2749,,,,,,,,,,,1994-08-16,FAULHABER,2015-08-23,FAULHABER,,,,,Misoginia - Antifeminismo
+BETA subid 1079,Ciencia,,,,,Ciència,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,1994-08-18,FAULHABER,2011-12-02,FAULHABER,,,,,Ciencia
+BETA subid 1080,Teología,,,,{I}Cronología{/I},Teologia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1058,,,,,BETA bibid 2749,,60.0,137,,,,,,,,1994-08-19,FAULHABER,2015-08-23,FAULHABER,,,,,Teología
+BETA subid 1081,Esotérica,,,,{I}Cronología{/I},Esoterisme,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,67.0,168,,,,,,,,1994-08-23,FAULHABER,2015-08-23,FAULHABER,,,,,Esotérica
+BETA subid 1082,Derecho canónico,,,,{I}Cronología{/I},Dret canònic,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,67.0,168,,,,,,,,1994-08-23,FAULHABER,2015-08-23,FAULHABER,,,,,Derecho canónico
+BETA subid 1083,Exégesis - Exegético,,,,{I}Cronología{/I},Exegesi,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,76.0,199,,,,,,,,1994-08-23,FAULHABER,2015-08-23,FAULHABER,,,,,Exégesis - Exegético
+BETA subid 1084,Náutico,,,,{I}Cronología{/I},Nàutica,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,76.0,201,,,,,,,,1994-08-23,FAULHABER,2015-08-23,FAULHABER,,,,,Náutico
+BETA subid 1085,Parodia,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Paròdia,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,79.0,213,,,,,,,,1994-08-24,FAULHABER,2015-08-23,FAULHABER,,,,,Parodia
+BETA subid 1086,Enciclopedia - Enciclopédico,,,,{I}Cronología{/I},Enciclopèdia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,91.0,266,,,,,,,,1994-08-25,FAULHABER,2015-08-23,FAULHABER,,,,,Enciclopedia - Enciclopédico
+BETA subid 1087,Cosmología,,,,{I}Cronología{/I},Cosmologia,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,93.0,274,,,,,,,,1994-08-25,FAULHABER,2015-08-23,FAULHABER,,,,,Cosmología
+BETA subid 1088,Costumbres,,,,{I}Cronología{/I},Costums,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,295.0,,,,,,,,,1994-08-25,FAULHABER,2015-08-23,FAULHABER,,,,,Costumbres
+BETA subid 1089,Filosofía,,,,{I}Cronología{/I},Filosofia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,108.0,353,,,,,,,,1994-08-31,FAULHABER,2015-08-23,FAULHABER,,,,,Filosofía
+BETA subid 1090,Filología,,,,{I}Cronología{/I},Filología,SUBJECT*HV_CLASS*SPANISH,,,,,,BETA subid 1208,,,BETA bibid 2749,,117.0,406,,,,,,,,1994-09-01,FAULHABER,2015-08-23,FAULHABER,,,,,Filología
+BETA subid 1091,Geografía,,,,{I}Cronología{/I},Geografia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1079,,,,,BETA bibid 2749,,120.0,419,,,,,,,,1994-09-01,FAULHABER,2015-08-23,FAULHABER,,,,,Geografía
+BETA subid 1092,Juegos - Lúdico,,,,{I}Cronología{/I},Jocs,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,1994-09-01,FAULHABER,2012-01-12,App Service - MCR,,,,,Juegos - Lúdico
+BETA subid 1093,Pastoril,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Pastoral,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,124.0,436,,,,,,,,1994-09-01,FAULHABER,2015-08-23,FAULHABER,,,,,Pastoril
+BETA subid 1094,Islam,,,,{I}Cronología{/I},Islam,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1058,,,,,BETA bibid 2749,,138.0,514,,,,,,,,1994-09-02,FAULHABER,2015-08-23,FAULHABER,,,,,Islam
+BETA subid 1096,Momos,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Momos,SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 2749,,124.0,439,,,,,,,,1994-09-27,FAULHABER,2015-08-23,FAULHABER,,,,,Momos
+BETA subid 1097,Ficción,SUBJECT*HM_CLASS*GENRE,,,{I}Cronología{/I},Ficció,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,BETA bibid 2749,,292.0,,,,,,,,,1994-09-27,FAULHABER,2015-08-23,FAULHABER,,,,,Ficción
+BETA subid 1098,Fueros - estatutos municipales,,,,,Fueros,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1100,,BETA subid 1245,,,,,,,,,,,,,,1994-11-12,FAULHABER,2019-08-10,FAULHABER,,,,,Fueros - estatutos municipales
+BETA subid 1099,Códigos legales,,,,,Codis legals,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1994-11-12,FAULHABER,2011-12-02,FAULHABER,,,,,Códigos legales
+BETA subid 1100,Derecho,,,,,Dret,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,"LC: “Here are entered general works on law or legal systems as well as collections of statutes not limited to a specific topic. Works on the science of law are entered |a Jurisprudence. |i Works on legislative enactments as a source of law, as distinct from constitutional law or from the law arising from judicial or administrative decisions are entered under |a Statutes. |i Works on the legislative process are entered under |a Legislation. |i Works on the interpretation of statutes and other laws are entered under |a Law--Interpretation and construction.”",,1994-11-12,FAULHABER,2011-12-02,FAULHABER,,,,,Derecho
+BETA subid 1101,Cartel de desafío,,,,,Lletra de batalla,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1011,,,,,,,,,,,,,,,,1994-11-12,FAULHABER,2011-12-02,FAULHABER,,,,,Cartel de desafío
+BETA subid 1102,Derecho militar,,,,,Dret militar,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1100,,BETA subid 1051,,,,,,,,,,,,,,1994-11-12,FAULHABER,2011-12-02,FAULHABER,,,,,Derecho militar
+BETA subid 1103,Derecho marítimo,,,,,Dret marítim,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1100,,,,,,,,,,,,,,,,1995-03-05,FAULHABER,2011-12-02,FAULHABER,,,,,Derecho marítimo
+BETA subid 1104,"Caspe, compromiso de (1412)",,,,Faulhaber,"Caspe, Compromís de",SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1997-02-27,FAULHABER,2011-12-10,FAULHABER,,,,,"Caspe, compromiso de (1412)"
+BETA subid 1105,Aritmética,,,,,Aritmética,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1106,,,,,,,,,,,,,,,,1997-09-02,FAULHABER,2011-12-02,FAULHABER,,,,,Aritmética
+BETA subid 1106,Matemáticas,,,,,Matemáticas,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,1997-09-02,FAULHABER,2011-12-02,FAULHABER,,,,,Matemáticas
+BETA subid 1107,Bibliografía,SUBJECT*HM_CLASS*GENRE,,,,Bibliografia,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1997-09-03,FAULHABER,2011-12-02,FAULHABER,,,,,Bibliografía
+BETA subid 1108,Literatura española 1500-1600,SUBJECT*HM_CLASS*GENRE,,,,Literatura espanyola 1500-1600,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1250,,,,,,,,,,,,,,,,1997-10-13,FAULHABER,2011-12-04,FAULHABER,,,,,Literatura española 1500-1600
+BETA subid 1109,Incunables,,,,,Incunables,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,1998-05-18,FAULHABER,2015-11-15,FAULHABER,,,,,Incunables
+BETA subid 1110,Oraciones,,,,Faulhaber,Pregàries,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,Faulhaber,,,,,,,,,,,,,,,1998-10-03,FAULHABER,2011-12-02,FAULHABER,,,,,Oraciones
+BETA subid 1111,Lógica,,,,,Lògica,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1089,Faulhaber,,,,,,,,,,,,,,,1999-07-05,FAULHABER,2011-12-03,FAULHABER,,,,,Lógica
+BETA subid 1112,Obras devocionales,,,,Faulhaber,Obres devocionals,SUBJECT*HV_CLASS*CAT,,,Faulhaber,BETA subid 1058,,,,,,,,,,,,,,,,1999-11-23,FAULHABER,2011-12-03,FAULHABER,,,,,Obras devocionales
+BETA subid 1113,Espiritualidad,,,,Faulhaber,Espiritualitat,SUBJECT*HV_CLASS*CAT,,,Faulhaber,BETA subid 1058,,,,,,,,,,,,,,,,1999-11-23,FAULHABER,2011-12-03,FAULHABER,,,,,Espiritualidad
+BETA subid 1114,Escatología,,,,,Escatologia,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,,,,,,,,,,,,,,,,2000-02-19,FAULHABER,2011-12-03,FAULHABER,,,,,Escatología
+BETA subid 1115,Confesión,,,,,Confesió,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,Faulhaber,BETA subid 1115,Faulhaber,,,,,,,,,,,,,2000-02-26,FAULHABER,2011-12-03,FAULHABER,,,,,Confesión
+BETA subid 1116,Penitencia,,,,Faulhaber,Penitència,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,Faulhaber,BETA subid 1115,Faulhaber,,,,,,,,,,,,,2000-02-26,FAULHABER,2011-12-03,FAULHABER,,,,,Penitencia
+BETA subid 1117,Sacramento,,,,Faulhaber,Sagrament,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,Faulhaber,BETA subid 1116,,,,,,,,,,,,,,2000-02-26,FAULHABER,2011-12-03,FAULHABER,,,,,Sacramento
+BETA subid 1118,Unción,,,,Faulhaber,Unció,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,Faulhaber,BETA subid 1117,Faulhaber,,,,,,,,,,,,,2000-02-26,FAULHABER,2011-12-03,FAULHABER,,,,,Unción
+BETA subid 1119,Eucaristía,,,,Faulhaber,Eucaristia,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,Faulhaber,BETA subid 1117,Faulhaber,,,,,,,,,,,,,2000-02-26,FAULHABER,2011-12-03,FAULHABER,,,,,Eucaristía
+BETA subid 1120,Muerte,,,,Faulhaber,Mort,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2000-02-26,FAULHABER,2011-12-03,FAULHABER,,,,,Muerte
+BETA subid 1121,Calendario,,,,Faulhaber,Calendari,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2000-02-26,FAULHABER,2011-12-03,FAULHABER,,,,,Calendario
+BETA subid 1122,Paleografía,,,,,Paleografia,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2000-02-28,FAULHABER,2011-12-03,FAULHABER,,,,,Paleografía
+BETA subid 1123,Codicología,,,,Faulhaber,Codicologia,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2000-02-28,FAULHABER,2011-12-03,FAULHABER,,,,,Codicología
+BETA subid 1124,Herejía,,,,Faulhaber,Heretgia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1058,Faulhaber,,,,,,,,,,,,,,,2000-03-04,FAULHABER,2011-12-03,FAULHABER,,,,,Herejía
+BETA subid 1125,"Ponza, batalla de (1435)",SUBJECT*HM_CLASS*EVENT,,,Faulhaber,"Ponza, batalla de",SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2000-03-05,FAULHABER,2011-12-10,FAULHABER,,,,,"Ponza, batalla de (1435)"
+BETA subid 1126,Basilea - concilio de,SUBJECT*HM_CLASS*EVENT,,,Faulhaber,"Basilea, concilio de",SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2000-03-05,FAULHABER,2015-09-27,FAULHABER,,,,,Basilea - concilio de
+BETA subid 1127,Órdenes militares,,,,Faulhaber,Ordes militars,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2000-11-08,FAULHABER,2011-12-03,FAULHABER,,,,,Órdenes militares
+BETA subid 1128,Sagrada Escritura,,,,Faulhaber,Sagrada Escritura,SUBJECT*HV_CLASS*SPANISH,,,Faulhaber,,,,,,,,,,,,,,,,,2001-02-23,FAULHABER,2011-12-03,FAULHABER,,,,,Sagrada Escritura
+BETA subid 1129,Sanidad pública,,,,,Sanitat pública,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1045,,,,,,,,,,,,,,,,2001-02-28,PELAYO,2011-12-03,FAULHABER,,,,,Sanidad pública
+BETA subid 1130,Peste,,,,,Peste,SUBJECT*HV_CLASS*SPANISH,,,,BETA subid 1045,,,,,,,,,,,,,,,,2001-02-28,PELAYO,2011-12-03,FAULHABER,,,,,Peste
+BETA subid 1131,Anticristo,,,,,Anticrist,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1058,,,,,,,,,,,,,,,,2002-07-26,CORTIJO2,2011-12-03,FAULHABER,,,,,Anticristo
+BETA subid 1132,Literatura sapiencial,SUBJECT*HM_CLASS*GENRE,,,,Literatura sapiencial,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1250,,,,,,,,,,,,,,,,2002-07-26,PEREA,2011-12-04,FAULHABER,,,,,Literatura sapiencial
+BETA subid 1133,Cruzada,,,,,Croada,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2003-04-11,PARK,2011-12-03,FAULHABER,,,,,Cruzada
+BETA subid 1134,Refranes y proverbios,SUBJECT*HM_CLASS*GENRE,,,BNE,Refrans i proverbis,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2006-06-28,PEREA,2011-12-03,FAULHABER,,,,,Refranes y proverbios
+BETA subid 1135,Alquimia,,SUBJECT*HM_TYPE*MARC,,LC,Alquímia,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2006-07-28,PEREA,2011-12-03,FAULHABER,,,,,Alquimia
+BETA subid 1136,Musulmanes - Moros,,,,Faulhaber,Moros,SUBJECT*HV_CLASS*CAT,,,Faulhaber,,,BETA subid 1060,,,,,,,,,,,,,,2007-02-25,FAULHABER,2011-12-03,FAULHABER,,,,,Musulmanes - Moros
+BETA subid 1137,Derecho administrativo,,,,Faulhaber,Derecho administrativo,SUBJECT*HV_CLASS*SPANISH,,,Faulhaber,BETA subid 1100,,,,,,,,,,,,,,,,2007-02-25,FAULHABER,2011-12-03,FAULHABER,,,,,Derecho administrativo
+BETA subid 1138,Judaísmo,,SUBJECT*HM_TYPE*MARC,,LC,Judaísmo,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1058,,,,,,,,,,,,,,,,2007-03-24,FAULHABER,2011-12-03,FAULHABER,,,,,Judaísmo
+BETA subid 1139,Juego,,,,,Joc,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2008-02-01,FAULHABER,2011-12-03,FAULHABER,,,,,Juego
+BETA subid 1140,Política monetaria,,,,Faulhaber,Política monetària,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-08,FAULHABER,2011-12-03,FAULHABER,,,,,Política monetaria
+BETA subid 1141,Cancillería,,,,Faulhaber,Cancillería,SUBJECT*HV_CLASS*SPANISH,,,Faulhaber,,,,,,,,,,,,,,,,,2008-02-08,FAULHABER,2011-12-03,FAULHABER,,,,,Cancillería
+BETA subid 1142,Política fiscal,,,,Faulhaber,Política fiscal,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-08,FAULHABER,2011-12-03,FAULHABER,,,,,Política fiscal
+BETA subid 1143,Marina,,,,Faulhaber,Marina,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-09,FAULHABER,2011-12-03,FAULHABER,,,,,Marina
+BETA subid 1144,Controles sobre la exportación,,,,,Controls sobre l’exportació,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-05-01,FAULHABER,2011-12-10,FAULHABER,,,,,Controles sobre la exportación
+BETA subid 1145,Casa real,,,,,Casa reial,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-09,FAULHABER,2011-12-03,FAULHABER,,,,,Casa real
+BETA subid 1146,Ganado,,,,Faulhaber,Livestock,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-13,FAULHABER,2011-12-03,FAULHABER,,,,,Ganado
+BETA subid 1147,Caballos,,,,Faulhaber,Cavalls,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1146,Faulhaber,,,,,,,,,,,,,,,2008-02-13,FAULHABER,2011-12-03,FAULHABER,,,,,Caballos
+BETA subid 1148,Mulas,,,,Faulhaber,Mulas,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,Faulhaber,BETA subid 1146,Faulhaber,,,,,,,,,,,,,,,2008-02-13,FAULHABER,2014-02-05,FAULHABER,,,,,Mulas
+BETA subid 1149,Usura,,,,Faulhaber,Usura,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,Faulhaber,BETA subid 1193,,,,,,,,,,,,,,,,2008-02-13,FAULHABER,2011-12-03,FAULHABER,,,,,Usura
+BETA subid 1150,Rentas - arrendamiento de,,,,Faulhaber,"Taxes, farming of",SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-13,FAULHABER,2011-12-10,FAULHABER,,,,,Rentas - arrendamiento de
+BETA subid 1151,Caballería,,,,Faulhaber,Cavalleria,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2008-02-14,FAULHABER,2011-12-03,FAULHABER,,,,,Caballería
+BETA subid 1152,Luto,,,,Faulhaber,Dol,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-14,FAULHABER,2011-12-03,FAULHABER,,,,,Luto
+BETA subid 1153,Impuestos,,,,Faulhaber,Impostos,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-14,FAULHABER,2011-12-03,FAULHABER,,,,,Impuestos
+BETA subid 1154,Derecho procesal,,,,,Dret processal,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-14,FAULHABER,2011-12-03,FAULHABER,,,,,Derecho procesal
+BETA subid 1155,Penas - multas,,,,Faulhaber,Penes,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-02-22,FAULHABER,2011-12-03,FAULHABER,,,,,Penas - multas
+BETA subid 1156,Fisco real,,,,Faulhaber,Fisc reial,SUBJECT*HV_CLASS*CAT,,,Faulhaber,,,,,,,,,,,,,,,,,2008-03-27,FAULHABER,2011-12-03,FAULHABER,,,,,Fisco real
+BETA subid 1158,Corrupción,,,,Faulhaber,corrupción,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,Faulhaber,,,,,,,,,,,,,,,,,2008-03-27,FAULHABER,2011-12-03,FAULHABER,,,,,Corrupción
+BETA subid 1159,Desafíos - Retos,,,,Faulhaber,Desafíos,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,Faulhaber,,,,,,,,,,,,,,,,,2008-04-10,FAULHABER,2011-12-03,FAULHABER,,,,,Desafíos - Retos
+BETA subid 1160,Vasallaje,,,,Faulhaber,Vassallatge,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2011-12-03,FAULHABER,,,,,,,Vasallaje
+BETA subid 1161,Ajedrez,,,,Faulhaber,Escacs,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-12,FAULHABER,2011-12-03,FAULHABER,,,,,Ajedrez
+BETA subid 1162,Avicultura,,,,,Avicultura,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1053,Faulhaber,,,,,,,,,,,,,,,2008-04-18,FAULHABER,2011-12-03,FAULHABER,,,,,Avicultura
+BETA subid 1163,Palomas - Pichones,,SUBJECT*HM_TYPE*MARC,,LC,Coloms,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,Faulhaber,BETA subid 1162,Faulhaber,,,,,,,,,,,,,,,2008-04-18,FAULHABER,2011-12-03,FAULHABER,,,,,Palomas - Pichones
+BETA subid 1164,Palomares,,,,,Pigeons -- Housing,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1162,Faulhaber,,,,,,,,,,,,,,,2008-04-18,FAULHABER,2011-12-03,FAULHABER,,,,,Palomares
+BETA subid 1165,Amor,,,,,Amor,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Amor
+BETA subid 1166,Angeología,,,,Faulhaber,Angeologia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Angeología
+BETA subid 1167,Apologías,,,,,Apologies,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,LC: “Here are entered collections of apologies”,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Apologías
+BETA subid 1168,Asociaciones,,,,Faulhaber,Associacions,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Asociaciones
+BETA subid 1169,Asociaciones públicas - Hermandades,,,,Faulhaber,Associacions públics,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1168,LC,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Asociaciones públicas - Hermandades
+BETA subid 1170,Asociaciones privadas,,,,,Asociaciones privadas,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1168,LC,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Asociaciones privadas
+BETA subid 1171,Asociaciones locales,,,,,Asociaciones locales,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1168,LC,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Asociaciones locales
+BETA subid 1172,Árabes,,,,,Árabes,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Árabes
+BETA subid 1173,Bestiarios,SUBJECT*HM_CLASS*GENRE,,,,Bestiaris,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Bestiarios
+BETA subid 1174,Bibliología,,,,,Bibliología,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1073,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Bibliología
+BETA subid 1175,Biblia. Apócrifa y libros apócrifos,,,,,Biblia. Apócrifos,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1073,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Biblia. Apócrifa y libros apócrifos
+BETA subid 1176,Biblia. Antiguo Testamento. Salmos,,,,,Bíblia. Vell Testament. Saltiri,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1073,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2012-05-22,FAULHABER,,,,,Biblia. Antiguo Testamento. Salmos
+BETA subid 1177,Cábala,,,,,Cábala,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Cábala
+BETA subid 1178,Mapas y cartografía - Planos,,SUBJECT*HM_TYPE*MARC,,LC,Mapes i cartografia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1091,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Mapas y cartografía - Planos
+BETA subid 1179,Ceremonial - Ritos y ceremonías,,SUBJECT*HM_TYPE*MARC,,LC,Ceremonial,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Ceremonial - Ritos y ceremonías
+BETA subid 1180,Clima,,,,,Clima,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1091,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Clima
+BETA subid 1181,Comentarios,,,,,Comentaris,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Comentarios
+BETA subid 1182,Comercio - Negocio,,SUBJECT*HM_TYPE*MARC,,LC,Comercio,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,"LC: “Here are entered works on trade, both foreign and domestic”",,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Comercio - Negocio
+BETA subid 1183,Contabilidad,,,,,Comptabilitat,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Contabilidad
+BETA subid 1184,Etiqueta,,,,,Etiqueta,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1185,LC,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Etiqueta
+BETA subid 1185,Cortesía,,,,,Cortesía,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Cortesía
+BETA subid 1186,Cortes,,,,,Corts,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Cortes
+BETA subid 1187,Cosmética - Perfumes,,SUBJECT*HM_TYPE*MARC,,LC,Cosmética,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Cosmética - Perfumes
+BETA subid 1188,Cronología,,SUBJECT*HM_TYPE*MARC,,LC,Cronologia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Cronología
+BETA subid 1189,Diplomacia,,,,,Diplomacia,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1253,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Diplomacia
+BETA subid 1190,Mujeres,,SUBJECT*HM_TYPE*MARC,,LC,Mujeres,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Mujeres
+BETA subid 1191,Droguería - Materia médica,,,,,Droguería,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1045,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Droguería - Materia médica
+BETA subid 1192,Recetas medicinales,,,,,Recetes medicinales,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1045,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2013-04-28,FAULHABER,,,,,Recetas medicinales
+BETA subid 1193,Economía,,,,,Economia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Economía
+BETA subid 1194,Economía doméstica,,,,,Economía doméstica,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1193,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Economía doméstica
+BETA subid 1195,Ensenánza,,,,,Ensenãnza,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Ensenánza
+BETA subid 1196,Esclavos - Esclavitud,,SUBJECT*HM_TYPE*MARC,,LC,Esclavos,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Esclavos - Esclavitud
+BETA subid 1198,Iglesia Católica,,SUBJECT*HM_TYPE*MARC,,LC,Església Catòlica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Iglesia Católica
+BETA subid 1199,Exorcismo de espíritus malignos,,,,,Exorcismo,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-03,FAULHABER,,,,,Exorcismo de espíritus malignos
+BETA subid 1200,Asnos,,,,,Ases,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1146,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2018-08-18,FAULHABER,,,,,Asnos
+BETA subid 1201,Farmacia,,,,,Farmàcia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1045,,BETA subid 1191,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Farmacia
+BETA subid 1202,Fábulas,SUBJECT*HM_CLASS*GENRE,,,,Fàbules,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1013,LC,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Fábulas
+BETA subid 1203,Ética,,SUBJECT*HM_TYPE*MARC,,LC,Ètica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1089,,BETA subid 1059,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Ética
+BETA subid 1204,Fueros - estatutos regionales,,,,Faulhaber,Furs,SUBJECT*HV_CLASS*CAT,,,,,,BETA subid 1098,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Fueros - estatutos regionales
+BETA subid 1205,Gastronomía,,,,,Gastronomía,SUBJECT*HV_CLASS*SPANISH,,,,,,BETA subid 1047,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Gastronomía
+BETA subid 1206,Goigs,,SUBJECT*HM_TYPE*MARC,,LC,Goigs,SUBJECT*HV_CLASS*CAT,,,LC,BETA subid 1234,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Goigs
+BETA subid 1207,Gramática,,SUBJECT*HM_TYPE*MARC,,LC,Gramàtica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1208,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Gramática
+BETA subid 1208,Lingüística,,SUBJECT*HM_TYPE*MARC,,LC,llengüística,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,BETA subid 1090,,,,,,,,,,,,"LC: “Here are entered works dealing with the scientific study of human speech, including phonetics, phonemics, morphology, and syntax”",,2008-04-29,FAULHABER,2017-06-08,FAULHABER,,,,,Lingüística
+BETA subid 1209,Inquisición - Santo Oficio,,SUBJECT*HM_TYPE*MARC,,LC,Inquisició,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Inquisición - Santo Oficio
+BETA subid 1210,Lapidarios,,,,,Lapidarios,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1079,,BETA subid 1221,,,,,,,,,,,,,,2008-04-29,FAULHABER,2015-03-14,FAULHABER,,,,,Lapidarios
+BETA subid 1211,Lexicografía,,,,,Lexicografia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1208,,BETA subid 1212,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Lexicografía
+BETA subid 1212,Diccionarios,,,,,Diccionaris,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LX,BETA subid 1090,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2017-06-08,FAULHABER,,,,,Diccionarios
+BETA subid 1213,Literatura catalana hasta 1500,,,,,Literatura catalana cap a 1500,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1250,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Literatura catalana hasta 1500
+BETA subid 1214,Judaísmo - Liturgia,,,,,Judaísmo - Liturgia,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1058,,,,,,,,,,,,,,,,2008-04-29,FAULHABER,2011-12-04,FAULHABER,,,,,Judaísmo - Liturgia
+BETA subid 1215,Océano,,,,,Mar,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1091,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Océano
+BETA subid 1216,Materia clásica,,,,Faulhaber,Materia clásica,SUBJECT*HV_CLASS*SPANISH,,,,,,,,,,,,,,,,,,Faulhaber: No encuentro nada en el fichero de autoridades de la Library of Congress que equivalga a “Materia clásica”,,2008-04-30,FAULHABER,2016-01-02,FAULHABER,,,,,Materia clásica
+BETA subid 1217,Magia,,,,,Màgia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,BETA subid 1243,,,,,,,,,,,,,,2008-04-30,FAULHABER,2016-04-02,FAULHABER,,,,,Magia
+BETA subid 1218,Medicina reproductiva,,,,,Medina reproductiva,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1045,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-10,FAULHABER,,,,,Medicina reproductiva
+BETA subid 1219,Mercados,,,,,Mercados,SUBJECT*HV_CLASS*SPANISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,"LC: “Here are entered works on areas within which or arrangements by which many buyers and sellers are brought into contact with one another in order to exchange goods or services. Works on public gatherings at a stated time and place at which goods are exhibited and sold are entered under |a Fairs” Faulhaber: No se trata de la economía del mercado sino de, p. ej. mercados públicos",,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Mercados
+BETA subid 1220,Métrica - Versificación,,SUBJECT*HM_TYPE*MARC,,LC,Mètrica,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Métrica - Versificación
+BETA subid 1221,Minerología,,,,,Minerologia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1079,,BETA subid 1210,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Minerología
+BETA subid 1222,Minorías,,,,,Minories,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Minorías
+BETA subid 1223,Milagros,,,,,Miracles,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1058,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Milagros
+BETA subid 1224,Mitología,,,,,Mitología,SUBJECT*HV_CLASS*SPANISH,,,,,,BETA subid 1216,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Mitología
+BETA subid 1225,Monacato - Monasticismo - Órdenes religiosos,,SUBJECT*HM_TYPE*MARC,,LC,Monaquisme,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1058,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Monacato - Monasticismo - Órdenes religiosos
+BETA subid 1226,Notariado,,SUBJECT*HM_TYPE*MARC,,LC,Notariat,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Notariado
+BETA subid 1227,Numismática,,SUBJECT*HM_TYPE*MARC,,LC,Numismática,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Numismática
+BETA subid 1228,Aves - Pájaros,,SUBJECT*HM_TYPE*MARC,,LC,Ocells,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Aves - Pájaros
+BETA subid 1229,Artes y oficios - Artesanía,,,,,Oficis,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Artes y oficios - Artesanía
+BETA subid 1230,Oratoria,,SUBJECT*HM_TYPE*MARC,,LC,Oratòria,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,BETA subid 1023,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Oratoria
+BETA subid 1231,Oratoria religiosa,,SUBJECT*HM_TYPE*MARC,,LC,Oratòria religiosa,SUBJECT*HV_CLASS*CAT,,,,BETA subid 1230,,BETA subid 1023,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Oratoria religiosa
+BETA subid 1232,Paremiología,,,,,Paremiologia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Paremiología
+BETA subid 1233,Pintura,,,,,Pintura,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Pintura
+BETA subid 1234,Poesía,,SUBJECT*HM_TYPE*MARC,,LC,Poesia,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1250,,,,,,,,,,,,,,LC: “Here are entered general works on poetry and works limited to the philosophy of poetry. Works discussing collectively the technique and philosophy of poetry and works limited to the technique of poetry are entered under Poetics”,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Poesía
+BETA subid 1235,Política,,,,,Política,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Política
+BETA subid 1236,Ciencia política,,,,,Ciència política,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Ciencia política
+BETA subid 1237,Profecías,,,,,Profecies,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2012-11-28,FAULHABER,,,,,Profecías
+BETA subid 1238,Protocolo,,,,,Protocol,SUBJECT*HV_CLASS*CAT,,,,,,BETA subid 1184,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Protocolo
+BETA subid 1239,Química,,SUBJECT*HM_TYPE*MARC,,LC,Química,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1079,,BETA subid 1135,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Química
+BETA subid 1240,Sanidad - Regimientos de sanidad,,SUBJECT*HM_TYPE*MARC,,lc,Regiments de sanitat,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,"LC: “Here are entered works on optimal physical, mental, and social well-being, as well as how to achieve and preserve it”",,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Sanidad - Regimientos de sanidad
+BETA subid 1241,Sin clasificar,,,,,Sense classificar,SUBJECT*HV_CLASS*CAT,,,,,,,,,,,,,,,,,,Faulhaber: No existe tal concepto en el fichero de autoridades de la Library of Congress,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Sin clasificar
+BETA subid 1242,Sexo,,,,,Sexe,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Sexo
+BETA subid 1243,Superstición - Creencias folclóricas,,SUBJECT*HM_TYPE*MARC,,LC,Superstició,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Superstición - Creencias folclóricas
+BETA subid 1244,Usatges,,,,,Usatges,SUBJECT*HV_CLASS*SPANISH,,,,,,BETA subid 1245,,,,,,,,,,,,Faulhaber: El fichero de autoridades de la Library of Congress sólo reconoce los {I}Usatges de Barcelona{/I},,2008-04-30,FAULHABER,2012-01-12,App Service - MCR,,,,,Usatges
+BETA subid 1245,Derecho consuetudinario,,,,,Dret Consuetidinari,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1100,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Derecho consuetudinario
+BETA subid 1247,Visiones - Literatura visionaria,,SUBJECT*HM_TYPE*MARC,,LC,Visions,SUBJECT*HV_CLASS*CAT,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-04-30,FAULHABER,2011-12-04,FAULHABER,,,,,Visiones - Literatura visionaria
+BETA subid 1248,Aduana,,,,,Customs administration,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,,LC,,,,,,,,,,,,,,,,,2008-05-13,FAULHABER,2011-12-04,FAULHABER,,,,,Aduana
+BETA subid 1249,Arancel,,,,,Border taxes,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,450,Library of Congress,,,BETA subid 1248,Library of Congress,,,,,,,,,,,,,2008-05-14,FAULHABER,2011-12-04,FAULHABER,,,,,Arancel
+BETA subid 1250,Literatura,,,,,Literature,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2008-10-10,FAULHABER,2011-12-04,FAULHABER,,,,,Literatura
+BETA subid 1251,Literatura italiana hasta 1500,,,,Faulhaber,Italian literature to 1500,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1250,,,,,,,,,,,,,,,,2009-11-11,FAULHABER,2011-12-04,FAULHABER,,,,,Literatura italiana hasta 1500
+BETA subid 1252,Paz - tratados de,,,,Faulhaber,"Peace, treaties of",SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2009-12-20,FAULHABER,2011-12-10,FAULHABER,,,,,Paz - tratados de
+BETA subid 1253,Asuntos exteriories,,,,Faulhaber,Foreign affairs,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2009-12-20,FAULHABER,2011-12-04,FAULHABER,,,,,Asuntos exteriories
+BETA subid 1254,Derecho criminal,,,,Faulhaber,Criminal law,SUBJECT*HV_CLASS*SPANISH,,,Faulhaber,BETA subid 1100,,,,,,,,,,,,,,,,2009-12-20,FAULHABER,2011-12-04,FAULHABER,,,,,Derecho criminal
+BETA subid 1255,Islam - Liturgia,,,,,Islam - Liturgy,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2010-01-15,FAULHABER,2011-12-04,FAULHABER,,,,,Islam - Liturgia
+BETA subid 1256,Mudéjares - Revuelta de los (1501) - Alpujarras - Rebelión de las (1501),SUBJECT*HM_CLASS*EVENT,,,Wikipedia,"Mudéjares, Revuelta de los (1501)",SUBJECT*HV_CLASS*SPANISH,,,Wikipedia,,,,,,BETA bibid 4572,,,,,,,,,,,2010-03-20,FAULHABER,2015-08-23,FAULHABER,UNIVERSAL*INTERNET_CLASS*URL,http://es.wikipedia.org/wiki/Revuelta_mud%C3%A9jar,Wikipedia,2010-03-20,Mudéjares - Revuelta de los (1501) - Alpujarras - Rebelión de las (1501)
+BETA subid 1257,Castilla - Hambre en (1506),SUBJECT*HM_CLASS*EVENT,,,Dutton,"Castile, famine in (1506)",SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,BETA bibid 1002,I,202.0,17*RJ 4549,,,,,,,,2010-03-21,FAULHABER,2015-08-23,FAULHABER,,,,,Castilla - Hambre en (1506)
+BETA subid 1258,Negros,,,,Faulhaber,Blacks,SUBJECT*HV_CLASS*OTHER,,,,,,,,,,,,,,,,,,,,2010-03-23,FAULHABER,2011-12-04,FAULHABER,,,,,Negros
+BETA subid 1259,Post-incunables (1501-1520),,,,Faulhaber,post-incunables,SUBJECT*HV_CLASS*ENGLISH,,,,,,BETA subid 1109,,,BETA bibid 1218,,,,,,,,,"'Post-incunable” se refiere a impresos producidos en las dos primeras décadas del s. XVI, 1501-1520. Su identificación y lozalización dependen principamente de Norton 1978 y Martín Abad 2002, 2007 y 2016",,2011-12-03,FAULHABER,2020-04-09,FAULHABER,,,,,Post-incunables (1501-1520)
+BETA subid 1260,Aves de rapiña,,,,Faulhaber,Birds of prey,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1228,,,,,,,,,,,,,,,,2011-12-03,FAULHABER,,,,,,,Aves de rapiña
+BETA subid 1261,Cofradías,,,,,Confraternities,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2011-12-03,FAULHABER,,,,,,,Cofradías
+BETA subid 1262,Derecho civil,,,,,Civil law,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2012-06-26,FAULHABER,,,,,,,Derecho civil
+BETA subid 1263,Manuscrito fechado o fechable,,,,,Dated or datable manuscript,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2013-04-26,FAULHABER,2023-05-02,FAULHABER,,,,,Manuscrito fechado o fechable
+BETA subid 1264,Documento fechado,,,,,Dated document,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2013-05-07,FAULHABER,2013-05-07,FAULHABER,,,,,Documento fechado
+BETA subid 1265,Internet - Facsímiles digitalizados,,,,,Internet - Digitized works,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1267,,,,,,,,,,,,,,,,2013-10-16,FAULHABER,2015-05-19,FAULHABER,,,,,Internet - Facsímiles digitalizados
+BETA subid 1266,Internet - Textos electrónicos,,,,,Electronic texts - Internet,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1267,,,,,,,,,,,,,,,,2013-10-16,FAULHABER,2013-10-16,FAULHABER,,,,,Internet - Textos electrónicos
+BETA subid 1267,Fuentes electrónicas,,,,,Electronic sources,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2013-10-16,FAULHABER,,,,,,,Fuentes electrónicas
+BETA subid 1268,Imprenta,,,,,Printing,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2013-11-19,FAULHABER,,,,,,,Imprenta
+BETA subid 1269,Sueños,,,,,Dreams,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2013-12-29,FAULHABER,,,,,,,Sueños
+BETA subid 1270,Vinicultura,,,,,wine-growing,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2013-12-30,FAULHABER,,,,,,,Vinicultura
+BETA subid 1271,Pediátrica,,,,,Pediatrics,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1045,,,,,,,,,,,,,,,,2014-01-02,FAULHABER,2014-01-05,FAULHABER,,,,,Pediátrica
+BETA subid 1272,Sífilis,,,,,Syphilis,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1045,,,,,,,,,,,,,,,,2014-01-06,FAULHABER,,,,,,,Sífilis
+BETA subid 1273,Sentencias,,,,,Sententiae,SUBJECT*HV_CLASS*OTHER,,,,,,,,,,,,,,,,,,,,2014-01-23,FAULHABER,,,,,,,Sentencias
+BETA subid 1274,Moral cristiana,,,,,Christian morality,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2014-01-23,FAULHABER,2014-01-23,FAULHABER,,,,,Moral cristiana
+BETA subid 1275,Vida cristiana,,,,,Christian life,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2014-01-23,FAULHABER,2014-01-23,FAULHABER,,,,,Vida cristiana
+BETA subid 1276,Meditaciones,,,,,Meditations,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2014-01-23,FAULHABER,,,,,,,Meditaciones
+BETA subid 1277,Fiesta de los locos,,,,Wikipedia,Feast of Fools,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,BETA bibid 4572,,,,,,,,,,,2014-01-23,FAULHABER,2015-08-23,FAULHABER,UNIVERSAL*INTERNET_CLASS*URL,http://es.wikipedia.org/wiki/Fiesta_de_los_locos,Wikipedia,2014-01-23,Fiesta de los locos
+BETA subid 1278,Fiesta del asno,,,,Wikipedia,Feast of Asses,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,BETA bibid 4572,,,,,,,,,,,2014-01-23,FAULHABER,2015-08-23,FAULHABER,UNIVERSAL*INTERNET_CLASS*URL,http://es.wikipedia.org/wiki/Fiesta_del_asno,Wikipedia,2014-01-23,Fiesta del asno
+BETA subid 1279,Fiesta del obispillo,,,,Wikipedia,Boy bishop,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,BETA bibid 4572,,,,,,,,,,,2014-01-23,FAULHABER,2015-08-23,FAULHABER,UNIVERSAL*INTERNET_CLASS*URL,http://es.wikipedia.org/wiki/Fiesta_del_obispillo,WIkipedia,2014-01-23,Fiesta del obispillo
+BETA subid 1280,Encuadernadores,,,,,Bookbinders,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2014-02-12,FAULHABER,,,,,,,Encuadernadores
+BETA subid 1281,Perros,,,,,Dogs,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*LC,sh85038796,,,,,,,,,,,,,,,,,,2014-08-10,FAULHABER,2014-08-10,FAULHABER,,,,,Perros
+BETA subid 1282,bulas papales,SUBJECT*HM_CLASS*GENRE,,,,"Bulls, Papal",SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*LC,,,,,,,,,,,,,,,,,,,2015-01-03,FAULHABER,,,,,,,bulas papales
+BETA subid 1283,Numerología,,,,,Numerology,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2015-11-11,FAULHABER,,,,,,,Numerología
+BETA subid 1284,Materia carolingia,,,,,Caroligian legends,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-01-02,FAULHABER,2016-01-02,FAULHABER,,,,,Materia carolingia
+BETA subid 1285,Zoología,,,,Faulhaber,Zoology,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1079,,BETA subid 1228,,,,,,,,,,,,,,2016-01-11,FAULHABER,2016-01-11,FAULHABER,,,,,Zoología
+BETA subid 1286,Biología,,,,,Biology,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1079,,,,,,,,,,,,,,,,2016-01-11,FAULHABER,2022-02-21,FAULHABER,,,,,Biología
+BETA subid 1287,Conjuro,,,,,Spell,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1217,,BETA subid 1243,,,,,,,,,,,,,,2016-04-02,FAULHABER,,,,,,,Conjuro
+BETA subid 1288,Sericultura,,,,,,,,,,BETA subid 1053,,,,,,,,,,,,,,,,2016-11-10,FAULHABER,,,,,,,Sericultura
+BETA subid 1289,Francia,,,,,France,SUBJECT*HV_CLASS*FRENCH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-25,FAULHABER,,,,,Francia
+BETA subid 1290,Polonia,,,,,Poland,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2024-05-31,FAULHABER,,,,,Polonia
+BETA subid 1291,Alemania,,,,,Germany,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-25,FAULHABER,,,,,Alemania
+BETA subid 1292,Italia,,,,,Italy,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-25,FAULHABER,,,,,Italia
+BETA subid 1293,Reino Unido,,,,,United Kingdom,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-25,FAULHABER,,,,,Reino Unido
+BETA subid 1294,Bélgica,,,,,Belgium,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-28,FAULHABER,,,,,Bélgica
+BETA subid 1295,República Checa,,,,,Czech Republic,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-28,FAULHABER,,,,,República Checa
+BETA subid 1296,Dinamarca,,,,,Danmark,SUBJECT*HV_CLASS*OTHER,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-28,FAULHABER,,,,,Dinamarca
+BETA subid 1297,Holanda,,,,,Nederland,SUBJECT*HV_CLASS*OTHER,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-28,FAULHABER,,,,,Holanda
+BETA subid 1298,Hungría,,,,,Hungary,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-29,FAULHABER,,,,,Hungría
+BETA subid 1299,Irelanda,,,,,Ireland,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-29,FAULHABER,,,,,Irelanda
+BETA subid 1300,México,,,,,Mexique,SUBJECT*HV_CLASS*FRENCH,,,,,,,,,,,,,,,,,,,,2016-11-24,FAULHABER,2016-11-29,FAULHABER,,,,,México
+BETA subid 1301,Suecia,,,,,Sverige,SUBJECT*HV_CLASS*OTHER,,,,,,,,,,,,,,,,,,,,2016-11-25,FAULHABER,2016-11-29,FAULHABER,,,,,Suecia
+BETA subid 1302,Suiza,,,,,Switzerland,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-25,FAULHABER,2016-11-29,FAULHABER,,,,,Suiza
+BETA subid 1303,Escocia,,,,,Scotland,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-25,FAULHABER,,,,,,,Escocia
+BETA subid 1304,España,,,,,Spain,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-25,FAULHABER,,,,,,,España
+BETA subid 1305,Rusia,,,,,Russia,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-25,FAULHABER,,,,,,,Rusia
+BETA subid 1306,Noruega,,,,,Norway,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-25,FAULHABER,,,,,,,Noruega
+BETA subid 1307,Estados Unidos,,,,,United States,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-25,FAULHABER,,,,,,,Estados Unidos
+BETA subid 1308,Vaticano,,,,,Vatican City,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2016-11-25,FAULHABER,,,,,,,Vaticano
+BETA subid 1309,Cirugía,,,,,Surgery,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1045,,,,,,,,,,,,,,,,2016-11-29,FAULHABER,,,,,,,Cirugía
+BETA subid 1310,Pronunciación,,,,,pronunciation,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1208,,,,,,,,,,,,,,,,2017-01-21,FAULHABER,,,,,,,Pronunciación
+BETA subid 1311,Peregrinación,,,,,Pilgrimage,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1058,,,,,,,,,,,,,,,,2017-09-11,FAULHABER,2017-09-12,FAULHABER,,,,,Peregrinación
+BETA subid 1312,Literatura perdida,,,,,Lost literature,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2017-10-12,FAULHABER,,,,,,,Literatura perdida
+BETA subid 1313,"Guerra de Sucesión Española, 1701-1713",SUBJECT*HM_CLASS*EVENT,,,,War of the Spanish Succesion,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,BETA bibid 4572,,,,,,,,,,,2017-11-05,FAULHABER,,,UNIVERSAL*INTERNET_CLASS*URL,https://es.wikipedia.org/wiki/Guerra_de_Sucesi%C3%B3n_Espa%C3%B1ola,Wikipedia,2017-11-05,"Guerra de Sucesión Española, 1701-1713"
+BETA subid 1314,"Constanza, Concilio de (1414-1418)",SUBJECT*HM_CLASS*EVENT,,,Faulhaber,"Basilea, concilio de",SUBJECT*HV_CLASS*CAT,,,,,,,,,BETA bibid 4572,,,,,,,,,,,2018-01-20,FAULHABER,,,UNIVERSAL*INTERNET_CLASS*URL,https://es.wikipedia.org/wiki/Concilio_de_Constanza,Wikipedia,2018-01-20,"Constanza, Concilio de (1414-1418)"
+BETA subid 1315,Ecdótica,,,,,Crítica textual,SUBJECT*HV_CLASS*OTHER,,,,,,,,,,,,,,,,,,,,2018-01-23,FAULHABER,,,,,,,Ecdótica
+BETA subid 1316,Indulgencias,SUBJECT*HM_CLASS*GENRE,,,,Indulgences,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1198,,,,,,,,,,,,,,,,2018-04-03,FAULHABER,,,,,,,Indulgencias
+BETA subid 1317,Leyes suntuarias,,,,,Sumptuary laws,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2018-08-11,FAULHABER,,,,,,,Leyes suntuarias
+BETA subid 1318,Derecho mercantil,,,,,Commercial law,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1100,,BETA subid 1137,,,,,,,,,,,,,,2018-08-15,FAULHABER,2022-02-21,FAULHABER,,,,,Derecho mercantil
+BETA subid 1319,Blasfemia,,,,,Blasphemy,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1058,,BETA subid 1124,,,,,,,,,,,,,,2018-08-18,FAULHABER,,,,,,,Blasfemia
+BETA subid 1320,Puercos,,,,,Swine,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1146,,,,,,,,,,,,,,,,2018-08-20,FAULHABER,,,,,,,Puercos
+BETA subid 1321,Nobleza,,,,,Nobility,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2018-08-26,FAULHABER,2018-08-26,FAULHABER,,,,,Nobleza
+BETA subid 1322,Homosexualidad,,,,,Homosexuality,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1242,,,,,,,,,,,,,,,,2018-09-14,FAULHABER,2018-09-14,FAULHABER,,,,,Homosexualidad
+BETA subid 1323,Gitanos,,,,,Gypsies,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2018-09-20,FAULHABER,,,,,,,Gitanos
+BETA subid 1324,Estatutos municipales,,,,,Códigos municipales,SUBJECT*HV_CLASS*OTHER,,,,,,,,,,,,,,,,,,,,2018-09-24,FAULHABER,,,,,,,Estatutos municipales
+BETA subid 1325,Textiles,,,,,Textiles,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2018-10-03,FAULHABER,2022-02-21,FAULHABER,,,,,Textiles
+BETA subid 1326,Derecho penal,,,,,Penal law,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1100,,,,,,,,,,,,,,,,2018-10-09,FAULHABER,,,,,,,Derecho penal
+BETA subid 1327,Armas,,,,,Arms,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2018-10-23,FAULHABER,,,,,,,Armas
+BETA subid 1328,Godos,,,,,Goths,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2019-08-04,FAULHABER,,,,,,,Godos
+BETA subid 1329,Visigodos,,,,,Visigoths,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1328,,BETA subid 1330,,,,,,,,,,,,,,2019-08-04,FAULHABER,2019-08-04,FAULHABER,,,,,Visigodos
+BETA subid 1330,Ostrogodos,,,,,Ostrogoths,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1328,,BETA subid 1329,,,,,,,,,,,,,,2019-08-04,FAULHABER,,,,,,,Ostrogodos
+BETA subid 1331,Documento fechable,,,,,Datable document,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2019-10-09,FAULHABER,,,,,,,Documento fechable
+BETA subid 1332,Pesquería,,,,,Fishery,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2020-02-14,FAULHABER,2020-02-14,FAULHABER,,,,,Pesquería
+BETA subid 1333,"Tordesillas, Tratado de",,,,,Treaty of Tordesillas,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1029,,,,,,,,,,,,,,,,2020-02-16,FAULHABER,,,,,,,"Tordesillas, Tratado de"
+BETA subid 1334,Fronteras marítimas,,SUBJECT*HM_TYPE*LC,,,Maritime boundaries,SUBJECT*HV_CLASS*ENGLISH,,,,,,BETA subid 1333,,,,,,,,,,,,,,2020-02-16,FAULHABER,,,,,,,Fronteras marítimas
+BETA subid 1335,Asuntos marítimos,,,,,Maritime issues,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2020-02-16,FAULHABER,2020-02-16,FAULHABER,,,,,Asuntos marítimos
+BETA subid 1336,Viajes de exploración,,,,,Voyages of discovery,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1030,,,,,,,,,,,,,,,,2020-02-16,FAULHABER,,,,,,,Viajes de exploración
+BETA subid 1337,Cisma de Occidente,,,,,Western Schism,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1198,,,,,,,,,,,,,,,,2020-03-06,FAULHABER,2022-02-21,FAULHABER,,,,,Cisma de Occidente
+BETA subid 1338,Ex-libris,,,,,Ex-libris,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1107,,,,,,,,,,,,,,,,2020-05-09,FAULHABER,2022-02-21,FAULHABER,,,,,Ex-libris
+BETA subid 1340,Predicación,,,,,preaching,SUBJECT*HV_CLASS*ENGLISH,,,,BETA subid 1058,,BETA subid 1023,,,,,,,,,,,,,,2020-07-06,FAULHABER,,,,,,,Predicación
+BETA subid 1341,Amuleto,,,,,Amulet,SUBJECT*HV_CLASS*ENGLISH,,,,,,BETA subid 1217,,,,,,,,,,,,,,2020-11-07,FAULHABER,,,,,,,Amuleto
+BETA subid 1342,Literatura portuguesa hasta 1500,,,,,Portuguese literature to 1500,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1250,,,,,,,,,,,,,,,,2021-03-23,FAULHABER,2021-03-23,FAULHABER,,,,,Literatura portuguesa hasta 1500
+BETA subid 1343,Literatura gallega hasta 1500,,,,,Galician literature to 1500,SUBJECT*HV_CLASS*ENGLISH,SUBJECT*HV_TYPE*MARC,,LC,BETA subid 1250,,,,,,,,,,,,,,,,2021-03-23,FAULHABER,,,,,,,Literatura gallega hasta 1500
+BETA subid 1344,Adivinanzas,,,,,Riddles,SUBJECT*HV_CLASS*ENGLISH,,,,,,,,,,,,,,,,,,,,2021-04-08,FAULHABER,,,,,,,Adivinanzas

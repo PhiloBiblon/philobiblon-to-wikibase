@@ -1,0 +1,20 @@
+Unnamed: 0,GEOID,TYPE,MONIKER,INTERNET_ADDRESS,Unnamed: 5,FactGrid Qid,Factgrid Len,Wikidata Qid
+144.0,BETA geoid 1127,GEOGRAPHY*TYPE*T,Lyon,Q456,,https://database.factgrid.de/entity/Q23112,Lyon,Q456
+183.0,BETA geoid 1157,,,Q3771328,,https://database.factgrid.de/entity/Q746496,Duchy of Villena,Q3771328
+243.0,BETA geoid 1207,GEOGRAPHY*TYPE*CO,Étampes (comuna),Q205584,,https://database.factgrid.de/entity/Q113975,Étampes,Q205584
+256.0,BETA geoid 1215,GEOGRAPHY*TYPE*T,Pont-à-Mousson,Q461413,,https://database.factgrid.de/entity/Q128460,Pont-à-Mousson,Q461413
+473.0,BETA geoid 1397,GEOGRAPHY*TYPE*T,Saldaña,Q773408,,https://database.factgrid.de/entity/Q353589,Saldaña,Q773408
+772.0,BETA geoid 1641,GEOGRAPHY*TYPE*T,Noreña,Q816255,,https://database.factgrid.de/entity/Q351389,Noreña,Q816255
+811.0,BETA geoid 1678,GEOGRAPHY*TYPE*P,Oviedo (provincia),Q95006,,https://database.factgrid.de/entity/Q780286,Oviedo Province,Q95006
+996.0,BETA geoid 1842,GEOGRAPHY*TYPE*T,Blois,Q160927,,https://database.factgrid.de/entity/Q106987,Blois,Q160927
+1440.0,BETA geoid 2261,GEOGRAPHY*TYPE*C,Sussex (condado),Q23346,,https://database.factgrid.de/entity/Q217755,Sussex,Q23346
+1440.0,BETA geoid 2261,GEOGRAPHY*TYPE*C,Sussex (condado),Q23346,,https://database.factgrid.de/entity/Q217755,Sussex,Q23346
+1568.0,BETA geoid 2369,GEOGRAPHY*TYPE*Y,Liechtenstein (principado),Q347,,https://database.factgrid.de/entity/Q892296,Liechtenstein,Q347
+1697.0,BETA geoid 2475,GEOGRAPHY*TYPE*T,Belalcázar,Q854373,,https://database.factgrid.de/entity/Q344684,Belalcázar,Q854373
+1737.0,BETA geoid 2514,GEOGRAPHY*TYPE*T,Montpensier,Q845814,,https://database.factgrid.de/entity/Q125357,Montpensier,Q845814
+1921.0,BETA geoid 2680,GEOGRAPHY*TYPE*CO,Arrigas (comuna),Q840039,,https://database.factgrid.de/entity/Q104357,Arrigas,Q840039
+2017.0,BETA geoid 2760,GEOGRAPHY*TYPE*T,Santiago,Q117040,,https://database.factgrid.de/entity/Q270778,Santiago de Cuba,Q117040
+2111.0,BETA geoid 2839,GEOGRAPHY*TYPE*T,Orthez,Q244248,,https://database.factgrid.de/entity/Q127101,Orthez,Q244248
+2133.0,BETA geoid 2860,GEOGRAPHY*TYPE*G,Herbón (parroquia),Q12951957,,https://database.factgrid.de/entity/Q348630,"Herbón, Padrón",Q12951957
+2138.0,BETA geoid 2863,GEOGRAPHY*TYPE*T,Sainte-Maure-de-Touraine,Q474524,,https://database.factgrid.de/entity/Q134916,Sainte-Maure-de-Touraine,Q474524
+2148.0,BETA geoid 2872,GEOGRAPHY*TYPE*T,Beauvais,Q174257,,https://database.factgrid.de/entity/Q105962,Beauvais,Q174257

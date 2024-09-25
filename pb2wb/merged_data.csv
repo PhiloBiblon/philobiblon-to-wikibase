@@ -1,0 +1,759 @@
+pbid,item,itemLabel
+BETA geoid 1201,https://database.factgrid.de/entity/Q83756,Caravaca de la Cruz
+BETA geoid 2453,https://database.factgrid.de/entity/Q92938,Villanueva de la Serena
+BETA geoid 1501,https://database.factgrid.de/entity/Q183623,Canarias
+BETA geoid 2348,https://database.factgrid.de/entity/Q343931,Arahal
+BETA geoid 2385,https://database.factgrid.de/entity/Q343270,Alaejos
+BETA geoid 2382,https://database.factgrid.de/entity/Q345181,Brozas
+BETA geoid 2213,https://database.factgrid.de/entity/Q344355,Azután
+BETA geoid 2241,https://database.factgrid.de/entity/Q343853,Andilla
+BETA geoid 2230,https://database.factgrid.de/entity/Q344044,Arenys de Mar
+BETA geoid 2245,https://database.factgrid.de/entity/Q343547,Aledo
+BETA geoid 2592,https://database.factgrid.de/entity/Q345650,Cañamero
+BETA geoid 2246,https://database.factgrid.de/entity/Q343415,Alcalá del Valle
+BETA geoid 2244,https://database.factgrid.de/entity/Q344009,Arcos de la Llana
+BETA geoid 2354,https://database.factgrid.de/entity/Q346492,Chiloeches
+BETA geoid 2268,https://database.factgrid.de/entity/Q343443,Alcocer
+BETA geoid 2394,https://database.factgrid.de/entity/Q343409,Alcalá de los Gazules
+BETA geoid 2243,https://database.factgrid.de/entity/Q344787,Beniarjó
+BETA geoid 2352,https://database.factgrid.de/entity/Q347699,Estadilla
+BETA geoid 2285,https://database.factgrid.de/entity/Q344877,Bermeo
+BETA geoid 2491,https://database.factgrid.de/entity/Q343487,Aldea de San Miguel
+BETA geoid 2284,https://database.factgrid.de/entity/Q344134,Aroche
+BETA geoid 2229,https://database.factgrid.de/entity/Q346437,Cetina
+BETA geoid 2401,https://database.factgrid.de/entity/Q343285,Alange
+BETA geoid 2532,https://database.factgrid.de/entity/Q343876,Anguiano
+BETA geoid 2507,https://database.factgrid.de/entity/Q344657,Becilla de Valderaduey
+BETA geoid 2573,https://database.factgrid.de/entity/Q343703,Almodóvar del Río
+BETA geoid 2561,https://database.factgrid.de/entity/Q343914,Antillón
+BETA geoid 2490,https://database.factgrid.de/entity/Q346222,Castromonte
+BETA geoid 2235,https://database.factgrid.de/entity/Q348326,Gaucín
+BETA geoid 2545,https://database.factgrid.de/entity/Q344684,Belalcázar
+BETA geoid 2258,https://database.factgrid.de/entity/Q347870,Fitero
+BETA geoid 2407,https://database.factgrid.de/entity/Q344363,Badalona
+BETA geoid 2509,https://database.factgrid.de/entity/Q346490,Chillón
+BETA geoid 2408,https://database.factgrid.de/entity/Q344462,Barajas
+BETA geoid 2257,https://database.factgrid.de/entity/Q348947,Jaraíz de la Vera
+BETA geoid 2524,https://database.factgrid.de/entity/Q348956,Jarque
+BETA geoid 2522,https://database.factgrid.de/entity/Q347997,Fraga
+BETA geoid 2588,https://database.factgrid.de/entity/Q346691,Comares
+BETA geoid 2541,https://database.factgrid.de/entity/Q348163,Fuentes de Ebro
+BETA geoid 2574,https://database.factgrid.de/entity/Q347303,El Carpio
+BETA geoid 2478,https://database.factgrid.de/entity/Q347673,Espinosa de Cervera
+BETA geoid 2336,https://database.factgrid.de/entity/Q350359,Martín Muñoz de las Posadas
+BETA geoid 2356,https://database.factgrid.de/entity/Q349509,Láncara
+BETA geoid 2347,https://database.factgrid.de/entity/Q350972,Morón de la Frontera
+BETA geoid 2224,https://database.factgrid.de/entity/Q349680,Ledigos
+BETA geoid 2214,https://database.factgrid.de/entity/Q350902,Mora
+BETA geoid 2288,https://database.factgrid.de/entity/Q351403,Novés
+BETA geoid 2379,https://database.factgrid.de/entity/Q351987,Pancorbo
+BETA geoid 2286,https://database.factgrid.de/entity/Q352456,Pinos Puente
+BETA geoid 2242,https://database.factgrid.de/entity/Q352227,Penàguila
+BETA geoid 2262,https://database.factgrid.de/entity/Q351028,Mucientes
+BETA geoid 2220,https://database.factgrid.de/entity/Q354449,Santa Gadea del Cid
+BETA geoid 2234,https://database.factgrid.de/entity/Q354661,Santiponce
+BETA geoid 2477,https://database.factgrid.de/entity/Q350443,Mazarambroz
+BETA geoid 2405,https://database.factgrid.de/entity/Q350437,Mayalde
+BETA geoid 2589,https://database.factgrid.de/entity/Q351414,Nules
+BETA geoid 2502,https://database.factgrid.de/entity/Q353638,Salvaleón
+BETA geoid 2536,https://database.factgrid.de/entity/Q352737,Priego de Córdoba
+BETA geoid 2556,https://database.factgrid.de/entity/Q353367,Robledo de Chavela
+BETA geoid 2418,https://database.factgrid.de/entity/Q352172,Pedrola
+BETA geoid 2452,https://database.factgrid.de/entity/Q343659,Almagro
+BETA geoid 1211,https://database.factgrid.de/entity/Q343385,Alburquerque
+BETA geoid 2436,https://database.factgrid.de/entity/Q346746,Córcoles
+BETA geoid 2470,https://database.factgrid.de/entity/Q346230,Castronuño
+BETA geoid 2457,https://database.factgrid.de/entity/Q346574,Ciruelos
+BETA geoid 2419,https://database.factgrid.de/entity/Q348033,Fréscano
+BETA geoid 1431,https://database.factgrid.de/entity/Q345676,Candeleda
+BETA geoid 1438,https://database.factgrid.de/entity/Q345440,Calatayud
+BETA geoid 1429,https://database.factgrid.de/entity/Q345948,Casarrubios del Monte
+BETA geoid 1578,https://database.factgrid.de/entity/Q346586,Ciudad Real
+BETA geoid 2471,https://database.factgrid.de/entity/Q346956,Cubillas de Santa Marta
+BETA geoid 2434,https://database.factgrid.de/entity/Q348774,Huelves
+BETA geoid 2429,https://database.factgrid.de/entity/Q350869,Montilla
+BETA geoid 2440,https://database.factgrid.de/entity/Q352241,Peñaranda de Bracamonte
+BETA geoid 1250,https://database.factgrid.de/entity/Q351315,Niebla
+BETA geoid 2435,https://database.factgrid.de/entity/Q353539,Sacedón
+BETA geoid 1576,https://database.factgrid.de/entity/Q353526,Sabiote
+BETA geoid 1195,https://database.factgrid.de/entity/Q353214,Ribadeo
+BETA geoid 1439,https://database.factgrid.de/entity/Q353645,Salvatierra de Tormes
+BETA geoid 1441,https://database.factgrid.de/entity/Q354448,Santa Fe
+BETA geoid 2703,https://database.factgrid.de/entity/Q88220,Lorca
+BETA geoid 2851,https://database.factgrid.de/entity/Q89858,Olivenza
+BETA geoid 2809,https://database.factgrid.de/entity/Q92323,Tafalla
+BETA geoid 2694,https://database.factgrid.de/entity/Q343437,Alcázar de San Juan
+BETA geoid 2714,https://database.factgrid.de/entity/Q343432,Alcàsser
+BETA geoid 2701,https://database.factgrid.de/entity/Q345858,Cariñena
+BETA geoid 2674,https://database.factgrid.de/entity/Q346597,Clavijo
+BETA geoid 2618,https://database.factgrid.de/entity/Q344123,Arnedillo
+BETA geoid 2632,https://database.factgrid.de/entity/Q343685,Almenara de Adaja
+BETA geoid 2719,https://database.factgrid.de/entity/Q345091,Borriol
+BETA geoid 2631,https://database.factgrid.de/entity/Q344281,Ataquines
+BETA geoid 2603,https://database.factgrid.de/entity/Q344929,Beteta
+BETA geoid 2651,https://database.factgrid.de/entity/Q345533,Cambil
+BETA geoid 2644,https://database.factgrid.de/entity/Q343191,Ágreda
+BETA geoid 2630,https://database.factgrid.de/entity/Q345700,Cangas de Onís
+BETA geoid 2704,https://database.factgrid.de/entity/Q346319,Cella
+BETA geoid 2718,https://database.factgrid.de/entity/Q343314,Albalat dels Sorells
+BETA geoid 2637,https://database.factgrid.de/entity/Q344279,Atanzón
+BETA geoid 2648,https://database.factgrid.de/entity/Q343736,Álora
+BETA geoid 2830,https://database.factgrid.de/entity/Q343163,Adamuz
+BETA geoid 2708,https://database.factgrid.de/entity/Q347502,Elda
+BETA geoid 2600,https://database.factgrid.de/entity/Q347750,Falces
+BETA geoid 2822,https://database.factgrid.de/entity/Q343452,Alcolea del Río
+BETA geoid 2634,https://database.factgrid.de/entity/Q346415,Cervera del Llano
+BETA geoid 2846,https://database.factgrid.de/entity/Q343944,Aranda de Moncayo
+BETA geoid 2849,https://database.factgrid.de/entity/Q343746,Alpartir
+BETA geoid 2638,https://database.factgrid.de/entity/Q346143,Castilnuevo
+BETA geoid 2838,https://database.factgrid.de/entity/Q345439,Calatañazor
+BETA geoid 2831,https://database.factgrid.de/entity/Q345723,Cañizar
+BETA geoid 2821,https://database.factgrid.de/entity/Q343453,Alcolea
+BETA geoid 2741,https://database.factgrid.de/entity/Q343574,Alfarrasí
+BETA geoid 2633,https://database.factgrid.de/entity/Q348017,Frechilla
+BETA geoid 2861,https://database.factgrid.de/entity/Q344328,Ayerbe
+BETA geoid 2854,https://database.factgrid.de/entity/Q344843,Berbinzana
+BETA geoid 2824,https://database.factgrid.de/entity/Q344484,Barbalos
+BETA geoid 2650,https://database.factgrid.de/entity/Q348979,Jódar
+BETA geoid 2869,https://database.factgrid.de/entity/Q345321,Cabanelles
+BETA geoid 2754,https://database.factgrid.de/entity/Q344183,Artajona
+BETA geoid 2642,https://database.factgrid.de/entity/Q348542,Guardo
+BETA geoid 2868,https://database.factgrid.de/entity/Q345753,Canyelles
+BETA geoid 2737,https://database.factgrid.de/entity/Q348528,Guadamur
+BETA geoid 2805,https://database.factgrid.de/entity/Q344019,Ardales
+BETA geoid 2852,https://database.factgrid.de/entity/Q348260,Gálvez
+BETA geoid 2290,https://database.factgrid.de/entity/Q343828,Amusco
+BETA geoid 2862,https://database.factgrid.de/entity/Q348092,Fuensaldaña
+BETA geoid 2856,https://database.factgrid.de/entity/Q348611,Gutierre-Muñoz
+BETA geoid 2335,https://database.factgrid.de/entity/Q344741,Benacazón
+BETA geoid 2752,https://database.factgrid.de/entity/Q347108,Deza
+BETA geoid 2807,https://database.factgrid.de/entity/Q345718,Canillas
+BETA geoid 2783,https://database.factgrid.de/entity/Q347276,El Bonillo
+BETA geoid 2802,https://database.factgrid.de/entity/Q347845,Figueres
+BETA geoid 2322,https://database.factgrid.de/entity/Q346714,Congosto
+BETA geoid 2812,https://database.factgrid.de/entity/Q348356,Gernika
+BETA geoid 2289,https://database.factgrid.de/entity/Q347531,Encinas de Esgueva
+BETA geoid 2308,https://database.factgrid.de/entity/Q347721,Estremera
+BETA geoid 2672,https://database.factgrid.de/entity/Q351240,Navarrés
+BETA geoid 2329,https://database.factgrid.de/entity/Q347228,Duruelo
+BETA geoid 2686,https://database.factgrid.de/entity/Q350842,Montemayor
+BETA geoid 2814,https://database.factgrid.de/entity/Q348965,Javier
+BETA geoid 2325,https://database.factgrid.de/entity/Q348145,Fuentenebro
+BETA geoid 2673,https://database.factgrid.de/entity/Q352283,Perales
+BETA geoid 2693,https://database.factgrid.de/entity/Q352460,Pinseque
+BETA geoid 2716,https://database.factgrid.de/entity/Q351691,Onda
+BETA geoid 2670,https://database.factgrid.de/entity/Q353905,San Martín de Valdeiglesias
+BETA geoid 2628,https://database.factgrid.de/entity/Q351411,Nuévalos
+BETA geoid 2690,https://database.factgrid.de/entity/Q355027,Socovos
+BETA geoid 2684,https://database.factgrid.de/entity/Q355398,Tineo
+BETA geoid 2636,https://database.factgrid.de/entity/Q352474,Pioz
+BETA geoid 2602,https://database.factgrid.de/entity/Q354579,Santaella
+BETA geoid 2826,https://database.factgrid.de/entity/Q352235,Peñalver
+BETA geoid 2748,https://database.factgrid.de/entity/Q349666,Lebrija
+BETA geoid 2755,https://database.factgrid.de/entity/Q349560,Larraga
+BETA geoid 2870,https://database.factgrid.de/entity/Q350621,Minaya
+BETA geoid 2756,https://database.factgrid.de/entity/Q350532,Mendigorría
+BETA geoid 2757,https://database.factgrid.de/entity/Q350645,Miranda de Arga
+BETA geoid 2794,https://database.factgrid.de/entity/Q350469,Medina de las Torres
+BETA geoid 2825,https://database.factgrid.de/entity/Q355428,Tocina
+BETA geoid 2841,https://database.factgrid.de/entity/Q354764,Sarria
+BETA geoid 2792,https://database.factgrid.de/entity/Q352085,Pareja
+BETA geoid 2594,https://database.factgrid.de/entity/Q350843,Montemolín
+BETA geoid 2316,https://database.factgrid.de/entity/Q350310,Marchena
+BETA geoid 2598,https://database.factgrid.de/entity/Q350867,Montiel
+BETA geoid 2287,https://database.factgrid.de/entity/Q350664,Mirueña de los Infanzones
+BETA geoid 2753,https://database.factgrid.de/entity/Q354893,Serón de Nágima
+BETA geoid 2795,https://database.factgrid.de/entity/Q355463,Toral de los Guzmanes
+BETA geoid 1246,https://database.factgrid.de/entity/Q83723,Cáceres
+BETA geoid 1185,https://database.factgrid.de/entity/Q86829,Jaén
+BETA geoid 1456,https://database.factgrid.de/entity/Q82362,Arcos de la Frontera
+BETA geoid 1471,https://database.factgrid.de/entity/Q88820,Moguer
+BETA geoid 1322,https://database.factgrid.de/entity/Q81965,A Coruña
+BETA geoid 1450,https://database.factgrid.de/entity/Q89857,Olite
+BETA geoid 1338,https://database.factgrid.de/entity/Q83087,Bilbao
+BETA geoid 1354,https://database.factgrid.de/entity/Q85755,Guadix
+BETA geoid 1141,https://database.factgrid.de/entity/Q90233,Plasencia
+BETA geoid 1311,https://database.factgrid.de/entity/Q88658,Mérida
+BETA geoid 1166,https://database.factgrid.de/entity/Q92699,Úbeda
+BETA geoid 1467,https://database.factgrid.de/entity/Q140574,Baeza
+BETA geoid 1237,https://database.factgrid.de/entity/Q344713,Bélmez de la Moraleda
+BETA geoid 1229,https://database.factgrid.de/entity/Q343222,Aguilar de la Frontera
+BETA geoid 1225,https://database.factgrid.de/entity/Q344325,Ayamonte
+BETA geoid 1181,https://database.factgrid.de/entity/Q344271,Astorga
+BETA geoid 1150,https://database.factgrid.de/entity/Q343299,Alba de Tormes
+BETA geoid 1416,https://database.factgrid.de/entity/Q346496,Chinchón
+BETA geoid 1339,https://database.factgrid.de/entity/Q344616,Batres
+BETA geoid 1417,https://database.factgrid.de/entity/Q347850,Figueruelas
+BETA geoid 1406,https://database.factgrid.de/entity/Q346638,Cogolludo
+BETA geoid 1231,https://database.factgrid.de/entity/Q346419,Cervera
+BETA geoid 1410,https://database.factgrid.de/entity/Q347597,Escalona
+BETA geoid 1470,https://database.factgrid.de/entity/Q346776,Cornago
+BETA geoid 1156,https://database.factgrid.de/entity/Q343425,Alcántara
+BETA geoid 1251,https://database.factgrid.de/entity/Q343596,Algeciras
+BETA geoid 1463,https://database.factgrid.de/entity/Q344339,Azañón
+BETA geoid 1480,https://database.factgrid.de/entity/Q347202,Dos Aguas
+BETA geoid 1228,https://database.factgrid.de/entity/Q348501,Griñón
+BETA geoid 1457,https://database.factgrid.de/entity/Q346211,Castrojeriz
+BETA geoid 1360,https://database.factgrid.de/entity/Q343430,Alcaraz
+BETA geoid 1462,https://database.factgrid.de/entity/Q345208,Buendía
+BETA geoid 1173,https://database.factgrid.de/entity/Q346532,Cifuentes
+BETA geoid 1159,https://database.factgrid.de/entity/Q345432,Calahorra
+BETA geoid 1494,https://database.factgrid.de/entity/Q347064,Daroca
+BETA geoid 1253,https://database.factgrid.de/entity/Q345057,Bonilla de la Sierra
+BETA geoid 1343,https://database.factgrid.de/entity/Q343675,Almazán
+BETA geoid 1355,https://database.factgrid.de/entity/Q346440,Cevico de la Torre
+BETA geoid 1164,https://database.factgrid.de/entity/Q348693,Hita
+BETA geoid 1461,https://database.factgrid.de/entity/Q348529,Guadarrama
+BETA geoid 1347,https://database.factgrid.de/entity/Q344690,Beleña de Sorbe
+BETA geoid 1353,https://database.factgrid.de/entity/Q348057,Fresno de Torote
+BETA geoid 1255,https://database.factgrid.de/entity/Q343572,Alfaro
+BETA geoid 1265,https://database.factgrid.de/entity/Q344689,Belchite
+BETA geoid 1362,https://database.factgrid.de/entity/Q347799,Feria
+BETA geoid 1329,https://database.factgrid.de/entity/Q346531,Cieza
+BETA geoid 1326,https://database.factgrid.de/entity/Q346793,Corral de Almaguer
+BETA geoid 1399,https://database.factgrid.de/entity/Q345373,Cabra
+BETA geoid 1348,https://database.factgrid.de/entity/Q346272,Cazorla
+BETA geoid 1268,https://database.factgrid.de/entity/Q345913,Carrión de los Condes
+BETA geoid 1272,https://database.factgrid.de/entity/Q346613,Cocentaina
+BETA geoid 1413,https://database.factgrid.de/entity/Q350011,Los Molares
+BETA geoid 1145,https://database.factgrid.de/entity/Q349341,La Romana
+BETA geoid 1412,https://database.factgrid.de/entity/Q351742,Orgaz
+BETA geoid 1174,https://database.factgrid.de/entity/Q350438,Mayorga
+BETA geoid 1155,https://database.factgrid.de/entity/Q351317,Nieva de Cameros
+BETA geoid 1249,https://database.factgrid.de/entity/Q349679,Ledesma
+BETA geoid 1130,https://database.factgrid.de/entity/Q350474,Medinaceli
+BETA geoid 1357,https://database.factgrid.de/entity/Q350122,Luna
+BETA geoid 1309,https://database.factgrid.de/entity/Q350857,Montesa
+BETA geoid 1315,https://database.factgrid.de/entity/Q350125,Lupiana
+BETA geoid 1352,https://database.factgrid.de/entity/Q351955,Palazuelos
+BETA geoid 1344,https://database.factgrid.de/entity/Q350812,Monteagudo
+BETA geoid 1331,https://database.factgrid.de/entity/Q351907,Padrón
+BETA geoid 1266,https://database.factgrid.de/entity/Q350744,Mondéjar
+BETA geoid 1364,https://database.factgrid.de/entity/Q351759,Oropesa
+BETA geoid 1263,https://database.factgrid.de/entity/Q351567,Ocaña
+BETA geoid 1400,https://database.factgrid.de/entity/Q351022,Moya
+BETA geoid 1687,https://database.factgrid.de/entity/Q82165,Almería
+BETA geoid 2117,https://database.factgrid.de/entity/Q84565,Elche
+BETA geoid 1743,https://database.factgrid.de/entity/Q82336,Antequera
+BETA geoid 1684,https://database.factgrid.de/entity/Q82103,Albacete
+BETA geoid 1695,https://database.factgrid.de/entity/Q84428,Écija
+BETA geoid 1614,https://database.factgrid.de/entity/Q83725,Cádiz
+BETA geoid 1661,https://database.factgrid.de/entity/Q82644,Badajoz
+BETA geoid 1698,https://database.factgrid.de/entity/Q88203,Loja
+BETA geoid 1658,https://database.factgrid.de/entity/Q83762,Carmona
+BETA geoid 1791,https://database.factgrid.de/entity/Q83774,Castro Urdiales
+BETA geoid 1730,https://database.factgrid.de/entity/Q90036,Palma de Mallorca
+BETA geoid 1672,https://database.factgrid.de/entity/Q86628,Huelva
+BETA geoid 1726,https://database.factgrid.de/entity/Q90933,Ronda
+BETA geoid 1694,https://database.factgrid.de/entity/Q92934,Vigo
+BETA geoid 1689,https://database.factgrid.de/entity/Q91231,Santander
+BETA geoid 1660,https://database.factgrid.de/entity/Q88299,Lugo
+BETA geoid 1778,https://database.factgrid.de/entity/Q90331,Portugalete
+BETA geoid 1606,https://database.factgrid.de/entity/Q92940,Villarrobledo
+BETA geoid 2099,https://database.factgrid.de/entity/Q344716,Belmonte de Campos
+BETA geoid 2065,https://database.factgrid.de/entity/Q346259,Cavia
+BETA geoid 1724,https://database.factgrid.de/entity/Q344392,Balaguer
+BETA geoid 2072,https://database.factgrid.de/entity/Q348087,Fuengirola
+BETA geoid 1719,https://database.factgrid.de/entity/Q345697,Cañete
+BETA geoid 2107,https://database.factgrid.de/entity/Q347600,Escamilla
+BETA geoid 1627,https://database.factgrid.de/entity/Q343825,Ampudia
+BETA geoid 2094,https://database.factgrid.de/entity/Q348645,Hernani
+BETA geoid 2095,https://database.factgrid.de/entity/Q348655,Herrera del Duque
+BETA geoid 1600,https://database.factgrid.de/entity/Q344370,Baena
+BETA geoid 1713,https://database.factgrid.de/entity/Q347217,Dueñas
+BETA geoid 2142,https://database.factgrid.de/entity/Q348362,Gibraleón
+BETA geoid 1697,https://database.factgrid.de/entity/Q348188,Fuentidueña
+BETA geoid 1648,https://database.factgrid.de/entity/Q344099,Arjona
+BETA geoid 1598,https://database.factgrid.de/entity/Q346006,Caspe
+BETA geoid 1768,https://database.factgrid.de/entity/Q347390,El Pardo
+BETA geoid 1592,https://database.factgrid.de/entity/Q346887,Covarrubias
+BETA geoid 1737,https://database.factgrid.de/entity/Q348799,Huéscar
+BETA geoid 1745,https://database.factgrid.de/entity/Q348842,Igualada
+BETA geoid 1635,https://database.factgrid.de/entity/Q346438,Ceuta
+BETA geoid 1769,https://database.factgrid.de/entity/Q348500,Grimaldo
+BETA geoid 1792,https://database.factgrid.de/entity/Q344675,Beire
+BETA geoid 2200,https://database.factgrid.de/entity/Q343713,Almonacid de la Sierra
+BETA geoid 1794,https://database.factgrid.de/entity/Q345773,Caracena
+BETA geoid 1818,https://database.factgrid.de/entity/Q345220,Buitrago del Lozoya
+BETA geoid 1645,https://database.factgrid.de/entity/Q348447,Gotor
+BETA geoid 1805,https://database.factgrid.de/entity/Q346533,Cigales
+BETA geoid 1780,https://database.factgrid.de/entity/Q347509,Elorrio
+BETA geoid 1577,https://database.factgrid.de/entity/Q345645,Canales
+BETA geoid 2675,https://database.factgrid.de/entity/Q345978,Casasbuenas
+BETA geoid 1790,https://database.factgrid.de/entity/Q348974,Jimena
+BETA geoid 1807,https://database.factgrid.de/entity/Q348125,Fuentebureba
+BETA geoid 2048,https://database.factgrid.de/entity/Q350294,Maqueda
+BETA geoid 1816,https://database.factgrid.de/entity/Q348522,Guadalcanal
+BETA geoid 2075,https://database.factgrid.de/entity/Q350897,Monzón de Campos
+BETA geoid 2143,https://database.factgrid.de/entity/Q349548,Laredo
+BETA geoid 2660,https://database.factgrid.de/entity/Q348858,Íllora
+BETA geoid 2113,https://database.factgrid.de/entity/Q350648,Miranda de Ebro
+BETA geoid 2125,https://database.factgrid.de/entity/Q350723,Mombeltrán
+BETA geoid 2108,https://database.factgrid.de/entity/Q351085,Murero
+BETA geoid 1758,https://database.factgrid.de/entity/Q349628,Lascuarre
+BETA geoid 2116,https://database.factgrid.de/entity/Q352818,Puerto de Vega
+BETA geoid 1739,https://database.factgrid.de/entity/Q350471,Medina de Rioseco
+BETA geoid 1590,https://database.factgrid.de/entity/Q351636,Oliva
+BETA geoid 1625,https://database.factgrid.de/entity/Q350761,Monforte de Lemos
+BETA geoid 1774,https://database.factgrid.de/entity/Q349976,Los Arcos
+BETA geoid 1642,https://database.factgrid.de/entity/Q351134,Nájera
+BETA geoid 1831,https://database.factgrid.de/entity/Q349668,Lécera
+BETA geoid 1643,https://database.factgrid.de/entity/Q350928,Morata de Jalón
+BETA geoid 1855,https://database.factgrid.de/entity/Q350774,Monroyo
+BETA geoid 1601,https://database.factgrid.de/entity/Q353107,Reina
+BETA geoid 1828,https://database.factgrid.de/entity/Q350817,Montearagón
+BETA geoid 2663,https://database.factgrid.de/entity/Q350247,Mandayona
+BETA geoid 1809,https://database.factgrid.de/entity/Q352157,Pedraza
+BETA geoid 2665,https://database.factgrid.de/entity/Q350687,Mohernando
+BETA geoid 2669,https://database.factgrid.de/entity/Q351400,Novelda
+BETA geoid 2661,https://database.factgrid.de/entity/Q352541,Ponferrada
+BETA geoid 1662,https://database.factgrid.de/entity/Q343921,Araba / Álava Provincia
+BETA geoid 1008,https://database.factgrid.de/entity/Q353097,Región de Murcia
+BETA geoid 1991,https://database.factgrid.de/entity/Q85336,Gijón
+BETA geoid 2164,https://database.factgrid.de/entity/Q82491,Avilés
+BETA geoid 2203,https://database.factgrid.de/entity/Q84233,Donostia-San Sebastián
+BETA geoid 1997,https://database.factgrid.de/entity/Q88529,Martos
+BETA geoid 2185,https://database.factgrid.de/entity/Q88448,Marbella
+BETA geoid 1987,https://database.factgrid.de/entity/Q343779,Alzira
+BETA geoid 1982,https://database.factgrid.de/entity/Q346229,Castronuevo
+BETA geoid 2008,https://database.factgrid.de/entity/Q344723,Belmonte
+BETA geoid 2010,https://database.factgrid.de/entity/Q344726,Belorado
+BETA geoid 1979,https://database.factgrid.de/entity/Q346134,Castillo de Garcimuñoz
+BETA geoid 2026,https://database.factgrid.de/entity/Q344845,Berceo
+BETA geoid 2015,https://database.factgrid.de/entity/Q345747,Cantillana
+BETA geoid 1962,https://database.factgrid.de/entity/Q344526,Barcience
+BETA geoid 1981,https://database.factgrid.de/entity/Q345738,Cantalapiedra
+BETA geoid 1971,https://database.factgrid.de/entity/Q344421,Baltanás
+BETA geoid 2037,https://database.factgrid.de/entity/Q344045,Arenys de Munt
+BETA geoid 2167,https://database.factgrid.de/entity/Q343687,Almenara
+BETA geoid 2018,https://database.factgrid.de/entity/Q347418,El Pobo
+BETA geoid 2005,https://database.factgrid.de/entity/Q348697,Hondarribia
+BETA geoid 1964,https://database.factgrid.de/entity/Q346279,Cebolla
+BETA geoid 1970,https://database.factgrid.de/entity/Q346221,Castromocho
+BETA geoid 1926,https://database.factgrid.de/entity/Q347000,Cuevas de San Clemente
+BETA geoid 2184,https://database.factgrid.de/entity/Q343435,Alcaudete
+BETA geoid 2176,https://database.factgrid.de/entity/Q344037,Arenas de San Pedro
+BETA geoid 1974,https://database.factgrid.de/entity/Q346241,Castroverde de Cerrato
+BETA geoid 2161,https://database.factgrid.de/entity/Q345390,Cabreros del Monte
+BETA geoid 1959,https://database.factgrid.de/entity/Q347652,Espeja
+BETA geoid 2159,https://database.factgrid.de/entity/Q345642,Canales de la Sierra
+BETA geoid 2017,https://database.factgrid.de/entity/Q348817,Husillos
+BETA geoid 2160,https://database.factgrid.de/entity/Q345849,Cardeñosa
+BETA geoid 1977,https://database.factgrid.de/entity/Q348654,Herrera de Valdecañas
+BETA geoid 2188,https://database.factgrid.de/entity/Q344329,Ayllón
+BETA geoid 2151,https://database.factgrid.de/entity/Q344124,Arnedo
+BETA geoid 2149,https://database.factgrid.de/entity/Q345749,Cantiveros
+BETA geoid 1975,https://database.factgrid.de/entity/Q347856,Fiñana
+BETA geoid 2195,https://database.factgrid.de/entity/Q344874,Berlanga
+BETA geoid 2182,https://database.factgrid.de/entity/Q345693,Canet de Mar
+BETA geoid 2169,https://database.factgrid.de/entity/Q346988,Cuerva
+BETA geoid 2186,https://database.factgrid.de/entity/Q345696,Cañete la Real
+BETA geoid 2177,https://database.factgrid.de/entity/Q349045,La Adrada
+BETA geoid 2162,https://database.factgrid.de/entity/Q348771,Huélamo
+BETA geoid 1983,https://database.factgrid.de/entity/Q349807,Linares
+BETA geoid 1988,https://database.factgrid.de/entity/Q349869,Llerena
+BETA geoid 1985,https://database.factgrid.de/entity/Q350952,Morella
+BETA geoid 1994,https://database.factgrid.de/entity/Q350895,Monturque
+BETA geoid 2000,https://database.factgrid.de/entity/Q350665,Mislata
+BETA geoid 2021,https://database.factgrid.de/entity/Q350528,Mendavia
+BETA geoid 2040,https://database.factgrid.de/entity/Q350898,Monzón
+BETA geoid 1972,https://database.factgrid.de/entity/Q350470,Medina de Pomar
+BETA geoid 2041,https://database.factgrid.de/entity/Q350165,Madrigalejo
+BETA geoid 1969,https://database.factgrid.de/entity/Q352600,Portillo
+BETA geoid 2172,https://database.factgrid.de/entity/Q350268,Manresa
+BETA geoid 1995,https://database.factgrid.de/entity/Q356753,Villafranca de Córdoba
+BETA geoid 2011,https://database.factgrid.de/entity/Q356235,Valverde del Majano
+BETA geoid 1925,https://database.factgrid.de/entity/Q354812,Segura de León
+BETA geoid 2024,https://database.factgrid.de/entity/Q355803,Trujillo
+BETA geoid 1963,https://database.factgrid.de/entity/Q354562,Santa Olalla
+BETA geoid 2004,https://database.factgrid.de/entity/Q357371,Yepes
+BETA geoid 2009,https://database.factgrid.de/entity/Q357084,Villarrubia de los Ojos
+BETA geoid 2193,https://database.factgrid.de/entity/Q351746,Orihuela
+BETA geoid 2178,https://database.factgrid.de/entity/Q353163,Requena
+BETA geoid 1976,https://database.factgrid.de/entity/Q356302,Vélez-Málaga
+BETA geoid 2198,https://database.factgrid.de/entity/Q352641,Poyatos
+BETA geoid 2155,https://database.factgrid.de/entity/Q355911,Uruñuela
+BETA geoid 2165,https://database.factgrid.de/entity/Q356109,Valfermoso de las Monjas
+BETA geoid 2145,https://database.factgrid.de/entity/Q354125,San Vicente de la Barquera
+BETA geoid 2180,https://database.factgrid.de/entity/Q355447,Tolosa
+BETA geoid 2045,https://database.factgrid.de/entity/Q353985,San Nicolás del Puerto
+BETA geoid 2197,https://database.factgrid.de/entity/Q355709,Tragacete
+BETA geoid 2189,https://database.factgrid.de/entity/Q357188,Villoria
+BETA geoid 1043,https://database.factgrid.de/entity/Q82315,Andújar
+BETA geoid 1040,https://database.factgrid.de/entity/Q82116,Alcalá de Henares
+BETA geoid 1125,https://database.factgrid.de/entity/Q86885,Jerez de la Frontera
+BETA geoid 1278,https://database.factgrid.de/entity/Q88017,León
+BETA geoid 1371,https://database.factgrid.de/entity/Q90304,Pontevedra
+BETA geoid 1077,https://database.factgrid.de/entity/Q90041,Pamplona
+BETA geoid 1015,https://database.factgrid.de/entity/Q83765,Cartagena
+BETA geoid 1010,https://database.factgrid.de/entity/Q85552,Granada
+BETA geoid 1005,https://database.factgrid.de/entity/Q88356,Madrid
+BETA geoid 1048,https://database.factgrid.de/entity/Q94434,Barcelona
+BETA geoid 1006,https://database.factgrid.de/entity/Q164504,Toledo
+BETA geoid 1083,https://database.factgrid.de/entity/Q246398,Santiago de Compostela
+BETA geoid 1567,https://database.factgrid.de/entity/Q85354,Gerona
+BETA geoid 1295,https://database.factgrid.de/entity/Q343422,Alcañiz
+BETA geoid 1257,https://database.factgrid.de/entity/Q343943,Aranda de Duero
+BETA geoid 1286,https://database.factgrid.de/entity/Q345175,Briviesca
+BETA geoid 1522,https://database.factgrid.de/entity/Q343562,Alfambra
+BETA geoid 1288,https://database.factgrid.de/entity/Q345519,Camarles
+BETA geoid 1042,https://database.factgrid.de/entity/Q343701,Almodóvar del Campo
+BETA geoid 1041,https://database.factgrid.de/entity/Q343416,Alcalá la Real
+BETA geoid 1274,https://database.factgrid.de/entity/Q348093,Fuensalida
+BETA geoid 1550,https://database.factgrid.de/entity/Q344625,Baza
+BETA geoid 1546,https://database.factgrid.de/entity/Q344680,Béjar
+BETA geoid 1299,https://database.factgrid.de/entity/Q348424,Gondomar
+BETA geoid 1523,https://database.factgrid.de/entity/Q343824,Amposta
+BETA geoid 1285,https://database.factgrid.de/entity/Q348856,Illescas
+BETA geoid 1518,https://database.factgrid.de/entity/Q346588,Ciudad Rodrigo
+BETA geoid 1553,https://database.factgrid.de/entity/Q348196,Funes
+BETA geoid 1547,https://database.factgrid.de/entity/Q348925,Iznatoraf
+BETA geoid 1047,https://database.factgrid.de/entity/Q344314,Ávila
+BETA geoid 1540,https://database.factgrid.de/entity/Q346266,Cazalla de la Sierra
+BETA geoid 1052,https://database.factgrid.de/entity/Q346981,Cuenca
+BETA geoid 1519,https://database.factgrid.de/entity/Q348772,Huelma
+BETA geoid 1091,https://database.factgrid.de/entity/Q347431,El Puerto de Santa María
+BETA geoid 1500,https://database.factgrid.de/entity/Q343333,Albarracín
+BETA geoid 1111,https://database.factgrid.de/entity/Q344758,Benamejí
+BETA geoid 1496,https://database.factgrid.de/entity/Q343215,Aguilafuente
+BETA geoid 1055,https://database.factgrid.de/entity/Q348526,Guadalupe
+BETA geoid 1059,https://database.factgrid.de/entity/Q348859,Illueca
+BETA geoid 1056,https://database.factgrid.de/entity/Q348519,Guadalajara
+BETA geoid 1499,https://database.factgrid.de/entity/Q345164,Brihuega
+BETA geoid 1050,https://database.factgrid.de/entity/Q346678,Colmenar Viejo
+BETA geoid 1057,https://database.factgrid.de/entity/Q348798,Huesca
+BETA geoid 1058,https://database.factgrid.de/entity/Q348801,Huete
+BETA geoid 1060,https://database.factgrid.de/entity/Q348871,Iniesta
+BETA geoid 1124,https://database.factgrid.de/entity/Q348967,Jerez de los Caballeros
+BETA geoid 1503,https://database.factgrid.de/entity/Q346977,Cuéllar
+BETA geoid 1061,https://database.factgrid.de/entity/Q349164,La Guardia
+BETA geoid 1118,https://database.factgrid.de/entity/Q347802,Fernán Núñez
+BETA geoid 1119,https://database.factgrid.de/entity/Q348063,Frías
+BETA geoid 1260,https://database.factgrid.de/entity/Q350161,Madrigal de las Altas Torres
+BETA geoid 1297,https://database.factgrid.de/entity/Q349783,Liédena
+BETA geoid 1120,https://database.factgrid.de/entity/Q348435,Gor
+BETA geoid 1122,https://database.factgrid.de/entity/Q348678,Híjar
+BETA geoid 1062,https://database.factgrid.de/entity/Q349460,Laguna de Duero
+BETA geoid 1065,https://database.factgrid.de/entity/Q349932,Logroño
+BETA geoid 1063,https://database.factgrid.de/entity/Q349865,Lérida
+BETA geoid 1121,https://database.factgrid.de/entity/Q348580,Guimerá
+BETA geoid 1027,https://database.factgrid.de/entity/Q353977,San Millán de la Cogolla
+BETA geoid 1717,https://database.factgrid.de/entity/Q254492,Archidócesis de Toledo
+BETA geoid 1100,https://database.factgrid.de/entity/Q704212,Reino de Navarra
+BETA geoid 1104,https://database.factgrid.de/entity/Q451045,"Castilla y León, corona de"
+BETA geoid 2866,https://database.factgrid.de/entity/Q450985,Peleas de Arriba
+BETA geoid 1003,https://database.factgrid.de/entity/Q91744,Sevilla
+BETA geoid 1001,https://database.factgrid.de/entity/Q10441,París (Francia)
+BETA geoid 2066,https://database.factgrid.de/entity/Q354619,Santiago de la Puebla
+BETA geoid 2046,https://database.factgrid.de/entity/Q355654,Torrijos
+BETA geoid 2070,https://database.factgrid.de/entity/Q355810,Tudela de Duero
+BETA geoid 2071,https://database.factgrid.de/entity/Q357176,Villazopeque
+BETA geoid 2089,https://database.factgrid.de/entity/Q357162,Villaviciosa
+BETA geoid 1706,https://database.factgrid.de/entity/Q356095,Valencia de Don Juan
+BETA geoid 1579,https://database.factgrid.de/entity/Q354506,Santa María del Campo Rus
+BETA geoid 1636,https://database.factgrid.de/entity/Q353607,Salinas de Añana
+BETA geoid 1605,https://database.factgrid.de/entity/Q354693,Santo Domingo de la Calzada
+BETA geoid 1732,https://database.factgrid.de/entity/Q357040,Villarejo de Fuentes
+BETA geoid 1736,https://database.factgrid.de/entity/Q357095,Villasandino
+BETA geoid 1628,https://database.factgrid.de/entity/Q354806,Segorbe
+BETA geoid 1582,https://database.factgrid.de/entity/Q356856,Villamartín de Sotoscueva
+BETA geoid 1793,https://database.factgrid.de/entity/Q353546,Sádaba
+BETA geoid 1800,https://database.factgrid.de/entity/Q353444,Rota
+BETA geoid 1633,https://database.factgrid.de/entity/Q356763,Villafranca
+BETA geoid 1779,https://database.factgrid.de/entity/Q355605,Torrellas
+BETA geoid 1822,https://database.factgrid.de/entity/Q354299,Sant Mateu
+BETA geoid 1772,https://database.factgrid.de/entity/Q356870,Villamediana
+BETA geoid 1808,https://database.factgrid.de/entity/Q355241,Talaván
+BETA geoid 1817,https://database.factgrid.de/entity/Q355600,Torrelaguna
+BETA geoid 2668,https://database.factgrid.de/entity/Q354223,Sanlúcar la Mayor
+BETA geoid 2662,https://database.factgrid.de/entity/Q355102,Sos del Rey Católico
+BETA geoid 2209,https://database.factgrid.de/entity/Q356046,Valdepeñas
+BETA geoid 2655,https://database.factgrid.de/entity/Q356029,Valdemoro
+BETA geoid 2706,https://database.factgrid.de/entity/Q356473,Vilafranca del Penedès
+BETA geoid 2617,https://database.factgrid.de/entity/Q355516,Torquemada
+BETA geoid 2623,https://database.factgrid.de/entity/Q356295,Velada
+BETA geoid 2635,https://database.factgrid.de/entity/Q356782,Villaharta
+BETA geoid 2847,https://database.factgrid.de/entity/Q355734,Trasmoz
+BETA geoid 2643,https://database.factgrid.de/entity/Q357185,Villoldo
+BETA geoid 2845,https://database.factgrid.de/entity/Q357220,Vinaceite
+BETA geoid 2853,https://database.factgrid.de/entity/Q356958,Villanueva del Fresno
+BETA geoid 2782,https://database.factgrid.de/entity/Q356752,Villafrades de Campos
+BETA geoid 2819,https://database.factgrid.de/entity/Q355875,Uncastillo
+BETA geoid 2742,https://database.factgrid.de/entity/Q357397,Zalamea la Real
+BETA geoid 2593,https://database.factgrid.de/entity/Q355631,Torrequemada
+BETA geoid 2345,https://database.factgrid.de/entity/Q356110,Valfermoso de Tajuña
+BETA geoid 2353,https://database.factgrid.de/entity/Q355923,Utrera
+BETA geoid 2333,https://database.factgrid.de/entity/Q356736,Villadiego
+BETA geoid 2219,https://database.factgrid.de/entity/Q357159,Villaviciosa de Odón
+BETA geoid 2223,https://database.factgrid.de/entity/Q356748,Villafeliche
+BETA geoid 2272,https://database.factgrid.de/entity/Q356138,Valldemossa
+BETA geoid 2505,https://database.factgrid.de/entity/Q356094,Valencia de Alcántara
+BETA geoid 2548,https://database.factgrid.de/entity/Q355317,Teba
+BETA geoid 2537,https://database.factgrid.de/entity/Q355966,Valdearenas
+BETA geoid 2506,https://database.factgrid.de/entity/Q357437,Zarza la Mayor
+BETA geoid 2508,https://database.factgrid.de/entity/Q357396,Zalamea de la Serena
+BETA geoid 2410,https://database.factgrid.de/entity/Q356714,Villacarriedo
+BETA geoid 2437,https://database.factgrid.de/entity/Q355235,Talamanca de Jarama
+BETA geoid 2455,https://database.factgrid.de/entity/Q354777,Sástago
+BETA geoid 2461,https://database.factgrid.de/entity/Q354969,Simat de la Valldigna
+BETA geoid 2880,https://database.factgrid.de/entity/Q354843,"Sena, Aragon"
+BETA geoid 2444,https://database.factgrid.de/entity/Q356032,Valdenebro
+BETA geoid 2420,https://database.factgrid.de/entity/Q357135,Villavaquerín
+BETA geoid 1197,https://database.factgrid.de/entity/Q354986,Sisamón
+BETA geoid 1436,https://database.factgrid.de/entity/Q356829,Villalobos
+BETA geoid 1191,https://database.factgrid.de/entity/Q359884,Redondo
+BETA geoid 2808,https://database.factgrid.de/entity/Q704256,Fuencarral
+BETA geoid 2060,https://database.factgrid.de/entity/Q895496,San Julián
+BETA geoid 1004,https://database.factgrid.de/entity/Q21939,Reino de España/ República de España
+BETA geoid 2196,https://database.factgrid.de/entity/Q102004,Sacro Imperio Romano
+BETA geoid 2817,https://database.factgrid.de/entity/Q106685,Bidache
+BETA geoid 2813,https://database.factgrid.de/entity/Q132482,San Juan de Pie de Puerto
+BETA geoid 2344,https://database.factgrid.de/entity/Q153592,Artois
+BETA geoid 2273,https://database.factgrid.de/entity/Q251742,Mallorca
+BETA geoid 2238,https://database.factgrid.de/entity/Q246554,Cantón de Ginebra
+BETA geoid 2297,https://database.factgrid.de/entity/Q217713,Hampshire
+BETA geoid 2371,https://database.factgrid.de/entity/Q217695,Durham
+BETA geoid 2448,https://database.factgrid.de/entity/Q217679,Berkshire
+BETA geoid 1492,https://database.factgrid.de/entity/Q217724,Leicester
+BETA geoid 2124,https://database.factgrid.de/entity/Q217761,Wiltshire
+BETA geoid 2835,https://database.factgrid.de/entity/Q21938,Principado de Asturias
+BETA geoid 1369,https://database.factgrid.de/entity/Q350783,Montalbán
+BETA geoid 1575,https://database.factgrid.de/entity/Q350872,Montizón
+BETA geoid 1131,https://database.factgrid.de/entity/Q350650,Miranda del Castañar
+BETA geoid 1521,https://database.factgrid.de/entity/Q351052,Munébrega
+BETA geoid 1074,https://database.factgrid.de/entity/Q351867,Oviedo
+BETA geoid 1075,https://database.factgrid.de/entity/Q351958,Palencia
+BETA geoid 1520,https://database.factgrid.de/entity/Q351660,Olmedo
+BETA geoid 1082,https://database.factgrid.de/entity/Q351688,Oña
+BETA geoid 1070,https://database.factgrid.de/entity/Q350765,Monistrol de Montserrat
+BETA geoid 1376,https://database.factgrid.de/entity/Q355086,Soria
+BETA geoid 1044,https://database.factgrid.de/entity/Q354241,Sant Cugat del Vallès
+BETA geoid 1536,https://database.factgrid.de/entity/Q350791,Montánchez
+BETA geoid 1284,https://database.factgrid.de/entity/Q355515,Toro
+BETA geoid 1291,https://database.factgrid.de/entity/Q356387,Vicuña
+BETA geoid 1374,https://database.factgrid.de/entity/Q356057,Valderredible
+BETA geoid 1281,https://database.factgrid.de/entity/Q355608,Torrelobatón
+BETA geoid 1154,https://database.factgrid.de/entity/Q355843,Uceda
+BETA geoid 1551,https://database.factgrid.de/entity/Q356414,Viguera
+BETA geoid 1067,https://database.factgrid.de/entity/Q350472,Medina del Campo
+BETA geoid 1068,https://database.factgrid.de/entity/Q350746,Mondoñedo
+BETA geoid 1084,https://database.factgrid.de/entity/Q354809,Segovia
+BETA geoid 1543,https://database.factgrid.de/entity/Q352117,Pastrana
+BETA geoid 1502,https://database.factgrid.de/entity/Q350173,Maella
+BETA geoid 1053,https://database.factgrid.de/entity/Q353849,San Lorenzo de El Escorial
+BETA geoid 1085,https://database.factgrid.de/entity/Q354815,Segura
+BETA geoid 1087,https://database.factgrid.de/entity/Q354955,Sigüenza
+BETA geoid 1549,https://database.factgrid.de/entity/Q356740,Villaescusa de Haro
+BETA geoid 1555,https://database.factgrid.de/entity/Q355813,Tudela
+BETA geoid 1542,https://database.factgrid.de/entity/Q353137,Renera
+BETA geoid 1117,https://database.factgrid.de/entity/Q351828,Osuna
+BETA geoid 1497,https://database.factgrid.de/entity/Q350703,Molina de Aragón
+BETA geoid 1545,https://database.factgrid.de/entity/Q354872,Sepúlveda
+BETA geoid 1007,https://database.factgrid.de/entity/Q351083,Murcia
+BETA geoid 1535,https://database.factgrid.de/entity/Q356746,Villafáfila
+BETA geoid 1557,https://database.factgrid.de/entity/Q355914,Usagre
+BETA geoid 1092,https://database.factgrid.de/entity/Q355847,Uclés
+BETA geoid 1544,https://database.factgrid.de/entity/Q357491,Zorita de los Canes
+BETA geoid 1498,https://database.factgrid.de/entity/Q355291,Tarazona
+BETA geoid 1574,https://database.factgrid.de/entity/Q354811,Segura de la Sierra
+BETA geoid 1572,https://database.factgrid.de/entity/Q355303,Tarragona
+BETA geoid 1011,https://database.factgrid.de/entity/Q357420,Zaragoza
+BETA geoid 1534,https://database.factgrid.de/entity/Q806479,Vega de San Martín
+BETA geoid 2105,https://database.factgrid.de/entity/Q358505,Crato
+BETA geoid 1674,https://database.factgrid.de/entity/Q349333,La Rioja
+BETA geoid 2050,https://database.factgrid.de/entity/Q439923,Península Ibérica
+BETA geoid 2878,https://database.factgrid.de/entity/Q351233,Navarra
+BETA geoid 2179,https://database.factgrid.de/entity/Q534912,Imperio Turco Otomano
+BETA geoid 1035,https://database.factgrid.de/entity/Q636081,Cataluña
+BETA geoid 1054,https://database.factgrid.de/entity/Q348465,Granada Provincia
+BETA geoid 1013,https://database.factgrid.de/entity/Q345246,Burgos provincia
+BETA geoid 1664,https://database.factgrid.de/entity/Q344405,Islas Baleares
+BETA geoid 1066,https://database.factgrid.de/entity/Q346696,Comunidad de Madrid
+BETA geoid 1652,https://database.factgrid.de/entity/Q342886,A Coruña Provincia
+BETA geoid 1607,https://database.factgrid.de/entity/Q343305,Albacete Provincia
+BETA geoid 1665,https://database.factgrid.de/entity/Q343627,Alicante Provincia
+BETA geoid 1666,https://database.factgrid.de/entity/Q344508,Barcelona Provincia
+BETA geoid 1686,https://database.factgrid.de/entity/Q343696,Almería Provincia
+BETA geoid 1332,https://database.factgrid.de/entity/Q344362,Badajoz Provincia
+BETA geoid 1667,https://database.factgrid.de/entity/Q345417,Cádiz Provincia
+BETA geoid 1538,https://database.factgrid.de/entity/Q345401,Cáceres Provincia
+BETA geoid 1669,https://database.factgrid.de/entity/Q346585,Ciudad Real Provincia
+BETA geoid 1688,https://database.factgrid.de/entity/Q346753,Córdoba Provincia
+BETA geoid 1682,https://database.factgrid.de/entity/Q344968,Bizkaia Provincia
+BETA geoid 1668,https://database.factgrid.de/entity/Q346078,Castellón Provincia
+BETA geoid 1563,https://database.factgrid.de/entity/Q348797,Huesca Provincia
+BETA geoid 1671,https://database.factgrid.de/entity/Q348773,Huelva Provincia
+BETA geoid 1314,https://database.factgrid.de/entity/Q348518,Guadalajara Provincia
+BETA geoid 1676,https://database.factgrid.de/entity/Q350205,Málaga Provincia
+BETA geoid 1560,https://database.factgrid.de/entity/Q349724,León Provincia
+BETA geoid 1673,https://database.factgrid.de/entity/Q349864,Lleida Provincia
+BETA geoid 1548,https://database.factgrid.de/entity/Q348937,Jaén Provincia
+BETA geoid 1086,https://database.factgrid.de/entity/Q348374,Gipuzkoa Provincia
+BETA geoid 1573,https://database.factgrid.de/entity/Q351957,Palencia Provincia
+BETA geoid 1650,https://database.factgrid.de/entity/Q352564,Pontevedra Provincia
+BETA geoid 1675,https://database.factgrid.de/entity/Q350110,Lugo Provincia
+BETA geoid 1670,https://database.factgrid.de/entity/Q352758,Girona Provincia
+BETA geoid 1677,https://database.factgrid.de/entity/Q351845,Ourense Provincia
+BETA geoid 1254,https://database.factgrid.de/entity/Q352756,Ávila Provincia
+BETA geoid 1277,https://database.factgrid.de/entity/Q352757,Cuenca Provincia
+BETA geoid 1679,https://database.factgrid.de/entity/Q355085,Soria Provincia
+BETA geoid 1271,https://database.factgrid.de/entity/Q353565,Salamanca Provincia
+BETA geoid 1680,https://database.factgrid.de/entity/Q355302,Tarragona Provincia
+BETA geoid 1681,https://database.factgrid.de/entity/Q355372,Teruel Provincia
+BETA geoid 1505,https://database.factgrid.de/entity/Q354808,Segovia Provincia
+BETA geoid 1090,https://database.factgrid.de/entity/Q355442,Toledo Provincia
+BETA geoid 1310,https://database.factgrid.de/entity/Q356100,Valencia Provincia
+BETA geoid 1541,https://database.factgrid.de/entity/Q354936,Sevilla Provincia
+BETA geoid 1644,https://database.factgrid.de/entity/Q357419,Zaragoza Provincia
+BETA geoid 1359,https://database.factgrid.de/entity/Q356129,Valladolid Provincia
+BETA geoid 1683,https://database.factgrid.de/entity/Q357407,Zamora Provincia
+BETA geoid 1316,https://database.factgrid.de/entity/Q533558,Reino de Francia
+BETA geoid 1464,https://database.factgrid.de/entity/Q346211,Castrojeriz
+BETA geoid 1375,https://database.factgrid.de/entity/Q345736,Cantabria
+BETA geoid 2144,https://database.factgrid.de/entity/Q345736,Cantabria
+BETA geoid 2450,https://database.factgrid.de/entity/Q780035,Merindad de Uribe
+BETA geoid 2770,https://database.factgrid.de/entity/Q780036,Cabo Bojador
+BETA geoid 1784,https://database.factgrid.de/entity/Q780037,Valle de Somorrostro
+BETA geoid 2656,https://database.factgrid.de/entity/Q780038,Valle del Lozoya
+BETA geoid 2842,https://database.factgrid.de/entity/Q780039,Península itálica
+BETA geoid 1292,https://database.factgrid.de/entity/Q780041,Patriarcado de las Indias Occidentales
+BETA geoid 1409,https://database.factgrid.de/entity/Q780042,Patriarcado latino de Alejandría
+BETA geoid 1993,https://database.factgrid.de/entity/Q780043,Araviana
+BETA geoid 2265,https://database.factgrid.de/entity/Q780044,Esgueva
+BETA geoid 1568,https://database.factgrid.de/entity/Q780045,Imperio romano
+BETA geoid 1099,https://database.factgrid.de/entity/Q780285,Principado de Cataluña
+BETA geoid 1411,https://database.factgrid.de/entity/Q780135,Nueva España
+BETA geoid 2664,https://database.factgrid.de/entity/Q780137,Virreinato del Perú
+BETA geoid 1755,https://database.factgrid.de/entity/Q780138,"Parroquia de San Mateo, Cáceres"
+BETA geoid 2034,https://database.factgrid.de/entity/Q780139,Valpuesta
+BETA geoid 1224,https://database.factgrid.de/entity/Q780286,Provincia de Oviedo
+BETA geoid 2409,https://database.factgrid.de/entity/Q780611,Señorío de Villagarcía de Campos
+BETA geoid 1426,https://database.factgrid.de/entity/Q892217,Salerno (archidiócesis)
+BETA geoid 1408,https://database.factgrid.de/entity/Q743447,Reino de Nápoles
+BETA geoid 1318,https://database.factgrid.de/entity/Q703900,Reino de Valencia
+BETA geoid 1162,https://database.factgrid.de/entity/Q703782,Reino de Castilla
+BETA geoid 1750,https://database.factgrid.de/entity/Q703807,Reino de Mallorca
+BETA geoid 2421,https://database.factgrid.de/entity/Q703810,Reino de Sicilia
+BETA geoid 1025,https://database.factgrid.de/entity/Q83880,Córdoba
+BETA geoid 1032,https://database.factgrid.de/entity/Q88386,Málaga
+BETA geoid 1016,https://database.factgrid.de/entity/Q91137,Salamanca
+BETA geoid 1097,https://database.factgrid.de/entity/Q93860,Zamora
+BETA geoid 1028,https://database.factgrid.de/entity/Q92866,Valladolid
+BETA geoid 1030,https://database.factgrid.de/entity/Q140578,Burgos
+BETA geoid 1508,https://database.factgrid.de/entity/Q343186,Agón
+BETA geoid 1031,https://database.factgrid.de/entity/Q344057,Arévalo
+BETA geoid 1109,https://database.factgrid.de/entity/Q344768,Benavente
+BETA geoid 1107,https://database.factgrid.de/entity/Q343291,Alarcón
+BETA geoid 1506,https://database.factgrid.de/entity/Q344289,Atienza
+BETA geoid 1558,https://database.factgrid.de/entity/Q346727,Consuegra
+BETA geoid 1539,https://database.factgrid.de/entity/Q347205,Dosbarrios
+BETA geoid 1561,https://database.factgrid.de/entity/Q348165,Fuentes de la Alcarria
+BETA geoid 1562,https://database.factgrid.de/entity/Q348933,Jaca
+BETA geoid 2907,https://database.factgrid.de/entity/Q701530,Senorío de Albornoz
+BETA geoid 1552,https://database.factgrid.de/entity/Q349333,La Rioja
+BETA geoid 2906,https://database.factgrid.de/entity/Q355854,Uharte Arakil
+BETA geoid 1134,https://database.factgrid.de/entity/Q10427,Múnich
+BETA geoid 1177,https://database.factgrid.de/entity/Q140561,Berry
+BETA geoid 1176,https://database.factgrid.de/entity/Q153595,Borgoña
+BETA geoid 2136,https://database.factgrid.de/entity/Q217715,Hertford
+BETA geoid 2443,https://database.factgrid.de/entity/Q140523,Normandía
+BETA geoid 2137,https://database.factgrid.de/entity/Q217757,Warwickshire
+BETA geoid 2232,https://database.factgrid.de/entity/Q217734,Northamptonshire
+BETA geoid 2365,https://database.factgrid.de/entity/Q217750,Somerset
+BETA geoid 2413,https://database.factgrid.de/entity/Q217727,Middlesex
+BETA geoid 2465,https://database.factgrid.de/entity/Q217754,Surrey
+BETA geoid 1624,https://database.factgrid.de/entity/Q219565,Flandes
+BETA geoid 1170,https://database.factgrid.de/entity/Q140509,Auvergne
+BETA geoid 1049,https://database.factgrid.de/entity/Q140562,Franche-Comté
+BETA geoid 1178,https://database.factgrid.de/entity/Q140512,Borbón
+BETA geoid 1595,https://database.factgrid.de/entity/Q140503,Anjou
+BETA geoid 1802,https://database.factgrid.de/entity/Q153261,Diócesis de Metz
+BETA geoid 1488,https://database.factgrid.de/entity/Q153598,Gascuña
+BETA geoid 2025,https://database.factgrid.de/entity/Q164665,Archidiócesis de Narbonne
+BETA geoid 2337,https://database.factgrid.de/entity/Q393432,Moravia
+BETA geoid 1653,https://database.factgrid.de/entity/Q395481,Andalucia
+BETA geoid 1639,https://database.factgrid.de/entity/Q235559,Casa de Saxe-Coburg y Gotha-Koháry
+BETA geoid 1485,https://database.factgrid.de/entity/Q246440,Tierra Santa
+BETA geoid 1037,https://database.factgrid.de/entity/Q266677,Francia (sud de)
+BETA geoid 1949,https://database.factgrid.de/entity/Q395395,Archidiócesis de Siracusa
+BETA geoid 1622,https://database.factgrid.de/entity/Q395398,Diócesis de Céfalu
+BETA geoid 1920,https://database.factgrid.de/entity/Q395390,Archidiócesis de Catania
+BETA geoid 1941,https://database.factgrid.de/entity/Q395391,Diócesis de Messina
+BETA geoid 2390,https://database.factgrid.de/entity/Q550601,Ducado de Baviera
+BETA geoid 1830,https://database.factgrid.de/entity/Q452041,Archidiócesis de Zaragoza
+BETA geoid 2123,https://database.factgrid.de/entity/Q703898,Calabria
+BETA geoid 1230,https://database.factgrid.de/entity/Q345201,Buenache de Alarcón
+BETA geoid 2427,https://database.factgrid.de/entity/Q248758,Asia
+BETA geoid 2482,https://database.factgrid.de/entity/Q540206,Antigua Atenas
+BETA geoid 2844,https://database.factgrid.de/entity/Q343498,Aldeadávila de la Ribera
+BETA geoid 2616,https://database.factgrid.de/entity/Q343757,Alquézar
+BETA geoid 2771,https://database.factgrid.de/entity/Q344358,Babilafuente
+BETA geoid 2090,https://database.factgrid.de/entity/Q344430,Bañares
+BETA geoid 2406,https://database.factgrid.de/entity/Q344707,Bellpuig
+BETA geoid 2827,https://database.factgrid.de/entity/Q348018,Fregenal de la Sierra
+BETA geoid 2629,https://database.factgrid.de/entity/Q349407,La Vid y Barrios
+BETA geoid 2605,https://database.factgrid.de/entity/Q351569,Ocentejo
+BETA geoid 2796,https://database.factgrid.de/entity/Q351210,Navalpino
+BETA geoid 1095,https://database.factgrid.de/entity/Q92901,Venezia
+BETA geoid 1018,https://database.factgrid.de/entity/Q351639,Olivares
+BETA geoid 1509,https://database.factgrid.de/entity/Q353556,Sahagún
+BETA geoid 1566,https://database.factgrid.de/entity/Q355673,Tortosa
+BETA geoid 1094,https://database.factgrid.de/entity/Q356225,Valverde de Júcar
+BETA geoid 1507,https://database.factgrid.de/entity/Q355828,Turégano
+BETA geoid 1096,https://database.factgrid.de/entity/Q356834,Villalpando
+BETA geoid 1021,https://database.factgrid.de/entity/Q355242,Talavera de la Reina
+BETA geoid 1504,https://database.factgrid.de/entity/Q356717,Villacastín
+BETA geoid 1821,https://database.factgrid.de/entity/Q746427,Montenegro
+BETA geoid 1308,https://database.factgrid.de/entity/Q876330,San Clemente
+BETA geoid 1746,https://database.factgrid.de/entity/Q743446,Condado de Ampurias
+BETA geoid 1433,https://database.factgrid.de/entity/Q747394,Condado de Foix
+BETA geoid 2828,https://database.factgrid.de/entity/Q878870,Águila
+BETA geoid 2832,https://database.factgrid.de/entity/Q743450,Urgel
+BETA geoid 1370,https://database.factgrid.de/entity/Q745610,Campo de Alange
+BETA geoid 1819,https://database.factgrid.de/entity/Q780405,Condado de Bridgewater
+BETA geoid 2576,https://database.factgrid.de/entity/Q780404,Condado de Saceda
+BETA geoid 2001,https://database.factgrid.de/entity/Q780509,Cid
+BETA geoid 2590,https://database.factgrid.de/entity/Q744042,Ducado de Gallese
+BETA geoid 2553,https://database.factgrid.de/entity/Q743774,Italia meridional
+BETA geoid 1801,https://database.factgrid.de/entity/Q747482,Ducado de Coislin
+BETA geoid 1734,https://database.factgrid.de/entity/Q892121,Osona
+BETA geoid 1897,https://database.factgrid.de/entity/Q743449,Diócesis de Seo de Urgel
+BETA geoid 1171,https://database.factgrid.de/entity/Q892250,Poitou
+BETA geoid 2384,https://database.factgrid.de/entity/Q892251,Condado de Tepa
+BETA geoid 2438,https://database.factgrid.de/entity/Q892253,Xiquena
+BETA geoid 1725,https://database.factgrid.de/entity/Q918875,Estrecho de Gibraltar
+BETA geoid 1770,https://database.factgrid.de/entity/Q780136,Virreinato de Nueva Granada
+BETA geoid 1442,https://database.factgrid.de/entity/Q351967,Palma del Río
+BETA geoid 1188,https://database.factgrid.de/entity/Q352078,Paredes de Nava
+BETA geoid 1241,https://database.factgrid.de/entity/Q353180,Reus
+BETA geoid 1242,https://database.factgrid.de/entity/Q355373,Teruel
+BETA geoid 1189,https://database.factgrid.de/entity/Q356375,Viana
+BETA geoid 1451,https://database.factgrid.de/entity/Q352219,Peñafiel
+BETA geoid 1148,https://database.factgrid.de/entity/Q353336,Ripoll
+BETA geoid 1144,https://database.factgrid.de/entity/Q353211,Ribadavia
+BETA geoid 1151,https://database.factgrid.de/entity/Q354968,Simancas
+BETA geoid 1175,https://database.factgrid.de/entity/Q355346,Tendilla
+BETA geoid 1153,https://database.factgrid.de/entity/Q355299,Tarifa
+BETA geoid 1465,https://database.factgrid.de/entity/Q352887,Quer
+BETA geoid 1465,https://database.factgrid.de/entity/Q352887,Quer
+BETA geoid 1465,https://database.factgrid.de/entity/Q354221,Sanlúcar de Barrameda
+BETA geoid 1465,https://database.factgrid.de/entity/Q354221,Sanlúcar de Barrameda
+BETA geoid 1455,https://database.factgrid.de/entity/Q355007,Sobradiel
+BETA geoid 1472,https://database.factgrid.de/entity/Q357393,Zahara de la Sierra
+BETA geoid 1307,https://database.factgrid.de/entity/Q353030,Rascafría
+BETA geoid 1163,https://database.factgrid.de/entity/Q356054,Valderas
+BETA geoid 1356,https://database.factgrid.de/entity/Q355474,Tordehumos
+BETA geoid 1325,https://database.factgrid.de/entity/Q353268,Ricote
+BETA geoid 1300,https://database.factgrid.de/entity/Q352461,Pinto
+BETA geoid 1327,https://database.factgrid.de/entity/Q354396,Santa Cruz de la Zarza
+BETA geoid 1261,https://database.factgrid.de/entity/Q351961,Palenzuela
+BETA geoid 1358,https://database.factgrid.de/entity/Q356899,Villanubla
+BETA geoid 1306,https://database.factgrid.de/entity/Q356760,Villafranca del Bierzo
+BETA geoid 1346,https://database.factgrid.de/entity/Q355492,Torija
+BETA geoid 1361,https://database.factgrid.de/entity/Q357390,Zafra
+BETA geoid 1313,https://database.factgrid.de/entity/Q357161,Villaviciosa de Tajuña
+BETA geoid 1301,https://database.factgrid.de/entity/Q356784,Villahermosa del Río
+BETA geoid 1262,https://database.factgrid.de/entity/Q355480,Tordesillas
+BETA geoid 1396,https://database.factgrid.de/entity/Q357153,Villaverde
+BETA geoid 1147,https://database.factgrid.de/entity/Q649298,Marquesado de San Román
+BETA geoid 1404,https://database.factgrid.de/entity/Q877813,Montesclaros

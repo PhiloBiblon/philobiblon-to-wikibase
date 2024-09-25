@@ -3,10 +3,11 @@
 today=`date +"%Y-%m-%d"`
 
 ## Gather alternate project tag from command line
-while getopts "t": flag
+while getopts "a:t": flag
 do
     case "${flag}" in
-        t) tag=${OPTARG};;
+        a) tag=${OPTARG};;
+        t) table=${OPTARG};;
     esac
 done
 
@@ -14,6 +15,20 @@ if [[ -z $tag ]]; then
   echo "Alternate project tag not supplied, using default date: ${today}"
   tag=${today}
 fi  
+
+if [[ -z $table ]]; then
+  echo "Table not supplied, default to all tables"
+  table=None
+else
+  echo "Table supplied, only processing table: ${table}"
+fi
+
+## Check if openrefine-client is installed
+if ! command -v openrefine-client &> /dev/null
+then
+    echo "openrefine-client could not be found, please install before proceeding"
+    exit 1
+fi
 
 ## Identify location of philobiblon-private on local machine
 echo "Looking for processed file path on local machine"
@@ -29,6 +44,11 @@ echo "Proceeding using the tag: ${tag}"
 ## Loop through processed files and create openrefine projects with updated version number
 for f in ${processed_path}/data/processed/pre/BETA/*
 do
+  if [[ $table != None ]]; then
+    if [[ $f != *$table* ]]; then
+      continue
+    fi
+  fi
   echo $f && openrefine-client -H philobiblon.cog.berkeley.edu -P 3333 --projectName=`basename $f | sed 's/.csv/.'${tag}'/'` --create $f
 done
 

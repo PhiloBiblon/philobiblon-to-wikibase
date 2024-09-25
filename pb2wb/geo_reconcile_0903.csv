@@ -1,0 +1,541 @@
+alias,item,itemLabel
+BETA geoid 1012,https://database.factgrid.de/entity/Q354654,Santibáñez del Val
+BETA geoid 1017,https://database.factgrid.de/entity/Q878875,Reino de Aragón
+BETA geoid 1019,https://database.factgrid.de/entity/Q80844,Ciudad de México
+BETA geoid 1026,https://database.factgrid.de/entity/Q878932,Real Monasterio de San Juan de la Peña
+BETA geoid 1033,https://database.factgrid.de/entity/Q990209,Castilla
+BETA geoid 1036,https://database.factgrid.de/entity/Q540339,Aragón
+BETA geoid 1069,https://database.factgrid.de/entity/Q350848,Monterrey
+BETA geoid 1112,https://database.factgrid.de/entity/Q217683,Bute
+BETA geoid 1114,https://database.factgrid.de/entity/Q990145,Condado de Cervellón
+BETA geoid 1129,https://database.factgrid.de/entity/Q990159,Condado de Mansilla
+BETA geoid 1133,https://database.factgrid.de/entity/Q88877,Moos
+BETA geoid 1140,https://database.factgrid.de/entity/Q919037,Marquesado de Pidal
+BETA geoid 1143,https://database.factgrid.de/entity/Q990156,Condado de Puñonrostro
+BETA geoid 1184,https://database.factgrid.de/entity/Q23226,Bayona
+BETA geoid 1187,https://database.factgrid.de/entity/Q355818,Tuy
+BETA geoid 1192,https://database.factgrid.de/entity/Q947453,Arabia Saudí
+BETA geoid 1196,https://database.factgrid.de/entity/Q10459,Roma
+BETA geoid 1199,https://database.factgrid.de/entity/Q344387,Bayona
+BETA geoid 1200,https://database.factgrid.de/entity/Q990152,Condado de Altamira
+BETA geoid 1205,https://database.factgrid.de/entity/Q540178,Antioquia
+BETA geoid 1206,https://database.factgrid.de/entity/Q80762,Florencia
+BETA geoid 1208,https://database.factgrid.de/entity/Q919028,Condado de Campomanes
+BETA geoid 1212,https://database.factgrid.de/entity/Q84889,Fez
+BETA geoid 1213,https://database.factgrid.de/entity/Q140531,Inglaterra
+BETA geoid 1217,https://database.factgrid.de/entity/Q538432,Cerdeña
+BETA geoid 1218,https://database.factgrid.de/entity/Q103458,Ajaccio
+BETA geoid 1221,https://database.factgrid.de/entity/Q266526,Albania
+BETA geoid 1222,https://database.factgrid.de/entity/Q23518,Lisboa
+BETA geoid 1227,https://database.factgrid.de/entity/Q346948,Cubas de la Sagra
+BETA geoid 1232,https://database.factgrid.de/entity/Q357092,Villas de la Ventosa
+BETA geoid 1238,https://database.factgrid.de/entity/Q346495,Chinchilla de Montearagón
+BETA geoid 1239,https://database.factgrid.de/entity/Q80808,Jerusalén
+BETA geoid 1240,https://database.factgrid.de/entity/Q165485,Pavía
+BETA geoid 1247,https://database.factgrid.de/entity/Q556104,Pötting
+BETA geoid 1248,https://database.factgrid.de/entity/Q94419,República federal de Alemania
+BETA geoid 1252,https://database.factgrid.de/entity/Q351766,Orozco
+BETA geoid 1256,https://database.factgrid.de/entity/Q22566,Constancia
+BETA geoid 1259,https://database.factgrid.de/entity/Q990157,Condado de Torrepalma
+BETA geoid 1264,https://database.factgrid.de/entity/Q990142,Condado de Castro
+BETA geoid 1269,https://database.factgrid.de/entity/Q348951,Jarandilla de la Vera
+BETA geoid 1279,https://database.factgrid.de/entity/Q877969,Reino de León
+BETA geoid 1283,https://database.factgrid.de/entity/Q901307,Maine
+BETA geoid 1287,https://database.factgrid.de/entity/Q90219,Pisa
+BETA geoid 1296,https://database.factgrid.de/entity/Q116896,Hautefort
+BETA geoid 1298,https://database.factgrid.de/entity/Q347098,Denia
+BETA geoid 1303,https://database.factgrid.de/entity/Q990139,Condado de Cork
+BETA geoid 1304,https://database.factgrid.de/entity/Q140542,Irlanda
+BETA geoid 1305,https://database.factgrid.de/entity/Q346178,Castrillo del Val
+BETA geoid 1317,https://database.factgrid.de/entity/Q891098,Reino de Murcia
+BETA geoid 1328,https://database.factgrid.de/entity/Q355261,Támara de Campos
+BETA geoid 1334,https://database.factgrid.de/entity/Q352802,Puente La Reina – Gares
+BETA geoid 1335,https://database.factgrid.de/entity/Q139069,Vienne
+BETA geoid 1340,https://database.factgrid.de/entity/Q780508,Marquesado del Cenete
+BETA geoid 1345,https://database.factgrid.de/entity/Q353350,"Roa, Burgos"
+BETA geoid 1349,https://database.factgrid.de/entity/Q344068,Argecilla
+BETA geoid 1350,https://database.factgrid.de/entity/Q355258,Tamajón
+BETA geoid 1363,https://database.factgrid.de/entity/Q92961,Vitoria-Gasteiz
+BETA geoid 1365,https://database.factgrid.de/entity/Q990158,Condado de Villaumbrosa
+BETA geoid 1372,https://database.factgrid.de/entity/Q80928,"Washington, DC"
+BETA geoid 1377,https://database.factgrid.de/entity/Q10408,Leipzig
+BETA geoid 1378,https://database.factgrid.de/entity/Q354520,Santa María la Real de Nieva
+BETA geoid 1379,https://database.factgrid.de/entity/Q745604,Marquesado de Fuensanta del Valle
+BETA geoid 1380,https://database.factgrid.de/entity/Q80728,Bolonia
+BETA geoid 1383,https://database.factgrid.de/entity/Q990146,Condado de Ezpeleta de Beire
+BETA geoid 1385,https://database.factgrid.de/entity/Q140903,Brujas
+BETA geoid 1386,https://database.factgrid.de/entity/Q164498,Bélgica
+BETA geoid 1388,https://database.factgrid.de/entity/Q80874,Poitiers
+BETA geoid 1389,https://database.factgrid.de/entity/Q504619,La Spezia
+BETA geoid 1392,https://database.factgrid.de/entity/Q140553,Suecia
+BETA geoid 1393,https://database.factgrid.de/entity/Q360974,Viseu
+BETA geoid 1394,https://database.factgrid.de/entity/Q116104,Gourdon
+BETA geoid 1395,https://database.factgrid.de/entity/Q125356,Montpellier
+BETA geoid 1398,https://database.factgrid.de/entity/Q984074,Condado de Aguilar
+BETA geoid 1402,https://database.factgrid.de/entity/Q349370,La Torre de Esteban Hambrán
+BETA geoid 1407,https://database.factgrid.de/entity/Q990151,Condado de Fuente el Saúz
+BETA geoid 1414,https://database.factgrid.de/entity/Q746421,Rodas
+BETA geoid 1415,https://database.factgrid.de/entity/Q356863,Villamayor de Treviño
+BETA geoid 1418,https://database.factgrid.de/entity/Q360856,Vila Franca de Xira
+BETA geoid 1421,https://database.factgrid.de/entity/Q358692,Ferreirim
+BETA geoid 1422,https://database.factgrid.de/entity/Q357636,Alcobaça
+BETA geoid 1424,https://database.factgrid.de/entity/Q359022,Landim
+BETA geoid 1425,https://database.factgrid.de/entity/Q359632,Peniche
+BETA geoid 1427,https://database.factgrid.de/entity/Q355250,Talayuelas
+BETA geoid 1430,https://database.factgrid.de/entity/Q354618,Santiago de la Espada
+BETA geoid 1432,https://database.factgrid.de/entity/Q91782,Siena
+BETA geoid 1434,https://database.factgrid.de/entity/Q704464,Cameros
+BETA geoid 1435,https://database.factgrid.de/entity/Q348616,Haza
+BETA geoid 1440,https://database.factgrid.de/entity/Q349361,La Tala
+BETA geoid 1443,https://database.factgrid.de/entity/Q22554,Basilea
+BETA geoid 1444,https://database.factgrid.de/entity/Q91703,Seligenstadt
+BETA geoid 1445,https://database.factgrid.de/entity/Q356673,"Vilches, Spain"
+BETA geoid 1453,https://database.factgrid.de/entity/Q160380,Brasil
+BETA geoid 1454,https://database.factgrid.de/entity/Q893727,Lugar desconocido
+BETA geoid 1468,https://database.factgrid.de/entity/Q76105,Constantinopla / Istanbul
+BETA geoid 1473,https://database.factgrid.de/entity/Q235861,Chicago
+BETA geoid 1474,https://database.factgrid.de/entity/Q901317,Illinois
+BETA geoid 1476,https://database.factgrid.de/entity/Q92563,Toronto
+BETA geoid 1477,https://database.factgrid.de/entity/Q174556,Canadá
+BETA geoid 1478,https://database.factgrid.de/entity/Q164452,"Cambridge, Mass"
+BETA geoid 1479,https://database.factgrid.de/entity/Q164453,Massachusetts
+BETA geoid 1481,https://database.factgrid.de/entity/Q248761,Australia
+BETA geoid 1482,https://database.factgrid.de/entity/Q107582,Bourges
+BETA geoid 1483,https://database.factgrid.de/entity/Q349058,La Algaba
+BETA geoid 1486,https://database.factgrid.de/entity/Q176007,Reino de Boemia
+BETA geoid 1487,https://database.factgrid.de/entity/Q21795,Tours
+BETA geoid 1490,https://database.factgrid.de/entity/Q348437,Gordaliza del Pino
+BETA geoid 1491,https://database.factgrid.de/entity/Q80871,Oxford
+BETA geoid 1493,https://database.factgrid.de/entity/Q343438,Alcázar del Rey
+BETA geoid 1495,https://database.factgrid.de/entity/Q349708,Lekeitio
+BETA geoid 1511,https://database.factgrid.de/entity/Q990163,Condado de Donadío de Casasola
+BETA geoid 1514,https://database.factgrid.de/entity/Q990148,Condado de Provence
+BETA geoid 1516,https://database.factgrid.de/entity/Q357699,Aljubarrota
+BETA geoid 1524,https://database.factgrid.de/entity/Q112094,Crécy-en-Ponthieu
+BETA geoid 1525,https://database.factgrid.de/entity/Q347307,El Castell de Guadalest
+BETA geoid 1526,https://database.factgrid.de/entity/Q401653,Nicosia
+BETA geoid 1527,https://database.factgrid.de/entity/Q386984,Chipre
+BETA geoid 1528,https://database.factgrid.de/entity/Q749669,al-Hira
+BETA geoid 1529,https://database.factgrid.de/entity/Q82653,Bagdad
+BETA geoid 1530,https://database.factgrid.de/entity/Q749667,Imperio persa
+BETA geoid 1531,https://database.factgrid.de/entity/Q876378,Pulla
+BETA geoid 1532,https://database.factgrid.de/entity/Q92358,Tarento
+BETA geoid 1570,https://database.factgrid.de/entity/Q703915,Ischia
+BETA geoid 1581,https://database.factgrid.de/entity/Q354949,Siétamo
+BETA geoid 1583,https://database.factgrid.de/entity/Q350785,Montalbo
+BETA geoid 1584,https://database.factgrid.de/entity/Q990153,Condado de Buelna
+BETA geoid 1586,https://database.factgrid.de/entity/Q217668,Dinamarca
+BETA geoid 1587,https://database.factgrid.de/entity/Q90832,Rio de Janeiro
+BETA geoid 1588,https://database.factgrid.de/entity/Q204936,Greenwich
+BETA geoid 1589,https://database.factgrid.de/entity/Q91268,Savona
+BETA geoid 1591,https://database.factgrid.de/entity/Q357292,Játiva
+BETA geoid 1593,https://database.factgrid.de/entity/Q990315,Tabaneros
+BETA geoid 1594,https://database.factgrid.de/entity/Q140641,Túnez
+BETA geoid 1596,https://database.factgrid.de/entity/Q349269,La Peraleja
+BETA geoid 1599,https://database.factgrid.de/entity/Q348922,Iznájar
+BETA geoid 1602,https://database.factgrid.de/entity/Q23598,Canterbury
+BETA geoid 1603,https://database.factgrid.de/entity/Q357061,Villarino de los Aires
+BETA geoid 1604,https://database.factgrid.de/entity/Q350020,Los Palacios y Villafranca
+BETA geoid 1608,https://database.factgrid.de/entity/Q464934,América
+BETA geoid 1611,https://database.factgrid.de/entity/Q990137,Condado de Trastámara
+BETA geoid 1612,https://database.factgrid.de/entity/Q358631,Évora
+BETA geoid 1618,https://database.factgrid.de/entity/Q140572,Amberes
+BETA geoid 1621,https://database.factgrid.de/entity/Q343616,Alhama de Granada
+BETA geoid 1629,https://database.factgrid.de/entity/Q752828,Diócesis de Osma-Soria
+BETA geoid 1638,https://database.factgrid.de/entity/Q140662,Escocia
+BETA geoid 1646,https://database.factgrid.de/entity/Q83772,Castellón de la Plana
+BETA geoid 1647,https://database.factgrid.de/entity/Q350466,Mediana de Aragón
+BETA geoid 1651,https://database.factgrid.de/entity/Q351112,"Muros, A Coruña"
+BETA geoid 1656,https://database.factgrid.de/entity/Q136775,Tarascon
+BETA geoid 1659,https://database.factgrid.de/entity/Q176241,Hispaniola
+BETA geoid 1685,https://database.factgrid.de/entity/Q82140,Alicante
+BETA geoid 1691,https://database.factgrid.de/entity/Q354334,"Santa Baia de Búbal, Carballedo"
+BETA geoid 1700,https://database.factgrid.de/entity/Q344147,Arrasate/Mondragón
+BETA geoid 1701,https://database.factgrid.de/entity/Q127705,Perpiñán
+BETA geoid 1707,https://database.factgrid.de/entity/Q140547,Marruecos
+BETA geoid 1716,https://database.factgrid.de/entity/Q10447,Praga
+BETA geoid 1718,https://database.factgrid.de/entity/Q395086,Archidiócesis de Sevilla
+BETA geoid 1722,https://database.factgrid.de/entity/Q343811,Amezketa
+BETA geoid 1727,https://database.factgrid.de/entity/Q356831,Villalón de Campos
+BETA geoid 1729,https://database.factgrid.de/entity/Q88859,Q88859
+BETA geoid 1738,https://database.factgrid.de/entity/Q350504,Melgar de Arriba
+BETA geoid 1738,https://database.factgrid.de/entity/Q990154,Condado de Melgar
+BETA geoid 1740,https://database.factgrid.de/entity/Q752373,Módica
+BETA geoid 1747,https://database.factgrid.de/entity/Q349540,Lara de los Infantes
+BETA geoid 1748,https://database.factgrid.de/entity/Q111172,Collioure
+BETA geoid 1751,https://database.factgrid.de/entity/Q21656,Manchester
+BETA geoid 1752,https://database.factgrid.de/entity/Q200799,Cheltenham
+BETA geoid 1757,https://database.factgrid.de/entity/Q470544,Cremona
+BETA geoid 1759,https://database.factgrid.de/entity/Q352965,Quinto
+BETA geoid 1760,https://database.factgrid.de/entity/Q119071,Q119071
+BETA geoid 1761,https://database.factgrid.de/entity/Q351589,Oyarzun
+BETA geoid 1764,https://database.factgrid.de/entity/Q353617,Sallent de Llobregat
+BETA geoid 1766,https://database.factgrid.de/entity/Q140539,Hungría
+BETA geoid 1775,https://database.factgrid.de/entity/Q990147,Condado de Vistahermosa
+BETA geoid 1795,https://database.factgrid.de/entity/Q745609,Marquesado de Casa Mena y las Matas
+BETA geoid 1796,https://database.factgrid.de/entity/Q92962,Vitry-sur-Seine
+BETA geoid 1797,https://database.factgrid.de/entity/Q82094,acre
+BETA geoid 1798,https://database.factgrid.de/entity/Q108053,Briançon
+BETA geoid 1799,https://database.factgrid.de/entity/Q91749,Sheffield
+BETA geoid 1803,https://database.factgrid.de/entity/Q21649,Lima
+BETA geoid 1804,https://database.factgrid.de/entity/Q356776,Villagómez la Nueva
+BETA geoid 1806,https://database.factgrid.de/entity/Q344914,Berzosa de Bureba
+BETA geoid 1810,https://database.factgrid.de/entity/Q349971,Lorquí
+BETA geoid 1811,https://database.factgrid.de/entity/Q355525,Torralba
+BETA geoid 1820,https://database.factgrid.de/entity/Q140549,Países Bajos
+BETA geoid 1823,https://database.factgrid.de/entity/Q112423,Vergy
+BETA geoid 1824,https://database.factgrid.de/entity/Q540455,Viterbo
+BETA geoid 1829,https://database.factgrid.de/entity/Q780510,Vizcondado de Rueda
+BETA geoid 1834,https://database.factgrid.de/entity/Q354020,San Pedro de Latarce
+BETA geoid 1835,https://database.factgrid.de/entity/Q22160,Los Angeles
+BETA geoid 1837,https://database.factgrid.de/entity/Q165089,Estados Unidos de América
+BETA geoid 1837,https://database.factgrid.de/entity/Q387019,California
+BETA geoid 1840,https://database.factgrid.de/entity/Q349692,Salinas de Léniz
+BETA geoid 1844,https://database.factgrid.de/entity/Q80830,Lille
+BETA geoid 1845,https://database.factgrid.de/entity/Q117632,Jargeau
+BETA geoid 1846,https://database.factgrid.de/entity/Q113055,Douai
+BETA geoid 1847,https://database.factgrid.de/entity/Q111664,Coucy
+BETA geoid 1849,https://database.factgrid.de/entity/Q346822,Cortes
+BETA geoid 1852,https://database.factgrid.de/entity/Q103701,Amboise
+BETA geoid 1853,https://database.factgrid.de/entity/Q212324,Richmond
+BETA geoid 1854,https://database.factgrid.de/entity/Q353639,Salvaterra de Miño
+BETA geoid 1866,https://database.factgrid.de/entity/Q891180,Archidiócesis de Tarragona
+BETA geoid 1910,https://database.factgrid.de/entity/Q388426,Monesterio de Santa María de Poblet
+BETA geoid 1929,https://database.factgrid.de/entity/Q164563,Diócesis de Laon
+BETA geoid 1938,https://database.factgrid.de/entity/Q394115,Siria
+BETA geoid 1947,https://database.factgrid.de/entity/Q907619,Archidiócesis de Trani
+BETA geoid 1951,https://database.factgrid.de/entity/Q103270,Agde
+BETA geoid 1952,https://database.factgrid.de/entity/Q83973,Damieta
+BETA geoid 1954,https://database.factgrid.de/entity/Q245416,White Plains
+BETA geoid 1956,https://database.factgrid.de/entity/Q164620,Diócesis de Dax
+BETA geoid 1961,https://database.factgrid.de/entity/Q358925,Guimarães
+BETA geoid 1967,https://database.factgrid.de/entity/Q990170,Baronía de Seilliere
+BETA geoid 1978,https://database.factgrid.de/entity/Q355188,Sumacárcer
+BETA geoid 1986,https://database.factgrid.de/entity/Q345477,Callosa d'en Sarrià
+BETA geoid 2002,https://database.factgrid.de/entity/Q346611,"Coca, Segovia"
+BETA geoid 2003,https://database.factgrid.de/entity/Q344334,Ayora
+BETA geoid 2006,https://database.factgrid.de/entity/Q10403,L'Aquila
+BETA geoid 2007,https://database.factgrid.de/entity/Q343218,Aguilar de Campoo
+BETA geoid 2014,https://database.factgrid.de/entity/Q270771,Mónaco
+BETA geoid 2019,https://database.factgrid.de/entity/Q105764,Beaucaire
+BETA geoid 2020,https://database.factgrid.de/entity/Q347430,El Puente del Arzobispo
+BETA geoid 2022,https://database.factgrid.de/entity/Q92818,Urbino
+BETA geoid 2023,https://database.factgrid.de/entity/Q356487,Vilallonga de Ter
+BETA geoid 2027,https://database.factgrid.de/entity/Q343249,Aibar/Oibar
+BETA geoid 2028,https://database.factgrid.de/entity/Q347434,El Puig de Santa Maria
+BETA geoid 2029,https://database.factgrid.de/entity/Q352284,Peralta – Azkoien
+BETA geoid 2031,https://database.factgrid.de/entity/Q356343,Vera de Moncayo
+BETA geoid 2032,https://database.factgrid.de/entity/Q343881,Aniñón
+BETA geoid 2033,https://database.factgrid.de/entity/Q354897,Serra
+BETA geoid 2035,https://database.factgrid.de/entity/Q354461,Santa Margarida i els Monjos
+BETA geoid 2036,https://database.factgrid.de/entity/Q347565,Épila
+BETA geoid 2043,https://database.factgrid.de/entity/Q21518,Cairo
+BETA geoid 2044,https://database.factgrid.de/entity/Q140535,Egipto
+BETA geoid 2047,https://database.factgrid.de/entity/Q345653,"Cañas, La Rioja"
+BETA geoid 2051,https://database.factgrid.de/entity/Q394512,Lucca
+BETA geoid 2052,https://database.factgrid.de/entity/Q83033,Béziers
+BETA geoid 2053,https://database.factgrid.de/entity/Q113148,Dreux
+BETA geoid 2054,https://database.factgrid.de/entity/Q540629,Sabbioneta
+BETA geoid 2055,https://database.factgrid.de/entity/Q130312,Ruán
+BETA geoid 2056,https://database.factgrid.de/entity/Q23519,Marsella
+BETA geoid 2057,https://database.factgrid.de/entity/Q349978,Los Balbases
+BETA geoid 2061,https://database.factgrid.de/entity/Q349716,Lences de Bureba
+BETA geoid 2062,https://database.factgrid.de/entity/Q343213,"Agüero, Huesca"
+BETA geoid 2064,https://database.factgrid.de/entity/Q346640,Coín
+BETA geoid 2067,https://database.factgrid.de/entity/Q349014,L'Alcúdia de Crespins
+BETA geoid 2068,https://database.factgrid.de/entity/Q704469,Benimàmet
+BETA geoid 2069,https://database.factgrid.de/entity/Q540346,Noicattaro
+BETA geoid 2074,https://database.factgrid.de/entity/Q346479,Chelva
+BETA geoid 2077,https://database.factgrid.de/entity/Q348585,Guisando
+BETA geoid 2078,https://database.factgrid.de/entity/Q540562,Pesaro
+BETA geoid 2082,https://database.factgrid.de/entity/Q355951,Valbuena de Duero
+BETA geoid 2087,https://database.factgrid.de/entity/Q354926,Setenil de las Bodegas
+BETA geoid 2092,https://database.factgrid.de/entity/Q107597,Bourgueil
+BETA geoid 2096,https://database.factgrid.de/entity/Q877927,Guatemala
+BETA geoid 2097,https://database.factgrid.de/entity/Q82338,Antigua Guatemala
+BETA geoid 2098,https://database.factgrid.de/entity/Q89297,Neuss
+BETA geoid 2100,https://database.factgrid.de/entity/Q357622,Alcáçovas
+BETA geoid 2102,https://database.factgrid.de/entity/Q92340,Tánger
+BETA geoid 2104,https://database.factgrid.de/entity/Q357712,Almeirim
+BETA geoid 2110,https://database.factgrid.de/entity/Q351735,Orellana la Vieja
+BETA geoid 2112,https://database.factgrid.de/entity/Q350501,Mejorada del Campo
+BETA geoid 2114,https://database.factgrid.de/entity/Q346938,Cuacos de Yuste
+BETA geoid 2119,https://database.factgrid.de/entity/Q358627,Estremoz
+BETA geoid 2120,https://database.factgrid.de/entity/Q358069,Borba
+BETA geoid 2121,https://database.factgrid.de/entity/Q359738,Portalegre
+BETA geoid 2127,https://database.factgrid.de/entity/Q10310,Bruselas
+BETA geoid 2128,https://database.factgrid.de/entity/Q129663,Renescure
+BETA geoid 2130,https://database.factgrid.de/entity/Q104219,Argenton
+BETA geoid 2131,https://database.factgrid.de/entity/Q164372,Deux-Sèvres
+BETA geoid 2138,https://database.factgrid.de/entity/Q196621,Alcester
+BETA geoid 2146,https://database.factgrid.de/entity/Q356805,Villalba de los Llanos
+BETA geoid 2147,https://database.factgrid.de/entity/Q351055,Mungia
+BETA geoid 2150,https://database.factgrid.de/entity/Q349300,La Puebla de Arganzón
+BETA geoid 2153,https://database.factgrid.de/entity/Q355539,Torre en Cameros
+BETA geoid 2154,https://database.factgrid.de/entity/Q344046,Arenzana de Abajo
+BETA geoid 2158,https://database.factgrid.de/entity/Q355264,Tamarón
+BETA geoid 2163,https://database.factgrid.de/entity/Q989565,Añador
+BETA geoid 2166,https://database.factgrid.de/entity/Q10312,Berlín
+BETA geoid 2168,https://database.factgrid.de/entity/Q90598,Ravena
+BETA geoid 2170,https://database.factgrid.de/entity/Q133561,Saint-Nicolas-lès-Cîteaux
+BETA geoid 2171,https://database.factgrid.de/entity/Q164369,Côte-d'Or
+BETA geoid 2173,https://database.factgrid.de/entity/Q358912,Guarda
+BETA geoid 2174,https://database.factgrid.de/entity/Q359265,Miranda do Douro
+BETA geoid 2175,https://database.factgrid.de/entity/Q359618,Penamacor
+BETA geoid 2187,https://database.factgrid.de/entity/Q358036,Benfica
+BETA geoid 2191,https://database.factgrid.de/entity/Q21709,Filadelfia
+BETA geoid 2192,https://database.factgrid.de/entity/Q164455,Pensilvania
+BETA geoid 2194,https://database.factgrid.de/entity/Q468239,Africa
+BETA geoid 2201,https://database.factgrid.de/entity/Q83607,Buenos Aires
+BETA geoid 2202,https://database.factgrid.de/entity/Q389234,Argentina
+BETA geoid 2204,https://database.factgrid.de/entity/Q125532,Morbecq
+BETA geoid 2205,https://database.factgrid.de/entity/Q704216,Périllos
+BETA geoid 2206,https://database.factgrid.de/entity/Q164426,Pyrénées-Orientales
+BETA geoid 2207,https://database.factgrid.de/entity/Q353488,Rueda de Jalón
+BETA geoid 2208,https://database.factgrid.de/entity/Q895537,Priorato de Santa María de Meyá
+BETA geoid 2210,https://database.factgrid.de/entity/Q752826,Middle Hill
+BETA geoid 2212,https://database.factgrid.de/entity/Q87864,Las Palmas de Gran Canaria
+BETA geoid 2216,https://database.factgrid.de/entity/Q220561,Japón
+BETA geoid 2217,https://database.factgrid.de/entity/Q132398,Saint-Jean-de-Luz
+BETA geoid 2218,https://database.factgrid.de/entity/Q164425,Pyrénées-Atlantiques
+BETA geoid 2225,https://database.factgrid.de/entity/Q358283,Cartaxo
+BETA geoid 2226,https://database.factgrid.de/entity/Q352437,Pinilla de Jadraque
+BETA geoid 2227,https://database.factgrid.de/entity/Q131536,Saint-Denis
+BETA geoid 2228,https://database.factgrid.de/entity/Q164446,Seine-Saint-Denis
+BETA geoid 2236,https://database.factgrid.de/entity/Q22890,Ginebra
+BETA geoid 2237,https://database.factgrid.de/entity/Q140529,Suiza
+BETA geoid 2239,https://database.factgrid.de/entity/Q139821,Vincennes
+BETA geoid 2240,https://database.factgrid.de/entity/Q990136,Condado de Boulogne
+BETA geoid 2248,https://database.factgrid.de/entity/Q447530,Treviso
+BETA geoid 2250,https://database.factgrid.de/entity/Q164350,Aisne
+BETA geoid 2251,https://database.factgrid.de/entity/Q129588,Q129588
+BETA geoid 2252,https://database.factgrid.de/entity/Q164411,Marne
+BETA geoid 2253,https://database.factgrid.de/entity/Q132036,Saint-Germain-en-Laye
+BETA geoid 2254,https://database.factgrid.de/entity/Q164445,Yvelines
+BETA geoid 2255,https://database.factgrid.de/entity/Q138857,Versailles
+BETA geoid 2256,https://database.factgrid.de/entity/Q104772,Aumale
+BETA geoid 2261,https://database.factgrid.de/entity/Q217755,Sussex
+BETA geoid 2267,https://database.factgrid.de/entity/Q360144,Santarém
+BETA geoid 2274,https://database.factgrid.de/entity/Q214304,Q214304
+BETA geoid 2277,https://database.factgrid.de/entity/Q164360,Bas-Rhin
+BETA geoid 2279,https://database.factgrid.de/entity/Q77198,Estolcomo
+BETA geoid 2280,https://database.factgrid.de/entity/Q22019,Glasgow
+BETA geoid 2291,https://database.factgrid.de/entity/Q105892,Beaumont-sur-Oise
+BETA geoid 2292,https://database.factgrid.de/entity/Q164438,Val d’Oise
+BETA geoid 2293,https://database.factgrid.de/entity/Q990155,Condado de Oliveto
+BETA geoid 2296,https://database.factgrid.de/entity/Q91919,Southampton
+BETA geoid 2298,https://database.factgrid.de/entity/Q346757,Cordovilla la Real
+BETA geoid 2299,https://database.factgrid.de/entity/Q164423,Pas-de-Calais
+BETA geoid 2300,https://database.factgrid.de/entity/Q164437,Val-de-Marne
+BETA geoid 2301,https://database.factgrid.de/entity/Q164420,Nord
+BETA geoid 2302,https://database.factgrid.de/entity/Q352367,Piedrahíta
+BETA geoid 2306,https://database.factgrid.de/entity/Q353283,Rincón de Soto
+BETA geoid 2307,https://database.factgrid.de/entity/Q83753,Cannes
+BETA geoid 2310,https://database.factgrid.de/entity/Q349732,Lerma
+BETA geoid 2312,https://database.factgrid.de/entity/Q345218,Bugedo
+BETA geoid 2313,https://database.factgrid.de/entity/Q540532,Arezzo
+BETA geoid 2314,https://database.factgrid.de/entity/Q752365,Arquà Petrarca
+BETA geoid 2318,https://database.factgrid.de/entity/Q346608,Cobos de Fuentidueña
+BETA geoid 2320,https://database.factgrid.de/entity/Q83969,Damasco
+BETA geoid 2321,https://database.factgrid.de/entity/Q121355,Les Essarts
+BETA geoid 2324,https://database.factgrid.de/entity/Q484233,Capua
+BETA geoid 2327,https://database.factgrid.de/entity/Q375129,República Dominicana
+BETA geoid 2338,https://database.factgrid.de/entity/Q358311,Cascais
+BETA geoid 2339,https://database.factgrid.de/entity/Q171997,Reino de Israel
+BETA geoid 2340,https://database.factgrid.de/entity/Q348254,Gallipienzo
+BETA geoid 2341,https://database.factgrid.de/entity/Q215369,Torquay
+BETA geoid 2349,https://database.factgrid.de/entity/Q350430,Matilla de los Caños del Río
+BETA geoid 2350,https://database.factgrid.de/entity/Q354668,Santisteban del Puerto
+BETA geoid 2358,https://database.factgrid.de/entity/Q90632,Reggio Emilia
+BETA geoid 2367,https://database.factgrid.de/entity/Q990143,Condado de Wexford
+BETA geoid 2368,https://database.factgrid.de/entity/Q219432,Dublín
+BETA geoid 2369,https://database.factgrid.de/entity/Q892296,Liechtenstein
+BETA geoid 2370,https://database.factgrid.de/entity/Q92254,Sunderland
+BETA geoid 2375,https://database.factgrid.de/entity/Q395250,Ragusa
+BETA geoid 2376,https://database.factgrid.de/entity/Q540501,Asís
+BETA geoid 2380,https://database.factgrid.de/entity/Q978624,Nendeln
+BETA geoid 2383,https://database.factgrid.de/entity/Q360796,Viana do Castelo
+BETA geoid 2389,https://database.factgrid.de/entity/Q23346,Leiden
+BETA geoid 2391,https://database.factgrid.de/entity/Q990164,Condado de Inzaghi
+BETA geoid 2395,https://database.factgrid.de/entity/Q92936,Villach
+BETA geoid 2398,https://database.factgrid.de/entity/Q135428,Saumur
+BETA geoid 2399,https://database.factgrid.de/entity/Q164409,Maine-et-Loire
+BETA geoid 2400,https://database.factgrid.de/entity/Q10353,Fráncfort del Meno
+BETA geoid 2402,https://database.factgrid.de/entity/Q153230,Archidiócesis de Mainz
+BETA geoid 2412,https://database.factgrid.de/entity/Q214848,Teddington
+BETA geoid 2414,https://database.factgrid.de/entity/Q235886,Columbus
+BETA geoid 2415,https://database.factgrid.de/entity/Q21695,Ohio
+BETA geoid 2416,https://database.factgrid.de/entity/Q358342,Castelo Rodrigo
+BETA geoid 2417,https://database.factgrid.de/entity/Q164401,Landes
+BETA geoid 2422,https://database.factgrid.de/entity/Q92617,Trento
+BETA geoid 2423,https://database.factgrid.de/entity/Q164497,Tournai
+BETA geoid 2424,https://database.factgrid.de/entity/Q23277,Gante
+BETA geoid 2425,https://database.factgrid.de/entity/Q104338,Arras
+BETA geoid 2426,https://database.factgrid.de/entity/Q990135,Condado de Castilla
+BETA geoid 2428,https://database.factgrid.de/entity/Q23727,Etiopía
+BETA geoid 2430,https://database.factgrid.de/entity/Q468032,Líbano
+BETA geoid 2431,https://database.factgrid.de/entity/Q351242,"Navarrete, La Rioja"
+BETA geoid 2432,https://database.factgrid.de/entity/Q746486,Vizcondado de Canet
+BETA geoid 2442,https://database.factgrid.de/entity/Q80729,Burdeos
+BETA geoid 2445,https://database.factgrid.de/entity/Q360013,Sagres
+BETA geoid 2447,https://database.factgrid.de/entity/Q217802,Reading
+BETA geoid 2449,https://database.factgrid.de/entity/Q10305,Augsburg
+BETA geoid 2458,https://database.factgrid.de/entity/Q703730,Santes Creus
+BETA geoid 2463,https://database.factgrid.de/entity/Q139373,Villefranche sur Saône
+BETA geoid 2464,https://database.factgrid.de/entity/Q164427,Rhône
+BETA geoid 2467,https://database.factgrid.de/entity/Q91144,Salerno
+BETA geoid 2468,https://database.factgrid.de/entity/Q83123,Birmingham
+BETA geoid 2469,https://database.factgrid.de/entity/Q88154,Liverpool
+BETA geoid 2473,https://database.factgrid.de/entity/Q990150,Condado de Champagne
+BETA geoid 2476,https://database.factgrid.de/entity/Q352765,Puebla de Alcocer
+BETA geoid 2484,https://database.factgrid.de/entity/Q401671,Esparta
+BETA geoid 2485,https://database.factgrid.de/entity/Q235707,Madison
+BETA geoid 2486,https://database.factgrid.de/entity/Q540589,Wisconsin
+BETA geoid 2489,https://database.factgrid.de/entity/Q256356,República Checa
+BETA geoid 2494,https://database.factgrid.de/entity/Q356964,Villanueva del Río y Minas
+BETA geoid 2498,https://database.factgrid.de/entity/Q217804,Northampton
+BETA geoid 2499,https://database.factgrid.de/entity/Q990161,Condado de Cortina
+BETA geoid 2501,https://database.factgrid.de/entity/Q10417,Mainz
+BETA geoid 2503,https://database.factgrid.de/entity/Q357099,Villasbuenas de Gata
+BETA geoid 2510,https://database.factgrid.de/entity/Q82321,Angers
+BETA geoid 2512,https://database.factgrid.de/entity/Q23192,Schaffhausen
+BETA geoid 2513,https://database.factgrid.de/entity/Q882133,Ramsen
+BETA geoid 2515,https://database.factgrid.de/entity/Q348314,Garrovillas de Alconétar
+BETA geoid 2517,https://database.factgrid.de/entity/Q345514,Camarena
+BETA geoid 2518,https://database.factgrid.de/entity/Q130127,Romans-sur-Isère
+BETA geoid 2519,https://database.factgrid.de/entity/Q164375,Drôme
+BETA geoid 2520,https://database.factgrid.de/entity/Q138078,Valence
+BETA geoid 2521,https://database.factgrid.de/entity/Q359441,Óbidos
+BETA geoid 2526,https://database.factgrid.de/entity/Q347335,Alfar
+BETA geoid 2527,https://database.factgrid.de/entity/Q109889,Chantilly
+BETA geoid 2528,https://database.factgrid.de/entity/Q116140,Gouvieux
+BETA geoid 2529,https://database.factgrid.de/entity/Q199719,Broxbourne
+BETA geoid 2530,https://database.factgrid.de/entity/Q313864,Bogotá
+BETA geoid 2533,https://database.factgrid.de/entity/Q358153,Caldas da Rainha
+BETA geoid 2534,https://database.factgrid.de/entity/Q876327,Marquesado del Saltillo
+BETA geoid 2535,https://database.factgrid.de/entity/Q82930,Bergamo
+BETA geoid 2538,https://database.factgrid.de/entity/Q238019,Kalamazoo
+BETA geoid 2539,https://database.factgrid.de/entity/Q901315,Michigan
+BETA geoid 2546,https://database.factgrid.de/entity/Q313865,Colombia
+BETA geoid 2549,https://database.factgrid.de/entity/Q344994,Boadilla de Rioseco
+BETA geoid 2550,https://database.factgrid.de/entity/Q527543,Reino de Polonia
+BETA geoid 2551,https://database.factgrid.de/entity/Q347705,Estella-Lizarra
+BETA geoid 2552,https://database.factgrid.de/entity/Q77389,Cracovia
+BETA geoid 2555,https://database.factgrid.de/entity/Q235753,Portland
+BETA geoid 2558,https://database.factgrid.de/entity/Q10283,Erfurt
+BETA geoid 2559,https://database.factgrid.de/entity/Q93322,Weingarten
+BETA geoid 2560,https://database.factgrid.de/entity/Q10332,Darmstadt
+BETA geoid 2563,https://database.factgrid.de/entity/Q130006,Rochefort
+BETA geoid 2564,https://database.factgrid.de/entity/Q90268,Plymouth
+BETA geoid 2565,https://database.factgrid.de/entity/Q22581,Varsovia
+BETA geoid 2566,https://database.factgrid.de/entity/Q83745,Cambridge
+BETA geoid 2567,https://database.factgrid.de/entity/Q389301,Lugano
+BETA geoid 2569,https://database.factgrid.de/entity/Q388207,Kensington
+BETA geoid 2570,https://database.factgrid.de/entity/Q538431,Cagliari
+BETA geoid 2575,https://database.factgrid.de/entity/Q359760,Porto
+BETA geoid 2577,https://database.factgrid.de/entity/Q990208,[Burgos]
+BETA geoid 2578,https://database.factgrid.de/entity/Q94562,Edimburgo
+BETA geoid 2579,https://database.factgrid.de/entity/Q882097,Rheinau
+BETA geoid 2580,https://database.factgrid.de/entity/Q990223,[Toledo]
+BETA geoid 2581,https://database.factgrid.de/entity/Q990221,[Sevilla]
+BETA geoid 2582,https://database.factgrid.de/entity/Q990212,[Huete]
+BETA geoid 2583,https://database.factgrid.de/entity/Q990210,[Castilla]
+BETA geoid 2584,https://database.factgrid.de/entity/Q990220,[Segovia]
+BETA geoid 2585,https://database.factgrid.de/entity/Q990225,[Valencia]
+BETA geoid 2587,https://database.factgrid.de/entity/Q217806,Shrewsbury
+BETA geoid 2596,https://database.factgrid.de/entity/Q360153,Santiago do Cacém
+BETA geoid 2601,https://database.factgrid.de/entity/Q351819,Osera de Ebro
+BETA geoid 2604,https://database.factgrid.de/entity/Q352081,Paredes
+BETA geoid 2608,https://database.factgrid.de/entity/Q358339,Castelo Melhor
+BETA geoid 2609,https://database.factgrid.de/entity/Q360879,Vila Nova de Foz Côa
+BETA geoid 2611,https://database.factgrid.de/entity/Q81932,Utrecht
+BETA geoid 2612,https://database.factgrid.de/entity/Q88103,Lincoln
+BETA geoid 2613,https://database.factgrid.de/entity/Q10451,Regensburg
+BETA geoid 2614,https://database.factgrid.de/entity/Q82305,Ancona
+BETA geoid 2615,https://database.factgrid.de/entity/Q130008,Rochegude
+BETA geoid 2619,https://database.factgrid.de/entity/Q126352,Niza
+BETA geoid 2620,https://database.factgrid.de/entity/Q10400,Colonia
+BETA geoid 2621,https://database.factgrid.de/entity/Q92915,Vicenza
+BETA geoid 2625,https://database.factgrid.de/entity/Q539463,Bolivia
+BETA geoid 2639,https://database.factgrid.de/entity/Q92564,Torrelavega
+BETA geoid 2641,https://database.factgrid.de/entity/Q346173,Castrillo de Murcia
+BETA geoid 2645,https://database.factgrid.de/entity/Q348117,Fuente Obejuna
+BETA geoid 2647,https://database.factgrid.de/entity/Q346775,Cornado (Santiso)
+BETA geoid 2649,https://database.factgrid.de/entity/Q990216,[Salamanca]
+BETA geoid 2657,https://database.factgrid.de/entity/Q360478,Sintra
+BETA geoid 2659,https://database.factgrid.de/entity/Q356925,Villanueva de la Fuente
+BETA geoid 2666,https://database.factgrid.de/entity/Q343711,Pozuelo de Alarcón
+BETA geoid 2667,https://database.factgrid.de/entity/Q352767,Puebla de Arenoso
+BETA geoid 2677,https://database.factgrid.de/entity/Q138889,Vertus
+BETA geoid 2678,https://database.factgrid.de/entity/Q103902,Angoulême
+BETA geoid 2683,https://database.factgrid.de/entity/Q164354,Ardèche
+BETA geoid 2685,https://database.factgrid.de/entity/Q197129,Ashburnham
+BETA geoid 2687,https://database.factgrid.de/entity/Q197099,Arundel
+BETA geoid 2692,https://database.factgrid.de/entity/Q747383,Baronía de Entenza
+BETA geoid 2695,https://database.factgrid.de/entity/Q352833,Pueyo/Puiu
+BETA geoid 2697,https://database.factgrid.de/entity/Q90342,Potenza
+BETA geoid 2702,https://database.factgrid.de/entity/Q990149,Condado de Caltanissetta
+BETA geoid 2705,https://database.factgrid.de/entity/Q164496,Avranches
+BETA geoid 2709,https://database.factgrid.de/entity/Q344965,Biota
+BETA geoid 2710,https://database.factgrid.de/entity/Q349348,Cenia
+BETA geoid 2711,https://database.factgrid.de/entity/Q746570,Oristán
+BETA geoid 2713,https://database.factgrid.de/entity/Q352342,Petrés
+BETA geoid 2715,https://database.factgrid.de/entity/Q350694,Mogente
+BETA geoid 2720,https://database.factgrid.de/entity/Q202281,Dartmouth
+BETA geoid 2722,https://database.factgrid.de/entity/Q23273,La Haya
+BETA geoid 2723,https://database.factgrid.de/entity/Q990214,[Logroño]
+BETA geoid 2725,https://database.factgrid.de/entity/Q540336,Monopoli
+BETA geoid 2727,https://database.factgrid.de/entity/Q990227,[Valladolid]
+BETA geoid 2731,https://database.factgrid.de/entity/Q110034,Charny
+BETA geoid 2732,https://database.factgrid.de/entity/Q467589,Ponza
+BETA geoid 2735,https://database.factgrid.de/entity/Q540198,Petralia Sottana
+BETA geoid 2738,https://database.factgrid.de/entity/Q196636,Aldenham
+BETA geoid 2739,https://database.factgrid.de/entity/Q235726,New Haven
+BETA geoid 2740,https://database.factgrid.de/entity/Q901309,Connecticut
+BETA geoid 2743,https://database.factgrid.de/entity/Q90065,Parma
+BETA geoid 2747,https://database.factgrid.de/entity/Q10402,Copenhague
+BETA geoid 2758,https://database.factgrid.de/entity/Q10436,Núremberg
+BETA geoid 2759,https://database.factgrid.de/entity/Q990213,[Lisboa]
+BETA geoid 2763,https://database.factgrid.de/entity/Q83776,Catania
+BETA geoid 2764,https://database.factgrid.de/entity/Q99715,Lovaina
+BETA geoid 2766,https://database.factgrid.de/entity/Q140546,Malta
+BETA geoid 2769,https://database.factgrid.de/entity/Q90631,Reggio Calabria
+BETA geoid 2773,https://database.factgrid.de/entity/Q357879,Arronches
+BETA geoid 2777,https://database.factgrid.de/entity/Q103740,Amiens
+BETA geoid 2778,https://database.factgrid.de/entity/Q164433,Somme
+BETA geoid 2779,https://database.factgrid.de/entity/Q108934,Carpentras
+BETA geoid 2780,https://database.factgrid.de/entity/Q164440,Vaucluse
+BETA geoid 2785,https://database.factgrid.de/entity/Q901327,Rhode Island
+BETA geoid 2786,https://database.factgrid.de/entity/Q990167,[Alcalá de Henares]
+BETA geoid 2788,https://database.factgrid.de/entity/Q901313,Oregon
+BETA geoid 2789,https://database.factgrid.de/entity/Q990230,[Zaragoza]
+BETA geoid 2790,https://database.factgrid.de/entity/Q990211,[Granada]
+BETA geoid 2797,https://database.factgrid.de/entity/Q360035,Samodães
+BETA geoid 2799,https://database.factgrid.de/entity/Q359016,Lamego
+BETA geoid 2801,https://database.factgrid.de/entity/Q357907,Aveiro
+BETA geoid 2803,https://database.factgrid.de/entity/Q357408,Zamudio
+BETA geoid 2810,https://database.factgrid.de/entity/Q349655,Lazcano
+BETA geoid 2816,https://database.factgrid.de/entity/Q351769,Orreaga-Roncesvalles
+BETA geoid 2818,https://database.factgrid.de/entity/Q703804,Q703804
+BETA geoid 2820,https://database.factgrid.de/entity/Q349498,"Lamela, Guntín"
+BETA geoid 2833,https://database.factgrid.de/entity/Q352242,Peñaranda de Duero
+BETA geoid 2836,https://database.factgrid.de/entity/Q357704,Almada
+BETA geoid 2843,https://database.factgrid.de/entity/Q351654,Olmedilla de Alarcón
+BETA geoid 2860,https://database.factgrid.de/entity/Q348630,"Herbón, Padrón"
+BETA geoid 2864,https://database.factgrid.de/entity/Q164397,Indre-et-Loire (département)
+BETA geoid 2874,https://database.factgrid.de/entity/Q345622,Campotéjar
+BETA geoid 2882,https://database.factgrid.de/entity/Q990144,Condado de Devonshire
+BETA geoid 2887,https://database.factgrid.de/entity/Q984076,Condado de Arrochela
+BETA geoid 2890,https://database.factgrid.de/entity/Q346567,Ciria
+BETA geoid 2891,https://database.factgrid.de/entity/Q345082,Borobia
+BETA geoid 2892,https://database.factgrid.de/entity/Q356768,Villafuerte
+BETA geoid 2899,https://database.factgrid.de/entity/Q351575,Ocón
+BETA geoid 2900,https://database.factgrid.de/entity/Q84878,Fellheim
+BETA geoid 2901,https://database.factgrid.de/entity/Q89539,Novara
+BETA geoid 2903,https://database.factgrid.de/entity/Q349427,Labastida-Bastida
+BETA geoid 2904,https://database.factgrid.de/entity/Q355780,Trigueros del Valle
+BETA geoid 2905,https://database.factgrid.de/entity/Q448223,Montepulciano
+BETA geoid 2909,https://database.factgrid.de/entity/Q540543,Urbania
+BETA geoid 2914,https://database.factgrid.de/entity/Q345512,Camarasa
+BETA geoid 2916,https://database.factgrid.de/entity/Q518169,Creta
+BETA geoid 2918,https://database.factgrid.de/entity/Q356488,Vilallonga del Camp

@@ -1,0 +1,38 @@
+Unnamed: 0,GEOID,TYPE,MONIKER,INTERNET_ADDRESS,Unnamed: 5,FactGrid Qid,Factgrid Len,Wikidata Qid
+35.0,BETA geoid 1035,GEOGRAPHY*TYPE*CA,Cataluña (comunidad autónoma),Q5705,,https://database.factgrid.de/entity/Q636081,Catalonia,Q5705
+199.0,BETA geoid 1171,GEOGRAPHY*TYPE*C,Poitou (condado),Q2991374,,https://database.factgrid.de/entity/Q892250,County of Poitou,Q2991374
+211.0,BETA geoid 1177,GEOGRAPHY*TYPE*R,Berry (región),Q827169,,https://database.factgrid.de/entity/Q140561,Berry,Q827169
+211.0,BETA geoid 1177,GEOGRAPHY*TYPE*R,Berry (región),Q827169,,https://database.factgrid.de/entity/Q140561,Berry,Q827169
+211.0,BETA geoid 1177,GEOGRAPHY*TYPE*R,Berry (región),Q827169,,https://database.factgrid.de/entity/Q140561,Berry,Q827169
+265.0,BETA geoid 1224,GEOGRAPHY*TYPE*P,Asturias (provincia),Q95006,,https://database.factgrid.de/entity/Q780286,Oviedo Province,Q95006
+343.0,BETA geoid 1292,GEOGRAPHY*TYPE*L,las Indias Occidentales (patriarcado),Q616795,,https://database.factgrid.de/entity/Q780041,Patriarchate of the West Indies,Q616795
+343.0,BETA geoid 1292,GEOGRAPHY*TYPE*L,las Indias Occidentales (patriarcado),Q616795,,https://database.factgrid.de/entity/Q780041,Patriarchate of the West Indies,Q616795
+366.0,BETA geoid 1308,GEOGRAPHY*TYPE*C,San Clemente (condado),Q117193166,,https://database.factgrid.de/entity/Q876330,County of San Clemente,Q117193166
+442.0,BETA geoid 1370,GEOGRAPHY*TYPE*C,Campo de Alange (condado),Q5781434,,https://database.factgrid.de/entity/Q745610,County of Campo de Alange,Q5781434
+489.0,BETA geoid 1409,GEOGRAPHY*TYPE*L,Alexandria (patriarcado),Q1755700,,https://database.factgrid.de/entity/Q780042,Latin Patriarchate of Alexandria,Q1755700
+523.0,BETA geoid 1433,GEOGRAPHY*TYPE*C,Foix (condado),Q1481436,,https://database.factgrid.de/entity/Q747394,County of Foix,Q1481436
+681.0,BETA geoid 1568,GEOGRAPHY*TYPE*E,Imperio romano (imperio),Q2277,,https://database.factgrid.de/entity/Q780045,Roman empire,Q2277
+681.0,BETA geoid 1568,GEOGRAPHY*TYPE*E,Imperio romano (imperio),Q2277,,https://database.factgrid.de/entity/Q780045,Roman empire,Q2277
+706.0,BETA geoid 1590,GEOGRAPHY*TYPE*T,Oliva,Q918586,,https://database.factgrid.de/entity/Q351636,Oliva,Q918586
+750.0,BETA geoid 1624,GEOGRAPHY*TYPE*C,Flandres (condado),Q157070,,https://database.factgrid.de/entity/Q219565,County of Flanders,Q157070
+769.0,BETA geoid 1639,GEOGRAPHY*TYPE*U,Saxe-Coburg-Gotha (ducado),Q3462133,,https://database.factgrid.de/entity/Q147808,Duchy of Saxe-Coburg and Gotha,Q3462133
+797.0,BETA geoid 1665,GEOGRAPHY*TYPE*P,Alacant (provincia),Q54936,,https://database.factgrid.de/entity/Q343627,Alicante Province,Q54936
+801.0,BETA geoid 1668,GEOGRAPHY*TYPE*P,Castelló (provincia),Q54942,,https://database.factgrid.de/entity/Q346078,Castellón  Province,Q54942
+872.0,BETA geoid 1734,GEOGRAPHY*TYPE*C,Osona (condado),Q1541779,,https://database.factgrid.de/entity/Q892121,County of Osona,Q1541779
+888.0,BETA geoid 1746,GEOGRAPHY*TYPE*C,Ampurias (condado),Q1541699,,https://database.factgrid.de/entity/Q743446,County of Empúries,Q1541699
+952.0,BETA geoid 1801,GEOGRAPHY*TYPE*U,Coislin (ducado),Q3040826,,https://database.factgrid.de/entity/Q747482,Duchy of Coislin,Q3040826
+973.0,BETA geoid 1821,GEOGRAPHY*TYPE*C,Montenegro (condado),Q24942389,,https://database.factgrid.de/entity/Q746427,County of Montenegro,Q24942389
+1157.0,BETA geoid 2001,GEOGRAPHY*TYPE*C,Cid (condado),Q5671470,,https://database.factgrid.de/entity/Q780509,County of el Cid,Q5671470
+1310.0,BETA geoid 2144,GEOGRAPHY*TYPE*CA,Cantabria (comunidad autónoma),Q3946,,https://database.factgrid.de/entity/Q345736,Cantabria Province,Q3946
+1346.0,BETA geoid 2179,GEOGRAPHY*TYPE*E,Osmanli Imparatorlugu (imperio),Q12560,,https://database.factgrid.de/entity/Q534912,Ottoman Empire,Q12560
+1346.0,BETA geoid 2179,GEOGRAPHY*TYPE*E,Osmanli Imparatorlugu (imperio),Q12560,,https://database.factgrid.de/entity/Q534912,Ottoman Empire,Q12560
+1366.0,BETA geoid 2196,GEOGRAPHY*TYPE*E,Sacro Imperio Romano (imperio),Q2277,,https://database.factgrid.de/entity/Q780045,Roman empire,Q2277
+1366.0,BETA geoid 2196,GEOGRAPHY*TYPE*E,Sacro Imperio Romano (imperio),Q2277,,https://database.factgrid.de/entity/Q780045,Roman empire,Q2277
+1592.0,BETA geoid 2390,GEOGRAPHY*TYPE*U,Bavaria (ducado),Q47261,,https://database.factgrid.de/entity/Q550601,Duchy of Bavaria,Q47261
+1621.0,BETA geoid 2413,GEOGRAPHY*TYPE*C,Middlesex (condado),Q19186,,https://database.factgrid.de/entity/Q217727,Middlesex,Q19186
+1648.0,BETA geoid 2438,GEOGRAPHY*TYPE*C,Xiquena (condado),Q5782274,,https://database.factgrid.de/entity/Q892253,County of Xiquena,Q5782274
+2075.0,BETA geoid 2813,GEOGRAPHY*TYPE*CO,Saint-Jean-Pied-de-Port (comuna),Q270294,,https://database.factgrid.de/entity/Q132482,Saint-Jean-Pied-de-Port,Q270294
+2081.0,BETA geoid 2817,GEOGRAPHY*TYPE*CO,Bidache (comuna),Q197008,,https://database.factgrid.de/entity/Q106685,Bidache,Q197008
+2105.0,BETA geoid 2835,GEOGRAPHY*TYPE*CA,Principado de Asturias (comunidad autónoma),Q24004403,,https://database.factgrid.de/entity/Q21938,Principality of Asturias,Q24004403
+2105.0,BETA geoid 2835,GEOGRAPHY*TYPE*CA,Principado de Asturias (comunidad autónoma),Q24004403,,https://database.factgrid.de/entity/Q21938,Principality of Asturias,Q24004403
+2150.0,BETA geoid 2878,GEOGRAPHY*TYPE*CA,Comunidad Foral de Navarra (comunidad autónoma),Q4018,,https://database.factgrid.de/entity/Q351233,Navarre,Q4018
