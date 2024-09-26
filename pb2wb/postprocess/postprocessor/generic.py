@@ -8,6 +8,7 @@ from common.settings import P799_OK_VALUES
 PATTERN_STATEMENT = r'^Q(\d*)\tP(\d*)\t(.*)$'
 PATTERN_DATE = r'\+\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/\d{1,2}'
 
+
 class GenericPostprocessor:
   SPANISH_START_GREGORIAN = date(1582, 10, 15)
 
@@ -43,8 +44,8 @@ class GenericPostprocessor:
       with open(processed_file, 'w') as output:        
           for line in input:
               if not self.check_empty_p799(line):
-                if force_new_statements:
-                  line = self.update_command(line)
+                #if force_new_statements:
+                line = self.update_command(line)
                 line = self.julian_dates(line)
                 output.write(line)
 
