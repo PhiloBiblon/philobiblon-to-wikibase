@@ -44,8 +44,8 @@ class GenericPostprocessor:
       with open(processed_file, 'w') as output:        
           for line in input:
               if not self.check_empty_p799(line):
-                #if force_new_statements:
-                line = self.update_command(line)
+                if force_new_statements:
+                  line = self.update_command(line)
                 line = self.julian_dates(line)
                 output.write(line)
 
