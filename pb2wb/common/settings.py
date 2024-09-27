@@ -106,9 +106,9 @@ BASE_IMPORT_OBJECTS = {
     },
     'PBCOG':
       {'BIB':{
-        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4', 'p17': 'Q5', 'P700': 'Q6'},
-        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q51436'},
-        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q51437'}
+        'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4', 'p17': 'Q5', 'p700': 'Q6'},
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q51436', 'p17': 'Q5', 'p700': ''},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q51437', 'p17': 'Q5', 'p700': ''}
         },
       'MEDIAWIKI_API_URL': "https://philobiblon.cog.berkeley.edu/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://philobiblon.cog.berkeley.edu/query/bigdata/namespace/wdq/sparql",
@@ -145,8 +145,8 @@ BASE_IMPORT_OBJECTS = {
     'FACTGRID':
       {'BIB':{
         'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q254471', 'p17': 'Q425065', 'p700': 'Q447226'},
-        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810'},
-        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809'}
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810', 'p17': '', 'p700': ''},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809', 'p17': '', 'p700': ''}
       },
       'MEDIAWIKI_API_URL': "https://database.factgrid.de/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://database.factgrid.de/sparql",
