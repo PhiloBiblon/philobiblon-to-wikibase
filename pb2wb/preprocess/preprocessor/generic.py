@@ -284,12 +284,16 @@ class GenericPreprocessor:
     # Merge the original DataFrame with the mapping DataFrame
     merged_df = pd.merge(df, mapping, left_on=from_column_name, right_on=mapping_from_column, how='left')
 
+    def insert_default (row):
+        if pd.isna(row[mapping_to_column]) and (pd.isna(row[from_column_name]) or row[from_column_name] == ''):
+            return default_value
+        elif pd.isna(row[mapping_to_column]) and not (pd.isna(row[from_column_name]) or row[from_column_name] == ''):
+            return no_match_value
+        else:
+            return row[mapping_to_column]
+
     # Use default_value if 'from_column_name' is empty (including empty strings) and no match is found in mapping
-    merged_df[new_column_name] = merged_df.apply(lambda row: default_value
-    if pd.isna(row[mapping_to_column]) and (pd.isna(row[from_column_name]) or row[from_column_name] == '')
-    else no_match_value
-    if pd.isna(row[mapping_to_column]) and not (pd.isna(row[from_column_name]) or row[from_column_name] == '')
-    else row[mapping_to_column], axis=1)
+    merged_df[new_column_name] = merged_df.apply(insert_default, axis=1)
 
     # Drop unnecessary columns from the merged DataFrame
     merged_df = merged_df.drop([mapping_from_column, mapping_to_column], axis=1)
@@ -304,7 +308,7 @@ class GenericPreprocessor:
     df = self.reconcile_by_lookup(df, fields, no_match_value=DATACLIP_RECONCILIATION_ERROR)
     return df
 
-  def reconcile_by_lookup(self, df, fields, no_match_value):
+  def reconcile_by_lookup(self, df, fields, no_match_value, first_field_is_primary=False):
     if not self.qnumber_lookup_file:
       return df
     lookup_df = pd.read_csv(self.qnumber_lookup_file, dtype=str, keep_default_na=False)
