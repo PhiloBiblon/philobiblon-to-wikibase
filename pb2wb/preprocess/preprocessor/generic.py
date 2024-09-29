@@ -27,6 +27,7 @@ class GenericPreprocessor:
       if not os.path.isfile(qnumber_lookup_file):
         raise Exception(f'qnumber_lookup_file not found: {qnumber_lookup_file}')
     self.qnumber_lookup_file = qnumber_lookup_file
+    self.lookup_error_columns = []
 
     self.processed_dir = os.path.join(PRE_PROCESSED_DIR, self.top_level_bib.value)
     # validate that the processed dir exists
@@ -277,7 +278,8 @@ class GenericPreprocessor:
     return df
 
   def add_new_column_from_mapping(self, df, from_column_name, mapping_df, mapping_from_column, mapping_to_column,
-                                  new_column_name, default_value="", no_match_value=""):
+                                  new_column_name, default_value="", no_match_value="",
+                                  error_if_missing=True):
     # Create a mapping DataFrame
     mapping = mapping_df[[mapping_from_column, mapping_to_column]].copy()
 
@@ -295,20 +297,32 @@ class GenericPreprocessor:
     # Use default_value if 'from_column_name' is empty (including empty strings) and no match is found in mapping
     merged_df[new_column_name] = merged_df.apply(insert_default, axis=1)
 
+    if error_if_missing:
+      if no_match_value in merged_df[new_column_name].values:
+        self.lookup_error_columns.append(from_column_name)
+
     # Drop unnecessary columns from the merged DataFrame
     merged_df = merged_df.drop([mapping_from_column, mapping_to_column], axis=1)
 
     return merged_df
 
   def reconcile_base_objects_by_lookup(self, df, fields):
+    self.lookup_error_columns = []
     df = self.reconcile_by_lookup(df, fields, no_match_value=BASE_OBJECT_RECONCILIATION_ERROR)
+    if len(self.lookup_error_columns) > 0:
+      if fields[0] in self.lookup_error_columns:
+        print(f'\033[31mERROR: primary key lookup errors in {fields[0]}\033[0m')
+      print(f'base object lookup errors: {self.lookup_error_columns}')
     return df
 
   def reconcile_dataclips_by_lookup(self, df, fields):
+    self.lookup_error_columns = []
     df = self.reconcile_by_lookup(df, fields, no_match_value=DATACLIP_RECONCILIATION_ERROR)
+    if len(self.lookup_error_columns) > 0:
+      print(f'dataclip lookup errors: {self.lookup_error_columns}')
     return df
 
-  def reconcile_by_lookup(self, df, fields, no_match_value, first_field_is_primary=False):
+  def reconcile_by_lookup(self, df, fields, no_match_value):
     if not self.qnumber_lookup_file:
       return df
     lookup_df = pd.read_csv(self.qnumber_lookup_file, dtype=str, keep_default_na=False)
