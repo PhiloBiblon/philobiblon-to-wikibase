@@ -190,9 +190,26 @@ TBD
 * From pb2wd path, open `postprocess.ipynb` in jupyter.  Adjust tablenames to be processed in section 3 of playbook if needed.
 * Execute playbook.  Processed files will be present in ../data/processed/post/BETA/ directory path.
 
-## Run the Postprocessor
+## Run the Postprocessor (Colab Method)
+1. Download OR project as Quickstatment File
+2. Rename downloaded file to match format {bibliography}_{table}.qs
+3. Upload to OR folder in Google Drive.  Example for BETA:  [Open Refine BETA](https://drive.google.com/drive/folders/115pNT9ue480HAr996XbGRwWCLHFJK_V_)
+4. Open post process notebook in Colab: [Post Processing](https://colab.research.google.com/drive/1rRDPZ_Ui2SLXC-FovB4criV5vxhtS0Ka)
+5. Edit table(s) to be post processed and bibligraphy
+6. Run All to execute post processing, post processed files will be placed in the Colab Post processed folder:  Example for BETA: [PP Colab BETA](https://colab.research.google.com/drive/1rRDPZ_Ui2SLXC-FovB4criV5vxhtS0Ka)
+   <img width="1561" alt="image" src="https://github.com/user-attachments/assets/7b9605aa-481a-4381-a97d-e3259cb73d42">
 
-## Import QS files to Wikibase using QuickStatements
+## Import QS files to Wikibase using QuickStatements (Colab Method)
+1. Open Colab File Splitter Notebook to chunk post processed files from previous step.  [Splitter](https://colab.research.google.com/drive/1G6XCWvbO6iuDbOosT8D_YZ2jWx8F77Lv)
+2. Define table and bibliography in Notebook to be split and 'Run All'.  Split Files get placed here in BETA: [Spit Files](https://drive.google.com/drive/folders/187KTNwJ2LZXf5d8WAFO1qnP6g8Yqderw)
+3. After files are split, open the [Post to Quickstatements Notebook](https://colab.research.google.com/drive/16i2zSzbfnzvZ7WCJG5p0mGhleSC_6MKt#scrollTo=NaT5r5mnxxSP)
+  <img width="1295" alt="image" src="https://github.com/user-attachments/assets/f7ea93da-033a-45ef-bb51-0c7f90e166c3">
+4. Edit table and bibliography as needed and execute with 'Run All'.
+5. After Launching notebook, verify state of running batch.
+   <img width="1556" alt="image" src="https://github.com/user-attachments/assets/6c358954-748b-48f5-85f0-e33ce9fceda6">
+
+
+## Import QS files to Wikibase using QuickStatements (Old Method)
 
 1. Open [quickstatements link](https://philobiblon.cog.berkeley.edu/qs/#/)
 2. From page, click on new batch button
@@ -200,7 +217,6 @@ TBD
 4. Paste copied contents into batch window on quickstatements page.
 5. Click import v1 commands button and review on following page.  If updates are accurate, proceed to click the `run` button to update.
 6. Spot validate updated Q items in https://philobiblon.cog.berkeley.edu
-
 
 ## Import the Notes
 
