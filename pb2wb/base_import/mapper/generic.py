@@ -70,7 +70,8 @@ class GenericMapper:
               traceback.print_exc(file=sys.stdout)
               time.sleep(1)
             else:
-              print(f'WARN: {repr(e)}, write item failed (PBID={pbid}), trying again (pending attempts {num_attempts})')
+              print(f'WARN: {repr(e)}, write item failed (PBID={pbid}), trying again in 60 seconds (pending attempts {num_attempts})')
+              time.sleep(60)  # Wait for 60 seconds before retrying
 
   def migrate(self, file):
     self.read_csv(file)

@@ -47,7 +47,7 @@ for file in files:
     # Search qnum value that represents the BASE_OBJECT_RECONCILIATION_ERROR
     search_string = BASE_IMPORT_OBJECTS['PBCOG']['BASE_OBJECT_RECONCILIATION_ERROR']
     print(f'Filtering against string: {search_string}')
-    filtered_df = pre_df[pre_df.eq(search_string).any(axis=1)]
+    filtered_df = pre_df[pre_df.iloc[:, 1].eq(search_string)]
 
     # Select unique id values from the filtered dataframe
     updated_df = filtered_df.loc[:, [first_column_name]].drop_duplicates()
