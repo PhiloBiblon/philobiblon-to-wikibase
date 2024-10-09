@@ -56,7 +56,7 @@ class MonikerMapper(GenericMapper):
 
     if label:
       item.labels.set(language='en', value=label) # English label should be added for all items
-      item.aliases.set(language='en', values=pbid)
+      # item.aliases.set(language='en', values=pbid)
       item.labels.set(language=LANGUAGE, value=label) # Language specific label for national language
       item.aliases.set(language=LANGUAGE, values=pbid)
       item.claims.add(String(value=pbid, prop_nr=PROPERTY_PHILOBIBLON_ID))

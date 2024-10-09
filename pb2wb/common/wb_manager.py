@@ -52,20 +52,17 @@ class WBManager():
   # create wikibase item
   def create_wb_q(self, label, lang='en'):
     try:
+      print('sleeping between creations')
       item = self.wbi.item.new()
       item.labels.set(language=lang, value=label)
       item.write()
       return item
-    except MWApiError as error:
-      # Handle the rate limit error
-      if "Como medida contra los abusos" in str(error):
-        print(f"Rate limit exceeded. Error message: {error}")
-        time.sleep(60)  # Wait for 60 seconds before retrying
-        item.write()  # Retry the write operation
-        return item
-      else:
-        # Handle any other type of MWApiErrors
-        print(f"Unexpected error: {error}")
+    except Exception as error:
+      # Errors are usually due to rate limiting. Retry the operation after waiting for a minute
+      print(f"Exception occurred. Error message: {error}")
+      time.sleep(60)  # Wait for 60 seconds before retrying
+      item.write()  # Retry the write operation
+      return item
 
   # get wikibase item
   def get_wb_q(self, q_number):
