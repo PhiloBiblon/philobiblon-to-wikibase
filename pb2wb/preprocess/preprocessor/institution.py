@@ -57,7 +57,7 @@ class InstitutionPreprocessor(GenericPreprocessor):
 
     # Description
     df_ins['DESC_EN'] = df_ins.apply (lambda row: self.get_desc(row, 'en'), axis=1)
-    df_ins['DESC_ES'] = df_ins.apply (lambda row: self.get_desc(row, 'es'), axis=1)
+    df_ins['DESC_ES'] = df_ins.apply (lambda row: self.get_desc(row, self.top_level_bib.language_code()), axis=1)
 
     # Name edit box
     df_ins['NAME_LANG'] = df_ins.apply (lambda row: self.get_name_lang(row), axis=1)

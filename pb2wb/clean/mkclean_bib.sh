@@ -7,6 +7,18 @@ cd $pbbase/data
 
 BIB=$1
 
+case $BIB in
+    BETA)
+        lang=es
+        ;;
+    BITECA)
+        lang=ca
+        ;;
+    BITAGAP)
+        lang=pt
+        ;;
+esac
+
 BIB=`echo $BIB | tr '[a-z]' '[A-Z]'`
 
 BIB_LOWER=`echo $BIB | tr '[A-Z]' '[a-z]'`
@@ -55,7 +67,7 @@ do
     cat $pbbase/data/clean/$BIB/raw_links/$f | bash $pbbase/pbcsv/utf8check.sh
     cat $pbbase/data/clean/$BIB/raw_links/$f | bash $pbbase/pbcsv/utf8clean.sh | \
         csvformat -M '@' | tr '\n@' ' \n' | sed 1d | \
-        (echo "code,class,status,census,es,en,unk1,unk2"; cat -) > $pbbase/data/clean/$BIB/dataclips/$f
+        (echo "code,class,status,census,${lang},en,unk1,unk2"; cat -) > $pbbase/data/clean/$BIB/dataclips/$f
 done
 
 # Now we can throw away the raw_links directory
