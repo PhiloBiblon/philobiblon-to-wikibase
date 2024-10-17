@@ -3,6 +3,7 @@ from paramiko import SSHClient
 from common.settings import BASE_IMPORT_OBJECTS
 import datetime
 import argparse
+import getpass
 
 # Parse command line arguments for bibliography, table, and instance
 bibliographies = ['beta', 'bitagap', 'biteca']
@@ -19,14 +20,18 @@ instance = args.instance.upper()
 
 date = datetime.datetime.now().strftime('%Y-%m-%d')
 
+# Get the current username
+username = getpass.getuser()
+print(f"Current username: {username}")
+
 # Define the local file path and the remote server details
 file_name = f'{bib}_{table}'
 local_file_path = f'../data/processed/pre/{bib}/{file_name}.csv'
 remote_server = BASE_IMPORT_OBJECTS[instance]['SERVER']
-print(remote_server)
-remote_username = 'pi'
+print(f'using remote server: {remote_server}')
+remote_username = BASE_IMPORT_OBJECTS[instance]['SSH_USER']
 remote_command = f'openrefine-client --projectName={file_name}.{date} --create jason/{file_name}.csv'
-private_key_path = '/Users/jhatfield/.ssh/id_rsa'
+private_key_path = f'/Users/{username}/.ssh/id_rsa'
 
 # Create an SSH client
 ssh = SSHClient()

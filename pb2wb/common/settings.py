@@ -110,6 +110,8 @@ BASE_IMPORT_OBJECTS = {
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q51436', 'p17': 'Q5', 'p700': 'Q6'},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q51437', 'p17': 'Q5', 'p700': 'Q6'}
         },
+      'SSH_USER': 'pi',
+      'SERVER': 'philobiblon.cog.berkeley.edu',
       'MEDIAWIKI_API_URL': "https://philobiblon.cog.berkeley.edu/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://philobiblon.cog.berkeley.edu/query/bigdata/namespace/wdq/sparql",
       'WB_USER': 'changeme',
