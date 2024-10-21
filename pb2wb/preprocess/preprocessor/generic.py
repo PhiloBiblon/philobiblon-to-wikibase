@@ -9,15 +9,17 @@ import pandas as pd
 
 from common.enums import Bibliography
 from common.data_dictionary import DATADICT
-from common.settings import (CLEAN_DIR, PRE_PROCESSED_DIR, BASE_OBJECT_RECONCILIATION_ERROR,
-                             DATACLIP_RECONCILIATION_ERROR)
+from common.settings import (CLEAN_DIR, PRE_PROCESSED_DIR, BASE_IMPORT_OBJECTS)
 
 
 class GenericPreprocessor:
 
-  def __init__(self, top_level_bib=Bibliography.BETA, qnumber_lookup_file=None):
+  def __init__(self, top_level_bib=Bibliography.BETA, qnumber_lookup_file=None, instance=None):
     self.top_level_bib = top_level_bib
     self.TABLE = None
+    print(BASE_IMPORT_OBJECTS[instance]['DATACLIP_RECONCILIATION_ERROR'])
+    self.DATACLIP_RECONCILIATION_ERROR = BASE_IMPORT_OBJECTS[instance]['DATACLIP_RECONCILIATION_ERROR']
+    self.BASE_OBJECT_RECONCILIATION_ERROR = BASE_IMPORT_OBJECTS[instance]['BASE_OBJECT_RECONCILIATION_ERROR']
 
     if qnumber_lookup_file:
       # if qnumber file does not begin with a slash or dot
@@ -308,7 +310,7 @@ class GenericPreprocessor:
 
   def reconcile_base_objects_by_lookup(self, df, fields):
     self.lookup_error_columns = []
-    df = self.reconcile_by_lookup(df, fields, no_match_value=BASE_OBJECT_RECONCILIATION_ERROR)
+    df = self.reconcile_by_lookup(df, fields, no_match_value=self.BASE_OBJECT_RECONCILIATION_ERROR)
     if len(self.lookup_error_columns) > 0:
       if fields[0] in self.lookup_error_columns:
         print(f'\033[31mERROR: primary key lookup errors in {fields[0]}\033[0m')
@@ -317,7 +319,7 @@ class GenericPreprocessor:
 
   def reconcile_dataclips_by_lookup(self, df, fields):
     self.lookup_error_columns = []
-    df = self.reconcile_by_lookup(df, fields, no_match_value=DATACLIP_RECONCILIATION_ERROR)
+    df = self.reconcile_by_lookup(df, fields, no_match_value=self.DATACLIP_RECONCILIATION_ERROR)
     if len(self.lookup_error_columns) > 0:
       print(f'dataclip lookup errors: {self.lookup_error_columns}')
     return df

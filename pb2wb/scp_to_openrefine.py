@@ -25,7 +25,7 @@ username = getpass.getuser()
 print(f"Current username: {username}")
 
 # Define the local file path and the remote server details
-file_name = f'{bib}_{table}'
+file_name = f'{instance.lower()}_{bib}_{table}'
 local_file_path = f'../data/processed/pre/{bib}/{file_name}.csv'
 remote_server = BASE_IMPORT_OBJECTS[instance]['SERVER']
 print(f'using remote server: {remote_server}')
