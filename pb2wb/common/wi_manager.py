@@ -1,6 +1,14 @@
 import os
 from pathlib import Path
-from common.settings import MEDIAWIKI_API_URL, WB_USER, WB_PASSWORD
+from common.settings import BASE_IMPORT_OBJECTS, TEMP_DICT
+
+wb = TEMP_DICT['TEMP_WB']
+MEDIAWIKI_API_URL = BASE_IMPORT_OBJECTS[f'{wb}']['MEDIAWIKI_API_URL']
+WB_USER = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
+print(f'Using user: {WB_USER}')
+print(f'Using API: {MEDIAWIKI_API_URL}')
+print(f'Using instance: {wb}')
+WB_PASSWORD = BASE_IMPORT_OBJECTS[f'{wb}']['WB_PASSWORD']
 
 username_parts = WB_USER.split('@')
 
@@ -14,7 +22,7 @@ password_file = 'user-password.py'
 family_files['{FAMILY_NAME}'] = '{MEDIAWIKI_API_URL}'
 """
 
-USER_PASSWORD_TEMPLATE = f"('{username_parts[0]}', '{username_parts[1]}@{WB_PASSWORD}')"
+USER_PASSWORD_TEMPLATE = f"('{username_parts[0]}', '{WB_PASSWORD}')"
 
 PYWIKIBOT_DIR = './common/wi-conf'
 

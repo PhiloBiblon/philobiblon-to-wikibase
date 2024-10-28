@@ -10,30 +10,30 @@ from common.wb_manager import WBManager, PROPERTY_NOTES
 def get_full_input_path(file):
   return os.path.join(CLEAN_DIR, file)
 
-def add_notes(table):
+def add_notes(table, bib):
   print('Preparing wikibase connection ...')
   wb_manager = WBManager()
-
+  print(f'Processing notes for {bib}')
   if table is None or table is Table.ANALYTIC:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_analytic.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_analytic.csv'), wb_manager)
   if table is None or table is Table.BIBLIOGRAPHY:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_bibliography.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_bibliography.csv'), wb_manager)
   if table is None or table is Table.BIOGRAPHY:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_biography.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_biography.csv'), wb_manager)
   if table is None or table is Table.COPIES:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_copies.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_copies.csv'), wb_manager)
   if table is None or table is Table.GEOGRAPHY:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_geography.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_geography.csv'), wb_manager)
   if table is None or table is Table.INSTITUTIONS:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_institutions.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_institutions.csv'), wb_manager)
   if table is None or table is Table.LIBRARY:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_library.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_library.csv'), wb_manager)
   if table is None or table is Table.MS_ED:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_ms_ed.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_ms_ed.csv'), wb_manager)
   if table is None or table is Table.SUBJECT:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_subject.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_subject.csv'), wb_manager)
   if table is None or table is Table.UNIFORM_TITLE:
-    add_notes_to_talk_page(get_full_input_path('BETA/csvs/beta_uniform_title.csv'), wb_manager)
+    add_notes_to_talk_page(get_full_input_path(f'{bib}/csvs/{bib.lower()}_uniform_title.csv'), wb_manager)
 
 def add_notes_to_talk_page(filepath, wb_manager):
   print(f'INFO: Processing {filepath} ..')
