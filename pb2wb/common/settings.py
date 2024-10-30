@@ -93,7 +93,7 @@ BASE_IMPORT_OBJECTS = {
       'SPARQL_PREFIX': """
         PREFIX wd:<https://database.factgrid.de/entity/>
         PREFIX wdt:<https://database.factgrid.de/prop/direct/>""",
-      'BASE_OBJECT_RECONCILIATION_ERROR': 'Q518693',
+      'BASE_OBJECT_RECONCILIATION_ERROR': 'Q425065',
       'DATACLIP_RECONCILIATION_ERROR': 'Q518693',
       'P799_OK_VALUES': {
         'PHILOBILON_RECORD_CREATED': 'Q447227'
