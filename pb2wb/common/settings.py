@@ -84,6 +84,8 @@ BASE_IMPORT_OBJECTS = {
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810', 'p17': '', 'p700': ''},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809', 'p17': '', 'p700': ''}
       },
+      'SSH_USER': 'pi',
+      'SERVER': 'philobiblon.cog.berkeley.edu',
       'MEDIAWIKI_API_URL': "https://database.factgrid.de/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://database.factgrid.de/sparql",
       'WB_USER': 'changeme',
@@ -91,8 +93,8 @@ BASE_IMPORT_OBJECTS = {
       'SPARQL_PREFIX': """
         PREFIX wd:<https://database.factgrid.de/entity/>
         PREFIX wdt:<https://database.factgrid.de/prop/direct/>""",
-      'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
-      'DATACLIP_RECONCILIATION_ERROR': 'changeme',
+      'BASE_OBJECT_RECONCILIATION_ERROR': 'Q518693',
+      'DATACLIP_RECONCILIATION_ERROR': 'Q518693',
       'P799_OK_VALUES': {
         'PHILOBILON_RECORD_CREATED': 'Q447227'
       }

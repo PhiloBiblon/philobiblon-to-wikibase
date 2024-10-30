@@ -30,6 +30,7 @@ class GenericPreprocessor:
         raise Exception(f'qnumber_lookup_file not found: {qnumber_lookup_file}')
     self.qnumber_lookup_file = qnumber_lookup_file
     self.lookup_error_columns = []
+    self.instance = instance
 
     self.processed_dir = os.path.join(PRE_PROCESSED_DIR, self.top_level_bib.value)
     # validate that the processed dir exists
@@ -335,6 +336,8 @@ class GenericPreprocessor:
     return df
 
   def write_result_csv(self, df, file):
+    print(self.processed_dir)
+    file = os.path.dirname(file) + '/' + self.instance.lower() + '_' + file.split('/')[-1]
     output_csv = os.path.join(self.processed_dir, os.path.basename(file))
     print(f'{datetime.now()} INFO: Output csv: {output_csv}')
     df.to_csv(output_csv, index=False, quoting=csv.QUOTE_ALL)
