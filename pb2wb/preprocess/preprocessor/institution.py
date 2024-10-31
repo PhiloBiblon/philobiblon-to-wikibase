@@ -24,8 +24,8 @@ class InstitutionPreprocessor(GenericPreprocessor):
 
   TABLE = Table.INSTITUTIONS
 
-  def __init__(self, top_level_bib=None, qnumber_lookup_file=None) -> None:
-    super().__init__(top_level_bib, qnumber_lookup_file)
+  def __init__(self, top_level_bib=None, qnumber_lookup_file=None, instance=None) -> None:
+    super().__init__(top_level_bib, qnumber_lookup_file, instance)
 
   def get_name_lang(self, row):
     name_class = row['NAME_CLASS']

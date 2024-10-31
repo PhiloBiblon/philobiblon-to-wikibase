@@ -127,9 +127,13 @@ A lookup table is a mapping that gives the q numbers for all objects created in 
 Lookup table creation is not yet completely automated. Follow these steps:
 1. Run the lookup query found in the [Sparql Bestiary](https://docs.google.com/spreadsheets/d/1x0rNHCs61eRg86ZW4DmD8eBjSfUjyzh1F-6UpOW2hJA/edit#gid=0). Note that the query is slightly different for different wikibases.
 2. Download the result as a csv. Suppose the downloaded file is `/Users/max/Downloads/query.csv`
-3. Clean the result and place it in the correct place. For BETA, this is accomplished by this command:
+3. Clean the result and place it in the correct place based on bibliography and instance (Factgrid and PB.cog).  BETA examples with these commands:
 ```
-cat /Users/max/Downloads/query.csv | sed 's@https://philobiblon.cog.berkeley.edu/entity/@@' > ../data/clean/BETA/lookup.csv
+cat /Users/max/Downloads/query.csv | sed 's@https://philobiblon.cog.berkeley.edu/entity/@@' > ../data/clean/BETA/lookup_pbcog.csv
+```
+or
+```
+cat /Users/max/Downloads/query.csv | sed 's@https://database.factgrid.de/entity/@@' > ../data/clean/BETA/lookup_factgrid.csv
 ```
 
 ## Preprocess the clean data
