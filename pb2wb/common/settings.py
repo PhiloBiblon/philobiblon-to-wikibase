@@ -20,8 +20,11 @@ BASE_IMPORT_OBJECTS = {
       'SPARQL_PREFIX': None,
       'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
       'DATACLIP_RECONCILIATION_ERROR': 'changeme',
-      'P799_OK_VALUES': {} #changeme
-    },
+      'P799_OK_VALUES': {}, #changeme
+      'MULTILANG_LENGTH_LIMIT': 0, #changeme
+      'MONOLINGUALTEXT_LENGTH_LIMIT': 400, #changeme
+      'STRING_LENGTH_LIMIT': 1500 #changeme
+      },
     'PBSANDBOX':
       {'BIB':{
         'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4'},
@@ -37,8 +40,11 @@ BASE_IMPORT_OBJECTS = {
         PREFIX wdt:<https://pbsandbox.wikibase.cloud/prop/direct/>""",
       'BASE_OBJECT_RECONCILIATION_ERROR': 'changeme',
       'DATACLIP_RECONCILIATION_ERROR': 'changeme',
-      'P799_OK_VALUES': {} #changeme
-    },
+      'P799_OK_VALUES': {}, #changeme
+      'MULTILANG_LENGTH_LIMIT': 250, #changeme
+      'MONOLINGUALTEXT_LENGTH_LIMIT': 400, #changeme
+      'STRING_LENGTH_LIMIT': 1500 #changeme
+      },
     'PBCOG':
       {'BIB':{
         'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q4', 'p17': 'Q5', 'p700': 'Q6'},
@@ -77,8 +83,11 @@ BASE_IMPORT_OBJECTS = {
         'MS_ED*STATUS*1I': 'Q50710',
         'MS_ED*STATUS*2C': 'Q50711',
         'MS_ED*STATUS*2I': 'Q50712'
-      }
-    },
+      },
+      'MULTILANG_LENGTH_LIMIT': 250,
+      'MONOLINGUALTEXT_LENGTH_LIMIT': 400,
+      'STRING_LENGTH_LIMIT': 1500
+      },
     'FACTGRID':
       {'BIB':{
         'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q254471', 'p17': 'Q425065', 'p700': 'Q447226'},
@@ -98,7 +107,10 @@ BASE_IMPORT_OBJECTS = {
       'DATACLIP_RECONCILIATION_ERROR': 'Q518693',
       'P799_OK_VALUES': {
         'PHILOBILON_RECORD_CREATED': 'Q447227'
-      }
+      },
+      'MULTILANG_LENGTH_LIMIT': 250,
+      'MONOLINGUALTEXT_LENGTH_LIMIT': 1500,
+      'STRING_LENGTH_LIMIT': 1500
     }
 }
 

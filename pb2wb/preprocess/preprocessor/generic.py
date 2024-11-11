@@ -16,10 +16,15 @@ class GenericPreprocessor:
 
   def __init__(self, top_level_bib=Bibliography.BETA, qnumber_lookup_file=None, instance=None):
     self.top_level_bib = top_level_bib
-    self.TABLE = None
-    print(BASE_IMPORT_OBJECTS[instance]['DATACLIP_RECONCILIATION_ERROR'])
     self.DATACLIP_RECONCILIATION_ERROR = BASE_IMPORT_OBJECTS[instance]['DATACLIP_RECONCILIATION_ERROR']
     self.BASE_OBJECT_RECONCILIATION_ERROR = BASE_IMPORT_OBJECTS[instance]['BASE_OBJECT_RECONCILIATION_ERROR']
+
+    # MULTILANG_LENGTH_LIMIT governs labels, descriptions and aliases
+    self.MULTILANG_LENGTH_LIMIT = BASE_IMPORT_OBJECTS[instance]['MULTILANG_LENGTH_LIMIT']
+    # MONOLINGUALTEXT_LENGTH_LIMIT governs properties with single-language text
+    self.MONOLINGUALTEXT_LENGTH_LIMIT = BASE_IMPORT_OBJECTS[instance]['MONOLINGUALTEXT_LENGTH_LIMIT']
+    # STRING_LENGTH_LIMIT governs generic strings (no language context)
+    self.STRING_LENGTH_LIMIT = BASE_IMPORT_OBJECTS[instance]['STRING_LENGTH_LIMIT']
 
     if qnumber_lookup_file:
       # if qnumber file does not begin with a slash or dot
@@ -41,9 +46,12 @@ class GenericPreprocessor:
     # the top_level_bib in lower case, and the string '_dataclips.csv'
     self.dataclip_file = os.path.join(CLEAN_DIR, self.top_level_bib.value, 'dataclips',
                                       self.top_level_bib.value.lower() + '_dataclips.csv')
+    print(f'{self.dataclip_file = }')
     self.df_dataclip = pd.read_csv(self.dataclip_file, dtype=str, keep_default_na=False)
 
   def lookupDataclip(self, code, lang):
+    # hack: the native-language column for the dataclip file in all three databases is called "es"
+    lang = 'es'
     cell_value = self.df_dataclip.loc[self.df_dataclip['code']==f'{self.top_level_bib.value} {code}'][lang]
     if cell_value.empty == True:
       return None
@@ -336,7 +344,6 @@ class GenericPreprocessor:
     return df
 
   def write_result_csv(self, df, file):
-    print(self.processed_dir)
     file = os.path.dirname(file) + '/' + self.instance.lower() + '_' + file.split('/')[-1]
     output_csv = os.path.join(self.processed_dir, os.path.basename(file))
     print(f'{datetime.now()} INFO: Output csv: {output_csv}')
@@ -430,3 +437,54 @@ class GenericPreprocessor:
     df = self.reconcile_base_objects_by_lookup(df, id_fields)
     df = self.reconcile_dataclips_by_lookup(df, dataclip_fields)
     return df
+
+  def truncate_long_fields(self, df, column_name, max_length):
+    """
+    Truncate all string values in a specified column of a pandas DataFrame that are longer than the given max_length.
+    Prints a message for each truncated value with details of the row, column, and truncated value.
+    Updates the df in place.
+
+    Parameters:
+    df (pd.DataFrame): The input DataFrame.
+    column_name (str): The name of the column to truncate values in.
+    max_length (int): The maximum allowed length for the strings.
+    """
+    for idx, row in df.iterrows():
+      value = row[column_name]
+
+      if isinstance(value, str) and len(value) > max_length:
+        truncated_value = value[:max_length]
+        first_column_value = row[df.columns[0]]  # Value from the first column of the current row
+
+        # Print the truncation message
+        print(f"Truncated {column_name} {first_column_value}")
+
+        # Update the DataFrame with the truncated value
+        df.at[idx, column_name] = truncated_value
+
+  def truncate_dataframe(self, df):
+    """
+    Truncate string values in a DataFrame based on column names and specified limits.
+    - Truncates all columns except the first column and those named "MONIKER" to string_limit.
+    - Truncates columns named "MONIKER" to moniker_limit.
+
+    Parameters:
+    df (pd.DataFrame): The input DataFrame.
+    string_limit (int): The maximum length for general string truncation.
+    moniker_limit (int): The maximum length for columns named "MONIKER".
+
+    Returns:
+    pd.DataFrame: A modified copy of the original DataFrame with truncated string values.
+    """
+    # Step 1: Make a copy of the DataFrame
+    df_copy = df.copy()
+
+    # Step 2 & 3: Iterate through each column and apply truncation based on the column name
+    for column in df_copy.columns[1:]:  # Skip the first column
+      if column == "MONIKER":
+        self.truncate_long_fields(df_copy, column, self.MULTILANG_LENGTH_LIMIT)
+      elif column != "NOTES":
+        self.truncate_long_fields(df_copy, column, self.MONOLINGUALTEXT_LENGTH_LIMIT)
+
+    # Step 4: Return the modified DataFrame
+    return df_copy

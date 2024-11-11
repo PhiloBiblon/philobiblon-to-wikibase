@@ -94,5 +94,8 @@ class InstitutionPreprocessor(GenericPreprocessor):
     # Apply safety validations
     self.check_rows_empty_classes(df_ins, ['NAME_CLASS', 'INTERNET_CLASS'])
 
+    # truncate any fields that are too long
+    df = self.truncate_dataframe(df_ins)
+
     self.write_result_csv(df_ins, file)
     print(f'{datetime.now()} INFO: done')
