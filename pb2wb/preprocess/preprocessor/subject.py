@@ -51,6 +51,9 @@ class SubjectPreprocessor(GenericPreprocessor):
     df['NAME_LANG'] = df.apply (lambda row: self.get_name_lang(row), axis=1)
 
     df = self.move_last_column_after(df, 'HV_CLASS')
-      
+
+    # truncate any fields that are too long
+    df = self.truncate_dataframe(df)
+
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')

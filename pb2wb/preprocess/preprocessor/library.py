@@ -42,5 +42,8 @@ class LibraryPreprocessor(GenericPreprocessor):
     df['FULL_ADDRESS'] = df.apply(self.format_library_address, axis=1)
     df = self.move_last_column_after(df, 'PCODE')
 
+    # truncate any fields that are too long
+    df = self.truncate_dataframe(df)
+
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')

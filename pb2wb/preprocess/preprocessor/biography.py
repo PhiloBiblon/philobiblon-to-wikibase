@@ -172,5 +172,8 @@ class BiographyPreprocessor(GenericPreprocessor):
     # Expanded name is pretty much ok
     df['EXPANDED_NAME'] = df.apply (lambda row: self.get_expanded_name(row), axis=1)
 
+    # truncate any fields that are too long
+    df = self.truncate_dataframe(df)
+
     self.write_result_csv(df, biography_file)
     print(f'{datetime.now()} INFO: done')
