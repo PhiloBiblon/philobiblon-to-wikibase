@@ -30,5 +30,8 @@ class CopiesPreprocessor(GenericPreprocessor):
     # add new columns for the qnumbers using the lookup table if supplied
     df = self.add_qnumber_columns(df, CopiesPreprocessor.TABLE)
 
+    # truncate any fields that are too long
+    df = self.truncate_dataframe(df)
+
     self.write_result_csv(df, file)
     print(f'{datetime.now()} INFO: done')
