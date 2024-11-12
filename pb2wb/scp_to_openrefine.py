@@ -4,6 +4,7 @@ from common.settings import BASE_IMPORT_OBJECTS
 import datetime
 import argparse
 import getpass
+from open_refine_schema import run_schema_update
 
 # Parse command line arguments for bibliography, table, and instance
 bibliographies = ['beta', 'bitagap', 'biteca']
@@ -13,10 +14,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--bib', default='beta', choices=bibliographies, help='Specify a bibliography from the list.  Default is beta.')
 parser.add_argument('--table', default='analytic', choices=tables, help='Specify a table from the list.  Default is analytic.')
 parser.add_argument('--instance', default='PBCOG', choices=instances, help='Specify an instance from the list.  Default is PBCOG.')
+parser.add_argument('--schema', help='Perform schema update, including arg performs schema update', action='store_true')
 args = parser.parse_args()
 bib = args.bib.lower()
 table = args.table.lower()
 instance = args.instance.upper()
+schema = args.schema
 
 date = datetime.datetime.now().strftime('%Y-%m-%d')
 
@@ -46,10 +49,27 @@ try:
     stdin, stdout, stderr = ssh.exec_command(remote_command)
 
     # Print the output of the command
-    print(stdout.read().decode())
+    output = stdout.read().decode()
+    print(output)
+
+    output_list = output.split('\n')
+    print(f'{output_list = }')
+
+    for line in output_list:
+        if "id:" in line:
+            project_id = line.split(":")[1].strip()
+            print(f"Extracted project ID: {project_id}")
+            break
+
 except Exception as e:
     print(f'An error occurred: {e}')
 finally:
     # Close the SSH connection
     ssh.close()
+    client.close()
     print(f'OR project {file_name} created and connection closed')
+
+# Run the schema update
+if schema:
+    print(f'Running schema update for {file_name}')
+    run_schema_update(project_id=project_id)
