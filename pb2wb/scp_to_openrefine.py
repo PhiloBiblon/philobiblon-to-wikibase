@@ -41,6 +41,10 @@ ssh = SSHClient()
 ssh.load_system_host_keys() # Requires local id_rsa key to be loaded on remote server
 ssh.connect(hostname=remote_server, username=remote_username)
 
+# Check if connection is established
+if ssh.get_transport() is None:
+    raise ConnectionError("Failed to connect to remote server.")
+
 try:
   with scp.SCPClient(ssh.get_transport()) as client:
     client.put(local_file_path, f'~/jason/{file_name}.csv')
@@ -61,12 +65,12 @@ try:
             print(f"Extracted project ID: {project_id}")
             break
 
-except Exception as e:
+except (ConnectionError, paramiko.SSHException) as e:
     print(f'An error occurred: {e}')
 finally:
     # Close the SSH connection
-    ssh.close()
-    client.close()
+    if ssh is not None and ssh.get_transport() is not None:
+        ssh.close()
     print(f'OR project {file_name} created and connection closed')
 
 # Run the schema update
