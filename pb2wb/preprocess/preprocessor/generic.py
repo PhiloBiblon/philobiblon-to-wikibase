@@ -50,8 +50,6 @@ class GenericPreprocessor:
     self.df_dataclip = pd.read_csv(self.dataclip_file, dtype=str, keep_default_na=False)
 
   def lookupDataclip(self, code, lang):
-    # hack: the native-language column for the dataclip file in all three databases is called "es"
-    lang = 'es'
     cell_value = self.df_dataclip.loc[self.df_dataclip['code']==f'{self.top_level_bib.value} {code}'][lang]
     if cell_value.empty == True:
       return None
