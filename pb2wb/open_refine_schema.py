@@ -51,10 +51,6 @@ def run_schema_update(project_name=None, project_id=None):
     post_params = {'csrf_token': csrf_token, 'project': f'{project_id}'}
     get_params = {'project': f'{project_id}'}
 
-    # Get the project's metadata
-    get_response = requests.get(or_server + '/command/core/get-project-metadata', params=get_params, auth=auth)
-    print(f'{get_response.json() = }')
-
     # Gather columns with QNUMBER in the name
     get_response = requests.get(or_server + '/command/core/get-models', params=get_params, auth=auth)
     qnumber_columns = [col['name'] for col in get_response.json()['columnModel']['columns'] if 'QNUMBER' in col['name']]
