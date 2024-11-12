@@ -4,6 +4,7 @@ CLEAN_DIR = '../data/clean'
 PRE_PROCESSED_DIR = '../data/processed/pre'
 OPENREFINE_PROCESSED_DIR = '../data/processed/or'
 POST_PROCESSED_DIR = '../data/processed/post'
+OR_SERVER = 'https://philobiblon.cog.berkeley.edu/openrefine'
 
 BASE_IMPORT_OBJECTS = {
     'LOCAL_WB':
