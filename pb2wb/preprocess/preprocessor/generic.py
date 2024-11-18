@@ -51,7 +51,7 @@ class GenericPreprocessor:
 
   def lookupDataclip(self, code, lang):
     # hack: the native-language column for the dataclip file in all three databases is called "es"
-    lang = 'es'
+    lang = BASE_IMPORT_OBJECTS[self.instance]['BIB'][self.top_level_bib.value]['Language']
     cell_value = self.df_dataclip.loc[self.df_dataclip['code']==f'{self.top_level_bib.value} {code}'][lang]
     if cell_value.empty == True:
       return None
