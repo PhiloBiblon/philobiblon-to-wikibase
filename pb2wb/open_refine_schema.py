@@ -10,6 +10,7 @@ from common.settings import OR_SERVER
 
 def run_schema_update(project_name=None, project_id=None):
     # Gather credentials from .env file
+    print(f'Received the following arguments: {project_name = } {project_id = }')
     load_dotenv('open-refine.env') # .env file should be in the same directory as this script and contain admin username and password
     username = os.getenv("username")
     password = os.getenv("password")
