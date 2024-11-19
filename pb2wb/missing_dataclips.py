@@ -31,10 +31,11 @@ for table in tables:
     for key, value in DATADICT.items():
         if table.upper() in key:
             input_csv = f'../data/processed/pre/{bibliography.upper()}/{instance.lower()}_{bibliography.lower()}_{table.lower()}.csv'
-            lookup_csv = f'../data/clean/{bibliography.upper()}/lookup_{instance}.csv'
             dataclips = DATADICT[table.upper()]['dataclip_fields']
+            print(f'{dataclips = }')
 
             for clip in dataclips:
+                print(f'Checking {clip}')
                 df2 = pd.read_csv(input_csv)
                 clips_new = df2[clip].drop_duplicates().dropna()
                 all_clips.append(clips_new)
@@ -47,5 +48,6 @@ clips_df = clips_df[clips_df.apply(lambda row: all(isinstance(x, str) for x in r
 clips_df = clips_df.drop_duplicates()
 
 # Compare clips against lookup table and save missing items
-missing_items = clips_df[~clips_df.isin(df['PBID'])]
+missing_items = clips_df[~clips_df.isin(df['QNUMBER'])]
+print(f'{missing_items = }')
 missing_items.to_csv(output_csv, index=False, mode='a', header=False)
