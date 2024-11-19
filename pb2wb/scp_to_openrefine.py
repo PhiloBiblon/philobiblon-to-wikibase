@@ -69,7 +69,7 @@ except (ConnectionError, paramiko.SSHException) as e:
     print(f'An error occurred: {e}')
 finally:
     # Close the SSH connection
-    if ssh is not None and ssh.get_transport() is not None:
+    if ssh is not None or ssh.get_transport() is not None:
         ssh.close()
     print(f'OR project {file_name} created and connection closed')
 
