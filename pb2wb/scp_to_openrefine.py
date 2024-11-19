@@ -1,5 +1,5 @@
 import scp
-from paramiko import SSHClient
+import paramiko
 from common.settings import BASE_IMPORT_OBJECTS
 import datetime
 import argparse
@@ -37,7 +37,7 @@ remote_command = f'openrefine-client --projectName={file_name}.{date} --create j
 private_key_path = f'/Users/{username}/.ssh/id_rsa'
 
 # Create an SSH client
-ssh = SSHClient()
+ssh = paramiko.SSHClient()
 ssh.load_system_host_keys() # Requires local id_rsa key to be loaded on remote server
 ssh.connect(hostname=remote_server, username=remote_username)
 
