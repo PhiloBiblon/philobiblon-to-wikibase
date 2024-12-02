@@ -7,12 +7,12 @@ import subprocess
 import argparse
 from common.settings import OR_SERVER
 
-RECONCILIATION =  {'PBCOG': {"service": "https://philobiblon.cog.berkeley.edu/reconcile/en/api",
+RECONCILIATION =  {"PBCOG": {"service": "https://philobiblon.cog.berkeley.edu/reconcile/en/api",
                      "identifierSpace": "https://philobiblon.cog.berkeley.edu/entity/",
                      "schemaSpace": "https://philobiblon.cog.berkeley.edu/prop/direct/"},
-                   "FACTGRID": {"service": "http://factgrid-prod.thulb.uni-jena.de/reconcile/en/api",
-                     "identifierSpace": "http://factgrid-prod.thulb.uni-jena.de/entity/",
-                     "schemaSpace": "http://factgrid-prod.thulb.uni-jena.de/prop/direct/"}
+                   "FACTGRID": {"service": "http://database.factgrid.de/reconcile/en/api",
+                     "identifierSpace": "http://database.factgrid.de/entity/",
+                     "schemaSpace": "https://database.factgrid.de/prop/direct/"}
 }
 
 
