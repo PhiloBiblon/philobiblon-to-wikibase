@@ -129,11 +129,11 @@ Lookup table creation is not yet completely automated. Follow these steps:
 2. Download the result as a csv. Suppose the downloaded file is `/Users/max/Downloads/query.csv`
 3. Clean the result and place it in the correct place based on bibliography and instance (Factgrid and PB.cog).  BETA examples with these commands:
 ```
-cat /Users/max/Downloads/query.csv | sed 's@https://philobiblon.cog.berkeley.edu/entity/@@' > ../data/clean/BETA/lookup_pbcog.csv
+cat /Users/$USER/Downloads/query.csv | sed 's@https://database.factgrid.de/entity/@@' | sed 's/ORD://g' > ../data/clean/BETA/lookup_pbcog.csv
 ```
-or
+or for BETA Factgrid
 ```
-cat /Users/max/Downloads/query.csv | sed 's@https://database.factgrid.de/entity/@@' > ../data/clean/BETA/lookup_factgrid.csv
+cat /Users/$USER/Downloads/query.csv | sed 's@https://database.factgrid.de/entity/@@' | sed 's/ORD://g' > ../data/clean/BETA/lookup_factgrid.csv
 ```
 
 ## Preprocess the clean data
