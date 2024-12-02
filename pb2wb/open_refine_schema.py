@@ -86,7 +86,6 @@ def run_schema_update(project_name=None, project_id=None, instance='PBCOG'):
         data = {
             'operations': json.dumps(operations_array)
         }
-        print(operations_array)
         print(f'{data = }')
         post_response = requests.post(or_server + '/command/core/apply-operations', params=post_params, data=data, auth=auth)
 
