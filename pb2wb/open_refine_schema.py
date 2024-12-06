@@ -7,8 +7,17 @@ import subprocess
 import argparse
 from common.settings import OR_SERVER
 
+RECONCILIATION =  {"PBCOG": {"service": "https://philobiblon.cog.berkeley.edu/reconcile/en/api",
+                     "identifierSpace": "https://philobiblon.cog.berkeley.edu/entity/",
+                     "schemaSpace": "https://philobiblon.cog.berkeley.edu/prop/direct/"},
+                   "FACTGRID": {"service": "http://database.factgrid.de/reconcile/en/api",
+                     "identifierSpace": "http://database.factgrid.de/entity/",
+                     "schemaSpace": "https://database.factgrid.de/prop/direct/"}
+}
 
-def run_schema_update(project_name=None, project_id=None):
+
+def run_schema_update(project_name=None, project_id=None, instance='PBCOG'):
+    print(f'using wikibase instance: {RECONCILIATION[instance] = }')
     # Gather credentials from .env file
     load_dotenv('open-refine.env') # .env file should be in the same directory as this script and contain admin username and password
     username = os.getenv("username")
@@ -68,9 +77,9 @@ def run_schema_update(project_name=None, project_id=None):
                 "mode": "row-based"
             },
             "columnName": column,
-            "service": "https://philobiblon.cog.berkeley.edu/reconcile/en/api",
-            "identifierSpace": "https://philobiblon.cog.berkeley.edu/entity/",
-            "schemaSpace": "https://philobiblon.cog.berkeley.edu/prop/direct/",
+            "service": RECONCILIATION[instance]["service"],
+            "identifierSpace": RECONCILIATION[instance]["identifierSpace"],
+            "schemaSpace": RECONCILIATION[instance]["schemaSpace"],
             "description": f'Use values as reconciliation identifiers in column {column}'
         }
     ]
@@ -98,11 +107,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--project', type=str, help='Specify a project name to use')
     parser.add_argument('--id', type=int, help='Specify a project ID to use')
+    parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
     args = parser.parse_args()
-
     if args.project:
-        run_schema_update(project_name=args.project)
+        run_schema_update(project_id=None, project_name=args.project, instance=args.instance)
     elif args.id:
-        run_schema_update(project_id=args.id)
+        run_schema_update(project_id=args.id, project_name=None, instance=args.instance)
     else:
         print("Error: Please provide either a project name or ID.")

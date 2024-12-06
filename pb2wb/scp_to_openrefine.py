@@ -76,4 +76,4 @@ finally:
 # Run the schema update
 if schema:
     print(f'Running schema update for {file_name}')
-    run_schema_update(project_id=project_id)
+    run_schema_update(project_id=project_id, project_name=None, instance=instance)
