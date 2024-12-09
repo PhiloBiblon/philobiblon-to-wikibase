@@ -261,6 +261,8 @@ DATADICT = {
             'MUSIC_CLASS',
             'FEATURE_CLASS',
             'MILESTONE_CLASS',
+            'MILESTONE_CLASS_P',
+            'MILESTONE_CLASS_W',
             'CLASS',
             'RELATED_BIOCLASS',
             'RELATED_LIBCALLNOCLASS',
