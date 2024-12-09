@@ -57,6 +57,10 @@ class MsEdPreprocessor(GenericPreprocessor):
     df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_BASIS', 'MS_ED*MILESTONE_CLASS',
                                    ['P', 'W'])
 
+    # Split MILESTONE_CLASS
+    df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_CLASS', 'MS_ED*MILESTONE_CLASS',
+                                   ['P', 'W'])
+
     # Internet edit box
     df = self.split_internet_class(df)
 
