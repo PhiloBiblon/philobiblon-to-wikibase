@@ -15,6 +15,7 @@ args = parser.parse_args()
 
 if args.instance.lower() not in args.lookup and args.lookup != 'None':
   args.lookup = f'lookup_{args.instance.lower()}.csv'
+  print(f"Lookup table set to: {args.lookup}")
 
 if args.table:
   args.table = enums.Table[args.table.upper()]
