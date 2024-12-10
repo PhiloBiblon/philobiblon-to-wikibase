@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from datetime import date
 
-from common.settings import P799_OK_VALUES
+from common.settings import BASE_IMPORT_OBJECTS
 
 PATTERN_STATEMENT = r'^Q(\d*)\tP(\d*)\t(.*)$'
 PATTERN_DATE = r'\+\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/\d{1,2}'
@@ -14,7 +14,7 @@ class GenericPostprocessor:
 
   def check_empty_p799(self, s):
     l = s.split('\t')
-    if len(l) == 3 and l[1] == 'P799' and l[2].lstrip('\"').rstrip("\n"'\"') in P799_OK_VALUES.values():
+    if len(l) == 3 and l[1] == 'P799' and l[2].lstrip('\"').rstrip("\n"'\"') in self.P799_OK_VALUES.values():
       return True
     return False
 
@@ -49,5 +49,6 @@ class GenericPostprocessor:
                 line = self.julian_dates(line)
                 output.write(line)
 
-  def postprocess(self, file, processed_dir, force_new_statements):
+  def postprocess(self, file, processed_dir, force_new_statements, instance):
+    self.P799_OK_VALUES = BASE_IMPORT_OBJECTS[instance]['P799_OK_VALUES']
     self.filter(file, os.path.join(processed_dir, os.path.basename(file)), force_new_statements)
