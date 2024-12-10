@@ -52,7 +52,7 @@ BASE_IMPORT_OBJECTS = {
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q51436', 'p17': 'Q5', 'p700': 'Q6'},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q51437', 'p17': 'Q5', 'p700': 'Q6'}
         },
-      'SSH_USER': 'pi',
+      'SSH_USER': 'changeme',
       'SERVER': 'philobiblon.cog.berkeley.edu',
       'MEDIAWIKI_API_URL': "https://philobiblon.cog.berkeley.edu/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://philobiblon.cog.berkeley.edu/query/bigdata/namespace/wdq/sparql",
@@ -95,12 +95,12 @@ BASE_IMPORT_OBJECTS = {
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810', 'p17': '', 'p700': ''},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809', 'p17': '', 'p700': ''}
       },
-      'SSH_USER': 'pi',
+      'SSH_USER': 'changeme',
       'SERVER': 'philobiblon.cog.berkeley.edu',
       'MEDIAWIKI_API_URL': "https://database.factgrid.de/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://database.factgrid.de/sparql",
-      'WB_USER': 'Jason Hatfield',
-      'WB_PASSWORD': '72ijuDbPtT7g5Nu',
+      'WB_USER': 'changeme',
+      'WB_PASSWORD': 'changeme',
       'SPARQL_PREFIX': """
         PREFIX wd:<https://database.factgrid.de/entity/>
         PREFIX wdt:<https://database.factgrid.de/prop/direct/>""",
