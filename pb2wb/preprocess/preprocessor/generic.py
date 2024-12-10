@@ -9,7 +9,7 @@ import pandas as pd
 
 from common.enums import Bibliography
 from common.data_dictionary import DATADICT
-from common.settings import (CLEAN_DIR, PRE_PROCESSED_DIR, BASE_IMPORT_OBJECTS)
+from common.settings import (CLEAN_DIR, BASE_DATA_DIR, PRE_PROCESSED_DIR, BASE_IMPORT_OBJECTS)
 
 
 class GenericPreprocessor:
@@ -30,7 +30,7 @@ class GenericPreprocessor:
       # if qnumber file does not begin with a slash or dot
       if not qnumber_lookup_file.startswith('/') and not qnumber_lookup_file.startswith('.'):
         # the qnumber file should be composed of the clean dir, the top_level_bib and the qnumber_lookup_file
-        qnumber_lookup_file = os.path.join(CLEAN_DIR, self.top_level_bib.value, qnumber_lookup_file)
+        qnumber_lookup_file = os.path.join(BASE_DATA_DIR, qnumber_lookup_file)
       if not os.path.isfile(qnumber_lookup_file):
         raise Exception(f'qnumber_lookup_file not found: {qnumber_lookup_file}')
     self.qnumber_lookup_file = qnumber_lookup_file

@@ -1,6 +1,7 @@
 # local repo configuration - probably no need to change these
 
 CLEAN_DIR = '../data/clean'
+BASE_DATA_DIR = '../data'
 PRE_PROCESSED_DIR = '../data/processed/pre'
 OPENREFINE_PROCESSED_DIR = '../data/processed/or'
 POST_PROCESSED_DIR = '../data/processed/post'
@@ -51,7 +52,7 @@ BASE_IMPORT_OBJECTS = {
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q51436', 'p17': 'Q5', 'p700': 'Q6'},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q51437', 'p17': 'Q5', 'p700': 'Q6'}
         },
-      'SSH_USER': 'changeme',
+      'SSH_USER': 'pi',
       'SERVER': 'philobiblon.cog.berkeley.edu',
       'MEDIAWIKI_API_URL': "https://philobiblon.cog.berkeley.edu/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://philobiblon.cog.berkeley.edu/query/bigdata/namespace/wdq/sparql",
@@ -94,12 +95,12 @@ BASE_IMPORT_OBJECTS = {
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810', 'p17': '', 'p700': ''},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809', 'p17': '', 'p700': ''}
       },
-      'SSH_USER': 'changeme',
+      'SSH_USER': 'pi',
       'SERVER': 'philobiblon.cog.berkeley.edu',
       'MEDIAWIKI_API_URL': "https://database.factgrid.de/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://database.factgrid.de/sparql",
-      'WB_USER': 'changeme',
-      'WB_PASSWORD': 'changeme',
+      'WB_USER': 'Jason Hatfield',
+      'WB_PASSWORD': '72ijuDbPtT7g5Nu',
       'SPARQL_PREFIX': """
         PREFIX wd:<https://database.factgrid.de/entity/>
         PREFIX wdt:<https://database.factgrid.de/prop/direct/>""",
