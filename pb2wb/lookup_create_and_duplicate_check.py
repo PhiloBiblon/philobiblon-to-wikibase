@@ -4,7 +4,6 @@ import csv
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--bib', default='beta', choices=['beta', 'biteca', 'bitagap'], required=True, help='Specify a bibliography from the list.  Default is beta.')
 parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--column', default='PBID', help='Column to check for duplicates.  Default is PBID.')
 parser.add_argument('--dupe-only', action='store_true', help='Only perform duplicate check and print results.')
@@ -15,7 +14,7 @@ print(f"Current username: {username}")
 
 # Define the input and output file paths
 input_file = f'/Users/{username}/Downloads/query.csv' #Download from OR default location with default name query.csv
-output_file = f'../data/clean/{args.bib.upper()}/lookup_{args.instance.lower()}.csv'
+output_file = f'../data/lookup_{args.instance.lower()}.csv'
 
 base_url = 'database.factgrid.de'
 if args.instance == 'PBCOG':

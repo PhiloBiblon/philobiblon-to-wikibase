@@ -1,6 +1,7 @@
 from common.data_dictionary import DATADICT
 import argparse
 import pandas as pd
+from common.settings import BASE_DATA_DIR
 
 bibliographies = ['beta', 'bitagap', 'biteca']
 instances = ['LOCAL_WB', 'PBSANDBOX', 'PBCOG', 'FACTGRID']
@@ -20,7 +21,7 @@ if args.table == 'all':
 else:
     tables = [args.table]
 
-lookup_csv = f'../data/clean/{bibliography.upper()}/lookup_{instance}.csv'
+lookup_csv = f'{BASE_DATA_DIR}/lookup_{instance}.csv'
 output_csv = f'{bibliography.upper()}_missing_dataclips_{instance}.csv'
 df = pd.read_csv(lookup_csv)
 
