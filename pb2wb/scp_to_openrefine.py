@@ -33,13 +33,22 @@ local_file_path = f'../data/processed/pre/{bib}/{file_name}.csv'
 remote_server = BASE_IMPORT_OBJECTS[instance]['SERVER']
 print(f'using remote server: {remote_server}')
 remote_username = BASE_IMPORT_OBJECTS[instance]['SSH_USER']
+print(f"{remote_username = }")
 remote_command = f'openrefine-client --projectName={file_name}.{date} --create jason/{file_name}.csv'
-private_key_path = f'/Users/{username}/.ssh/id_rsa'
 
 # Create an SSH client
 ssh = paramiko.SSHClient()
 ssh.load_system_host_keys() # Requires local id_rsa key to be loaded on remote server
-ssh.connect(hostname=remote_server, username=remote_username)
+key_file = '/Users/max/.ssh/mids_id_rsa'
+print(f"{key_file = }")
+private_key = paramiko.RSAKey.from_private_key_file(key_file)
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+ssh.connect(
+    hostname=remote_server,
+    username=remote_username,
+    pkey=private_key
+)
+
 
 # Check if connection is established
 if ssh.get_transport() is None:
