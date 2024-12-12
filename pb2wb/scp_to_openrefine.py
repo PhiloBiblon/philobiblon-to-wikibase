@@ -15,6 +15,7 @@ parser.add_argument('--bib', default='beta', choices=bibliographies, help='Speci
 parser.add_argument('--table', default='analytic', choices=tables, help='Specify a table from the list.  Default is analytic.')
 parser.add_argument('--instance', default='PBCOG', choices=instances, help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--schema', help='Perform schema update, including arg performs schema update', action='store_true')
+parser.add_argument('--identity_file', help='identity file')
 args = parser.parse_args()
 bib = args.bib.lower()
 table = args.table.lower()
@@ -33,13 +34,22 @@ local_file_path = f'../data/processed/pre/{bib}/{file_name}.csv'
 remote_server = BASE_IMPORT_OBJECTS[instance]['SERVER']
 print(f'using remote server: {remote_server}')
 remote_username = BASE_IMPORT_OBJECTS[instance]['SSH_USER']
+print(f"{remote_username = }")
 remote_command = f'openrefine-client --projectName={file_name}.{date} --create jason/{file_name}.csv'
-private_key_path = f'/Users/{username}/.ssh/id_rsa'
+private_key_path = args.identity_file or f'/Users/{username}/.ssh/id_rsa'
 
 # Create an SSH client
 ssh = paramiko.SSHClient()
 ssh.load_system_host_keys() # Requires local id_rsa key to be loaded on remote server
-ssh.connect(hostname=remote_server, username=remote_username)
+print(f"{private_key_path = }")
+private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+ssh.connect(
+    hostname=remote_server,
+    username=remote_username,
+    pkey=private_key
+)
+
 
 # Check if connection is established
 if ssh.get_transport() is None:

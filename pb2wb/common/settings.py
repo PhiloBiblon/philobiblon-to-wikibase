@@ -95,7 +95,7 @@ BASE_IMPORT_OBJECTS = {
         'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810', 'p17': '', 'p700': ''},
         'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809', 'p17': '', 'p700': ''}
       },
-      'SSH_USER': 'changeme',
+      'SSH_USER': 'pi',
       'SERVER': 'philobiblon.cog.berkeley.edu',
       'MEDIAWIKI_API_URL': "https://database.factgrid.de/w/api.php",
       'SPARQL_ENDPOINT_URL': "https://database.factgrid.de/sparql",

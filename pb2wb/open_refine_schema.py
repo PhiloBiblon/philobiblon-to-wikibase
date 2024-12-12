@@ -10,8 +10,8 @@ from common.settings import OR_SERVER
 RECONCILIATION =  {"PBCOG": {"service": "https://philobiblon.cog.berkeley.edu/reconcile/en/api",
                      "identifierSpace": "https://philobiblon.cog.berkeley.edu/entity/",
                      "schemaSpace": "https://philobiblon.cog.berkeley.edu/prop/direct/"},
-                   "FACTGRID": {"service": "http://database.factgrid.de/reconcile/en/api",
-                     "identifierSpace": "http://database.factgrid.de/entity/",
+                   "FACTGRID": {"service": "https://database.factgrid.de/reconcile/en/api",
+                     "identifierSpace": "https://database.factgrid.de/entity/",
                      "schemaSpace": "https://database.factgrid.de/prop/direct/"}
 }
 
