@@ -1,6 +1,7 @@
 # local repo configuration - probably no need to change these
 
 CLEAN_DIR = '../data/clean'
+BASE_DATA_DIR = '../data'
 PRE_PROCESSED_DIR = '../data/processed/pre'
 OPENREFINE_PROCESSED_DIR = '../data/processed/or'
 POST_PROCESSED_DIR = '../data/processed/post'
