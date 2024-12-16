@@ -3,6 +3,7 @@ import argparse
 import csv
 import os
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--column', default='PBID', help='Column to check for duplicates.  Default is PBID.')
@@ -40,8 +41,10 @@ def process_lookup_csv():
             for i, cell in enumerate(row):
                 row[i] = cell.replace(f'{full_url}', "")
 
-            # Remove "ORD:" text
-            row[0] = row[0].replace("ORD:", "")
+            # Remove prefixes from the first column
+            prefixes_to_remove = ['ORD:', 'PRO:', 'REL:']
+            for prefix in prefixes_to_remove:
+                row[0] = row[0].replace(prefix, "")
 
             if row[1].startswith('https:'):
                 print(f"Error: No replacement made for cell: {cell}, check URL pattern.")
