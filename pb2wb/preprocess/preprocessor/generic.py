@@ -324,8 +324,19 @@ class GenericPreprocessor:
       print(f'base object lookup errors: {self.lookup_error_columns}')
     return df
 
+  def append_bib_to_dataclip(self, df, fields):
+    # append the top_level_bib to the dataclip fields for BITAGAP and BITECA only
+    for field in fields:
+        print(f'Appending {self.top_level_bib.value} to {field} values')
+        df[field] = df[field].apply(lambda x: f"{self.top_level_bib.value} {x}" if x else x)
+    return df
+
   def reconcile_dataclips_by_lookup(self, df, fields):
     self.lookup_error_columns = []
+    print(f'using instance: {self.instance}')
+    # Patch dataclip fields for FACTGRID BITECA and BITAGAP
+    if self.instance == 'FACTGRID' and self.top_level_bib.value in ['BITECA', 'BITAGAP']:
+        df = self.append_bib_to_dataclip(df, fields)
     df = self.reconcile_by_lookup(df, fields, no_match_value=self.DATACLIP_RECONCILIATION_ERROR)
     if len(self.lookup_error_columns) > 0:
       print(f'dataclip lookup errors: {self.lookup_error_columns}')
