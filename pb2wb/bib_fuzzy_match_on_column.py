@@ -1,6 +1,7 @@
 import pandas as pd
 import argparse
 from fuzzywuzzy import fuzz
+import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--bib', type=str, default="BITECA", help="BIB to compare join with BETA", choices=['BITECA', 'BITAGAP'])
@@ -8,6 +9,9 @@ parser.add_argument("--table", help="Table to process", choices=['analytic', 'bi
 parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--fuzzy', action='store_true', help="Use fuzzy matching to merge the two files")
 parser.add_argument('--column', type=str, help="Column to use for matching")
+parser.add_argument('--column2', type=str, help="Second column to use for additional details")
+parser.add_argument('--sort_column', type=str, help="Column to help sort the DataFrame")
+parser.add_argument('--sort_value', type=str, help="Value to help sort the DataFrame")
 args = parser.parse_args()
 
 output_file = f'matched_{args.bib.lower()}_{args.instance.lower()}_{args.table}'
@@ -63,11 +67,28 @@ print(f"Columns to check for missing values: {column_list}")
 df1 = df1.dropna(subset=column_list)
 df2 = df2.dropna(subset=column_list)
 # Select only the deired columns to merge
-df1 = df1.loc[:, [df1.columns[0], *column_list]]
-df2 = df2.loc[:, [df2.columns[0], *column_list]]
+column_selection = [df1.columns[0], *column_list] + ([args.column2, args.sort_column] if args.column2 else [])
+df1 = df1.loc[:, column_selection]
+column_selection = [df2.columns[0], *column_list] + ([args.column2, args.sort_column] if args.column2 else [])
+df2 = df2.loc[:, column_selection]
 # Drop duplicates in the specified columns
 df1 = df1.drop_duplicates(subset=column_list, keep='first')  # Keep the first occurrence of the duplicate
 df2 = df2.drop_duplicates(subset=column_list, keep='first')
+
+# Apply the sort function to the library table to replicate column value to all rows in the group
+if args.table == 'library':
+    print(f"Updating RELATED_GEOID_QNUMBER...")
+    for current_df in [df1, df2]:
+        current_df['RELATED_GEOID_QNUMBER'] = current_df.groupby(current_df.columns[0])['RELATED_GEOID_QNUMBER'].transform('first')
+        # Drop rows that do not have LIBRARY*NAME_CLASS*CURRENT populated in the column NAME_CLASS
+        current_df.drop(current_df[current_df['NAME_CLASS'] != 'LIBRARY*NAME_CLASS*CURRENT'].index, inplace=True)
+        # Now drop the NAME_CLASS column as it is no longer needed
+        current_df = current_df.drop(columns=['NAME_CLASS'])
+        if current_df[current_df.columns[0]].iloc[0] == df1[df1.columns[0]].iloc[0]:
+            df1 = current_df
+        else:
+            df2 = current_df
+
 
 # Perform the fuzzy merge if specified
 if args.fuzzy:
@@ -80,4 +101,9 @@ else:
 
 # Drop any accidental duplicates and save the merged DataFrame to a new CSV file
 merged_df.drop_duplicates(subset=merged_df.columns[0], inplace=True)
+# clean up the column names
+for col in merged_df.columns:
+    if col.endswith("_y"):
+        new_col_name = col.replace("_y", f"_{args.bib}")
+        merged_df = merged_df.rename(columns={col: new_col_name})
 merged_df.to_csv(f'{output_file}.csv', index=False)
