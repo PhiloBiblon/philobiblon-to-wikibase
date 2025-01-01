@@ -92,8 +92,8 @@ BASE_IMPORT_OBJECTS = {
     'FACTGRID':
       {'BIB':{
         'BETA': {'Language': 'es', 'label': 'BETA', 'qnum': 'Q254471', 'p17': 'Q425065', 'p700': 'Q447226'},
-        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810', 'p17': '', 'p700': ''},
-        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809', 'p17': '', 'p700': ''}
+        'BITECA': {'Language': 'ca', 'label': 'BITECA', 'qnum': 'Q256810', 'p17': 'Q425065', 'p700': 'Q447226'},
+        'BITAGAP': {'Language': 'pt', 'label': 'BITAGAP', 'qnum': 'Q256809', 'p17': 'Q425065', 'p700': 'Q447226'}
       },
       'SSH_USER': 'pi',
       'SERVER': 'philobiblon.cog.berkeley.edu',
