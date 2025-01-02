@@ -14,8 +14,8 @@ tables = ['analytic', 'biography', 'geography', 'institutions', 'library', 'subj
 parser = argparse.ArgumentParser()
 parser.add_argument('--bib', default='beta', choices=bibliographies, help='Specify a bibliography from the list.  Default is beta.')
 parser.add_argument('--instance', default='PBCOG', choices=instances, help='Specify a instance from the list.  Default is pbcog.')
-parser.add_argument('--table', default='all', choices=tables, help='Specify a table from the list for base_object error check.  Default is all.')
-parser.add_argument('--error', default='dataclip', choices=['dataclip', 'base_object'], help='Error type to search for.  Default')
+parser.add_argument('--table', default='all', choices=tables, help='Specify a table from the list.  Default is all.')
+parser.add_argument('--error', default='base_object', choices=['dataclip', 'base_object'], help='Error type to search for.  Default')
 args = parser.parse_args()
 
 bibliography = args.bib.lower()
@@ -63,11 +63,12 @@ def search_and_update_dataframe(df, search_string):
     # Initialize an empty list to store the results
     results = []
 
-    # Iterate over each row in the DataFrame and search for the string
+    # Iterate over each row in the DataFrame
     for index, row in df.iterrows():
         for col_index in range(1, len(row)):
-            if search_string in str(row.iloc[col_index]):
+            if search_string in str(row.iloc[col_index]): # Check if the search string is in the current cell
                 # Check if the preceding value is 'und'
+                results.append([row.iloc[0], row.iloc[col_index - 1]])  # Append the first column value and the value of the column in front of the matched error string
                 if row.iloc[col_index - 1] == 'und':
                     if col_index >= 2: #Check to make sure index is not out of range
                         results.append([row.iloc[0], row.iloc[col_index - 2]])
@@ -79,19 +80,16 @@ def search_and_update_dataframe(df, search_string):
 
     if results: #Check if results is not empty
         updated_df = pd.DataFrame(results, columns=[df.columns[0], 'Dataclip']) # Create a new DataFrame with the results
-        updated_df = updated_df.drop(columns=[df.columns[0]]) # Drop the first column
-        updated_df = updated_df.drop_duplicates() # Drop duplicates
+        print(updated_df)
         return updated_df
     else:
         return pd.DataFrame(columns=[df.columns[0], 'Dataclip']) # Return empty dataframe with correct columns
-
-all_filtered_dfs = []
 
 for file in files:
     input_file = f'../data/clean/{bibliography.lower()}/csvs/{file}'
     output_file = f'{updated_path}/{instance}_{file}'
     print(f'Using input file: {file}')
-    pre_df = pd.read_csv(f'../data/processed/pre/{bibliography.upper()}/{instance}_{file}')
+    pre_df = pd.read_csv(f'../data/processed/pre/{bibliography.upper()}/{instance}_{file}', low_memory=False)
     first_column_name = pre_df.columns[0]
 
     # Search qnum value that represents the BASE_OBJECT_RECONCILIATION_ERROR
@@ -99,7 +97,11 @@ for file in files:
     print(f'Filtering against string: {search_string}')
     if args.error == 'dataclip':
         filtered_df = search_and_update_dataframe(pre_df, search_string)
-        all_filtered_dfs.append(filtered_df)  # Append to the list
+        print(filtered_df)
+        filtered_df = filtered_df.drop_duplicates()  # Add parentheses here to call the function
+        output_file = f'{updated_path}/combined_dataclip_errors_{instance}_{file}'
+        print(f'Writing to output file: {output_file}')
+        filtered_df.to_csv(output_file, index=False)
         continue
     else:
         filtered_df = pre_df[pre_df.iloc[:, 1].eq(search_string)]
@@ -109,12 +111,3 @@ for file in files:
 
     # Launch join operation
     perform_inner_join(input_file, updated_df, output_file, first_column_name)
-
-    # Concatenate all filtered dataclip error into a single DataFrame
-if all_filtered_dfs: #Check if list is not empty
-    final_df = pd.concat(all_filtered_dfs, ignore_index=True)
-    final_output_file = os.path.join(updated_path, f'combined_dataclip_errors_{args.instance}_{args.bib}.csv') #Create combined output file path
-    print(f'Writing combined output to: {final_output_file}')
-    final_df.to_csv(final_output_file, index=False)
-else:
-    print("No error matches found in any file.")

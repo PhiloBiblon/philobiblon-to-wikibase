@@ -35,7 +35,7 @@ def combine_dicts(merged_list):
   return combined_dict
 
 # fuzzy merge function
-def fuzzy_merge(df1, df2, on_columns, threshold=90):
+def fuzzy_merge(df1, df2, on_columns, threshold=85):
     matched_rows = []
     # Function to perform fuzzy matching
     def fuzzy_match(row):
@@ -49,10 +49,18 @@ def fuzzy_merge(df1, df2, on_columns, threshold=90):
                 # Convert the dictionary to a DataFrame
                 temp_df = pd.DataFrame([combined_dict])
                 matched_rows.append(temp_df)
+                continue
 
     df1.apply(fuzzy_match, axis=1)
     merged_df = pd.concat(matched_rows, ignore_index=True)
     return merged_df
+
+def first_non_empty(series):
+    """Returns the first non-empty value in a Series."""
+    for value in series:
+        if pd.notna(value) and str(value) != "":  # Check for both NaN and empty string
+            return value
+    return np.nan #Return NaN if no non-empty value is found
 
 # Read the two CSV files
 beta_csv = f'../data/processed/pre/BETA/{args.instance.lower()}_beta_{args.table}.csv'
@@ -76,18 +84,24 @@ df1 = df1.drop_duplicates(subset=column_list, keep='first')  # Keep the first oc
 df2 = df2.drop_duplicates(subset=column_list, keep='first')
 
 # Apply the sort function to the library table to replicate column value to all rows in the group
-if args.table == 'library':
+if args.table == 'library' and args.sort_column:
     print(f"Updating RELATED_GEOID_QNUMBER...")
     for current_df in [df1, df2]:
-        current_df['RELATED_GEOID_QNUMBER'] = current_df.groupby(current_df.columns[0])['RELATED_GEOID_QNUMBER'].transform('first')
+        if args.column == 'MONIKER': # Sort by MONIKER and fill in the MONIKER
+            current_df['MONIKER'] = current_df.groupby(current_df.columns[0])['MONIKER'].transform(first_non_empty)
+        current_df['RELATED_GEOID_QNUMBER'] = current_df.groupby(current_df.columns[0])['RELATED_GEOID_QNUMBER'].transform(first_non_empty)
         # Drop rows that do not have LIBRARY*NAME_CLASS*CURRENT populated in the column NAME_CLASS
-        current_df.drop(current_df[current_df['NAME_CLASS'] != 'LIBRARY*NAME_CLASS*CURRENT'].index, inplace=True)
+        #current_df.drop(current_df[current_df['NAME_CLASS'] != 'LIBRARY*NAME_CLASS*CURRENT'].index, inplace=True)
         # Now drop the NAME_CLASS column as it is no longer needed
         current_df = current_df.drop(columns=['NAME_CLASS'])
         if current_df[current_df.columns[0]].iloc[0] == df1[df1.columns[0]].iloc[0]:
             df1 = current_df
+            df1.to_csv(f'test_beta.csv', index=False)
+            print(df1.head())
         else:
             df2 = current_df
+            df2.to_csv(f'test_{args.bib.lower()}.csv', index=False)
+            print(df2.head())
 
 
 # Perform the fuzzy merge if specified
