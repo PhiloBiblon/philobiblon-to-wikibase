@@ -6,6 +6,16 @@ from common.enums import Table
 
 DATADICT = {
     Table.ANALYTIC.value: {
+        'incipits_and_xplicits': {
+            'primary': 'INC_EXP_CLASS',
+            'columns': [
+                "INCIPIT",
+                "INCIPIT_LOC",
+                "EXPLICIT",
+                "EXPLICIT_LOC",
+            ],
+            'default': 'ANALYTIC*INC_EXP_CLASS'
+        },
         'id_fields': [
             'CNUM',
             'TEXT_MANID',
@@ -73,6 +83,36 @@ DATADICT = {
             ],
             'default': 'BIOGRAPHY*MILESTONE'
         },
+        'titles': {
+            'primary': 'TITLE',
+            'columns': [
+                "TITLE_NUMBER",
+                "TITLE_CONNECTOR",
+                "TITLE_GEOID",
+                "TITLE_Q",
+                "TITLE_BD",
+                "TITLE_BDQ",
+                "TITLE_ED",
+                "TITLE_EDQ",
+                "TITLE_BASIS"
+            ],
+            'default': 'BIOGRAPHY*TITLE'
+        },
+        'affiliations': {
+            'primary': 'AFFILIATION_CLASS',
+            'columns': [
+                "AFFILIATION_TYPE",
+                "AFFILIATION_Q",
+                "AFFILIATION_GEOID",
+                "AFFILIATION_GEOIDQ",
+                "AFFILIATION_BD",
+                "AFFILIATION_BDQ",
+                "AFFILIATION_ED",
+                "AFFILIATION_EDQ",
+                "AFFILIATION_BASIS",
+            ],
+            'default': 'BIOGRAPHY*AFFILIATION_CLASS*PRO'
+        },
         'id_fields': [
             'BIOID',
             'TITLE_GEOID',
@@ -108,6 +148,15 @@ DATADICT = {
         ]
     },
     Table.COPIES.value: {
+        'related_copies': {
+            'primary': 'RELATED_COPCLASS',
+            'columns': [
+                "RELATED_COPDETAIL",
+                "RELATED_COPID",
+                "RELATED_COPBASIS",
+            ],
+            'default': 'COPIES*RELATED_COPCLASS'
+        },
         'id_fields': [
             'COPID',
             'TEXT_MANID',
@@ -146,6 +195,33 @@ DATADICT = {
         ]
     },
     Table.GEOGRAPHY.value: {
+        'names': {
+            'primary': 'NAME_CLASS',
+            'columns': [
+                "NAME",
+                "NAME_Q",
+                "NAME_BD",
+                "NAME_BDQ",
+                "NAME_ED",
+                "NAME_EDQ",
+                "NAME_BASIS",
+            ],
+            'default': 'GEOGRAPHY*NAME'
+        },
+        'related_places': {
+            'primary': 'RELATED_GEOCLASS',
+            'columns': [
+                "RELATED_GEODETAIL",
+                "RELATED_GEOID",
+                "RELATED_GEOIDQ",
+                "RELATED_GEOBD",
+                "RELATED_GEOBDQ",
+                "RELATED_GEOED",
+                "RELATED_GEOEDQ",
+                "RELATED_GEOBASIS",
+            ],
+            'default': 'GEOGRAPHY*RELATED_GEOCLASS'
+        },
         'id_fields': [
             'GEOID', 'RELATED_GEOID_S', 'RELATED_GEOID_P', 'RELATED_BIBID', 'RELATED_MANID',
             'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
@@ -155,6 +231,34 @@ DATADICT = {
         ]
     },
     Table.INSTITUTIONS.value: {
+        'names': {
+            'primary': 'NAME_CLASS',
+            'columns': [
+                "NAME",
+                "NAME_Q",
+                "NAME_BD",
+                "NAME_BDQ",
+                "NAME_ED",
+                "NAME_EDQ",
+                "NAME_BASIS",
+            ],
+            'default': 'INSTITUTIONS*INS'
+        },
+        'milestones': {
+            'primary': 'MILESTONE_CLASS',
+            'columns': [
+                "MILESTONE_DETAIL",
+                "MILESTONE_Q",
+                "MILESTONE_GEOID",
+                "MILESTONE_GEOIDQ",
+                "MILESTONE_BD",
+                "MILESTONE_BDQ",
+                "MILESTONE_ED",
+                "MILESTONE_EDQ",
+                "MILESTONE_BASIS",
+            ],
+            'default': 'INSTITUTIONS*MILESTONE'
+        },
         'id_fields': [
             "INSID",
             "MILESTONE_GEOID",
@@ -178,6 +282,19 @@ DATADICT = {
         ]
     },
     Table.LIBRARY.value: {
+        'names': {
+            'primary': 'NAME_CLASS',
+            'columns': [
+                "NAME",
+                "NAME_Q",
+                "NAME_BD",
+                "NAME_BDQ",
+                "NAME_ED",
+                "NAME_EDQ",
+                "NAME_BASIS",
+            ],
+            'default': 'LIBRARY*NAME'
+        },
         'id_fields': [
             'LIBID',
             'RELATED_GEOID',
@@ -223,6 +340,118 @@ DATADICT = {
                 "MILESTONE_BASIS"
             ],
             'default': 'MS_ED*MILESTONE'
+        },
+        'related_lib_callnos': {
+            'primary': 'RELATED_LIBCALLNOCLASS',
+            'columns': [
+                "RELATED_LIBCALLNO"
+            ],
+            'default': 'MS_ED*RELATED_LIBCALLNOCLASS'
+        },
+        'related_lib_events': {
+            'primary': 'RELATED_LIBEVENTCLASS',
+            'columns': [
+                "RELATED_LIBEVENTDETAIL",
+                "RELATED_LIBEVENTPRICE",
+                "RELATED_LIBEVENTCURRENCY",
+                "RELATED_LIBEVENTGEOID",
+                "RELATED_LIBEVENTGEOIDQ",
+                "RELATED_LIBEVENTBD",
+                "RELATED_LIBEVENTBDQ",
+                "RELATED_LIBEVENTED",
+                "RELATED_LIBEVENTEDQ",
+            ],
+            'default': 'MS_ED*HISTORY'
+        },
+        'sizes': {
+            'primary': 'SIZE_CLASS',
+            'columns': [
+                "SIZE_HEIGHT",
+                "SIZE_WIDTH",
+                "SIZE_LOC",
+                "SIZE_BASIS",
+            ],
+            'default': 'MS_ED*SIZE'
+        },
+        'page_layouts': {
+            'primary': 'PAGE_CLASS',
+            'columns': [
+                "PAGE_DETAIL",
+                "PAGE_LOC",
+                "PAGE_Q",
+                "PAGE_BASIS",
+            ],
+            'default': 'MS_ED*PAGE'
+        },
+        'hands': {
+            'primary': 'HAND_CLASS',
+            'columns': [
+                "HAND_DETAIL",
+                "HAND_LOC",
+                "HAND_Q",
+                "HAND_BASIS",
+            ],
+            'default': 'MS_ED*PAGE'
+        },
+        'fonts': {
+            'primary': 'FONT_CLASS',
+            'columns': [
+                "FONT_DETAIL",
+                "FONT_LOC",
+                "FONT_Q",
+                "FONT_BASIS",
+            ],
+            'default': 'MS_ED*TIPOGRAFIA'
+        },
+        'watermarks': {
+            'primary': 'WATERMARK_CLASS',
+            'columns': [
+                "WATERMARK_DETAIL",
+                "WATERMARK_LOC",
+                "WATERMARK_Q",
+                "WATERMARK_BASIS",
+            ],
+            'default': 'MS_ED*FILIGRANA'
+        },
+        'graphics': {
+            'primary': 'GRAPHIC_CLASS',
+            'columns': [
+                "GRAPHIC_DETAIL",
+                "GRAPHIC_LOC",
+                "GRAPHIC_Q",
+                "GRAPHIC_BASIS",
+            ],
+            'default': 'MAN*GRAPHIC_CLASS'
+        },
+        'music': {
+            'primary': 'MUSIC_CLASS',
+            'columns': [
+                "MUSIC_DETAIL",
+                "MUSIC_LOC",
+                "MUSIC_Q",
+                "MUSIC_BASIS",
+            ],
+            'default': 'MS_ED*MUSIC'
+        },
+        'other_features': {
+            'primary': 'FEATURE_CLASS',
+            'columns': [
+                "FEATURE_DETAIL",
+                "FEATURE_LOC",
+                "FEATURE_Q",
+                "FEATURE_BASIS",
+            ],
+            'default': 'MAN*FEATURE_CLASS'
+        },
+        'related_uniform_titles': {
+            'primary': 'RELATED_UNICLASS',
+            'columns': [
+                "RELATED_UNIDETAIL",
+                "RELATED_UNIID",
+                "RELATED_UNILANGUAGE",
+                "RELATED_UNIBASIS",
+            ],
+            'default': 'UNIFORM_TITLE*TIT'
         },
         'id_fields': [
             'MANID',
@@ -274,6 +503,15 @@ DATADICT = {
         ]
     },
     Table.SUBJECT.value: {
+        'variant_headings': {
+            'primary': 'HEADING_VARIANT',
+            'columns': [
+                "HV_CLASS",
+                "HV_FIELD",
+                "HV_BASIS",
+            ],
+            'default': 'SUB*HEADING_MAIN'
+        },
         'id_fields': [
             'SUBID',
             'HB_SUBID',
@@ -292,6 +530,14 @@ DATADICT = {
         ]
     },
     Table.UNIFORM_TITLE.value: {
+        'incipits_and_xplicits': {
+            'primary': 'INC_EXP_CLASS',
+            'columns': [
+                "INCIPIT",
+                "EXPLICIT",
+            ],
+            'default': 'UNIFORM_TITLE*INC_EXP_CLASS'
+        },
         'milestones': {
             'primary': 'MILESTONE_CLASS',
             'columns': [

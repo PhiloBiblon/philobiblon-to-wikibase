@@ -20,6 +20,8 @@ class AnalyticPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
 
+    df = self.process_defaults_for_editbox(df, AnalyticPreprocessor.TABLE.value, 'incipits_and_xplicits')
+
     # Internet edit box
     df = self.split_internet_class(df)
 

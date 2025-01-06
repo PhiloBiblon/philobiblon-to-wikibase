@@ -75,11 +75,9 @@ class BiographyPreprocessor(GenericPreprocessor):
     geography_file = self.get_input_csv(Table.GEOGRAPHY)
     dict_geo = self.load_geo(geography_file)
 
-    # fill in any missing MILESTONE_CLASS values
-    key = 'MILESTONE_CLASS'
-    cols = DATADICT[BiographyPreprocessor.TABLE.value]['milestones']['columns']
-    default_val = DATADICT[BiographyPreprocessor.TABLE.value]['milestones']['default']
-    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
+    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'milestones')
+    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'titles')
+    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'affiliations')
 
     # Split Affiliation_type
     df = self.split_column_by_clip(df, 'AFFILIATION_CLASS', 'AFFILIATION_TYPE', 'BIOGRAPHY*AFFILIATION_CLASS',

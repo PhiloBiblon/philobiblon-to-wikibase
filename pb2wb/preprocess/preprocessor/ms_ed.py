@@ -25,10 +25,19 @@ class MsEdPreprocessor(GenericPreprocessor):
     df = self.propagate_enlarger(df, key_columns, columns_to_propagate)
 
     # now fill in any remaining missing MILESTONE_CLASS values
-    key = 'MILESTONE_CLASS'
-    cols = DATADICT[MsEdPreprocessor.TABLE.value]['milestones']['columns']
-    default_val = DATADICT[MsEdPreprocessor.TABLE.value]['milestones']['default']
-    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'milestones')
+
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'related_lib_callnos')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'related_lib_events')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'sizes')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'page_layouts')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'hands')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'fonts')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'watermarks')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'graphics')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'music')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'other_features')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'related_uniform_titles')
 
     # Split RELATED_LIBCALLNO
     df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',

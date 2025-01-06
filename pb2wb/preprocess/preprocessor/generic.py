@@ -422,8 +422,30 @@ class GenericPreprocessor:
     """
     condition = (df[key] == '') | (df[key].isna())  # Check for empty string or None
     condition &= df[cols].any(axis=1)  # Check if any value in 'cols' is not empty
+
+    # Find rows that meet the condition
+    rows_to_change = df[condition]
+
+    # Print the number of rows changed
+    num_changed = len(rows_to_change)
+
+    # Print the value in the first column of one of the changed rows
+    sample_string = ''
+    if num_changed > 0:
+      first_column_name = df.columns[0]
+      sample_pbid = rows_to_change.iloc[0][first_column_name]
+      sample_string = f"{sample_pbid = }"
+
+    print(f"Inserting {default_val = } for {key = } {num_changed = } {sample_string}")
     # Apply the default value to the key column for rows that meet the condition
     df.loc[condition, key] = default_val
+    return df
+
+  def process_defaults_for_editbox(self, df, table, editbox):
+    key = DATADICT[table][editbox]['primary']
+    cols = DATADICT[table][editbox]['columns']
+    default_val = DATADICT[table][editbox]['default']
+    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
     return df
 
   def propagate_enlarger(self, df, key_columns, columns_to_propagate):

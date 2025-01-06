@@ -33,6 +33,8 @@ class LibraryPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
 
+    df = self.process_defaults_for_editbox(df, LibraryPreprocessor.TABLE.value, 'names')
+
     # Internet edit box
     df = self.split_internet_class(df)
 

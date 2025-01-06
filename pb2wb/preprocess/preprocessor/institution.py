@@ -49,6 +49,9 @@ class InstitutionPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df_ins = pd.read_csv(file, dtype=str, keep_default_na=False)
 
+    df_ins = self.process_defaults_for_editbox(df_ins, InstitutionPreprocessor.TABLE.value, 'names')
+    df_ins = self.process_defaults_for_editbox(df_ins, InstitutionPreprocessor.TABLE.value, 'milestones')
+
     # add new columns for the qnumbers using the lookup table if supplied
     df_ins = self.add_qnumber_columns(df_ins, InstitutionPreprocessor.TABLE)
 
