@@ -251,7 +251,7 @@ DATADICT = {
                 "NAME_EDQ",
                 "NAME_BASIS",
             ],
-            'default': 'INSTITUTIONS*INS'
+            'default': 'INSTITUTIONS*NAME_CLASS'
         },
         'Milestones': {
             'primary': 'MILESTONE_CLASS',
@@ -400,7 +400,7 @@ DATADICT = {
                 "HAND_Q",
                 "HAND_BASIS",
             ],
-            'default': 'MS_ED*PAGE'
+            'default': 'MS_ED*HAND'
         },
         'Fonts': {
             'primary': 'FONT_CLASS',
