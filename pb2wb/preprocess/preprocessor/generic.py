@@ -10,7 +10,7 @@ import pandas as pd
 from common.enums import Bibliography
 from common.data_dictionary import DATADICT
 from common.settings import (CLEAN_DIR, BASE_DATA_DIR, PRE_PROCESSED_DIR, BASE_IMPORT_OBJECTS)
-
+from common.enums import Table
 
 class GenericPreprocessor:
 
@@ -368,6 +368,7 @@ class GenericPreprocessor:
     return df
 
   def split_internet_class(self, df):
+    df = self.process_defaults_for_editbox(df, Table.ANALYTIC.value, 'INTERNET')
     return self.split_column_by_clip(df, 'INTERNET_CLASS', 'INTERNET_ADDRESS',
                                      'UNIVERSAL*INTERNET_CLASS',
                                      ['EMA', 'DOI', 'CAT', 'URN', 'URI', 'URL', 'VIAF'],
@@ -426,15 +427,13 @@ class GenericPreprocessor:
     # Find rows that meet the condition
     rows_to_change = df[condition]
 
-    # Print the number of rows changed
+    # Print up to 10 values from the first column of the changed rows
     num_changed = len(rows_to_change)
-
-    # Print the value in the first column of one of the changed rows
     sample_string = ''
     if num_changed > 0:
       first_column_name = df.columns[0]
-      sample_pbid = rows_to_change.iloc[0][first_column_name]
-      sample_string = f"{sample_pbid = }"
+      sample_values = rows_to_change[first_column_name].head(100).tolist()
+      sample_string = f'{sample_values = }'
 
     print(f"Inserting {default_val = } for {key = } {num_changed = } {sample_string}")
     # Apply the default value to the key column for rows that meet the condition

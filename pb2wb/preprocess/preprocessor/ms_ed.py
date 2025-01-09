@@ -24,20 +24,23 @@ class MsEdPreprocessor(GenericPreprocessor):
     columns_to_propagate = ['MILESTONE_CLASS']
     df = self.propagate_enlarger(df, key_columns, columns_to_propagate)
 
-    # now fill in any remaining missing MILESTONE_CLASS values
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'milestones')
+    # fill in any remaining missing MILESTONE_CLASS values
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Milestones')
 
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'related_lib_callnos')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'related_lib_events')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'sizes')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'page_layouts')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'hands')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'fonts')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'watermarks')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'graphics')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'music')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'other_features')
-    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'related_uniform_titles')
+    # Fill in all editbox initial columns that need defaults
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Call Numbers')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'History')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Size')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Page Layout')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Hands')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Fonts')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Watermarks')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Graphics')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Music')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Other features')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related Uniform Titles')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related Individuals')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related manuscripts')
 
     # Split RELATED_LIBCALLNO
     df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',

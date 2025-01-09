@@ -75,9 +75,9 @@ class BiographyPreprocessor(GenericPreprocessor):
     geography_file = self.get_input_csv(Table.GEOGRAPHY)
     dict_geo = self.load_geo(geography_file)
 
-    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'milestones')
-    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'titles')
-    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'affiliations')
+    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'Milestones')
+    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'Titles')
+    df = self.process_defaults_for_editbox(df, BiographyPreprocessor.TABLE.value, 'Affiliations')
 
     # Split Affiliation_type
     df = self.split_column_by_clip(df, 'AFFILIATION_CLASS', 'AFFILIATION_TYPE', 'BIOGRAPHY*AFFILIATION_CLASS',

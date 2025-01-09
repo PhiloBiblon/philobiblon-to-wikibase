@@ -52,8 +52,8 @@ class GeographyPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
 
-    df = self.process_defaults_for_editbox(df, GeographyPreprocessor.TABLE.value, 'names')
-    df = self.process_defaults_for_editbox(df, GeographyPreprocessor.TABLE.value, 'related_places')
+    df = self.process_defaults_for_editbox(df, GeographyPreprocessor.TABLE.value, 'Names')
+    df = self.process_defaults_for_editbox(df, GeographyPreprocessor.TABLE.value, 'Related Places')
 
     # Internet edit box
     df = self.split_internet_class(df)

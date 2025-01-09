@@ -6,7 +6,7 @@ from common.enums import Table
 
 DATADICT = {
     Table.ANALYTIC.value: {
-        'incipits_and_xplicits': {
+        'Incipits & Explicits': {
             'primary': 'INC_EXP_CLASS',
             'columns': [
                 "INCIPIT",
@@ -15,6 +15,15 @@ DATADICT = {
                 "EXPLICIT_LOC",
             ],
             'default': 'ANALYTIC*INC_EXP_CLASS'
+        },
+        'INTERNET': {
+            'primary': 'INTERNET_CLASS',
+            'columns': [
+                "INTERNET_ADDRESS",
+                "INTERNET_SERVICE",
+                "INTERNET_LASTSEEN",
+            ],
+            'default': 'UNIVERSAL*INTERNET_CLASS*URL'
         },
         'id_fields': [
             'CNUM',
@@ -68,7 +77,7 @@ DATADICT = {
         ]
     },
     Table.BIOGRAPHY.value: {
-        'milestones': {
+        'Milestones': {
             'primary': 'MILESTONE_CLASS',
             'columns': [
                 "MILESTONE_DETAIL",
@@ -83,7 +92,7 @@ DATADICT = {
             ],
             'default': 'BIOGRAPHY*MILESTONE'
         },
-        'titles': {
+        'Titles': {
             'primary': 'TITLE',
             'columns': [
                 "TITLE_NUMBER",
@@ -98,7 +107,7 @@ DATADICT = {
             ],
             'default': 'BIOGRAPHY*TITLE'
         },
-        'affiliations': {
+        'Affiliations': {
             'primary': 'AFFILIATION_CLASS',
             'columns': [
                 "AFFILIATION_TYPE",
@@ -195,7 +204,7 @@ DATADICT = {
         ]
     },
     Table.GEOGRAPHY.value: {
-        'names': {
+        'Names': {
             'primary': 'NAME_CLASS',
             'columns': [
                 "NAME",
@@ -208,7 +217,7 @@ DATADICT = {
             ],
             'default': 'GEOGRAPHY*NAME'
         },
-        'related_places': {
+        'Related Places': {
             'primary': 'RELATED_GEOCLASS',
             'columns': [
                 "RELATED_GEODETAIL",
@@ -231,7 +240,7 @@ DATADICT = {
         ]
     },
     Table.INSTITUTIONS.value: {
-        'names': {
+        'Names': {
             'primary': 'NAME_CLASS',
             'columns': [
                 "NAME",
@@ -244,7 +253,7 @@ DATADICT = {
             ],
             'default': 'INSTITUTIONS*INS'
         },
-        'milestones': {
+        'Milestones': {
             'primary': 'MILESTONE_CLASS',
             'columns': [
                 "MILESTONE_DETAIL",
@@ -282,7 +291,7 @@ DATADICT = {
         ]
     },
     Table.LIBRARY.value: {
-        'names': {
+        'Names': {
             'primary': 'NAME_CLASS',
             'columns': [
                 "NAME",
@@ -318,7 +327,14 @@ DATADICT = {
         ]
     },
     Table.MS_ED.value: {
-        'milestones': {
+        'Call Numbers': {
+            'primary': 'RELATED_LIBCALLNOCLASS',
+            'columns': [
+                "RELATED_LIBCALLNO"
+            ],
+            'default': 'MS_ED*RELATED_LIBCALLNOCLASS'
+        },
+        'Milestones': {
             'primary': 'MILESTONE_CLASS',
             'columns': [
                 "MILESTONE_DETAIL",
@@ -341,14 +357,7 @@ DATADICT = {
             ],
             'default': 'MS_ED*MILESTONE'
         },
-        'related_lib_callnos': {
-            'primary': 'RELATED_LIBCALLNOCLASS',
-            'columns': [
-                "RELATED_LIBCALLNO"
-            ],
-            'default': 'MS_ED*RELATED_LIBCALLNOCLASS'
-        },
-        'related_lib_events': {
+        'History': {
             'primary': 'RELATED_LIBEVENTCLASS',
             'columns': [
                 "RELATED_LIBEVENTDETAIL",
@@ -363,7 +372,7 @@ DATADICT = {
             ],
             'default': 'MS_ED*HISTORY'
         },
-        'sizes': {
+        'Size': {
             'primary': 'SIZE_CLASS',
             'columns': [
                 "SIZE_HEIGHT",
@@ -373,7 +382,7 @@ DATADICT = {
             ],
             'default': 'MS_ED*SIZE'
         },
-        'page_layouts': {
+        'Page Layout': {
             'primary': 'PAGE_CLASS',
             'columns': [
                 "PAGE_DETAIL",
@@ -383,7 +392,7 @@ DATADICT = {
             ],
             'default': 'MS_ED*PAGE'
         },
-        'hands': {
+        'Hands': {
             'primary': 'HAND_CLASS',
             'columns': [
                 "HAND_DETAIL",
@@ -393,7 +402,7 @@ DATADICT = {
             ],
             'default': 'MS_ED*PAGE'
         },
-        'fonts': {
+        'Fonts': {
             'primary': 'FONT_CLASS',
             'columns': [
                 "FONT_DETAIL",
@@ -403,7 +412,7 @@ DATADICT = {
             ],
             'default': 'MS_ED*TIPOGRAFIA'
         },
-        'watermarks': {
+        'Watermarks': {
             'primary': 'WATERMARK_CLASS',
             'columns': [
                 "WATERMARK_DETAIL",
@@ -413,7 +422,7 @@ DATADICT = {
             ],
             'default': 'MS_ED*FILIGRANA'
         },
-        'graphics': {
+        'Graphics': {
             'primary': 'GRAPHIC_CLASS',
             'columns': [
                 "GRAPHIC_DETAIL",
@@ -423,7 +432,7 @@ DATADICT = {
             ],
             'default': 'MAN*GRAPHIC_CLASS'
         },
-        'music': {
+        'Music': {
             'primary': 'MUSIC_CLASS',
             'columns': [
                 "MUSIC_DETAIL",
@@ -433,7 +442,7 @@ DATADICT = {
             ],
             'default': 'MS_ED*MUSIC'
         },
-        'other_features': {
+        'Other features': {
             'primary': 'FEATURE_CLASS',
             'columns': [
                 "FEATURE_DETAIL",
@@ -443,7 +452,7 @@ DATADICT = {
             ],
             'default': 'MAN*FEATURE_CLASS'
         },
-        'related_uniform_titles': {
+        'Related Uniform Titles': {
             'primary': 'RELATED_UNICLASS',
             'columns': [
                 "RELATED_UNIDETAIL",
@@ -452,6 +461,40 @@ DATADICT = {
                 "RELATED_UNIBASIS",
             ],
             'default': 'UNIFORM_TITLE*TIT'
+        },
+        'Related Copies': {
+            'primary': 'RELATED_COPCLASS',
+            'columns': [
+                "RELATED_COPDETAIL",
+                "RELATED_COPID",
+                "RELATED_COPBASIS",
+            ],
+            'default': 'MS_ED*RELATED_COPCLASS'
+        },
+        'Related Individuals': {
+            'primary': 'RELATED_BIOCLASS',
+            'columns': [
+                "RELATED_BIODETAIL",
+                "RELATED_BIOID",
+                "RELATED_BIOIDQ",
+                "RELATED_BIOBD",
+                "RELATED_BIOBDQ",
+                "RELATED_BIOED",
+                "RELATED_BIOEDQ",
+                "RELATED_BIOBASIS",
+            ],
+            'default': 'MS_ED*RELATED_BIOCLASS'
+        },
+        'Related manuscripts': {
+            'primary': 'RELATED_MANCLASS',
+            'columns': [
+                "RELATED_MANCLASS",
+                "RELATED_MANID",
+                "RELATED_MANVOL",
+                "RELATED_MANLOC",
+                "RELATED_MANITEM",
+            ],
+            'default': 'MS_ED*RELATED_MANCLASS'
         },
         'id_fields': [
             'MANID',
@@ -503,7 +546,7 @@ DATADICT = {
         ]
     },
     Table.SUBJECT.value: {
-        'variant_headings': {
+        'Variant Headings': {
             'primary': 'HEADING_VARIANT',
             'columns': [
                 "HV_CLASS",
@@ -530,7 +573,7 @@ DATADICT = {
         ]
     },
     Table.UNIFORM_TITLE.value: {
-        'incipits_and_xplicits': {
+        'Incipits & Explicits': {
             'primary': 'INC_EXP_CLASS',
             'columns': [
                 "INCIPIT",
@@ -538,7 +581,7 @@ DATADICT = {
             ],
             'default': 'UNIFORM_TITLE*INC_EXP_CLASS'
         },
-        'milestones': {
+        'Milestones': {
             'primary': 'MILESTONE_CLASS',
             'columns': [
                 "MILESTONE_DETAIL",
