@@ -157,7 +157,7 @@ DATADICT = {
         ]
     },
     Table.COPIES.value: {
-        'related_copies': {
+        'Related Copies': {
             'primary': 'RELATED_COPCLASS',
             'columns': [
                 "RELATED_COPDETAIL",

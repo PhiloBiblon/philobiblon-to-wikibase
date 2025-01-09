@@ -30,6 +30,7 @@ class CopiesPreprocessor(GenericPreprocessor):
     df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Graphics')
     df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Music')
     df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Other features')
+    df = self.process_defaults_for_editbox(df, CopiesPreprocessor.TABLE.value, 'Related Copies')
     df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related Individuals')
     df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related manuscripts')
 
