@@ -24,11 +24,23 @@ class MsEdPreprocessor(GenericPreprocessor):
     columns_to_propagate = ['MILESTONE_CLASS']
     df = self.propagate_enlarger(df, key_columns, columns_to_propagate)
 
-    # now fill in any remaining missing MILESTONE_CLASS values
-    key = 'MILESTONE_CLASS'
-    cols = DATADICT[MsEdPreprocessor.TABLE.value]['milestones']['columns']
-    default_val = DATADICT[MsEdPreprocessor.TABLE.value]['milestones']['default']
-    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
+    # fill in any remaining missing MILESTONE_CLASS values
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Milestones')
+
+    # Fill in all editbox initial columns that need defaults
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Call Numbers')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'History')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Size')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Page Layout')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Hands')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Fonts')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Watermarks')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Graphics')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Music')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Other features')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related Uniform Titles')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related Individuals')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related manuscripts')
 
     # Split RELATED_LIBCALLNO
     df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',

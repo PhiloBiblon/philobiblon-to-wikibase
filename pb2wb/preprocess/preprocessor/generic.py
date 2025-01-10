@@ -10,7 +10,7 @@ import pandas as pd
 from common.enums import Bibliography
 from common.data_dictionary import DATADICT
 from common.settings import (CLEAN_DIR, BASE_DATA_DIR, PRE_PROCESSED_DIR, BASE_IMPORT_OBJECTS)
-
+from common.enums import Table
 
 class GenericPreprocessor:
 
@@ -368,6 +368,7 @@ class GenericPreprocessor:
     return df
 
   def split_internet_class(self, df):
+    df = self.process_defaults_for_editbox(df, Table.ANALYTIC.value, 'INTERNET')
     return self.split_column_by_clip(df, 'INTERNET_CLASS', 'INTERNET_ADDRESS',
                                      'UNIVERSAL*INTERNET_CLASS',
                                      ['EMA', 'DOI', 'CAT', 'URN', 'URI', 'URL', 'VIAF'],
@@ -422,8 +423,28 @@ class GenericPreprocessor:
     """
     condition = (df[key] == '') | (df[key].isna())  # Check for empty string or None
     condition &= df[cols].any(axis=1)  # Check if any value in 'cols' is not empty
+
+    # Find rows that meet the condition
+    rows_to_change = df[condition]
+
+    # Print up to 10 values from the first column of the changed rows
+    num_changed = len(rows_to_change)
+    sample_string = ''
+    if num_changed > 0:
+      first_column_name = df.columns[0]
+      sample_values = rows_to_change[first_column_name].head(100).tolist()
+      sample_string = f'{sample_values = }'
+
+    print(f"Inserting {default_val = } for {key = } {num_changed = } {sample_string}")
     # Apply the default value to the key column for rows that meet the condition
     df.loc[condition, key] = default_val
+    return df
+
+  def process_defaults_for_editbox(self, df, table, editbox):
+    key = DATADICT[table][editbox]['primary']
+    cols = DATADICT[table][editbox]['columns']
+    default_val = DATADICT[table][editbox]['default']
+    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
     return df
 
   def propagate_enlarger(self, df, key_columns, columns_to_propagate):

@@ -23,11 +23,8 @@ class UniformTitlePreprocessor(GenericPreprocessor):
     # Internet edit box
     df = self.split_internet_class(df)
 
-    # fill in any missing MILESTONE_CLASS values
-    key = 'MILESTONE_CLASS'
-    cols = DATADICT[UniformTitlePreprocessor.TABLE.value]['milestones']['columns']
-    default_val = DATADICT[UniformTitlePreprocessor.TABLE.value]['milestones']['default']
-    df = self.insert_default_for_missing_key(df.copy(), key, cols, default_val)
+    df = self.process_defaults_for_editbox(df, UniformTitlePreprocessor.TABLE.value, 'Incipits & Explicits')
+    df = self.process_defaults_for_editbox(df, UniformTitlePreprocessor.TABLE.value, 'Milestones')
 
     # add new columns for the qnumbers using the lookup table if supplied
     df = self.add_qnumber_columns(df, UniformTitlePreprocessor.TABLE)

@@ -6,6 +6,7 @@ from datetime import datetime
 from common.enums import Table
 from common.data_dictionary import DATADICT
 from .generic import GenericPreprocessor
+from .ms_ed import MsEdPreprocessor
 
 class CopiesPreprocessor(GenericPreprocessor):
   TABLE = Table.COPIES
@@ -19,6 +20,19 @@ class CopiesPreprocessor(GenericPreprocessor):
     file = self.get_input_csv(CopiesPreprocessor.TABLE)
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
+
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Call Numbers')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'History')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Size')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Page Layout')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Fonts')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Watermarks')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Graphics')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Music')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Other features')
+    df = self.process_defaults_for_editbox(df, CopiesPreprocessor.TABLE.value, 'Related Copies')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related Individuals')
+    df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related manuscripts')
 
     # Split RELATED_LIBCALLNO
     df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',

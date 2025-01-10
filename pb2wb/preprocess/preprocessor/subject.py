@@ -41,6 +41,8 @@ class SubjectPreprocessor(GenericPreprocessor):
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
 
+    df = self.process_defaults_for_editbox(df, SubjectPreprocessor.TABLE.value, 'Variant Headings')
+
     # Internet edit box
     df = self.split_internet_class(df)
 
