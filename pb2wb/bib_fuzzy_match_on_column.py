@@ -2,6 +2,8 @@ import pandas as pd
 import argparse
 from fuzzywuzzy import fuzz
 import numpy as np
+import glob
+import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--bib', type=str, default="BITECA", help="BIB to compare join with BETA", choices=['BITECA', 'BITAGAP'])
@@ -12,6 +14,7 @@ parser.add_argument('--column', type=str, help="Column to use for matching")
 parser.add_argument('--column2', type=str, help="Second column to use for additional details")
 parser.add_argument('--sort_column', type=str, help="Column to help sort the DataFrame")
 parser.add_argument('--sort_value', type=str, help="Value to help sort the DataFrame")
+parser.add_argument('--raw', action='store_true', help="Use raw single row data instead of pre-processed data") #Requires the single row script to be run first
 args = parser.parse_args()
 
 output_file = f'matched_{args.bib.lower()}_{args.instance.lower()}_{args.table}'
@@ -62,9 +65,25 @@ def first_non_empty(series):
             return value
     return np.nan #Return NaN if no non-empty value is found
 
+def get_latest_file(directory, pattern):
+    print(f"Searching for files in directory: {directory} using pattern: {pattern}")
+    files = glob.glob(os.path.join(directory, pattern))
+    if not files:
+        return None
+    print(f"Files in directory: {files}")
+    latest_file = max(files, key=os.path.getctime)
+    print(f"Latest file: {latest_file}")
+    return latest_file
+
 # Read the two CSV files
 beta_csv = f'../data/processed/pre/BETA/{args.instance.lower()}_beta_{args.table}.csv'
 alt_csv = f'../data/processed/pre/{args.bib}/{args.instance.lower()}_{args.bib.lower()}_{args.table}.csv'
+
+# Update the beta_csv and alt_csv paths if raw is specified
+if args.raw:
+    beta_csv = get_latest_file('first_row/BETA', f'BETA_{args.table.upper()}_first_row*.csv')
+    alt_csv = get_latest_file(f'first_row/{args.bib}', f'{args.bib.upper()}_{args.table.upper()}_first_row*.csv')
+
 print(f"Reading files: {beta_csv} and {alt_csv}")
 df1 = pd.read_csv(beta_csv, low_memory=False)
 df2 = pd.read_csv(alt_csv, low_memory=False)
