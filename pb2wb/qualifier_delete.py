@@ -68,10 +68,11 @@ def remove_qualifier_with_retry(session, csrf_token, claim_guid, property_qualif
                 if snak_hash:
                     response = remove_qualifiers(session, csrf_token, claim_guid, snak_hash)
                     if response and response.get("actionthrottledtext"):
-                        print("Action throttled. Waiting for 30 seconds...")
+                        print("Action throttled. Waiting for 30 seconds")
                         time.sleep(30)
                         response = remove_qualifiers(session, csrf_token, claim_guid, snak_hash)  # Retry
                     if response and not response.get("error"):
+                        print(f'Success response: {response}')
                         print(f"Qualifier for {claim_guid} removed successfully")
                     elif response and response.get("error"):
                         print(f"Failed to remove qualifier for {claim_guid}: {response.get('error').get('info')}")
