@@ -1,6 +1,7 @@
 import csv
 import requests
 from common.settings import BASE_IMPORT_OBJECTS
+import time
 
 # Example SPARQL query to fetch items with P2 statements qualified by P3
 '''
@@ -56,40 +57,53 @@ def remove_qualifiers(session, csrf_token, claim_guid, qualifier_snak_hash):
     })
     return response.json()
 
+def remove_qualifier_with_retry(session, csrf_token, claim_guid, property_qualifier, statement_details):
+    """Removes a qualifier from a claim with retry on throttling."""
+    try:
+        claims = statement_details.get('claims', {}).get(PROPERTY, [])
+        if claims:
+            qualifiers = claims[0].get('qualifiers', {}).get(property_qualifier, [])
+            if qualifiers:
+                snak_hash = qualifiers[0].get('hash')
+                if snak_hash:
+                    response = remove_qualifiers(session, csrf_token, claim_guid, snak_hash)
+                    if response and response.get("actionthrottledtext"):
+                        print("Action throttled. Waiting for 30 seconds...")
+                        time.sleep(30)
+                        response = remove_qualifiers(session, csrf_token, claim_guid, snak_hash)  # Retry
+                    if response and not response.get("error"):
+                        print(f"Qualifier for {claim_guid} removed successfully")
+                    elif response and response.get("error"):
+                        print(f"Failed to remove qualifier for {claim_guid}: {response.get('error').get('info')}")
+                    else:
+                        print(f"Failed to get response for qualifier removal for {claim_guid}")
+                else:
+                    print(f"Snak hash not found for {claim_guid}")
+            else:
+                print(f"No {property_qualifier} qualifiers found for {claim_guid}")
+        else:
+            print(f"No claims found for {PROPERTY} and {claim_guid}")
+
+    except Exception as e:
+        print(f"An unexpected error occurred while removing qualifier for {claim_guid}")
+
 # Process the CSV file
 def process_csv(session, csrf_token):
     with open(CSV_FILE, mode='r', encoding='utf-8') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
-            item_id = row["item"].split("/")[-1]  # Extract Q-number from the URI
-            statement_uri = row["statement"]  # Full URI for the statement
-            claim_guid = statement_uri.split("/")[-1]  # Extract the GUID from the URI
-            
-            # Correct the GUID format by replacing the '-' with '$'
-            claim_guid = claim_guid.replace("-", "$", 1)  # Only replace the first '-' (between item ID and GUID part)
-            
+            item_id = row["item"].split("/")[-1]
+            statement_uri = row["statement"]
+            claim_guid = statement_uri.split("/")[-1]
+            claim_guid = claim_guid.replace("-", "$", 1)
+
             print(f"Processing item: {item_id}, claim GUID: {claim_guid}")
 
-            # Fetch statement details to check the actual qualifiers
             statement_details = fetch_statement_details(session, claim_guid)
             print("Statement details:", statement_details)
 
-            # Extract the snak hash for P3 qualifier
-            try:
-                snak_hash = statement_details['claims'][PROPERTY][0]['qualifiers'][PROPERTY_QUALIFIER][0]['hash']
-                print(f"Snak hash for qualifier: {snak_hash}")
-            except KeyError:
-                snak_hash = None
-                print(f"No qualifiers found for {claim_guid}")
+            remove_qualifier_with_retry(session, csrf_token, claim_guid, PROPERTY_QUALIFIER, statement_details)
 
-            # Attempt to remove the P3 qualifier using the snak hash
-            if snak_hash is not None:
-                try:
-                    response = remove_qualifiers(session, csrf_token, claim_guid, snak_hash)
-                    print("Remove qualifier response:", response)
-                except Exception as e:
-                    print(f"Failed to remove qualifier for {claim_guid}: {e}")
-        
     print(f'Processing {PROPERTY_QUALIFIER} deletes complete using {CSV_FILE}')
 
 # Main function
