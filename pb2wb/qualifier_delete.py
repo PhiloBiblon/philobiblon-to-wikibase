@@ -89,6 +89,8 @@ def process_csv(session, csrf_token):
                     print("Remove qualifier response:", response)
                 except Exception as e:
                     print(f"Failed to remove qualifier for {claim_guid}: {e}")
+        
+    print(f'Processing {PROPERTY_QUALIFIER} deletes complete using {CSV_FILE}')
 
 # Main function
 def main():
