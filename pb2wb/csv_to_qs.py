@@ -19,6 +19,15 @@ csv_file = args.csv_filepath
 output_file = args.output_filepath
 property_pid = args.property_pid
 
+# Example SPARQL query to fetch bio objects with BETA bioid and label
+'''
+SELECT ?item ?itemLabel ?itemDescription ?pbid
+WHERE {
+  ?item wdt:P476 ?pbid.
+  FILTER CONTAINS(STR(?pbid), "BETA bioid")
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+'''
 
 def translate(text, target_language='en'):
     """Translate a value to a different language (en) using the Google Translate API.
@@ -64,32 +73,32 @@ def csv_to_quickstatements(csv_filepath, output_filepath, property_pid, item_col
                 if value: #Skips empty values
                     if args.delete:
                         if args.labels:
-                            split_value = value.split(',')
+                            split_value = value.split(',', 1)
                             if len(split_value) > 1:
                                 label = f'{split_value[0]}\"'
                                 description = f'\"{split_value[1].lstrip()}'
+                                outfile.write(f"-{item_qid}|Les|{label}\n")  #Adjust for language as needed: Les = label (spanish)
+                                outfile.write(f"-{item_qid}|Des|{description}\n")
                                 if args.translate:
                                     label = translate(label)
                                     description = translate(description)
-                                outfile.write(f"-{item_qid}|Les|{label}\n")  #Adjust for language as needed: Les = label (spanish)
-                                outfile.write(f"-{item_qid}|Des|{description}\n")
-                                outfile.write(f"-{item_qid}|Len|{label}\n")
-                                outfile.write(f"-{item_qid}|Den|{description}\n")
+                                #outfile.write(f"-{item_qid}|Len|{label}\n")
+                                #outfile.write(f"-{item_qid}|Den|{description}\n")
                                 continue
                         outfile.write(f"-{item_qid}|{property_pid}|{value}\n") # Append '-' to delete statement
                     else:
                         if args.labels:
-                            split_value = value.split(',')
+                            split_value = value.split(',', 1)
                             if len(split_value) > 1:
                                 label = f'{split_value[0]}\"'
                                 description = f'\"{split_value[1].lstrip()}'
+                                outfile.write(f"{item_qid}|Les|{label}\n") #Adjust for language as needed: Les = label (spanish)
+                                outfile.write(f"{item_qid}|Des|{description}\n")
                                 if args.translate:
                                     label = translate(label)
                                     description = translate(description)
-                                outfile.write(f"{item_qid}|Les|{label}\n") #Adjust for language as needed: Les = label (spanish)
-                                outfile.write(f"{item_qid}|Des|{description}\n")
-                                outfile.write(f"{item_qid}|Len|{label}\n")
-                                outfile.write(f"{item_qid}|Den|{description}\n")
+                                #outfile.write(f"{item_qid}|Len|{label}\n")
+                                #outfile.write(f"{item_qid}|Den|{description}\n")
                                 continue
                         outfile.write(f"{item_qid}|{property_pid}|{value}\n")
     except FileNotFoundError:

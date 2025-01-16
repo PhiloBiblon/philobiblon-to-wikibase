@@ -18,6 +18,13 @@ class GenericPostprocessor:
       return True
     return False
 
+  def check_redundant_p146(self, line):
+    l = line.split('\t')
+    if len(l) >= 3 and l[1] == 'P146' and l[0] == l[2].strip('"').split("/wiki/")[-1]:
+      print(f"Redundant P146 statement: {line}")
+      return True
+    return False
+
   def update_command(self, line):
     if re.match(PATTERN_STATEMENT, line):
       # Add ! prefix in property used for the statement
@@ -43,6 +50,8 @@ class GenericPostprocessor:
     with open(file, 'r') as input:
       with open(processed_file, 'w') as output:        
           for line in input:
+              if self.check_redundant_p146(line):
+                continue
               if not self.check_empty_p799(line):
                 if force_new_statements:
                   line = self.update_command(line)
