@@ -20,7 +20,7 @@ class GenericPostprocessor:
 
   def check_redundant_p146(self, line):
     l = line.split('\t')
-    if len(l) >= 3 and l[1] == 'P146' and l[0] == l[2].strip('"').split("/wiki/")[-1]:
+    if len(l) >= 3 and l[1] == 'P146' and l[0] == l[2].strip('"').split("/wiki/Item:")[-1]:
       print(f"Redundant P146 statement: {line}")
       return True
     return False
