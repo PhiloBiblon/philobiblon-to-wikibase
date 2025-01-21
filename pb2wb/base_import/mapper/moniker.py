@@ -44,7 +44,7 @@ class MonikerMapper(GenericMapper):
     LANGUAGE = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['Language']
     QNUMBER = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['qnum']
     P700 = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['p700']
-    P17 = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['p17']
+    # P17 = BASE_IMPORT_OBJECTS[f'{wb}']['BIB'][bib]['p17'] # Commenting out as it is no longer needed
     is_new = True
     item = self.wb_manager.get_q_by_pbid(pbid)
     if not item:
@@ -63,7 +63,7 @@ class MonikerMapper(GenericMapper):
       qualifiers = Qualifiers()
       qualifiers.add(Item(value=P700, prop_nr='P700'))
       item.claims.add(Item(value=QNUMBER, prop_nr='P131', qualifiers=qualifiers))
-      item.claims.add(Item(value=P17, prop_nr='P17'))
+      # item.claims.add(Item(value=P17, prop_nr='P17')) # Commenting out as it is no longer needed
       
       return item, is_new
     else:
