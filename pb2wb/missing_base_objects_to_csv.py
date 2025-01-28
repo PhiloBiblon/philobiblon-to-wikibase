@@ -16,6 +16,7 @@ parser.add_argument('--bib', default='beta', choices=bibliographies, help='Speci
 parser.add_argument('--instance', default='PBCOG', choices=instances, help='Specify a instance from the list.  Default is pbcog.')
 parser.add_argument('--table', default='all', choices=tables, help='Specify a table from the list.  Default is all.')
 parser.add_argument('--error', default='base_object', choices=['dataclip', 'base_object'], help='Error type to search for.  Default')
+parser.add_argument('--lookup',  default='lookup', choices=['lookup', 'raw'], help='Use the lookup table or the dataclip file')
 args = parser.parse_args()
 
 bibliography = args.bib.lower()
@@ -34,6 +35,10 @@ Path(f'{updated_path}').mkdir(parents=True, exist_ok=True)
 # If dataclip is selected, use the dataclip path
 if args.error == 'dataclip':
     updated_path = f'errors/dataclip'
+    dataclips = pd.read_csv(f'../data/lookup_{instance}.csv', low_memory=False)
+    if not args.lookup != 'lookup': # Compare dataclips against the lookup table
+        dataclips = pd.read_csv(f"../data/raw/{bibliography.upper()}/dataclips/{bibliography.upper()} - DATACLIPS - 2022-12-28.CSV", low_memory=False)
+    column = dataclips.columns[0]
     Path(f'{updated_path}').mkdir(parents=True, exist_ok=True)
 
 if table == 'all':
@@ -101,10 +106,13 @@ for file in files:
         filtered_df = filtered_df.drop_duplicates()  # Add parentheses here to call the function
         output_file = f'{updated_path}/combined_dataclip_errors_{instance}_{file}'
         print(f'Writing to output file: {output_file}')
+        non_exist_df = filtered_df[~filtered_df['Dataclip'].isin(dataclips[column])] # Check if the Dataclip values exist in the lookup table
+        non_exist_df.to_csv(f'{updated_path}/non_existing_dataclip_{instance}_{bibliography}_{file}.csv', index=False)
+        filtered_df = filtered_df[filtered_df['Dataclip'].isin(dataclips[column])]
         filtered_df.to_csv(output_file, index=False)
         continue
     else:
-        filtered_df = pre_df[pre_df.iloc[:, 1].eq(search_string)]
+        filtered_df = pre_df[pre_df.iloc[:, 1].eq(search_string)] # Filter the DataFrame based on the search string
 
     # Select unique id values from the filtered dataframe
     updated_df = filtered_df.loc[:, [first_column_name]].drop_duplicates()
