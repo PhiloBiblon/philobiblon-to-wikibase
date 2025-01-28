@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 from common.settings import BASE_IMPORT_OBJECTS
+import time
 
 # Example SPARQL query to fetch items with P146 statements and wikidata.org in the value
 '''
@@ -19,10 +20,10 @@ wb = 'FACTGRID' # 'PBCOG' or 'FACTGRID'
 user = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
 password = BASE_IMPORT_OBJECTS[f'{wb}']['WB_PASSWORD']
 PROPERTY = "P146"  # The property for online links
-#CSV_FILE = "p146_to_sitelink.csv"  # The CSV file containing the P146 items to be processed
-CSV_FILE = "p146_to_sitelink_1row.csv"  # The CSV file containing the P146 items to be processed
-factgrid_api_url = "https://database.factgrid.de/w/api.php"  # Replace with your FactGrid API URL
-site_code = "wikidatawiki" #This is the common site code for wikidata
+CSV_FILE = "p146_to_sitelink.csv"  # The CSV file containing the P146 items to be processed
+#CSV_FILE = "p146_to_sitelink_1row.csv"  # The CSV file containing the P146 items to be processed
+factgrid_api_url = "https://database.factgrid.de/w/api.php"  # Replace with your PBCOG API URL if needed
+site_code = "wikidatawiki" #Site code for wikidata
 
 
 # Authenticate
@@ -80,6 +81,7 @@ def set_factgrid_sitelink(session, factgrid_api_url, factgrid_qid, wikidata_qid,
         print(f'Using params: {params}')
         response = session.post(factgrid_api_url, data=params)
         response.raise_for_status()
+        time.sleep(1)  # Sleep for 1 second to avoid throttling
         return response.json()
     except session.exceptions.RequestException as e:
         print(f"Error making request: {e}")
