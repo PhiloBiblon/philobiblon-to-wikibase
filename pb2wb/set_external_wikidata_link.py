@@ -2,6 +2,18 @@ import requests
 import pandas as pd
 from common.settings import BASE_IMPORT_OBJECTS
 
+# Example SPARQL query to fetch items with P146 statements and wikidata.org in the value
+'''
+SELECT ?item ?pbid ?online_info ?link
+WHERE {
+  ?item wdt:P476 ?pbid .
+  ?item wdt:P146 ?online_info .
+  FILTER (CONTAINS(STR(?online_info), "wikidata.org")) # Filter for "wikidata.org" in P146 value
+  OPTIONAL { ?link schema:about ?item ; schema:isPartOf <https://www.wikidata.org/> . }
+  FILTER ( !bound(?link) || STR(?link) != STR(?online_info) )  # Check for mismatch
+}
+'''
+
 # Configuration
 wb = 'FACTGRID' # 'PBCOG' or 'FACTGRID'
 user = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
