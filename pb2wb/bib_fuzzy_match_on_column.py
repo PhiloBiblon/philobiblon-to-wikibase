@@ -10,15 +10,22 @@ parser.add_argument('--bib', type=str, default="BITECA", help="BIB to compare jo
 parser.add_argument("--table", help="Table to process", choices=['analytic', 'biography', 'geography', 'institutions', 'library', 'subject', 'bibliography', 'copies', 'ms_ed', 'uniform_title'], required=True)
 parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--fuzzy', action='store_true', help="Use fuzzy matching to merge the two files")
-parser.add_argument('--column', type=str, help="Column to use for matching")
+parser.add_argument('--column', type=str, help="Column to use for matching", required=True)
 parser.add_argument('--column2', type=str, help="Second column to use for additional details")
 parser.add_argument('--sort_column', type=str, help="Column to help sort the DataFrame")
 parser.add_argument('--sort_value', type=str, help="Value to help sort the DataFrame")
 parser.add_argument('--raw', action='store_true', help="Use raw single row data instead of pre-processed data") #Requires the single row script to be run first
+parser.add_argument('--threshold', default=80, type=int, help="threshold for fuzzy matching")
 args = parser.parse_args()
+
+'''
+Example usage for fuzzy matching:
+python bib_fuzzy_match_on_column.py --bib BITECA --table copies --instance FACTGRID --fuzzy --column MONIKER --threshold 70
+'''
 
 output_file = f'matched_{args.bib.lower()}_{args.instance.lower()}_{args.table}'
 combined_df = pd.DataFrame()
+fuzzy_threshold = args.threshold
 
 # Function to combine dictionaries on merged fuzzy rows with duplicate keys
 def combine_dicts(merged_list):
@@ -38,7 +45,7 @@ def combine_dicts(merged_list):
   return combined_dict
 
 # fuzzy merge function
-def fuzzy_merge(df1, df2, on_columns, threshold=85):
+def fuzzy_merge(df1, df2, on_columns, threshold=fuzzy_threshold):
     matched_rows = []
     # Function to perform fuzzy matching
     def fuzzy_match(row):
@@ -89,7 +96,7 @@ df1 = pd.read_csv(beta_csv, low_memory=False)
 df2 = pd.read_csv(alt_csv, low_memory=False)
 # Setting columns and dropping rows with missing values
 column_list = [args.column]
-print(f"Columns to check for missing values: {column_list}")
+print(f"Columns to check for matching values: {column_list}")
 # Drop rows with missing values in the specified columns
 df1 = df1.dropna(subset=column_list)
 df2 = df2.dropna(subset=column_list)

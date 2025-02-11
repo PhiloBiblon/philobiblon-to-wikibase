@@ -6,6 +6,9 @@ from common.enums import Table
 from common.wi_manager import site
 import pywikibot
 from common.wb_manager import WBManager, PROPERTY_NOTES
+from common.settings import TEMP_DICT
+
+reset = TEMP_DICT['RESET']
 
 def get_full_input_path(file):
   return os.path.join(CLEAN_DIR, file)
@@ -42,12 +45,15 @@ def add_notes_to_talk_page(filepath, wb_manager):
     if not pd.isnull(row['NOTES']) and not row['NOTES'] == '':
       q_item = wb_manager.get_q_by_pbid(row[0])
       if q_item:
-        print(f"Adding notes for {row[0]} into {q_item.id} talk page..") # -{row['NOTES']}-")
-        page = add_notes_to_talk_page_item(q_item.id, row['NOTES'])
-        add_notes_property_to_item(q_item, page)
+        if reset:
+          print(f"Resetting notes for {row[0]}")
+          reset_talk_page_notes(q_item.id)
+        else:
+          print(f"Adding notes for {row[0]} into {q_item.id} talk page..") # -{row['NOTES']}-")
+          page = add_notes_to_talk_page_item(q_item.id, row['NOTES'])
+          add_notes_property_to_item(q_item, page)
       else:
         print(f"ERROR: Not found Q item for {row[0]}, notes are ignored.")
-
 
 def add_notes_to_talk_page_item(q_number, notes):
   page = pywikibot.Page(site, f'Item_talk:{q_number}')
@@ -58,3 +64,12 @@ def add_notes_to_talk_page_item(q_number, notes):
 def add_notes_property_to_item(q_item, page):
   q_item.claims.add(URL(value=page.full_url(), prop_nr=PROPERTY_NOTES))
   q_item.write()
+
+def reset_talk_page_notes(q_number):
+    page = pywikibot.Page(site, f'Item_talk:{q_number}')
+    if page.text.strip():  # Check for existing content
+        page.text = ""  # Zero out the talk page
+        page.save('Reset Item_talk page to empty')
+    else:
+        print("Talk page is already empty.")
+    return page
