@@ -31,6 +31,9 @@ def extract_unique_values_from_csvs(table_names):
 
     # Sort the unique values alphabetically
     sorted_values = sorted(unique_values)
+    if args.error == 'dataclip':
+        # Remove values that contain a single asterisk
+        sorted_values = [item for item in sorted_values if item.count('*') != 1]
 
     # Write the sorted values to a file
     with open(f'unique_{args.error}_errors_{args.instance}_{args.bibliography}.txt', "w") as f:
