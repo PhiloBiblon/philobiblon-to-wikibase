@@ -14,6 +14,12 @@ class Bibliography(Enum):
       return "ca"
 
 
+class Instance(Enum):
+  PBCOG = 'PBCOG'
+  FACTGRID = 'FACTGRID'
+  OTHER = 'OTHER'
+
+
 class Table(Enum):
   ANALYTIC = 'ANALYTIC'
   BIBLIOGRAPHY = 'BIBLIOGRAPHY'

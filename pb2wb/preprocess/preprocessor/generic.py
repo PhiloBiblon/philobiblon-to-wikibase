@@ -7,7 +7,8 @@ from itertools import zip_longest
 
 import pandas as pd
 
-from common.enums import Bibliography
+from common import enums
+from common.enums import Bibliography, Table
 from common.data_dictionary import DATADICT
 from common.settings import (CLEAN_DIR, BASE_DATA_DIR, PRE_PROCESSED_DIR, BASE_IMPORT_OBJECTS)
 from common.enums import Table
@@ -35,7 +36,12 @@ class GenericPreprocessor:
         raise Exception(f'qnumber_lookup_file not found: {qnumber_lookup_file}')
     self.qnumber_lookup_file = qnumber_lookup_file
     self.lookup_error_columns = []
-    self.instance = instance
+    try:
+      instance_enum = enums.Instance[instance]
+    except ValueError:
+      instance_enum = enums.Instance.OTHER
+
+    self.instance = instance_enum.value
 
     self.processed_dir = os.path.join(PRE_PROCESSED_DIR, self.top_level_bib.value)
     # validate that the processed dir exists
@@ -518,3 +524,43 @@ class GenericPreprocessor:
 
     # Step 4: Return the modified DataFrame
     return df_copy
+
+  def split_and_move(self, df, tag, value_column, split_value, split_columns):
+    """
+    For rows where `value_column` contains `split_value`, move values from `split_columns`
+    to new columns prefixed with `tag`, and clear the original `split_columns` values.
+
+    Parameters:
+    df (pd.DataFrame): Input DataFrame
+    tag (str): Prefix for new columns
+    value_column (str): Column name to check for `split_value`
+    split_value: Value that triggers the split
+    split_columns (list of str): Columns whose values should be moved
+
+    Returns:
+    pd.DataFrame: Modified DataFrame with new columns added and original columns updated
+    """
+    # Create new columns with prefixed names
+    for col in split_columns:
+      new_col = f"{tag}_{col}"
+      df[new_col] = ""  # Initialize new columns with empty string
+      mask = df[value_column] == split_value  # Identify rows to split
+      df.loc[mask, new_col] = df.loc[mask, col]  # Move data to new columns
+      df.loc[mask, col] = ""  # Clear original column values
+
+    # the df gets fragmented by the above, so we clean it up by returning a copy -- slow
+    return df.copy()
+
+  def move_single_property_columns(self, df, single_props, table):
+    # each editbox should already have qnumber columns
+    for editbox, single_property_columns in single_props.items():
+      for clip, tag in single_property_columns.items():
+        value_column = DATADICT[table.value][editbox]['primary']
+        columns = [value_column] + DATADICT[table.value][editbox]['columns']
+        columns_with_qnumbers = []
+        for column in columns:
+          columns_with_qnumbers.append(column)
+          if column in DATADICT[table.value]['id_fields'] + DATADICT[table.value]['dataclip_fields']:
+            columns_with_qnumbers.append(column + '_QNUMBER')
+        df = self.split_and_move(df, single_property_columns[clip], value_column, clip, columns_with_qnumbers)
+    return df

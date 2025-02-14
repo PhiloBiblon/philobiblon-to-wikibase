@@ -79,6 +79,7 @@ DATADICT = {
     Table.BIOGRAPHY.value: {
         'Milestones': {
             'primary': 'MILESTONE_CLASS',
+            'secondary': 'MILESTONE_DETAIL',
             'columns': [
                 "MILESTONE_DETAIL",
                 "MILESTONE_Q",
@@ -119,6 +120,20 @@ DATADICT = {
                 "AFFILIATION_ED",
                 "AFFILIATION_EDQ",
                 "AFFILIATION_BASIS",
+            ],
+            'default': 'BIOGRAPHY*AFFILIATION_CLASS*PRO'
+        },
+        'Related_Bio': {
+            'primary': 'RELATED_BIOCLASS',
+            'columns': [
+                'RELATED_BIODETAIL',
+                'RELATED_BIOID',
+                'RELATED_BIOIDQ',
+                'RELATED_BIOBD',
+                'RELATED_BIOBDQ',
+                'RELATED_BIOED',
+                'RELATED_BIOEDQ',
+                'RELATED_BIOBASIS'
             ],
             'default': 'BIOGRAPHY*AFFILIATION_CLASS*PRO'
         },

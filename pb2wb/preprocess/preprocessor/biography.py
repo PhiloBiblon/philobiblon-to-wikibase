@@ -15,6 +15,27 @@ def isfloat(num):
     except ValueError:
         return False
 
+
+SINGLE_PROPERTY_COLUMNS = {
+  'Milestones': {'BIOGRAPHY*MILESTONE_CLASS*BOR': 'BOR',
+                 'BIOGRAPHY*MILESTONE_CLASS*DIE': 'DIE',
+                 'BIOGRAPHY*MILESTONE_CLASS*FLO': 'FLO',
+                 'BIOGRAPHY*MILESTONE_CLASS*RES': 'RES',
+                 'BIOGRAPHY*MILESTONE_CLASS*VEC': 'VEC',
+                 'BIOGRAPHY*MILESTONE_CLASS*VCA': 'VCA',
+                 },
+  'Related_Bio': {'BIOGRAPHY*RELATED_BIOCLASS*FATHER': 'FATHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*MOTHER': 'MOTHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*SON': 'SON',
+                  'BIOGRAPHY*RELATED_BIOCLASS*DAUGHTER': 'DAUGHTER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*BROTHER': 'BROTHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*SISTER': 'SISTER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*HUSBAND': 'HUSBAND',
+                  'BIOGRAPHY*RELATED_BIOCLASS*WIFE': 'WIFE'
+                  }
+}
+
+
 class BiographyPreprocessor(GenericPreprocessor):
   TABLE = Table.BIOGRAPHY
 
@@ -128,23 +149,16 @@ class BiographyPreprocessor(GenericPreprocessor):
     df = self.split_column_by_predicate(df, 'RELATED_BIOID', subject_object_predicate,
                                         true_extension='OBJECT', false_extension='SUBJECT')
 
-    # enumerate the pb base item (id) fields
-
     # add new columns for the qnumbers using the lookup table if supplied
     df = self.add_qnumber_columns(df, BiographyPreprocessor.TABLE)
 
-    milestone_primary_column = 'MILESTONE_CLASS'
-    milestone_secondary_column = 'MILESTONE_DETAIL'
-    milestone_columns = [
-      'MILESTONE_Q',
-      'MILESTONE_GEOID',
-      'MILESTONE_GEOIDQ',
-      'MILESTONE_BD',
-      'MILESTONE_BDQ',
-      'MILESTONE_ED',
-      'MILESTONE_EDQ',
-      'MILESTONE_BASIS'
-    ]
+    # split single properties columns
+    df = self.move_single_property_columns(df, SINGLE_PROPERTY_COLUMNS, Table.BIOGRAPHY)
+
+    milestone_primary_column = DATADICT[Table.BIOGRAPHY.value]['Milestones']['primary']
+    milestone_secondary_column = DATADICT[Table.BIOGRAPHY.value]['Milestones']['secondary']
+    milestone_columns = DATADICT[Table.BIOGRAPHY.value]['Milestones']['columns']
+
     milestone_default_secondary_nonempty = "EVENT"
     milestone_default_empty_secondary = "RES"
 
