@@ -611,6 +611,20 @@ DATADICT = {
             ],
             'default': 'UNIFORM_TITLE*MILESTONE'
         },
+        'Related_Bio': {
+            'primary': 'RELATED_BIOCLASS',
+            'columns': [
+                'RELATED_BIODETAIL',
+                'RELATED_BIOID',
+                'RELATED_BIOIDQ',
+                'RELATED_BIOBD',
+                'RELATED_BIOBDQ',
+                'RELATED_BIOED',
+                'RELATED_BIOEDQ',
+                'RELATED_BIOBASIS'
+            ],
+            'default': 'NONE'
+        },
         'id_fields': [
             'TEXID',
             'AUTHOR_ID',

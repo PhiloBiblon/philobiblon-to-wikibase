@@ -541,12 +541,14 @@ class GenericPreprocessor:
     pd.DataFrame: Modified DataFrame with new columns added and original columns updated
     """
     # Create new columns with prefixed names
-    for col in split_columns:
-      new_col = f"{tag}_{col}"
-      df[new_col] = ""  # Initialize new columns with empty string
-      mask = df[value_column] == split_value  # Identify rows to split
-      df.loc[mask, new_col] = df.loc[mask, col]  # Move data to new columns
-      df.loc[mask, col] = ""  # Clear original column values
+    mask = df[value_column] == split_value
+    new_cols = [f"{tag}_{col}" for col in split_columns]
+    # Create new columns, initialized with empty strings
+    df[new_cols] = ""
+    # Move data using the mask
+    df.loc[mask, new_cols] = df.loc[mask, split_columns].values
+    # Clear original columns
+    df.loc[mask, split_columns] = ""
 
     # the df gets fragmented by the above, so we clean it up by returning a copy -- slow
     return df.copy()
