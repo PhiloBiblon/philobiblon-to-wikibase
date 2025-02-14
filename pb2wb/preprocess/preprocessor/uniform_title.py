@@ -6,6 +6,14 @@ from common.data_dictionary import DATADICT
 from common.enums import Table
 from .generic import GenericPreprocessor
 
+SINGLE_PROPERTY_COLUMNS = {
+    'Milestones': {'UNIFORM_TITLE*MILESTONE_CLASS*W': 'WRITTEN',
+                   'UNIFORM_TITLE*MILESTONE_CLASS*E': 'PUBLISHED',
+                   },
+    'Related_Bio': {'UNIFORM_TITLE*RELATED_BIOCLASS*TRANSLATOR': 'TRANSLATOR',
+                    }
+}
+
 
 class UniformTitlePreprocessor(GenericPreprocessor):
   TABLE = Table.UNIFORM_TITLE
@@ -28,6 +36,9 @@ class UniformTitlePreprocessor(GenericPreprocessor):
 
     # add new columns for the qnumbers using the lookup table if supplied
     df = self.add_qnumber_columns(df, UniformTitlePreprocessor.TABLE)
+
+    # split single properties columns
+    df = self.move_single_property_columns(df, SINGLE_PROPERTY_COLUMNS, UniformTitlePreprocessor.TABLE)
 
     # truncate any fields that are too long
     df = self.truncate_dataframe(df)
