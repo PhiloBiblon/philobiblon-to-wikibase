@@ -142,6 +142,7 @@ DATADICT = {
             'TITLE_GEOID',
             'MILESTONE_GEOID',
             'AFFILIATION_GEOID',
+            'RELATED_BIOID',
             'RELATED_BIOID_SUBJECT',
             'RELATED_BIOID_OBJECT',
             'RELATED_INSID',
