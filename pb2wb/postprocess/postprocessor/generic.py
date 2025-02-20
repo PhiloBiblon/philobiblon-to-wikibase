@@ -20,9 +20,23 @@ class GenericPostprocessor:
 
   def check_redundant_p146(self, line):
     l = line.split('\t')
-    if len(l) >= 3 and l[1] == 'P146' and l[0] == l[2].strip('"').split("/wiki/Item:")[-1]:
-      print(f"Redundant P146 statement: {line}")
+    if len(l) >= 3 and l[1] == 'P146' and (
+      l[0] == l[2].strip('"').split("/wiki/Item:")[-1]
+      or "https://database.factgrid.de/wiki/Item:" in l[2]
+      or "https://www.wikidata.org/wiki/" in l[2]
+    ):
+      print(f"Removing redundant P146 statement: {line}")
       return True
+    return False
+
+  def remove_p12(self, line):
+    omitted_q_items = {"Q1075316", "Q152233"}
+    fields = line.split('\t')
+    if len(fields) >= 3 and fields[1] == 'P12':
+        obj_value = fields[2].strip('"').strip()
+        if obj_value in omitted_q_items:
+            print(f"Removing P12 statement: {line}")
+            return True
     return False
 
   def update_command(self, line):
@@ -50,7 +64,7 @@ class GenericPostprocessor:
     with open(file, 'r') as input:
       with open(processed_file, 'w') as output:        
           for line in input:
-              if self.check_redundant_p146(line):
+              if self.check_redundant_p146(line) or self.remove_p12(line):
                 continue
               if not self.check_empty_p799(line):
                 if force_new_statements:
