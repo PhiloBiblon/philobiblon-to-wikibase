@@ -30,7 +30,7 @@ class GenericPostprocessor:
     return False
 
   def remove_p12(self, line):
-    omitted_q_items = {"Q1075316", "Q152233"}
+    omitted_q_items = {"Q1075316", "Q152233", "Q1075318"}
     fields = line.split('\t')
     if len(fields) >= 3 and fields[1] == 'P12':
         obj_value = fields[2].strip('"').strip()
