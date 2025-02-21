@@ -16,10 +16,12 @@ parser.add_argument('--table', default='analytic', choices=tables, help='Specify
 parser.add_argument('--instance', default='PBCOG', choices=instances, help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--schema', help='Perform schema update, including arg performs schema update', action='store_true')
 parser.add_argument('--identity_file', help='identity file')
+parser.add_argument('--alt_csv', help='alternate csv file')
 args = parser.parse_args()
 bib = args.bib.lower()
 table = args.table.lower()
 instance = args.instance.upper()
+alt_csv = args.alt_csv
 schema = args.schema
 
 date = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -31,6 +33,9 @@ print(f"Current username: {username}")
 # Define the local file path and the remote server details
 file_name = f'{instance.lower()}_{bib}_{table}'
 local_file_path = f'../data/processed/pre/{bib}/{file_name}.csv'
+if alt_csv:
+    local_file_path = alt_csv
+    file_name = alt_csv.split('/')[-1].split('.')[0]
 remote_server = BASE_IMPORT_OBJECTS[instance]['SERVER']
 print(f'using remote server: {remote_server}')
 remote_username = BASE_IMPORT_OBJECTS[instance]['SSH_USER']
