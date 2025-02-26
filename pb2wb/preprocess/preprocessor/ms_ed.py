@@ -43,8 +43,12 @@ class MsEdPreprocessor(GenericPreprocessor):
     df = self.process_defaults_for_editbox(df, MsEdPreprocessor.TABLE.value, 'Related manuscripts')
 
     # Split RELATED_LIBCALLNO
-    df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', 'RELATED_LIBCALLNO', 'MS_ED*RELATED_LIBCALLNOCLASS',
-                                   ['C', 'F', 'A', 'R', 'B', 'I', 'CIBN45', 'E'])
+    call_number_extensions = ['C', 'F', 'A', 'R', 'B', 'I', 'CIBN45', 'E']
+    libcallno_column = 'RELATED_LIBCALLNO'
+    df = self.split_column_by_clip(df, 'RELATED_LIBCALLNOCLASS', libcallno_column, 'MS_ED*RELATED_LIBCALLNOCLASS',
+                                   call_number_extensions)
+    # float the values up to the top row
+    df = self.float_values_up(df, [libcallno_column + '_' + e for e in call_number_extensions])
 
     # split MILESTONE columns by ms vs. ed
     # Split MILESTONE_MAKER
@@ -78,6 +82,9 @@ class MsEdPreprocessor(GenericPreprocessor):
 
     # add new columns for the qnumbers using the lookup table if supplied
     df = self.add_qnumber_columns(df, MsEdPreprocessor.TABLE)
+
+    self.write_result_csv(df, file)
+    return
 
     # truncate any fields that are too long
     df = self.truncate_dataframe(df)
