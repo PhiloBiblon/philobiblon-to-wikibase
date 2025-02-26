@@ -35,6 +35,7 @@ class GenericPreprocessor:
       if not os.path.isfile(qnumber_lookup_file):
         raise Exception(f'qnumber_lookup_file not found: {qnumber_lookup_file}')
     self.qnumber_lookup_file = qnumber_lookup_file
+    print(f'{self.qnumber_lookup_file = }')
     self.lookup_error_columns = []
     try:
       instance_enum = enums.Instance[instance]
@@ -299,7 +300,12 @@ class GenericPreprocessor:
     mapping = mapping_df[[mapping_from_column, mapping_to_column]].copy()
 
     # Merge the original DataFrame with the mapping DataFrame
+    size_before_merge = len(df)
+    matched_df = mapping[mapping[mapping_from_column].isin(df[from_column_name])]
     merged_df = pd.merge(df, mapping, left_on=from_column_name, right_on=mapping_from_column, how='left')
+    size_after_merge = len(merged_df)
+    if size_after_merge != size_before_merge:
+      print(f'\033[31mERROR: duplicates in mapping file. {size_before_merge = } {size_after_merge = } {from_column_name = } {mapping_from_column = }\033[0m')
 
     def insert_default (row):
         if pd.isna(row[mapping_to_column]) and (pd.isna(row[from_column_name]) or row[from_column_name] == ''):
@@ -566,3 +572,16 @@ class GenericPreprocessor:
             columns_with_qnumbers.append(column + '_QNUMBER')
         df = self.split_and_move(df, single_property_columns[clip], value_column, clip, columns_with_qnumbers)
     return df
+
+  def float_values_up(self, df, value_cols):
+    def fill_group(group):
+        for col in value_cols:
+            non_empty = group.loc[group[col] != '', col]
+            if not non_empty.empty:
+                first_index = group.index[0]
+                first_non_empty_index = non_empty.index[0]
+                if first_non_empty_index != first_index: # Only clear if the first non empty value is not already in the first row
+                    group.at[first_index, col] = non_empty.iloc[0]  # Assign to first row only
+                    group.loc[first_non_empty_index, col] = ''  # Clear only the first occurrence
+        return group
+    return df.groupby(df.columns[0], group_keys=False).apply(fill_group).reset_index(drop=True)
