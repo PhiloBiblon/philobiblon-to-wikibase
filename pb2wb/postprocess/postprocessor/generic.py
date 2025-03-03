@@ -40,10 +40,9 @@ class GenericPostprocessor:
     return False
 
   def check_errors(self, line):
-    error_file = 'post_process_error_object_lines_{datetime.now().strftime("%Y%m%d%H%M%S")}.qs'
     for error in self.ERROR_OBJECTS:
       if error in line:
-        with open(error_file, 'a') as f:
+        with open(self.error_file, 'a') as f:
           print(f"Error object found: {line}")
           f.write(line)
         return True
@@ -85,4 +84,5 @@ class GenericPostprocessor:
   def postprocess(self, file, processed_dir, force_new_statements, instance):
     self.P799_OK_VALUES = BASE_IMPORT_OBJECTS[instance]['P799_OK_VALUES']
     self.ERROR_OBJECTS = [BASE_IMPORT_OBJECTS[instance]['BASE_OBJECT_RECONCILIATION_ERROR'], BASE_IMPORT_OBJECTS[instance]['DATACLIP_RECONCILIATION_ERROR']]
+    self.error_file = f'errors_{file}'
     self.filter(file, os.path.join(processed_dir, os.path.basename(file)), force_new_statements)
