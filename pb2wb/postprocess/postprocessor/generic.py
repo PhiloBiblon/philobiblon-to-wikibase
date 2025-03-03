@@ -25,7 +25,7 @@ class GenericPostprocessor:
       or "https://database.factgrid.de/wiki/Item:" in l[2]
       or "https://www.wikidata.org/wiki/" in l[2]
     ):
-      print(f"Removing redundant P146 statement: {line}")
+      print(f"Removing P146 statement: {line}")
       return True
     return False
 
@@ -37,6 +37,16 @@ class GenericPostprocessor:
         if obj_value in omitted_q_items:
             print(f"Removing P12 statement: {line}")
             return True
+    return False
+
+  def check_errors(self, line):
+    error_file = 'post_process_error_object_lines_{datetime.now().strftime("%Y%m%d%H%M%S")}.qs'
+    for error in self.ERROR_OBJECTS:
+      if error in line:
+        with open(error_file, 'a') as f:
+          print(f"Error object found: {line}")
+          f.write(line)
+        return True
     return False
 
   def update_command(self, line):
@@ -64,7 +74,7 @@ class GenericPostprocessor:
     with open(file, 'r') as input:
       with open(processed_file, 'w') as output:        
           for line in input:
-              if self.check_redundant_p146(line) or self.remove_p12(line):
+              if self.check_redundant_p146(line) or self.remove_p12(line) or self.check_errors(line):
                 continue
               if not self.check_empty_p799(line):
                 if force_new_statements:
@@ -74,4 +84,5 @@ class GenericPostprocessor:
 
   def postprocess(self, file, processed_dir, force_new_statements, instance):
     self.P799_OK_VALUES = BASE_IMPORT_OBJECTS[instance]['P799_OK_VALUES']
+    self.ERROR_OBJECTS = [BASE_IMPORT_OBJECTS[instance]['BASE_OBJECT_RECONCILIATION_ERROR'], BASE_IMPORT_OBJECTS[instance]['DATACLIP_RECONCILIATION_ERROR']]
     self.filter(file, os.path.join(processed_dir, os.path.basename(file)), force_new_statements)
