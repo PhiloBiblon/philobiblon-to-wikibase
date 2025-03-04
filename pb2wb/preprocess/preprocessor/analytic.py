@@ -22,6 +22,10 @@ class AnalyticPreprocessor(GenericPreprocessor):
 
     df = self.process_defaults_for_editbox(df, AnalyticPreprocessor.TABLE.value, 'Incipits & Explicits')
 
+    # Make sure the TEXT_MANID and TEXT_SEQUENCE are populated in any row in which TEXT_LOC is non-empty
+    df = self.propagate_values_in_groups(df, 'CNUM', ['TEXT_MANID', 'TEXT_SEQUENCE'],
+                                         'TEXT_LOC')
+
     # Internet edit box
     df = self.split_internet_class(df)
 
