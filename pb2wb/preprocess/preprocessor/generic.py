@@ -585,3 +585,13 @@ class GenericPreprocessor:
                     group.loc[first_non_empty_index, col] = ''  # Clear only the first occurrence
         return group
     return df.groupby(df.columns[0], group_keys=False).apply(fill_group).reset_index(drop=True)
+
+  def propagate_values_in_groups(self, df, group_col, cols_to_propagate, test_column):
+    def propagate(group):
+      mask = group[test_column].notna() & (group[test_column] != '')
+      if not group.empty:
+        for col in cols_to_propagate:
+          group.loc[mask, col] = group[col].iloc[0]
+      return group
+
+    return df.groupby(group_col, group_keys=False).apply(propagate)
