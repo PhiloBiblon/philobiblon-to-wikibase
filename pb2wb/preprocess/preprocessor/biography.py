@@ -56,6 +56,8 @@ class BiographyPreprocessor(GenericPreprocessor):
       return None
 
   def get_expanded_title(self, row, places, lang):
+    # print(row)
+    title_number = self.lookupDataclip(row['TITLE_NUMBER'], lang) or ''
     title = self.lookupDataclip(row['TITLE'], lang) or ''
     title_connector = self.lookupDataclip(row['TITLE_CONNECTOR'], lang) or ''
     title_geoid = self.get_value(row['TITLE_GEOID'])
@@ -63,7 +65,8 @@ class BiographyPreprocessor(GenericPreprocessor):
       title_place = places.get(title_geoid, '')
     else:
       title_place = ''
-    return ' '.join(filter(None, [title, title_connector, title_place])).replace("d’ ", "d’")
+    # print(f'{title_number = }, {title = }, {title_connector = }, {title_place = }')
+    return ' '.join(filter(None, [title_number, title, title_connector, title_place])).replace("d’ ", "d’")
 
   def get_expanded_name(self, row):
     names = []
