@@ -15,7 +15,6 @@ bibliography = parser.parse_args().bib
 filetype = parser.parse_args().filetype
 table = parser.parse_args().table
 TEMP_DICT['TEMP_WB'] = instance.upper()
-desired_order = ["TITLE", "MILESTONE", "RELATED_BIOID", "NOTES"]  # Define the required order of the groups
 
 '''
 This job will convert notes and column data to a formatted text insertion into Factgrid discussion page.
@@ -64,7 +63,7 @@ MAPPINGS = {
         'NOTES': ''
     }
 }
-
+desired_order = [key for key, value in MAPPINGS.items()] # Define the required order of the groups
 factgrid_url = 'https://database.factgrid.de/wiki/Item:'
 first_row_path = f'first_row/{bibliography.upper()}'
 bib_first_row = f"{instance.lower()}_{bibliography.upper()}_{table.upper()}_first_row_*.csv"
@@ -127,7 +126,7 @@ df = df.replace(geo_mapping)
 print(f'Replacing values in the DataFrame with the mapping values for dataclip values')
 df = df.replace(milestone_map)
 cols_to_clean = ['MILESTONE_DETAIL', 'RELATED_BIOCLASS', 'RELATED_BIOID', 'MILESTONE_GEOID']
-df[cols_to_clean] = df[cols_to_clean].fillna('').astype(str) # Ensure all listed columns are strings
+df[cols_to_clean] = df[cols_to_clean].fillna('').astype(str) # Ensure all listed columns are strings and not NaN
 with open('df.csv', 'w') as file: #just for testing
     df.to_csv(file)
 
@@ -154,19 +153,19 @@ df['COMBINED_BIO_DETAIL'] = df.apply(
 # Extract the first two columns from the original DataFrame to keep their order
 first_two_columns = df.columns[:2].tolist()
 print(first_two_columns)
-desired_order = []
+desired_column_order = []
 metadata_keys = {'COLUMN', 'TOPIC'}  # Define the metadata keys from the dict that we want to skip
 # Define columns to drop from the mapping groups (if they exist) as they are not needed in the final output
 drop_columns = {'MILESTONE_DETAIL', 'MILESTONE_GEOID', 'GEOID_URL', 'BIODATA_URL', 'RELATED_BIOCLASS', 'RELATED_BIOID', 'RELATED_BIOID_QNUMBER'}
 for group in MAPPINGS.values():
     for col in group.keys():
         if col not in metadata_keys or col not in drop_columns:
-            desired_order.append(col)
+            desired_column_order.append(col)
     for key in drop_columns:
         group.pop(key, None) 
 
 # Ensure only existing columns are considered
-existing_columns = [col for col in desired_order if col in df.columns]
+existing_columns = [col for col in desired_column_order if col in df.columns]
 # Add any columns that exist in the DataFrame but were not in the mapping (to keep all data)
 remaining_columns = [col for col in df.columns if col not in first_two_columns + existing_columns]
 # Define the final column order: MAPPINGS order first, then any remaining columns if needed
@@ -270,12 +269,15 @@ def create_group_texts(df_milestones):
 
 if filetype == 'text':
     # Create text output
+    count = 0
     group_texts = create_group_texts(df_milestones)
     with open('grouped_texts.txt', 'w') as file:
         for group_key, text in group_texts.items():
             print(f"{group_key}")
             print(f"{text}")
             post_notes(group_key, text=text)
-            break
+            count += 1
+            if count > 50:
+                break
             #file.write(f"{text}\n")
     print('Text files created')
