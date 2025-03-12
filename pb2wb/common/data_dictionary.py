@@ -499,7 +499,7 @@ DATADICT = {
                 "RELATED_BIOEDQ",
                 "RELATED_BIOBASIS",
             ],
-            'default': 'MS_ED*RELATED_BIOCLASS'
+            'default': 'MS_ED*RELATED_BIOCLASS*NM'
         },
         'Related manuscripts': {
             'primary': 'RELATED_MANCLASS',
