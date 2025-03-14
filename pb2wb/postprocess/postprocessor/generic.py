@@ -12,7 +12,7 @@ PATTERN_DATE = r'\+\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/\d{1,2}'
 class GenericPostprocessor:
   SPANISH_START_GREGORIAN = date(1582, 10, 15)
 
-  def convert_to_sitelink(line):
+  def convert_to_sitelink(self, line):
     l = line.split("\t")
     if l[1] == 'P146' and len(l) >= 3 and "wikidata.org/wiki/Q" in l[2]:
         qid = l[2].split("/")[-1].strip('"')
