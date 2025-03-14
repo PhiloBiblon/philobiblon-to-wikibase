@@ -16,6 +16,7 @@ class GenericPostprocessor:
     l = line.split("\t")
     if l[1] == 'P146' and len(l) >= 3 and "wikidata.org/wiki/Q" in l[2]:
         qid = l[2].split("/")[-1].strip('"')
+        print(f"Converting P146 wikidata link to sitelink: {l[0]}|Swikidatawiki|{qid}")
         return f"{l[0]}|Swikidatawiki|{qid}"
     return line
 
