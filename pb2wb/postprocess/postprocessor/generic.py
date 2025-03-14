@@ -12,6 +12,13 @@ PATTERN_DATE = r'\+\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/\d{1,2}'
 class GenericPostprocessor:
   SPANISH_START_GREGORIAN = date(1582, 10, 15)
 
+  def convert_to_sitelink(line):
+    l = line.split("\t")
+    if l[1] == 'P146' and len(l) >= 3 and "wikidata.org/wiki/Q" in l[2]:
+        qid = l[2].split("/")[-1].strip('"')
+        return f"{l[0]}|Swikidatawiki|{qid}"
+    return line
+
   def check_empty_p799(self, s):
     l = s.split('\t')
     if len(l) == 3 and l[1] == 'P799' and l[2].lstrip('\"').rstrip("\n"'\"') in self.P799_OK_VALUES.values():
@@ -23,7 +30,6 @@ class GenericPostprocessor:
     if len(l) >= 3 and l[1] == 'P146' and (
       l[0] == l[2].strip('"').split("/wiki/Item:")[-1]
       or "https://database.factgrid.de/wiki/Item:" in l[2]
-      or "https://www.wikidata.org/wiki/" in l[2]
     ):
       print(f"Removing P146 statement: {line}")
       return True
@@ -79,6 +85,7 @@ class GenericPostprocessor:
                 if force_new_statements:
                   line = self.update_command(line)
                 line = self.julian_dates(line)
+                line = self.convert_to_sitelink(line)
                 output.write(line)
 
   def postprocess(self, file, processed_dir, force_new_statements, instance):
