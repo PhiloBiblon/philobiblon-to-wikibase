@@ -14,10 +14,10 @@ class GenericPostprocessor:
 
   def convert_to_sitelink(self, line):
     l = line.split("\t")
-    if l[1] == '!P146' and len(l) >= 3 and "wikidata.org/wiki/Q" in l[2]:
+    if l[1] == 'P146' and len(l) >= 3 and "wikidata.org/wiki/Q" in l[2]:
         qid = l[2].split("/")[-1].strip('"')
         print(f"Converting P146 wikidata link to sitelink: {l[0]}|Swikidatawiki|{qid}")
-        return f"{l[0]}|Swikidatawiki|{qid}"
+        return f"{l[0]}|Swikidatawiki|{qid}\n"
     return line
 
   def check_empty_p799(self, s):
@@ -80,13 +80,13 @@ class GenericPostprocessor:
     with open(file, 'r') as input:
       with open(processed_file, 'w') as output:        
           for line in input:
+              line = self.convert_to_sitelink(line)
               if self.check_redundant_p146(line) or self.remove_p12(line) or self.check_errors(line):
                 continue
               if not self.check_empty_p799(line):
                 if force_new_statements:
                   line = self.update_command(line)
                 line = self.julian_dates(line)
-                line = self.convert_to_sitelink(line)
                 output.write(line)
 
   def postprocess(self, file, processed_dir, force_new_statements, instance):
