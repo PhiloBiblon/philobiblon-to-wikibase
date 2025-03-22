@@ -9,11 +9,13 @@ parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID']
 parser.add_argument('--bib', default='beta', choices=['beta', 'bitagap', 'biteca'], help='Bibliography.  Default is beta.')
 parser.add_argument('--filetype', default='text', choices=['text', 'html'], help='File type to output.  Default is text.')
 parser.add_argument('--table', help="Table to process", choices=['analytic', 'biography', 'geography', 'institutions', 'library', 'subject', 'bibliography', 'copies', 'ms_ed', 'uniform_title'], required=True)
+parser.add_argument('--dry_run',  action='store_true', help='Dry run to test the script without making changes.')
 
 instance = parser.parse_args().instance
 bibliography = parser.parse_args().bib
 filetype = parser.parse_args().filetype
 table = parser.parse_args().table
+dry_run = parser.parse_args().dry_run
 TEMP_DICT['TEMP_WB'] = instance.upper()
 
 '''
@@ -204,7 +206,7 @@ def post_notes(q_number, text):
     from notes import notes
     print(f"Adding notes for {q_number} into talk page..")
     print(f"Notes: {text}")
-    #notes.add_notes_to_talk_page_item(q_number, text)
+    notes.add_append_talk_page_notes(q_number, text)
 
 def create_notes_text(aggregated):
     # Build the final text output.
@@ -275,9 +277,10 @@ if filetype == 'text':
         for group_key, text in group_texts.items():
             print(f"{group_key}")
             print(f"{text}")
-            post_notes(group_key, text=text)
-            count += 1
-            if count > 50:
-                break
-            #file.write(f"{text}\n")
+            if not dry_run:
+                post_notes(group_key, text=text)
+                count += 1
+                if count > 50:
+                    break
+                #file.write(f"{text}\n") #just for testing
     print('Text files created')
