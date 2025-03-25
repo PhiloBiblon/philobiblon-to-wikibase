@@ -23,11 +23,17 @@ This job will convert notes and column data to a formatted text insertion into F
 This test case is for the beta bio, and will need to be mofified for other bibliographies and their custom use cases.
 '''
 
+HEADERS = {
+    'BETA': '=== BETA / Bibliografía de Textos Antiguos ===',
+    'BITECA': '=== BITECA / Bibliografía de Textos Catalanes Antiguos ===',
+    'BITAGAP': '=== BITAGAP / Bibliografía de Textos Galegos Antigos e Portugueses Antigos ==='
+}
+
 # Define mappings for column types
 MAPPINGS = {
       'TITLE': {
         'COLUMN': 'TITLE',
-        'TOPIC': '=== Títulos ===',
+        'TOPIC': '== Títulos ==',
         'EXPANDED_TITLE_U': '* Título:',
         'TITLE_Q': '** Calificador?',
         'TITLE_BD': '** Fecha inicial:',
@@ -37,7 +43,7 @@ MAPPINGS = {
     },
       'MILESTONE': {
         'COLUMN': 'MILESTONE',
-        'TOPIC': '=== Hitos ===',
+        'TOPIC': '== Hitos ==',
         'COMBINED_DETAIL': '* Evento:',
         'MILESTONE_GEOID': '',
         'MILESTONE_BD': '** Fecha inicial:',
@@ -48,7 +54,7 @@ MAPPINGS = {
     },
       'RELATED_BIOID': {
         'COLUMN': 'RELATED_BIOID',
-        'TOPIC': '=== Personas asociadas ===',
+        'TOPIC': '== Personas asociadas ==',
         'RELATED_BIOID': '',
         'COMBINED_BIO_DETAIL': '* Persona asociada:',
         'RELATED_BIODETAIL': '** Detalles de la persona:',
@@ -61,10 +67,12 @@ MAPPINGS = {
     },
       'NOTES': {
         'COLUMN': 'NOTES',
-        'TOPIC': '=== Notas ===',
+        'TOPIC': '== Notas ==',
         'NOTES': ''
     }
 }
+
+header = HEADERS[bibliography.upper()]
 desired_order = [key for key, value in MAPPINGS.items()] # Define the required order of the groups
 factgrid_url = 'https://database.factgrid.de/wiki/Item:'
 first_row_path = f'first_row/{bibliography.upper()}'
@@ -213,7 +221,8 @@ def create_notes_text(aggregated):
     group_texts = {}
     for group_key, mapping_dict in aggregated.items():
         #lines = [str(group_key)]  # group header, e.g. the Qnumber
-        lines = []
+        if mapping_dict:
+            lines = [header] # Add the header only once
         for mapping_key, values in mapping_dict.items():
             topic = MAPPINGS.get(mapping_key, {}).get('TOPIC', "").strip()
             if topic:
@@ -275,12 +284,12 @@ if filetype == 'text':
     group_texts = create_group_texts(df_milestones)
     with open('grouped_texts.txt', 'w') as file:
         for group_key, text in group_texts.items():
-            print(f"{group_key}")
-            print(f"{text}")
+            #print(f"{group_key}")
+            #print(f"{text}")
             if not dry_run:
-                post_notes(group_key, text=text)
+                #post_notes(group_key, text=text)
                 count += 1
                 if count > 50:
                     break
-                #file.write(f"{text}\n") #just for testing
+                file.write(f"{text}\n") #just for testing
     print('Text files created')
