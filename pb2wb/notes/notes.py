@@ -50,8 +50,9 @@ def add_notes_to_talk_page(filepath, wb_manager):
           reset_talk_page_notes(q_item.id)
         else:
           print(f"Adding notes for {row[0]} into {q_item.id} talk page..") # -{row['NOTES']}-")
-          page = add_notes_to_talk_page_item(q_item.id, row['NOTES'])
-          add_notes_property_to_item(q_item, page)
+          #page = add_notes_to_talk_page_item(q_item.id, row['NOTES']) # Removed for updated method
+          add_append_talk_page_notes(q_item.id, row['NOTES'])
+          #add_notes_property_to_item(q_item, page) # Removed as P817 is no longer used
       else:
         print(f"ERROR: Not found Q item for {row[0]}, notes are ignored.")
 
@@ -72,4 +73,23 @@ def reset_talk_page_notes(q_number):
         page.save('Reset Item_talk page to empty')
     else:
         print("Talk page is already empty.")
+    return page
+
+def add_append_talk_page_notes(q_number, new_notes):
+    page = pywikibot.Page(site, f'Item_talk:{q_number}')
+    try:
+        if page.exists():
+            existing_text = page.text.strip()
+            if new_notes.strip() in existing_text:
+                print(f"No update needed: Notes already exist on talk page for {q_number}")
+                return
+            page.text = existing_text + "\n" + new_notes  # Append to existing talk page
+            edit_summary = "Appending notes to existing discussion page"
+        else:
+            page.text = new_notes  # Create a new talk page
+            edit_summary = "Creating new discussion page with notes"
+        page.save(edit_summary)  # Save with summary
+        print(f"Successfully updated talk page for {q_number}")
+    except Exception as e:
+        print(f"Error updating talk page for {q_number}: {e}")
     return page
