@@ -6,7 +6,9 @@ import glob
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--bib', type=str, default="BITECA", help="BIB to compare join with BETA", choices=['BITECA', 'BITAGAP'])
+parser.add_argument('--source_bib', type=str, default="BETA", help="BIB to compare join with BETA", choices=['BETA', 'BITECA', 'BITAGAP'])
+parser.add_argument('--dest_bib', type=str, default="BITECA", help="BIB to compare join with BETA", choices=['BITECA', 'BITAGAP'])
+parser.add_argument('--alt_csv', type=str, help="alternate csv for comparison")
 parser.add_argument("--table", help="Table to process", choices=['analytic', 'biography', 'geography', 'institutions', 'library', 'subject', 'bibliography', 'copies', 'ms_ed', 'uniform_title'], required=True)
 parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--fuzzy', action='store_true', help="Use fuzzy matching to merge the two files")
@@ -20,10 +22,10 @@ args = parser.parse_args()
 
 '''
 Example usage for fuzzy matching:
-python bib_fuzzy_match_on_column.py --bib BITECA --table copies --instance FACTGRID --fuzzy --column MONIKER --threshold 70
+python bib_fuzzy_match_on_column.py --source_bib BETA --dest_bib BITECA --table copies --instance FACTGRID --fuzzy --column MONIKER --threshold 70
 '''
 
-output_file = f'matched_{args.bib.lower()}_{args.instance.lower()}_{args.table}'
+output_file = f'matched_{args.dest_bib.lower()}_{args.instance.lower()}_{args.table}'
 combined_df = pd.DataFrame()
 fuzzy_threshold = args.threshold
 
@@ -34,10 +36,10 @@ def combine_dicts(merged_list):
     for key, value in dict.items():
       if key in combined_dict:
         # If the key already exists, append bib to it to make it unique
-        i = args.bib
+        i = args.dest_bib
         new_key = f"{key}_{i}"
         while new_key in combined_dict:
-          i += args.bib
+          i += args.dest_bib
           new_key = f"{key}_{i}"
         combined_dict[new_key] = value
       else:
@@ -49,21 +51,33 @@ def fuzzy_merge(df1, df2, on_columns, threshold=fuzzy_threshold):
     matched_rows = []
     # Function to perform fuzzy matching
     def fuzzy_match(row):
-        for index, row2 in df2.iterrows():
-            similarity = fuzz.ratio(row[on_columns[0]], row2[on_columns[0]])
-            if similarity >= threshold:
-                print(f'Match found: {row[on_columns[0]]} and {row2[on_columns[0]]} with similarity {similarity}')
-                merged_list = [row, row2]
-                # Combine the two dictionaries and modify the key if there are duplicates
-                combined_dict = combine_dicts(merged_list)
-                # Convert the dictionary to a DataFrame
-                temp_df = pd.DataFrame([combined_dict])
-                matched_rows.append(temp_df)
-                continue
+        try:
+            for index, row2 in df2.iterrows():
+                similarity = fuzz.ratio(row[on_columns[0]], row2[on_columns[0]])
+                if similarity >= threshold:
+                    print(f'Match found: {row[on_columns[0]]} and {row2[on_columns[0]]} with similarity {similarity}')
+                    merged_list = [row, row2]
+                    # Combine the two dictionaries and modify the key if there are duplicates
+                    combined_dict = combine_dicts(merged_list)
+                    # Convert the dictionary to a DataFrame
+                    temp_df = pd.DataFrame([combined_dict])
+                    matched_rows.append(temp_df)
+                    continue
+        except KeyError as e:
+            print(f"Error: Column '{e}' not found in DataFrame.")
+    try:
+        df1.apply(fuzzy_match, axis=1)
+        print(f"Matched Rows: {matched_rows}")
+        if not matched_rows:  # Check if matched_rows is empty
+            print("No matches found.")
+            exit(1)
 
-    df1.apply(fuzzy_match, axis=1)
-    merged_df = pd.concat(matched_rows, ignore_index=True)
-    return merged_df
+        merged_df = pd.concat(matched_rows, ignore_index=True)
+        return merged_df
+
+    except Exception as e:
+        print(f"Error during processing: {e}")
+        return pd.DataFrame()
 
 def first_non_empty(series):
     """Returns the first non-empty value in a Series."""
@@ -83,17 +97,26 @@ def get_latest_file(directory, pattern):
     return latest_file
 
 # Read the two CSV files
-beta_csv = f'../data/processed/pre/BETA/{args.instance.lower()}_beta_{args.table}.csv'
-alt_csv = f'../data/processed/pre/{args.bib}/{args.instance.lower()}_{args.bib.lower()}_{args.table}.csv'
+beta_csv = f'../data/processed/pre/BETA/{args.instance.lower()}_{args.source_bib}_{args.table}.csv'
+alt_csv = f'../data/processed/pre/{args.dest_bib}/{args.instance.lower()}_{args.dest_bib.lower()}_{args.table}.csv'
+if args.alt_csv:
+    alt_csv = args.alt_csv
 
 # Update the beta_csv and alt_csv paths if raw is specified
 if args.raw:
     beta_csv = get_latest_file('first_row/BETA', f'BETA_{args.table.upper()}_first_row*.csv')
-    alt_csv = get_latest_file(f'first_row/{args.bib}', f'{args.bib.upper()}_{args.table.upper()}_first_row*.csv')
+    alt_csv = get_latest_file(f'first_row/{args.dest_bib}', f'{args.dest_bib.upper()}_{args.table.upper()}_first_row*.csv')
 
 print(f"Reading files: {beta_csv} and {alt_csv}")
 df1 = pd.read_csv(beta_csv, low_memory=False)
+#if args.alt_csv:
+ #   df1 = df1.drop(df1.columns[[0, 1]], axis=1)
+#    df1.rename(columns={df1.columns[1]: "MONIKER"}, inplace=True)
 df2 = pd.read_csv(alt_csv, low_memory=False)
+df1 = df1[df1['LANGUAGE_TEXT_QNUMBER'] == 'Q390888'] # Filter out rows with TEXT_LANGUAGE not equal to Castilian
+print(df1)
+df2 = df2[df2['LANGUAGE_TEXT_QNUMBER'] == 'Q390888'] # Specific for this one use case
+print(df2)
 # Setting columns and dropping rows with missing values
 column_list = [args.column]
 print(f"Columns to check for matching values: {column_list}")
@@ -108,7 +131,8 @@ df2 = df2.loc[:, column_selection]
 # Drop duplicates in the specified columns
 df1 = df1.drop_duplicates(subset=column_list, keep='first')  # Keep the first occurrence of the duplicate
 df2 = df2.drop_duplicates(subset=column_list, keep='first')
-
+df2.to_csv(f'test1_output.csv', index=False)
+df1.to_csv(f'test2_output.csv', index=False)
 # Apply the sort function to the library table to replicate column value to all rows in the group
 if args.table == 'library' and args.sort_column:
     print(f"Updating RELATED_GEOID_QNUMBER...")
@@ -126,7 +150,7 @@ if args.table == 'library' and args.sort_column:
             print(df1.head())
         else:
             df2 = current_df
-            df2.to_csv(f'test_{args.bib.lower()}.csv', index=False)
+            df2.to_csv(f'test_{args.dest_bib.lower()}.csv', index=False)
             print(df2.head())
 
 
@@ -144,6 +168,6 @@ merged_df.drop_duplicates(subset=merged_df.columns[0], inplace=True)
 # clean up the column names
 for col in merged_df.columns:
     if col.endswith("_y"):
-        new_col_name = col.replace("_y", f"_{args.bib}")
+        new_col_name = col.replace("_y", f"_{args.dest_bib}")
         merged_df = merged_df.rename(columns={col: new_col_name})
 merged_df.to_csv(f'{output_file}.csv', index=False)

@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 from common.settings import BASE_IMPORT_OBJECTS
 import time
+import argparse
 
 # Example SPARQL query to fetch items with P146 statements and wikidata.org in the value
 '''
@@ -20,11 +21,8 @@ wb = 'FACTGRID' # 'PBCOG' or 'FACTGRID'
 user = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
 password = BASE_IMPORT_OBJECTS[f'{wb}']['WB_PASSWORD']
 PROPERTY = "P146"  # The property for online links
-CSV_FILE = "p146_to_sitelink.csv"  # The CSV file containing the P146 items to be processed
-#CSV_FILE = "p146_to_sitelink_1row.csv"  # The CSV file containing the P146 items to be processed
 factgrid_api_url = "https://database.factgrid.de/w/api.php"  # Replace with your PBCOG API URL if needed
 site_code = "wikidatawiki" #Site code for wikidata
-
 
 # Authenticate
 def login():
@@ -35,7 +33,7 @@ def login():
     print(f"CSRF Token: {csrf_token}")
     return session, csrf_token
 
-def process_csv(session, csrf_token):
+def process_query_csv(session, csrf_token):
     # Load the CSV file into a DataFrame
     df = pd.read_csv(CSV_FILE, names=['item', 'pbid', 'online_info', 'link'])
 
@@ -66,6 +64,22 @@ def process_csv(session, csrf_token):
     print("\nRows where both 'online_info' and 'link' exist but do not match:")
     print(df_mismatches)
 
+def process_qs_file(session, csrf_token, qs_file):
+    print(f"Processing QS file: {qs_file}")
+    with open(qs_file, 'r') as f:
+        lines = f.readlines()
+    for line in lines:
+        line = line.split("\t")
+        if line[1] == 'P146' and len(line) >= 3 and "wikidata.org/wiki/Q" in line[2]:
+            print(f"Processing line: {line}")
+            item = line[0].split('/')[-1]
+            online_info = line[2].strip('"').split('/')[-1]
+            print(f"FactGrid QID: {item}, Wikidata QID: {online_info}")
+            response = set_factgrid_sitelink(session, factgrid_api_url, item, online_info, site_code, csrf_token)
+            if response:
+                print(response)
+            else:
+                print("Failed to set sitelink.")
 
 def set_factgrid_sitelink(session, factgrid_api_url, factgrid_qid, wikidata_qid, site_code, edit_token):
     params = {
@@ -93,8 +107,20 @@ def set_factgrid_sitelink(session, factgrid_api_url, factgrid_qid, wikidata_qid,
 
 # Main function
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--post_qs', action='store_true', help='Post new sitelinks from qs file')
+    parser.add_argument('--bib', type=str, default="BETA", help="Bibliography to use", choices=['BETA', 'BITECA', 'BITAGAP'])
+    parser.add_argument('--instance', default='FACTGRID', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is FACTGRID.')
+    parser.add_argument("--table", help="Table to process", choices=['analytic', 'biography', 'geography', 'institutions', 'library', 'subject', 'bibliography', 'copies', 'ms_ed', 'uniform_title'])
+    parser.add_argument('--csv_file', type=str, help="csv file to process")
+    args = parser.parse_args()
+    qs_file = f"{args.bib.lower()}_{args.instance.lower()}_{args.table}.qs"
     session, csrf_token = login()
-    process_csv(session, csrf_token)
+    if args.post_qs:
+        print(f"Processing QS file: {qs_file}")
+        process_qs_file(session, csrf_token, qs_file)
+    else:
+        process_query_csv(session, csrf_token, args.csv_file)
 
 if __name__ == "__main__":
     main()
