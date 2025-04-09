@@ -50,6 +50,10 @@ class MsEdPreprocessor(GenericPreprocessor):
     # float the values up to the top row
     df = self.float_values_up(df, [libcallno_column + '_' + e for e in call_number_extensions])
 
+    # now use the distribute_column_values method to move the RELATED_LIBCALLNO_F and _A values to the top row
+    df = self.distribute_column_values(df, libcallno_column + '_F')
+    df = self.distribute_column_values(df, libcallno_column + '_A')
+
     # split MILESTONE columns by ms vs. ed
     # Split MILESTONE_MAKER
     df = self.split_column_by_clip(df, 'MILESTONE_CLASS', 'MILESTONE_MAKER_ID', 'MS_ED*MILESTONE_CLASS',
