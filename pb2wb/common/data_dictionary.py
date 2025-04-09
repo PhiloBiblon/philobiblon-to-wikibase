@@ -124,8 +124,9 @@ DATADICT = {
             'default': 'BIOGRAPHY*AFFILIATION_CLASS*PRO'
         },
         'Related_Bio': {
-            'primary': 'RELATED_BIOCLASS',
+            'primary': 'RELATED_BIOCLASS_WITH_SEX',
             'columns': [
+                'RELATED_BIOCLASS',
                 'RELATED_BIODETAIL',
                 'RELATED_BIOID',
                 'RELATED_BIOIDQ',
