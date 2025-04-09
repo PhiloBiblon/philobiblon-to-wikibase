@@ -536,6 +536,7 @@ class GenericPreprocessor:
     """
     For rows where `value_column` contains `split_value`, move values from `split_columns`
     to new columns prefixed with `tag`, and clear the original `split_columns` values.
+    If the target columns already exist, preserves their existing values for rows not matching the mask.
 
     Parameters:
     df (pd.DataFrame): Input DataFrame
@@ -547,18 +548,33 @@ class GenericPreprocessor:
     Returns:
     pd.DataFrame: Modified DataFrame with new columns added and original columns updated
     """
+    # print(f'{datetime.now()} INFO: Splitting {value_column} by {split_value} into {tag}')
+    # print(f'{datetime.now()} INFO: {split_columns = }')
+    
     # Create new columns with prefixed names
     mask = df[value_column] == split_value
+    # print(f'{datetime.now()} INFO: {mask.sum()} rows match the mask')
+    # print(f'{datetime.now()} INFO: {df[mask].index.values = }')
+    
     new_cols = [f"{tag}_{col}" for col in split_columns]
-    # Create new columns, initialized with empty strings
-    df[new_cols] = ""
+    # print(f'{datetime.now()} INFO: {new_cols = }')
+    
+    # Initialize new columns with empty strings only if they don't already exist
+    for new_col in new_cols:
+        if new_col not in df.columns:
+            df[new_col] = ""
+    
     # Move data using the mask
+    # print(f'{datetime.now()} INFO: {df.loc[mask, split_columns].values = }')
     df.loc[mask, new_cols] = df.loc[mask, split_columns].values
+    # print(f'{datetime.now()} INFO: {df.loc[mask, new_cols].values = }')
+
     # Clear original columns
     df.loc[mask, split_columns] = ""
 
-    # the df gets fragmented by the above, so we clean it up by returning a copy -- slow
-    return df.copy()
+    result = df.copy()
+    # print(f'{datetime.now()} INFO: {result.loc[mask, new_cols].values = }')
+    return result
 
   def move_single_property_columns(self, df, single_props, table):
     # each editbox should already have qnumber columns
@@ -572,6 +588,7 @@ class GenericPreprocessor:
           if column in DATADICT[table.value]['id_fields'] + DATADICT[table.value]['dataclip_fields']:
             columns_with_qnumbers.append(column + '_QNUMBER')
         df = self.split_and_move(df, single_property_columns[clip], value_column, clip, columns_with_qnumbers)
+
     return df
 
   def float_values_up(self, df, value_cols):
@@ -596,3 +613,35 @@ class GenericPreprocessor:
       return group
 
     return df.groupby(group_col, group_keys=False).apply(propagate)
+
+  def concatenate_columns(self, df, column1, column2, new_column_name, separator='_'):
+    """
+    Concatenates values from two columns into a new column using a specified separator.
+    Empty or NaN values are handled gracefully (not included in concatenation).
+    
+    Parameters:
+    df (pd.DataFrame): Input DataFrame
+    column1 (str): Name of first column to concatenate
+    column2 (str): Name of second column to concatenate
+    new_column_name (str): Name for the resulting concatenated column
+    separator (str, optional): String to use as separator between values. Defaults to '_'
+    
+    Returns:
+    pd.DataFrame: DataFrame with the new concatenated column
+    """
+    def combine_values(row):
+        val1 = str(row[column1]) if pd.notna(row[column1]) and str(row[column1]).strip() != '' else ''
+        val2 = str(row[column2]) if pd.notna(row[column2]) and str(row[column2]).strip() != '' else ''
+        
+        if val1 and val2:
+            return f"{val1}{separator}{val2}"
+        elif val1:
+            return val1
+        elif val2:
+            return val2
+        else:
+            return ''
+    
+    df_copy = df.copy()
+    df_copy[new_column_name] = df_copy.apply(combine_values, axis=1)
+    return df_copy

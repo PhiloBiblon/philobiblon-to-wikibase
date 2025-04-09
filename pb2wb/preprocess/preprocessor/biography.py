@@ -24,14 +24,27 @@ SINGLE_PROPERTY_COLUMNS = {
                  'BIOGRAPHY*MILESTONE_CLASS*VEC': 'VEC',
                  'BIOGRAPHY*MILESTONE_CLASS*VCA': 'VCA',
                  },
-  'Related_Bio': {'BIOGRAPHY*RELATED_BIOCLASS*FATHER': 'FATHER',
-                  'BIOGRAPHY*RELATED_BIOCLASS*MOTHER': 'MOTHER',
-                  'BIOGRAPHY*RELATED_BIOCLASS*SON': 'SON',
-                  'BIOGRAPHY*RELATED_BIOCLASS*DAUGHTER': 'DAUGHTER',
-                  'BIOGRAPHY*RELATED_BIOCLASS*BROTHER': 'BROTHER',
-                  'BIOGRAPHY*RELATED_BIOCLASS*SISTER': 'SISTER',
-                  'BIOGRAPHY*RELATED_BIOCLASS*HUSBAND': 'HUSBAND',
-                  'BIOGRAPHY*RELATED_BIOCLASS*WIFE': 'WIFE'
+  # related persons are modeled in the opposite direction - so we need to know the gender of the object
+  'Related_Bio': {# if someone is the father of a female, that female is the daughter of that father
+                  'BIOGRAPHY*RELATED_BIOCLASS*FATHER BIOGRAPHY*SEX*F': 'DAUGHTER',
+                  # if someone is the father of a male, that male is the son of that father
+                  'BIOGRAPHY*RELATED_BIOCLASS*FATHER BIOGRAPHY*SEX*M': 'SON',
+                  # and so on
+                  'BIOGRAPHY*RELATED_BIOCLASS*MOTHER BIOGRAPHY*SEX*F': 'DAUGHTER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*MOTHER BIOGRAPHY*SEX*M': 'SON',
+                  'BIOGRAPHY*RELATED_BIOCLASS*SON BIOGRAPHY*SEX*F': 'MOTHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*SON BIOGRAPHY*SEX*M': 'FATHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*DAUGHTER BIOGRAPHY*SEX*F': 'MOTHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*DAUGHTER BIOGRAPHY*SEX*M': 'FATHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*BROTHER BIOGRAPHY*SEX*F': 'SISTER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*BROTHER BIOGRAPHY*SEX*M': 'BROTHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*SISTER BIOGRAPHY*SEX*F': 'SISTER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*SISTER BIOGRAPHY*SEX*M': 'BROTHER',
+                  'BIOGRAPHY*RELATED_BIOCLASS*HUSBAND BIOGRAPHY*SEX*F': 'WIFE',
+                  'BIOGRAPHY*RELATED_BIOCLASS*WIFE BIOGRAPHY*SEX*M': 'HUSBAND',
+                  # not sure we have any same sex marriages, but just in case...
+                  'BIOGRAPHY*RELATED_BIOCLASS*HUSBAND BIOGRAPHY*SEX*M': 'HUSBAND',
+                  'BIOGRAPHY*RELATED_BIOCLASS*WIFE BIOGRAPHY*SEX*F': 'WIFE',
                   }
 }
 
@@ -88,6 +101,43 @@ class BiographyPreprocessor(GenericPreprocessor):
     df = df[df['NAME_CLASS']=='GEOGRAPHY*NAME_CLASS*U'][['GEOID', 'NAME']]
     return dict(df.values)
 
+  def self_join_for_related_bio(self, df):
+    """
+    Join the dataframe to itself to get the SEX of related biographies.
+
+    Args:
+        df: Input DataFrame containing biography data
+
+    Returns:
+        DataFrame with added RELATED_BIOID_SEX column from self-join
+    """
+    original_row_count = len(df)
+
+    # Create a temporary df with only non-empty SEX values
+    sex_df = df[df['SEX'].notna() & (df['SEX'] != '')][['BIOID', 'SEX']]
+
+    # Perform the join
+    result_df = df.merge(
+        sex_df,
+        left_on='RELATED_BIOID',
+        right_on='BIOID',
+        how='left',
+        suffixes=('', '_object')
+    )
+
+    # Verify row count
+    if len(result_df) != original_row_count:
+        raise ValueError(f"Row count mismatch after join: original={original_row_count}, "
+                       f"after join={len(result_df)}. This suggests duplicate BIOIDs in the data.")
+
+    # Rename the joined SEX column to RELATED_BIOID_SEX and drop the extra BIOID column
+    result_df = result_df.rename(columns={'SEX_object': 'RELATED_BIOID_SEX'})
+    result_df = result_df.drop('BIOID_object', axis=1, errors='ignore')
+
+    result_df = self.move_last_column_after(result_df, 'RELATED_BIOID')
+
+    return result_df
+
   def preprocess(self):
     print(f'{datetime.now()} INFO: Processing biography ..')
 
@@ -95,6 +145,19 @@ class BiographyPreprocessor(GenericPreprocessor):
 
     print(f'{datetime.now()} INFO: Input csv: {biography_file}')
     df = pd.read_csv(biography_file, dtype=str, keep_default_na=False)
+
+    df = self.self_join_for_related_bio(df)
+
+    # Add new column combining RELATED_BIOCLASS and RELATED_BIOID_SEX
+    df['RELATED_BIOCLASS_WITH_SEX'] = df.apply(
+        lambda row: (f"{row['RELATED_BIOCLASS']} {row['RELATED_BIOID_SEX']}"
+                    if pd.notna(row['RELATED_BIOID_SEX']) and str(row['RELATED_BIOID_SEX']).strip() != ""
+                    else row['RELATED_BIOCLASS']),
+        axis=1
+    )
+
+    # Move the new column after RELATED_BIOCLASS
+    df = self.move_last_column_after(df, 'RELATED_BIOCLASS')
 
     geography_file = self.get_input_csv(Table.GEOGRAPHY)
     dict_geo = self.load_geo(geography_file)
@@ -157,6 +220,14 @@ class BiographyPreprocessor(GenericPreprocessor):
 
     # split single properties columns
     df = self.move_single_property_columns(df, SINGLE_PROPERTY_COLUMNS, Table.BIOGRAPHY)
+
+    debug_cols = ['BIOID', 'HUSBAND_RELATED_BIOCLASS_WITH_SEX', 'HUSBAND_RELATED_BIOCLASS', 'HUSBAND_RELATED_BIOCLASS_QNUMBER',
+                  'HUSBAND_RELATED_BIODETAIL', 'HUSBAND_RELATED_BIOID', 'HUSBAND_RELATED_BIOID_QNUMBER',
+                  'HUSBAND_RELATED_BIOIDQ', 'HUSBAND_RELATED_BIOBD', 'HUSBAND_RELATED_BIOBDQ', 'HUSBAND_RELATED_BIOED',
+                  'HUSBAND_RELATED_BIOEDQ', 'HUSBAND_RELATED_BIOBASIS']
+    # print only the columns in debug_cols for row with index 193
+    # print(f"{datetime.now()} INFO: {df.loc[193, debug_cols]}")
+
 
     milestone_primary_column = DATADICT[Table.BIOGRAPHY.value]['Milestones']['primary']
     milestone_secondary_column = DATADICT[Table.BIOGRAPHY.value]['Milestones']['secondary']
