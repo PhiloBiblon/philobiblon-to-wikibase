@@ -645,3 +645,47 @@ class GenericPreprocessor:
     df_copy = df.copy()
     df_copy[new_column_name] = df_copy.apply(combine_values, axis=1)
     return df_copy
+
+  def distribute_column_values(self, df, column_name):
+    """
+    For each group (determined by first column), moves non-empty values from specified column
+    into new sequentially numbered columns in the first row of the group.
+    Non-empty means a string of length > 0.
+
+    Parameters:
+    df (pd.DataFrame): Input DataFrame
+    column_name (str): Name of the column whose values should be distributed
+
+    Returns:
+    pd.DataFrame: Modified DataFrame with new columns added and arranged so that new columns
+                 appear immediately after the original column in sequential order
+    """
+    def process_group(group):
+        # Get non-empty values (strings with length > 0)
+        non_empty_values = group[group[column_name].astype(str).str.len() > 0][column_name]
+        
+        # Create new columns in the first row for each non-empty value
+        for idx, value in enumerate(non_empty_values):
+            new_col = f'{column_name}_{idx}'
+            # Create column if it doesn't exist
+            if new_col not in group.columns:
+                group[new_col] = ''
+            # Set value in first row
+            group.iloc[0, group.columns.get_loc(new_col)] = str(value)
+            
+        return group
+
+    # Process each group
+    result = df.groupby(df.columns[0], group_keys=False).apply(process_group)
+    
+    # Move all new columns to appear immediately after the original column in sequential order
+    col_index = df.columns.get_loc(column_name)
+    max_count = len([col for col in result.columns if col.startswith(f'{column_name}_')])
+    
+    # Process columns in reverse order so they end up in correct numeric order
+    for i in range(max_count - 1, -1, -1):
+        new_col = f'{column_name}_{i}'
+        if new_col in result.columns:
+            result = self.move_last_column_to(result, col_index + 1)
+    
+    return result
