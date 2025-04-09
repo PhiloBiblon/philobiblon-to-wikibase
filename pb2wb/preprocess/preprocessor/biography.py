@@ -221,14 +221,6 @@ class BiographyPreprocessor(GenericPreprocessor):
     # split single properties columns
     df = self.move_single_property_columns(df, SINGLE_PROPERTY_COLUMNS, Table.BIOGRAPHY)
 
-    debug_cols = ['BIOID', 'HUSBAND_RELATED_BIOCLASS_WITH_SEX', 'HUSBAND_RELATED_BIOCLASS', 'HUSBAND_RELATED_BIOCLASS_QNUMBER',
-                  'HUSBAND_RELATED_BIODETAIL', 'HUSBAND_RELATED_BIOID', 'HUSBAND_RELATED_BIOID_QNUMBER',
-                  'HUSBAND_RELATED_BIOIDQ', 'HUSBAND_RELATED_BIOBD', 'HUSBAND_RELATED_BIOBDQ', 'HUSBAND_RELATED_BIOED',
-                  'HUSBAND_RELATED_BIOEDQ', 'HUSBAND_RELATED_BIOBASIS']
-    # print only the columns in debug_cols for row with index 193
-    # print(f"{datetime.now()} INFO: {df.loc[193, debug_cols]}")
-
-
     milestone_primary_column = DATADICT[Table.BIOGRAPHY.value]['Milestones']['primary']
     milestone_secondary_column = DATADICT[Table.BIOGRAPHY.value]['Milestones']['secondary']
     milestone_columns = DATADICT[Table.BIOGRAPHY.value]['Milestones']['columns']
