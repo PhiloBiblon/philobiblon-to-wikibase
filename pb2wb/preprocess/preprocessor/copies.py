@@ -42,6 +42,10 @@ class CopiesPreprocessor(GenericPreprocessor):
     # float the values up to the top row
     df = self.float_values_up(df, [libcallno_column + '_' + e for e in call_number_extensions])
 
+    # now use the distribute_column_values method to move the RELATED_LIBCALLNO_F and _A values to the top row
+    df = self.distribute_column_values(df, libcallno_column + '_F')
+    df = self.distribute_column_values(df, libcallno_column + '_A')
+
     # Internet edit box
     df = self.split_internet_class(df)
 
