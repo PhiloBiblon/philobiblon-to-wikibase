@@ -26,6 +26,7 @@ SINGLE_PROPERTY_COLUMNS = {
                  },
   # related persons are modeled in the opposite direction - so we need to know the gender of the object
   'Related_Bio': {# if someone is the father of a female, that female is the daughter of that father
+        'BETA': {
                   'BIOGRAPHY*RELATED_BIOCLASS*FATHER BIOGRAPHY*SEX*F': 'DAUGHTER',
                   # if someone is the father of a male, that male is the son of that father
                   'BIOGRAPHY*RELATED_BIOCLASS*FATHER BIOGRAPHY*SEX*M': 'SON',
@@ -45,9 +46,45 @@ SINGLE_PROPERTY_COLUMNS = {
                   # not sure we have any same sex marriages, but just in case...
                   'BIOGRAPHY*RELATED_BIOCLASS*HUSBAND BIOGRAPHY*SEX*M': 'HUSBAND',
                   'BIOGRAPHY*RELATED_BIOCLASS*WIFE BIOGRAPHY*SEX*F': 'WIFE',
-                  }
+                  },
+        'BITAGAP': {
+                'BIOGRAPHY*RELATED_BIOCLASS*PAI BIOGRAPHY*SEX*F': 'DAUGHTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*PAI BIOGRAPHY*SEX*M': 'SON',
+                'BIOGRAPHY*RELATED_BIOCLASS*MÃE BIOGRAPHY*SEX*F': 'DAUGHTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*MÃE BIOGRAPHY*SEX*M': 'SON',
+                'BIOGRAPHY*RELATED_BIOCLASS*FILHO BIOGRAPHY*SEX*F': 'MOTHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*FILHO BIOGRAPHY*SEX*M': 'FATHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*FILHA BIOGRAPHY*SEX*F': 'MOTHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*FILHA BIOGRAPHY*SEX*M': 'FATHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*IRMÃO BIOGRAPHY*SEX*F': 'SISTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*IRMÃO BIOGRAPHY*SEX*M': 'BROTHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*IRMÃ BIOGRAPHY*SEX*F': 'SISTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*IRMÃ BIOGRAPHY*SEX*M': 'BROTHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*MARIDO BIOGRAPHY*SEX*F': 'WIFE',
+                'BIOGRAPHY*RELATED_BIOCLASS*ESPOSA BIOGRAPHY*SEX*M': 'HUSBAND',
+                'BIOGRAPHY*RELATED_BIOCLASS*MARIDO BIOGRAPHY*SEX*M': 'HUSBAND',
+                'BIOGRAPHY*RELATED_BIOCLASS*ESPOSA BIOGRAPHY*SEX*F': 'WIFE',
+        },
+        'BITECA': {
+                'BIOGRAPHY*RELATED_BIOCLASS*PARE BIOGRAPHY*SEX*F': 'DAUGHTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*PARE BIOGRAPHY*SEX*M': 'SON',
+                'BIOGRAPHY*RELATED_BIOCLASS*MARE BIOGRAPHY*SEX*F': 'DAUGHTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*MARE BIOGRAPHY*SEX*M': 'SON',
+                'BIOGRAPHY*RELATED_BIOCLASS*FILL BIOGRAPHY*SEX*F': 'MOTHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*FILL BIOGRAPHY*SEX*M': 'FATHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*FILLA BIOGRAPHY*SEX*F': 'MOTHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*FILLA BIOGRAPHY*SEX*M': 'FATHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*GERMÀ BIOGRAPHY*SEX*F': 'SISTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*GERMÀ BIOGRAPHY*SEX*M': 'BROTHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*GERMANA BIOGRAPHY*SEX*F': 'SISTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*GERMANA BIOGRAPHY*SEX*M': 'BROTHER',
+                'BIOGRAPHY*RELATED_BIOCLASS*MARIT BIOGRAPHY*SEX*F': 'WIFE',
+                'BIOGRAPHY*RELATED_BIOCLASS*MULLER BIOGRAPHY*SEX*M': 'HUSBAND',
+                'BIOGRAPHY*RELATED_BIOCLASS*MARIT BIOGRAPHY*SEX*M': 'HUSBAND',
+                'BIOGRAPHY*RELATED_BIOCLASS*MULLER BIOGRAPHY*SEX*F': 'WIFE'
+        }
+    }
 }
-
 
 class BiographyPreprocessor(GenericPreprocessor):
   TABLE = Table.BIOGRAPHY
@@ -175,7 +212,8 @@ class BiographyPreprocessor(GenericPreprocessor):
 
     # Split related_biod
     # this list will need to be modified for the non-BETA bibliographies
-    related_object_clips = [
+    related_object_clips = {
+      "BETA": [
       "BIOGRAPHY*RELATED_BIOCLASS*<ALB",
       "BIOGRAPHY*RELATED_BIOCLASS*<ALF",
       "BIOGRAPHY*RELATED_BIOCLASS*<CANC",
@@ -209,17 +247,64 @@ class BiographyPreprocessor(GenericPreprocessor):
       "BIOGRAPHY*RELATED_BIOCLASS*REGTADO",
       "BIOGRAPHY*RELATED_BIOCLASS*SUBO",
       "BIOGRAPHY*RELATED_BIOCLASS*TUTELADO"
-    ]
+      ],
+      "BITECA": [
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<EXECUTOR",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<CANCELLER",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<CAPITÀ",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<ESCRIVÀ",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<CRONISTA",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<LADY-IN-WAITING",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<AMBAIXADOR",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<FALCONER",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<HERALD",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<AMANT",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<NOTARI",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<OFICIAL",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<PARTISAN",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<PARTISAN",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<REID’ARMES",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<ESCRIVÀ",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*<SECRETARI",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*CONSELLERA",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*CONSELLER",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*APPRENTICE",
+      "BITECA UNIFORM_TITLE*RELATED_BIOCLASS*COMENTADOR",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*PREDICADOR",
+      "BITECA BIOGRAPHY*RELATED_BIOCLASS*SUBORDINATE"
+      ]
+    }
+
+    bib_name = str(self.top_level_bib).split('.')[-1]
+
+    self.single_property_columns = {}
+
+    for category, mappings in SINGLE_PROPERTY_COLUMNS.items():
+        if category == "Milestones":
+            # Prepend bib_name to all keys in Milestones
+            self.single_property_columns[category] = {
+                f"{bib_name} {key}": value for key, value in mappings.items()
+            }
+        elif category == "Related_Bio":
+            # Select only the mappings for the current bib_name, if they exist
+            if bib_name in mappings:
+                self.single_property_columns[category] = mappings[bib_name]
+            else:
+                self.single_property_columns[category] = {}
+        else:
+            # For other categories, just copy as-is
+            self.single_property_columns[category] = mappings
+
+    related_object_clips = related_object_clips[bib_name]
 
     subject_object_predicate = lambda row: row['RELATED_BIOCLASS'] in related_object_clips
     df = self.split_column_by_predicate(df, 'RELATED_BIOID', subject_object_predicate,
                                         true_extension='OBJECT', false_extension='SUBJECT')
-
     # add new columns for the qnumbers using the lookup table if supplied
     df = self.add_qnumber_columns(df, BiographyPreprocessor.TABLE)
 
     # split single properties columns
-    df = self.move_single_property_columns(df, SINGLE_PROPERTY_COLUMNS, Table.BIOGRAPHY)
+    df = self.move_single_property_columns(df, self.single_property_columns, Table.BIOGRAPHY)
 
     milestone_primary_column = DATADICT[Table.BIOGRAPHY.value]['Milestones']['primary']
     milestone_secondary_column = DATADICT[Table.BIOGRAPHY.value]['Milestones']['secondary']
