@@ -57,10 +57,20 @@ class GenericPreprocessor:
     self.df_dataclip = pd.read_csv(self.dataclip_file, dtype=str, keep_default_na=False)
 
   def lookupDataclip(self, code, lang):
-    cell_value = self.df_dataclip.loc[self.df_dataclip['code']==f'{self.top_level_bib.value} {code}'][lang]
+    # print(f'{code = } {lang = }')
+    lookupprefix = ''
+    if self.top_level_bib.value == 'BETA':
+      lookupprefix = 'BETA '
+    lookup_value = lookupprefix + code
+    # print(f'{lookup_value = }')
+    row = self.df_dataclip.loc[self.df_dataclip['code']==lookup_value]
+    #print(f'{row = }')
+    cell_value = row[lang]
     if cell_value.empty == True:
+      # rint(f'no values')
       return None
     else:
+      # print(f'{cell_value.values[0] = }')
       return cell_value.values[0]
 
   def get_input_csv(self, table=None):
