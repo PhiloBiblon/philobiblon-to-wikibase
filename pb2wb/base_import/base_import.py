@@ -18,12 +18,13 @@ def get_full_input_path(bib, table, updated, spot):
     file = f'{bib}/csvs/{bib.lower()}_{table.value.lower()}.csv'
     return os.path.join(CLEAN_DIR, file)
 
-def base_import(bib='BETA', table=None, skip_existing=False, dry_run=False, sample_size=0, updated=False, wb='PBSANDBOX', spot=False):
+def base_import(bib='BETA', table=None, skip_existing=False, dry_run=False, sample_size=0, updated=False, wb='PBSANDBOX', spot=False, resume_id=None):
     print('Preparing wikibase connection ...')
     print(f'Using wikibase: {wb} and bibliography: {bib}')
     TEMP_DICT['TEMP_WB'] = wb.upper()
     TEMP_DICT['TEMP_BIB'] = bib.upper()
     TEMP_DICT['DRYRUN'] = dry_run
+    TEMP_DICT['RESUME_ID'] = resume_id
 
     wb_manager = WBManager()
 

@@ -31,49 +31,133 @@ HEADERS = {
 
 # Define mappings for column types
 MAPPINGS = {
+    'BETA': {
       'TITLE': {
         'COLUMN': 'TITLE',
         'TOPIC': '== Títulos ==',
         'EXPANDED_TITLE_U': '* Título:',
-        'TITLE_Q': '** Calificador?',
+        'TITLE_Q': '** Calificador:',
         'TITLE_BD': '** Fecha inicial:',
         'TITLE_ED': '** Fecha final:',
-        'TITLE_EDQ': '**?',
+        'TITLE_EDQ': '** Calificador: fecha final:',
         'TITLE_BASIS': '** Fuente:'
-    },
+      },
       'MILESTONE': {
         'COLUMN': 'MILESTONE',
         'TOPIC': '== Hitos ==',
         'COMBINED_DETAIL': '* Evento:',
         'MILESTONE_GEOID': '',
-        'MILESTONE_BD': '** Fecha inicial:',
-        'MILESTONE_BDQ': '** Calificador de la fecha inicial',
-        'MILESTONE_ED': '** Fecha final:',
-        'MILESTONE_EDQ': '** Calificador de la fecha final',
+        'MILESTONE_BD': '** Primera fecha conocida:',
+        'MILESTONE_BDQ': '** Calificador de la fecha inicial:',
+        'MILESTONE_ED': '** Calificador: primera fecha:',
+        'MILESTONE_EDQ': '** Calificador: última fecha:',
         'MILESTONE_BASIS': '** Fuente:'
-    },
+      },
       'RELATED_BIOID': {
         'COLUMN': 'RELATED_BIOID',
         'TOPIC': '== Personas asociadas ==',
         'RELATED_BIOID': '',
         'COMBINED_BIO_DETAIL': '* Persona asociada:',
-        'RELATED_BIODETAIL': '** Detalles de la persona:',
-        'RELATED_BIOIDQ': '** Calificador',
-        'RELATED_BIOBD': '** Fecha inicial',
-        'RELATED_BIOBDQ': '** Calificador de la fecha inicial',
-        'RELATED_BIOED': '** Fecha final:',
-        'RELATED_BIOEDQ': '** Calificador de la fecha final',
+        'RELATED_BIODETAIL': '** Nota:',
+        'RELATED_BIOIDQ': '** Calificador:',
+        'RELATED_BIOBD': '** Primera fecha conocida:',
+        'RELATED_BIOBDQ': '** Calificador: primera fecha:',
+        'RELATED_BIOED': '** Última fecha conocida:',
+        'RELATED_BIOEDQ': '** Calificador: última fecha:',
         'RELATED_BIOBASIS': '** Fuente:'
-    },
+      },
       'NOTES': {
         'COLUMN': 'NOTES',
         'TOPIC': '== Notas ==',
         'NOTES': ''
+      }
+    },
+    'BITECA': {
+        'TITLE': {
+            'COLUMN': 'TITLE',
+            'TOPIC': '== Títols ==',
+            'EXPANDED_TITLE_U': '* Títol:',
+            'TITLE_Q': '** Qualificador:',
+            'TITLE_BD': '** Data inicial:',
+            'TITLE_ED': '** Data final:',
+            'TITLE_EDQ': '** Qualificador: data final:',
+            'TITLE_BASIS': '** Font:'
+        },
+        'MILESTONE': {
+            'COLUMN': 'MILESTONE',
+            'TOPIC': '== Fites ==',
+            'COMBINED_DETAIL': '* Esdeveniment:',
+            'MILESTONE_GEOID': '',
+            'MILESTONE_BD': '** FPrimera data coneguda:',
+            'MILESTONE_BDQ': '** Qualificador: primera data:',
+            'MILESTONE_ED': '** Última data coneguda:',
+            'MILESTONE_EDQ': '** Qualificador: última data:',
+            'MILESTONE_BASIS': '** Font:'
+        },
+        'RELATED_BIOID': {
+            'COLUMN': 'RELATED_BIOID',
+            'TOPIC': '== Persones associades ==',
+            'RELATED_BIOID': '',
+            'COMBINED_BIO_DETAIL': '* Persona associade:',
+            'RELATED_BIODETAIL': '** Nota:',
+            'RELATED_BIOIDQ': '** Qualificador:',
+            'RELATED_BIOBD': '** Primera data coneguda:',
+            'RELATED_BIOBDQ': '** Qualificador: primera data:',
+            'RELATED_BIOED': '** Última data coneguda:',
+            'RELATED_BIOEDQ': '** Qualificador: última data:',
+            'RELATED_BIOBASIS': '** Font:'
+        },
+        'NOTES': {
+            'COLUMN': 'NOTES',
+            'TOPIC': '== Notas ==',
+            'NOTES': ''
+        },
+    },
+    'BITAGAP': {
+        'TITLE': {
+            'COLUMN': 'TITLE',
+            'TOPIC': '== Títulos ==',
+            'EXPANDED_TITLE_U': '* Título:',
+            'TITLE_Q': '** Qualificador',
+            'TITLE_BD': '** Data inicial:',
+            'TITLE_ED': '** Data inicial:',
+            'TITLE_EDQ': '** Qualificador: data final:',
+            'TITLE_BASIS': '** Fonte:'
+        },
+        'MILESTONE': {
+            'COLUMN': 'MILESTONE',
+            'TOPIC': '== Marcos ==',
+            'COMBINED_DETAIL': '* Evento:',
+            'MILESTONE_GEOID': '',
+            'MILESTONE_BD': '** Primeira data conhecida:',
+            'MILESTONE_BDQ': '** Qualificador: primeira data',
+            'MILESTONE_ED': '** Última data conhecida:',
+            'MILESTONE_EDQ': '** Qualificador: última data',
+            'MILESTONE_BASIS': '** Fonte:'
+        },
+        'RELATED_BIOID': {
+            'COLUMN': 'RELATED_BIOID',
+            'TOPIC': '== Pessoas associadas ==',
+            'RELATED_BIOID': '',
+            'COMBINED_BIO_DETAIL': '* Persona asociada:',
+            'RELATED_BIODETAIL': '** Nota:',
+            'RELATED_BIOIDQ': '** Qualificador',
+            'RELATED_BIOBD': '** Primeira data conhecida',
+            'RELATED_BIOBDQ': '** Qualificador: primeira data',
+            'RELATED_BIOED': '** Última data conhecida:',
+            'RELATED_BIOEDQ': '** Qualificador: última data',
+            'RELATED_BIOBASIS': '** Fonte:'
+        },
+        'NOTES': {
+            'COLUMN': 'NOTES',
+            'TOPIC': '== Notas ==',
+            'NOTES': ''
+        }
     }
 }
 
 header = HEADERS[bibliography.upper()]
-desired_order = [key for key, value in MAPPINGS.items()] # Define the required order of the groups
+desired_order = list(MAPPINGS[bibliography.upper()].keys()) # Define the required order of the groups
 factgrid_url = 'https://database.factgrid.de/wiki/Item:'
 first_row_path = f'first_row/{bibliography.upper()}'
 bib_first_row = f"{instance.lower()}_{bibliography.upper()}_{table.upper()}_first_row_*.csv"
@@ -167,7 +251,7 @@ desired_column_order = []
 metadata_keys = {'COLUMN', 'TOPIC'}  # Define the metadata keys from the dict that we want to skip
 # Define columns to drop from the mapping groups (if they exist) as they are not needed in the final output
 drop_columns = {'MILESTONE_DETAIL', 'MILESTONE_GEOID', 'GEOID_URL', 'BIODATA_URL', 'RELATED_BIOCLASS', 'RELATED_BIOID', 'RELATED_BIOID_QNUMBER'}
-for group in MAPPINGS.values():
+for group in MAPPINGS[bibliography.upper()].values():
     for col in group.keys():
         if col not in metadata_keys or col not in drop_columns:
             desired_column_order.append(col)
@@ -186,7 +270,7 @@ df = df[final_column_order]
 
 # Iterate over each mapping group and update DataFrame columns accordingly.
 mapping_keys = set()
-for group in MAPPINGS.values():
+for group in MAPPINGS[bibliography.upper()].values():
     for col_key, prefix in group.items():
         if col_key in metadata_keys:
             continue
@@ -224,7 +308,7 @@ def create_notes_text(aggregated):
         if mapping_dict:
             lines = [header] # Add the header only once
         for mapping_key, values in mapping_dict.items():
-            topic = MAPPINGS.get(mapping_key, {}).get('TOPIC', "").strip()
+            topic = MAPPINGS[bibliography.upper()].get(mapping_key, {}).get('TOPIC', "").strip()
             if topic:
                 lines.append(topic)
             for val in values:
@@ -246,7 +330,7 @@ def create_group_texts(df_milestones):
 
     # Extract column names from MAPPINGS (excluding 'COLUMN' and 'TOPIC')
     mapping_columns = {}
-    for key, value in MAPPINGS.items():
+    for key, value in MAPPINGS[bibliography.upper()].items():
         mapping_columns[key] = [col for col in value.keys() if col not in ['COLUMN', 'TOPIC']]
     print(f"Mapping columns: {mapping_columns}")
 
@@ -291,5 +375,7 @@ if filetype == 'text':
                 count += 1
                 if count > 50:
                     break
-                file.write(f"{text}\n") #just for testing
+            else:
+                print(f"Dry run: Would post notes for {group_key}: {text}")
+                #file.write(f"{text}\n") #just for testing
     print('Text files created')
