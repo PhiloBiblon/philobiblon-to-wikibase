@@ -13,6 +13,7 @@ class GenericMapper:
     self.skip_existing = True
     self.sample_size = 10
     self.DRYRUN = TEMP_DICT['DRYRUN']
+    self.resume_id = TEMP_DICT['RESUME_ID']
 
   def with_skip_existing(self, b: bool):
     self.skip_existing = b
@@ -39,6 +40,9 @@ class GenericMapper:
     print(f'{self.sample_size = }')
     for id in self.get_df_ids()[:self.sample_size] if self.sample_size > 0 else self.get_df_ids():
       pbid = self.get_pbid(id)
+      if int(pbid.split()[-1]) <= self.resume_id:
+        print(f"Skipping item PBID={pbid} mapped with {id}")
+        continue
       if self.skip_existing:
         item = self.wb_manager.get_q_by_pbid(pbid)
         if item is not None:
