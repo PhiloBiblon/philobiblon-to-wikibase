@@ -46,7 +46,7 @@ MAPPINGS = {
         'COLUMN': 'MILESTONE',
         'TOPIC': '== Hitos ==',
         'COMBINED_DETAIL': '* Evento:',
-        'MILESTONE_GEOID': 'Localización:',
+        'MILESTONE_GEOID': '** Localización:',
         'MILESTONE_BD': '** Primera fecha conocida:',
         'MILESTONE_BDQ': '** Calificador: fecha inicial:,
         'MILESTONE_ED': '** Última fecha conocida:',
@@ -56,7 +56,7 @@ MAPPINGS = {
       'RELATED_BIOID': {
         'COLUMN': 'RELATED_BIOID',
         'TOPIC': '== Personas asociadas ==',
-        'RELATED_BIOID': '',
+        'RELATED_BIOID': '* Les + QNUMBER:',
         'COMBINED_BIO_DETAIL': '* Persona asociada:',
         'RELATED_BIODETAIL': '** Nota:',
         'RELATED_BIOIDQ': '** Calificador:',
@@ -69,7 +69,7 @@ MAPPINGS = {
       'NOTES': {
         'COLUMN': 'NOTES',
         'TOPIC': '== Notas ==',
-        'NOTES': ''
+        'NOTES': 'Notas'
       }
     },
     'BITECA': {
