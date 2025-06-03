@@ -46,10 +46,10 @@ MAPPINGS = {
         'COLUMN': 'MILESTONE',
         'TOPIC': '== Hitos ==',
         'COMBINED_DETAIL': '* Evento:',
-        'MILESTONE_GEOID': '',
+        'MILESTONE_GEOID': 'Localización:',
         'MILESTONE_BD': '** Primera fecha conocida:',
-        'MILESTONE_BDQ': '** Calificador de la fecha inicial:',
-        'MILESTONE_ED': '** Calificador: primera fecha:',
+        'MILESTONE_BDQ': '** Calificador: fecha inicial:,
+        'MILESTONE_ED': '** Última fecha conocida:',
         'MILESTONE_EDQ': '** Calificador: última fecha:',
         'MILESTONE_BASIS': '** Fuente:'
       },
