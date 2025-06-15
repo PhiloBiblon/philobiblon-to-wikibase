@@ -3,6 +3,7 @@ import argparse
 from common.settings import TEMP_DICT
 import os
 import glob
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
@@ -10,13 +11,18 @@ parser.add_argument('--bib', default='beta', choices=['beta', 'bitagap', 'biteca
 parser.add_argument('--filetype', default='text', choices=['text', 'html'], help='File type to output.  Default is text.')
 parser.add_argument('--table', help="Table to process", choices=['analytic', 'biography', 'geography', 'institutions', 'library', 'subject', 'bibliography', 'copies', 'ms_ed', 'uniform_title'], required=True)
 parser.add_argument('--dry_run',  action='store_true', help='Dry run to test the script without making changes.')
+parser.add_argument('--reset_notes', action='store_true', help='If set, will reset the notes for the given instance and bibliography.  Default is False.')
 
 instance = parser.parse_args().instance
 bibliography = parser.parse_args().bib
 filetype = parser.parse_args().filetype
 table = parser.parse_args().table
 dry_run = parser.parse_args().dry_run
+reset_notes = parser.parse_args().reset_notes
+# Set the TEMP_DICT for the instance and bibliography
 TEMP_DICT['TEMP_WB'] = instance.upper()
+if reset_notes:
+    TEMP_DICT['RESET'] = reset_notes
 
 '''
 This job will convert notes and column data to a formatted text insertion into Factgrid discussion page.
@@ -58,6 +64,8 @@ MAPPINGS = {
         'TOPIC': '== Personas asociadas ==',
         'RELATED_BIOID': '* Les + QNUMBER:',
         'COMBINED_BIO_DETAIL': '* Persona asociada:',
+        'COMBINED_BIOID_SUBJECT':'* Persona associada (sujeto):',
+        'COMBINED_BIOID_OBJECT':'* Persona associada (objeto):',
         'RELATED_BIODETAIL': '** Nota:',
         'RELATED_BIOIDQ': '** Calificador:',
         'RELATED_BIOBD': '** Primera fecha conocida:',
@@ -99,6 +107,8 @@ MAPPINGS = {
             'TOPIC': '== Persones associades ==',
             'RELATED_BIOID': '',
             'COMBINED_BIO_DETAIL': '* Persona associade:',
+            'COMBINED_BIOID_SUBJECT':'* Persona associada (subjecte):',
+            'COMBINED_BIOID_OBJECT':'* Persona associada (objecte):',
             'RELATED_BIODETAIL': '** Nota:',
             'RELATED_BIOIDQ': '** Qualificador:',
             'RELATED_BIOBD': '** Primera data coneguda:',
@@ -140,6 +150,8 @@ MAPPINGS = {
             'TOPIC': '== Pessoas associadas ==',
             'RELATED_BIOID': '',
             'COMBINED_BIO_DETAIL': '* Persona asociada:',
+            'COMBINED_BIOID_SUBJECT':'* Persona associada (sujeito):',
+            'COMBINED_BIOID_OBJECT':'* Persona associada (objeto):',
             'RELATED_BIODETAIL': '** Nota:',
             'RELATED_BIOIDQ': '** Qualificador',
             'RELATED_BIOBD': '** Primeira data conhecida',
@@ -156,6 +168,23 @@ MAPPINGS = {
     }
 }
 
+BIOID_LABELS = {
+    'BETA': {
+        'base': 'Persona asociada',
+        'subject': 'sujeto',
+        'object': 'objecto'
+    },
+    'BITECA': {
+        'base': 'Persones associades',
+        'subject': 'subjecte',
+        'object': 'objecte'
+    },
+    'BITAGAP': {
+        'base': 'Pessoas associadas',
+        'subject': 'sujeito',
+        'object': 'objeto'
+    }
+}
 header = HEADERS[bibliography.upper()]
 desired_order = list(MAPPINGS[bibliography.upper()].keys()) # Define the required order of the groups
 factgrid_url = 'https://database.factgrid.de/wiki/Item:'
@@ -210,6 +239,8 @@ lookup_mapping = dict(zip(lookup_df['PBID'], lookup_df['QNUMBER']))
 # Combine the values from the lookup_df QNUMBER column with the df on the MILESTONE_GEOID column where the column[0] values match in both dataframes
 df['GEOID_URL'] = df['MILESTONE_GEOID'].map(lookup_mapping)
 df['BIODATA_URL'] = df['RELATED_BIOID'].map(lookup_mapping)
+df['BIO_SUBJECT_URL'] = df['RELATED_BIOID_SUBJECT'].map(lookup_mapping)
+df['BIO_OBJECT_URL'] = df['RELATED_BIOID_OBJECT'].map(lookup_mapping)
 
 # Lets replace the values in the DataFrame with the mapping values
 print(f'Replacing values in the DataFrame with the mapping values for {table} values')
@@ -226,20 +257,39 @@ with open('df.csv', 'w') as file: #just for testing
 
 # Edit MILESTONE_DETAIL column to append geoid values to a combined column
 df['COMBINED_DETAIL'] = df.apply(
-    lambda row: row['MILESTONE_DETAIL'] + 
+    lambda row: row['MILESTONE_DETAIL'] +
     (f" [{row['GEOID_URL']} {row['MILESTONE_GEOID']}]" if pd.notna(row['GEOID_URL']) and str(row['GEOID_URL']).strip() != "" and pd.notna(row['MILESTONE_GEOID']) and str(row['MILESTONE_GEOID']).strip() != "" 
      else f" [{row['GEOID_URL']}]" if pd.notna(row['GEOID_URL']) and str(row['GEOID_URL']).strip() != "" 
      else f" [{row['MILESTONE_GEOID']}]" if pd.notna(row['MILESTONE_GEOID']) and str(row['MILESTONE_GEOID']).strip() != "" 
      else ""),
     axis=1
 )
-# Edit RELATED_BIODETAIL column to append bioid values to a combined column
-df['COMBINED_BIO_DETAIL'] = df.apply(
-    lambda row: row['RELATED_BIOCLASS'] + 
-    (f" [{row['BIODATA_URL']} {row['RELATED_BIOID']}]" if pd.notna(row['BIODATA_URL']) and str(row['BIODATA_URL']).strip() != "" and pd.notna(row['RELATED_BIOID']) and str(row['RELATED_BIOID']).strip() != "" 
-     else f" [{row['BIODATA_URL']}]" if pd.notna(row['BIODATA_URL']) and str(row['BIODATA_URL']).strip() != "" 
-     else f" [{row['RELATED_BIOID']}]" if pd.notna(row['RELATED_BIOID']) and str(row['RELATED_BIOID']).strip() != "" 
-     else ""),
+
+# Edit RELATED_BIOID_SUBJECT column to append bioid values to a combined column
+df['COMBINED_BIOID_SUBJECT'] = df.apply(
+    lambda row: (
+        (
+            re.sub(r'^\*\s*', '', str(row.get('RELATED_BIOCLASS', '')).strip())  # removes leading “* ”
+        ) +
+    (f" [{row['BIO_SUBJECT_URL']} ({row['RELATED_BIOID_SUBJECT']})]" if pd.notna(row['BIO_SUBJECT_URL']) and str(row['BIO_SUBJECT_URL']).strip() != "" and pd.notna(row['RELATED_BIOID_SUBJECT']) and str(row['RELATED_BIOID_SUBJECT']).strip() != ""
+     else f" [{row['BIO_SUBJECT_URL']}]" if pd.notna(row['BIO_SUBJECT_URL']) and str(row['BIO_SUBJECT_URL']).strip() != ""
+     else f" [{row['RELATED_BIOID_SUBJECT']}]" if pd.notna(row['RELATED_BIOID_SUBJECT']) and str(row['RELATED_BIOID_SUBJECT']).strip() != ""
+     else "")
+     ) if pd.notna(row['BIO_SUBJECT_URL']) and str(row['BIO_SUBJECT_URL']).strip() != "" else "",
+    axis=1
+)
+
+# Edit RELATED_BIOID_OBJECT column to append bioid values to a combined column
+df['COMBINED_BIOID_OBJECT'] = df.apply(
+    lambda row: (
+        (
+            re.sub(r'^\*\s*', '', str(row.get('RELATED_BIOCLASS', '')).strip())  # removes leading “* ”
+        ) +
+    (f" [{row['BIO_OBJECT_URL']} ({row['RELATED_BIOID_OBJECT']})]" if pd.notna(row['BIO_OBJECT_URL']) and str(row['BIO_OBJECT_URL']).strip() != "" and pd.notna(row['RELATED_BIOID_OBJECT']) and str(row['RELATED_BIOID_OBJECT']).strip() != ""
+     else f" [{row['BIO_OBJECT_URL']}]" if pd.notna(row['BIO_OBJECT_URL']) and str(row['BIO_OBJECT_URL']).strip() != ""
+     else f" [{row['RELATED_BIOID_OBJECT']}]" if pd.notna(row['RELATED_BIOID_OBJECT']) and str(row['RELATED_BIOID_OBJECT']).strip() != ""
+     else "")
+     ) if pd.notna(row['BIO_OBJECT_URL']) and str(row['BIO_OBJECT_URL']).strip() != "" else "",
     axis=1
 )
 
@@ -250,7 +300,7 @@ print(first_two_columns)
 desired_column_order = []
 metadata_keys = {'COLUMN', 'TOPIC'}  # Define the metadata keys from the dict that we want to skip
 # Define columns to drop from the mapping groups (if they exist) as they are not needed in the final output
-drop_columns = {'MILESTONE_DETAIL', 'MILESTONE_GEOID', 'GEOID_URL', 'BIODATA_URL', 'RELATED_BIOCLASS', 'RELATED_BIOID', 'RELATED_BIOID_QNUMBER'}
+drop_columns = {'MILESTONE_DETAIL', 'MILESTONE_GEOID', 'GEOID_URL', 'BIODATA_URL', 'RELATED_BIOCLASS', 'RELATED_BIOID', 'BIO_SUBJECT_URL', 'BIO_OBJECT_URL'}
 for group in MAPPINGS[bibliography.upper()].values():
     for col in group.keys():
         if col not in metadata_keys or col not in drop_columns:

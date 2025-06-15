@@ -6,14 +6,6 @@ from common.data_dictionary import DATADICT
 from common.enums import Table
 from .generic import GenericPreprocessor
 
-SINGLE_PROPERTY_COLUMNS = {
-    'Milestones': {'UNIFORM_TITLE*MILESTONE_CLASS*W': 'WRITTEN',
-                   'UNIFORM_TITLE*MILESTONE_CLASS*E': 'PUBLISHED',
-                   },
-    'Related_Bio': {'UNIFORM_TITLE*RELATED_BIOCLASS*TRANSLATOR': 'TRANSLATOR',
-                    }
-}
-
 
 class UniformTitlePreprocessor(GenericPreprocessor):
   TABLE = Table.UNIFORM_TITLE
@@ -21,8 +13,28 @@ class UniformTitlePreprocessor(GenericPreprocessor):
   def __init__(self, top_level_bib=None, qnumber_lookup_file=None, instance=None) -> None:
     super().__init__(top_level_bib, qnumber_lookup_file, instance)
 
+    self.SINGLE_PROPERTY_COLUMNS = {
+      'Milestones': {'UNIFORM_TITLE*MILESTONE_CLASS*W': 'WRITTEN',
+                     'UNIFORM_TITLE*MILESTONE_CLASS*E': 'PUBLISHED',  # BETA
+                     #'UNIFORM_TITLE*MILESTONE_CLASS*I': 'PUBLISHED',  # BITAGAP
+                   },
+      'Related_Bio': {'UNIFORM_TITLE*RELATED_BIOCLASS*TRANSLATOR': 'TRANSLATOR',
+                    }
+    }
+
   def preprocess(self):
     print(f'{datetime.now()} INFO: Processing uniform_title ..')
+
+    bib_name = str(self.top_level_bib).split('.')[-1]
+    print(bib_name)
+    if bib_name in ['BITECA', 'BITAGAP']:
+        SINGLE_PROPERTY_COLUMNS = {
+            section: {
+                key.replace('UNIFORM_TITLE', f'{bib_name.upper()} UNIFORM_TITLE', 1): value
+                for key, value in mappings.items()
+            }
+            for section, mappings in self.SINGLE_PROPERTY_COLUMNS.items()
+        }
 
     file = self.get_input_csv(UniformTitlePreprocessor.TABLE)
     print(f'{datetime.now()} INFO: Input csv: {file}')
