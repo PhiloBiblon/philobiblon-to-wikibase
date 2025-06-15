@@ -314,6 +314,7 @@ class GenericPreprocessor:
     # Merge the original DataFrame with the mapping DataFrame
     size_before_merge = len(df)
     matched_df = mapping[mapping[mapping_from_column].isin(df[from_column_name])]
+    # print(f'{mapping = }')
     merged_df = pd.merge(df, mapping, left_on=from_column_name, right_on=mapping_from_column, how='left')
     size_after_merge = len(merged_df)
     if size_after_merge != size_before_merge:
@@ -324,6 +325,7 @@ class GenericPreprocessor:
             return default_value
         elif pd.isna(row[mapping_to_column]) and not (pd.isna(row[from_column_name]) or row[from_column_name] == ''):
             print(f'ERROR,lookup failure,pbid,"{row[0]}",column,"{from_column_name}",value,"{row[from_column_name]}"')
+            # raise Exception(f'ERROR,lookup failure,pbid,"{row[0]}",column,"{from_column_name}",value,"{row[from_column_name]}"')
             return no_match_value
         else:
             return row[mapping_to_column]
@@ -372,6 +374,7 @@ class GenericPreprocessor:
       return df
     lookup_df = pd.read_csv(self.qnumber_lookup_file, dtype=str, keep_default_na=False)
     for field in fields:
+      print(f'Adding {field}_QNUMBER column from {field} using {self.qnumber_lookup_file}')
       df = self.add_new_column_from_mapping(df, field, lookup_df, 'PBID', 'QNUMBER',
                                             field + '_QNUMBER', no_match_value=no_match_value)
       df = self.move_last_column_after(df, field)
