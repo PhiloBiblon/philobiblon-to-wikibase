@@ -59,7 +59,7 @@ class GenericPreprocessor:
   def lookupDataclip(self, code, lang):
     lookupprefix = ''
     if self.top_level_bib.value == 'BETA':
-        lookupprefix = 'BETA '
+      lookupprefix = 'BETA '
     lookup_value = lookupprefix + code
     # print(f'{lookup_value = }')
     row = self.df_dataclip.loc[self.df_dataclip['code']==lookup_value]
