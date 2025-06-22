@@ -9,6 +9,7 @@ from common.wb_manager import WBManager, PROPERTY_NOTES
 from common.settings import TEMP_DICT
 
 reset = TEMP_DICT['RESET']
+print(f"Resetting talk pages: {reset}")
 
 def get_full_input_path(file):
   return os.path.join(CLEAN_DIR, file)
@@ -75,8 +76,15 @@ def reset_talk_page_notes(q_number):
         print("Talk page is already empty.")
     return page
 
-def add_append_talk_page_notes(q_number, new_notes):
+def add_append_talk_page_notes(q_number, new_notes, reset):
     page = pywikibot.Page(site, f'Item_talk:{q_number}')
+    if reset:
+        print(f"Resetting talk page for {q_number}")
+        return reset_talk_page_notes(q_number)  # Reset if requested
+    if not new_notes.strip():
+        print(f"No notes provided for {q_number}, skipping talk page update.")
+    if not page.exists():
+        print(f"Talk page for {q_number} does not exist, creating a new one.")
     try:
         if page.exists():
             existing_text = page.text.strip()

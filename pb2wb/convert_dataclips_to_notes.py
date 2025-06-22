@@ -12,6 +12,8 @@ parser.add_argument('--filetype', default='text', choices=['text', 'html'], help
 parser.add_argument('--table', help="Table to process", choices=['analytic', 'biography', 'geography', 'institutions', 'library', 'subject', 'bibliography', 'copies', 'ms_ed', 'uniform_title'], required=True)
 parser.add_argument('--dry_run',  action='store_true', help='Dry run to test the script without making changes.')
 parser.add_argument('--reset_notes', action='store_true', help='If set, will reset the notes for the given instance and bibliography.  Default is False.')
+parser.add_argument('--alt_csv', type=str, required=False, help='Alternate csv to use in place of pre processed csv.  This is useful for testing purposes.')
+
 
 instance = parser.parse_args().instance
 bibliography = parser.parse_args().bib
@@ -19,16 +21,25 @@ filetype = parser.parse_args().filetype
 table = parser.parse_args().table
 dry_run = parser.parse_args().dry_run
 reset_notes = parser.parse_args().reset_notes
+alt_csv = parser.parse_args().alt_csv
 # Set the TEMP_DICT for the instance and bibliography
 TEMP_DICT['TEMP_WB'] = instance.upper()
 if reset_notes:
+    print(f"Reset notes has been set to {reset_notes}.  This will reset the notes for the given instance and bibliography.")
     TEMP_DICT['RESET'] = reset_notes
 
 '''
 This job will convert notes and column data to a formatted text insertion into Factgrid discussion page.
 This test case is for the beta bio, and will need to be mofified for other bibliographies and their custom use cases.
 '''
+# Define which language column to use for each bibliography
+language_columns = {
+    'BETA': 'es',
+    'BITECA': 'ca',     # Catalan
+    'BITAGAP': 'pt'     # Portuguese
+}
 
+# Define headers for each bibliography
 HEADERS = {
     'BETA': '=== BETA / Bibliografía de Textos Antiguos ===',
     'BITECA': '=== BITECA / Bibliografía de Textos Catalanes Antiguos ===',
@@ -149,9 +160,9 @@ MAPPINGS = {
             'COLUMN': 'RELATED_BIOID',
             'TOPIC': '== Pessoas associadas ==',
             'RELATED_BIOID': '',
-            'COMBINED_BIO_DETAIL': '* Persona asociada:',
-            'COMBINED_BIOID_SUBJECT':'* Persona associada (sujeito):',
-            'COMBINED_BIOID_OBJECT':'* Persona associada (objeto):',
+            'COMBINED_BIO_DETAIL': '* Pessoa asociada:',
+            'COMBINED_BIOID_SUBJECT':'* Pessoa associada (sujeito):',
+            'COMBINED_BIOID_OBJECT':'* Pessoa associada (objeto):',
             'RELATED_BIODETAIL': '** Nota:',
             'RELATED_BIOIDQ': '** Qualificador',
             'RELATED_BIOBD': '** Primeira data conhecida',
@@ -191,6 +202,8 @@ factgrid_url = 'https://database.factgrid.de/wiki/Item:'
 first_row_path = f'first_row/{bibliography.upper()}'
 bib_first_row = f"{instance.lower()}_{bibliography.upper()}_{table.upper()}_first_row_*.csv"
 geo_first_row = f"{instance.lower()}_{bibliography.upper()}_GEOGRAPHY_*.csv"
+# Get the correct column based on current bibliography
+lang_col = language_columns.get(bibliography.upper(), 'es')
 
 def get_latest_file(base_file_name):
     file_pattern = os.path.join(first_row_path, base_file_name)
@@ -209,7 +222,10 @@ bib_file = get_latest_file(bib_first_row)
 geo_file = get_latest_file(geo_first_row)
 
 # Import the CSV files
-df = pd.read_csv(f"../data/processed/pre/{bibliography}/{instance}_{bibliography}_{table}.csv", low_memory=False)
+if alt_csv:
+    df = pd.read_csv(alt_csv, low_memory=False)
+else:
+    df = pd.read_csv(f"../data/processed/pre/{bibliography}/{instance}_{bibliography}_{table}.csv", low_memory=False)
 df_ids = pd.read_csv(f"{bib_file}", low_memory=False)
 dc_df = pd.read_csv(f"../data/clean/{bibliography}/dataclips/{bibliography}_dataclips.csv", low_memory=False)
 geo_df = pd.read_csv(f"{geo_file}", low_memory=False)
@@ -220,18 +236,18 @@ lookup_df.loc[lookup_df['QNUMBER'].notnull() & (lookup_df['QNUMBER'] != ''), 'QN
 
 # Edit TITLE_NUMBER column to prepend "BETA" to the value so it matches the mapping
 columns_to_update = ['TITLE_NUMBER', 'TITLE', 'TITLE_CONNECTOR', 'RELATED_BIOCLASS']
-
-for col in columns_to_update:
-    df.loc[
-        df[col].notnull() & (df[col].astype(str).str.strip() != ""),
-        col
-    ] = f"{bibliography.upper()} " + df.loc[
-        df[col].notnull() & (df[col].astype(str).str.strip() != ""),
-        col
-    ]
+if bibliography.upper() == 'BETA':
+    for col in columns_to_update:
+        df.loc[
+            df[col].notnull() & (df[col].astype(str).str.strip() != ""),
+            col
+        ] = f"{bibliography.upper()} " + df.loc[
+            df[col].notnull() & (df[col].astype(str).str.strip() != ""),
+            col
+        ].astype(str)
 
 # Create a mapping of the dataframes to use for replacing values
-milestone_map = dict(zip(dc_df["code"], dc_df["es"]))
+milestone_map = dict(zip(dc_df["code"], dc_df[lang_col]))
 df_mapping = dict(zip(df_ids.iloc[:, 0], df_ids['EXPANDED_NAME']))
 geo_mapping = dict(zip(geo_df['GEOID'], geo_df['MONIKER']))
 lookup_mapping = dict(zip(lookup_df['PBID'], lookup_df['QNUMBER']))
@@ -348,7 +364,7 @@ def post_notes(q_number, text):
     from notes import notes
     print(f"Adding notes for {q_number} into talk page..")
     print(f"Notes: {text}")
-    notes.add_append_talk_page_notes(q_number, text)
+    notes.add_append_talk_page_notes(q_number, text, reset=reset_notes)  # Use the notes module to add or reset notes
 
 def create_notes_text(aggregated):
     # Build the final text output.
@@ -421,7 +437,7 @@ if filetype == 'text':
             #print(f"{group_key}")
             #print(f"{text}")
             if not dry_run:
-                #post_notes(group_key, text=text)
+                post_notes(group_key, text=text)
                 count += 1
                 if count > 50:
                     break
