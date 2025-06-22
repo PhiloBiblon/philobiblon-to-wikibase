@@ -237,14 +237,14 @@ lookup_df.loc[lookup_df['QNUMBER'].notnull() & (lookup_df['QNUMBER'] != ''), 'QN
 # Edit TITLE_NUMBER column to prepend "BETA" to the value so it matches the mapping
 columns_to_update = ['TITLE_NUMBER', 'TITLE', 'TITLE_CONNECTOR', 'RELATED_BIOCLASS']
 if bibliography.upper() == 'BETA':
-    for col in columns_to_update:
-        df.loc[
-            df[col].notnull() & (df[col].astype(str).str.strip() != ""),
-            col
-        ] = f"{bibliography.upper()} " + df.loc[
-            df[col].notnull() & (df[col].astype(str).str.strip() != ""),
-            col
-        ].astype(str)
+  for col in columns_to_update:
+    df.loc[
+      df[col].notnull() & (df[col].astype(str).str.strip() != ""),
+      col
+    ] = f"{bibliography.upper()} " + df.loc[
+      df[col].notnull() & (df[col].astype(str).str.strip() != ""),
+      col
+    ].astype(str)
 
 # Create a mapping of the dataframes to use for replacing values
 milestone_map = dict(zip(dc_df["code"], dc_df[lang_col]))
@@ -346,11 +346,8 @@ for group in MAPPINGS[bibliography.upper()].values():
                 lambda x: f"{prefix} {x}" if pd.notnull(x) and str(x).strip() != "" else x
             )
     mapping_keys.update(set(group.keys()) - metadata_keys)
-#print(df.head())
 first_column = df.columns[0] # PBID
 second_column = df.columns[1] # QNUMBER
-#columns_to_keep = [first_column] + [second_column] + ['MILESTONE_CLASS'] + [col for col in df.columns if col in mapping_keys] #just for testing
-#columns_to_keep = [first_column] + [col for col in df.columns if col in mapping_keys]
 columns_to_keep = [second_column] + [col for col in df.columns if col in mapping_keys]
 df_milestones = df[columns_to_keep]
 with open('df_milestones.csv', 'w') as file: #just for testing
@@ -434,8 +431,6 @@ if filetype == 'text':
     group_texts = create_group_texts(df_milestones)
     with open('grouped_texts.txt', 'w') as file:
         for group_key, text in group_texts.items():
-            #print(f"{group_key}")
-            #print(f"{text}")
             if not dry_run:
                 post_notes(group_key, text=text)
                 count += 1
