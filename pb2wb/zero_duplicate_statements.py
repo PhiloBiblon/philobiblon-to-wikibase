@@ -7,8 +7,8 @@ import os
 
 # ----- CONFIGURATION -----
 FACTGRID_API_URL = 'https://database.factgrid.de/w/api.php'
-USERNAME = 'Jason_Hatfield'  # Use bot password account if possible
-PASSWORD = '72ijuDbPtT7g5Nu'
+USERNAME = 'Username'  # Use bot password account if possible
+PASSWORD = 'Password'
 KEEP_QID_FOR_P700 = 'Q447226'
 KEEP_QID_FOR_P131 = 'Q256809'
 
