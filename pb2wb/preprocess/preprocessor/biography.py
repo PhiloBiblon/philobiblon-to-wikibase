@@ -110,9 +110,11 @@ class BiographyPreprocessor(GenericPreprocessor):
     title_number = self.lookupDataclip(row['TITLE_NUMBER'], lang) or ''
     title = self.lookupDataclip(row['TITLE'], lang) or ''
     title_connector = self.lookupDataclip(row['TITLE_CONNECTOR'], lang) or ''
+    print(f'{title_number = }, {title = }, {title_connector = }')
     title_geoid = self.get_value(row['TITLE_GEOID'])
     if title_geoid and title_geoid != 'BETA geoid':
       title_place = places.get(title_geoid, '')
+      print(f'{title_geoid = }, {title_place = }')
     else:
       title_place = ''
     # print(f'{title_number = }, {title = }, {title_connector = }, {title_place = }')
