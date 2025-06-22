@@ -133,7 +133,7 @@ def main():
 
     qids = df['item'].dropna().apply(extract_qid).unique()
     session, csrf_token = login()
-    print("🔐 Logged in successfully.")
+    print("Logged in successfully.")
 
     for qid in qids:
         try:
