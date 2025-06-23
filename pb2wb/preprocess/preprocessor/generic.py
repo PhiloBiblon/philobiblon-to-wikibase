@@ -60,6 +60,8 @@ class GenericPreprocessor:
     # print(f'{code = } {lang = }')
 
     lookupprefix = self.top_level_bib.value + ' '
+    if self.top_level_bib.value == 'BITAGAP':
+      lookupprefix = ''
     if self.top_level_bib.value == 'BETA':
       lookupprefix = 'BETA '
   
