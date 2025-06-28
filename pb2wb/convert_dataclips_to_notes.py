@@ -200,7 +200,7 @@ header = HEADERS[bibliography.upper()]
 desired_order = list(MAPPINGS[bibliography.upper()].keys()) # Define the required order of the groups
 factgrid_url = 'https://database.factgrid.de/wiki/Item:'
 first_row_path = f'first_row/{bibliography.upper()}'
-bib_first_row = f"{instance.lower()}_{bibliography.upper()}_{table.upper()}_first_row_*.csv"
+bib_first_row = f"{instance.lower()}_{bibliography.upper()}_{table.lower()}_first_row_*.csv"
 geo_first_row = f"{instance.lower()}_{bibliography.upper()}_GEOGRAPHY_*.csv"
 # Get the correct column based on current bibliography
 lang_col = language_columns.get(bibliography.upper(), 'es')
