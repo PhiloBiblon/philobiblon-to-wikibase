@@ -551,47 +551,47 @@ class GenericPreprocessor:
 
   def split_and_move(self, df, tag, value_column, split_value, split_columns):
     """
-    For rows where `value_column` contains `split_value`, move values from `split_columns`
-    to new columns prefixed with `tag`, and clear the original `split_columns` values.
-    If the target columns already exist, preserves their existing values for rows not matching the mask.
+    For rows where `value_column` contains `split_value`, moves values from
+    `split_columns` to new columns prefixed with `tag`, and clears the original
+    `split_columns` values.
+
+    If no rows match the `split_value`, the DataFrame is returned unmodified.
+    If the target columns already exist, it preserves their existing values for
+    rows not matching the mask.
 
     Parameters:
     df (pd.DataFrame): Input DataFrame
     tag (str): Prefix for new columns
     value_column (str): Column name to check for `split_value`
-    split_value: Value that triggers the split
+    split_value: The value that triggers the split
     split_columns (list of str): Columns whose values should be moved
 
     Returns:
-    pd.DataFrame: Modified DataFrame with new columns added and original columns updated
+    pd.DataFrame: Modified DataFrame, or the original if no matches were found.
     """
-    # print(f'{datetime.now()} INFO: Splitting {value_column} by {split_value} into {tag}')
-    # print(f'{datetime.now()} INFO: {split_columns = }')
-    
-    # Create new columns with prefixed names
+    # Create a boolean mask for the specified condition
     mask = df[value_column] == split_value
-    # print(f'{datetime.now()} INFO: {mask.sum()} rows match the mask')
-    # print(f'{datetime.now()} INFO: {df[mask].index.values = }')
-    
-    new_cols = [f"{tag}_{col}" for col in split_columns]
-    # print(f'{datetime.now()} INFO: {new_cols = }')
-    
-    # Initialize new columns with empty strings only if they don't already exist
-    for new_col in new_cols:
-        if new_col not in df.columns:
-            df[new_col] = ""
-    
-    # Move data using the mask
-    # print(f'{datetime.now()} INFO: {df.loc[mask, split_columns].values = }')
-    df.loc[mask, new_cols] = df.loc[mask, split_columns].values
-    # print(f'{datetime.now()} INFO: {df.loc[mask, new_cols].values = }')
 
-    # Clear original columns
+    # Proceed only if at least one row matches the mask
+    if not mask.any():
+      return df
+
+    # Create new columns with prefixed names
+    new_cols = [f"{tag}_{col}" for col in split_columns]
+
+    # Initialize new columns only if they don't already exist
+    for new_col in new_cols:
+      if new_col not in df.columns:
+        df[new_col] = ""
+
+    # Move data from original to new columns for the matched rows
+    df.loc[mask, new_cols] = df.loc[mask, split_columns].values
+
+    # Clear the data in the original columns for the matched rows
     df.loc[mask, split_columns] = ""
 
-    result = df.copy()
-    # print(f'{datetime.now()} INFO: {result.loc[mask, new_cols].values = }')
-    return result
+    # Return a copy of the (potentially modified) DataFrame
+    return df.copy()
 
   def move_single_property_columns(self, df, single_props, table):
     # each editbox should already have qnumber columns
@@ -706,3 +706,35 @@ class GenericPreprocessor:
             result = self.move_last_column_to(result, col_index + 1)
     
     return result
+
+  def clear_grouped_values_except_first(self,
+          df: pd.DataFrame, group_by_column: str, columns_to_clear: list
+  ) -> pd.DataFrame:
+    """
+    Clears values in specified columns for all but the first row within each group.
+
+    This function groups the DataFrame by a specified column. In each group,
+    it keeps the first row's data intact and replaces the values in the
+    'columns_to_clear' for all subsequent rows with NaN.
+
+    Args:
+        df: The input pandas DataFrame.
+        group_by_column: The name of the column to group the DataFrame by.
+        columns_to_clear: A list of column names to clear in each group.
+
+    Returns:
+        A new DataFrame with the specified modifications.
+    """
+    # Work on a copy to avoid modifying the original DataFrame
+    df_processed = df.copy()
+
+    # Create a boolean mask. It's False for the first row in each group, and True for all others.
+    # The cumcount() method numbers the rows in each group starting from 0.
+    # So, we create a mask where the row number is greater than 0.
+    mask = df_processed.groupby(group_by_column).cumcount() > 0
+
+    # Use the mask to locate the rows and columns to be cleared and set them to the empty string.
+    # The .loc indexer selects rows based on the boolean mask and columns by their names.
+    df_processed.loc[mask, columns_to_clear] = ''
+
+    return df_processed
