@@ -70,6 +70,7 @@ def add_notes_property_to_item(q_item, page):
 def reset_talk_page_notes(q_number):
     page = pywikibot.Page(site, f'Item_talk:{q_number}')
     if page.text.strip():  # Check for existing content
+        print(f'Existing talk page found for {q_number}, resetting it to empty.')
         page.text = ""  # Zero out the talk page
         page.save('Reset Item_talk page to empty')
     else:
@@ -78,9 +79,10 @@ def reset_talk_page_notes(q_number):
 
 def add_append_talk_page_notes(q_number, new_notes, reset):
     page = pywikibot.Page(site, f'Item_talk:{q_number}')
+    print(f'Using site: {site}, page: {page}, q_number: {q_number}, reset: {reset}')
     if reset:
         print(f"Resetting talk page for {q_number}")
-        return reset_talk_page_notes(q_number)  # Reset if requested
+        return reset_talk_page_notes(q_number)
     if not new_notes.strip():
         print(f"No notes provided for {q_number}, skipping talk page update.")
     if not page.exists():
