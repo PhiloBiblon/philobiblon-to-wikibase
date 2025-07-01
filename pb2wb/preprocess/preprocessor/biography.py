@@ -18,9 +18,19 @@ def isfloat(num):
 
 SINGLE_PROPERTY_COLUMNS = {
   'Milestones': {'BIOGRAPHY*MILESTONE_CLASS*BOR': 'BOR',
+                 'BIOGRAPHY*MILESTONE_CLASS*NAT': 'BOR',
+                 'BIOGRAPHY*MILESTONE_CLASS*NATA': 'BOR',
+                 'BIOGRAPHY*MILESTONE_CLASS*NATO': 'BOR',
                  'BIOGRAPHY*MILESTONE_CLASS*DIE': 'DIE',
                  'BIOGRAPHY*MILESTONE_CLASS*FLO': 'FLO',
                  'BIOGRAPHY*MILESTONE_CLASS*RES': 'RES',
+                 'BIOGRAPHY*MILESTONE_CLASS*MOR': 'RES',
+                 'BIOGRAPHY*MILESTONE_CLASS*MORA': 'RES',
+                 'BIOGRAPHY*MILESTONE_CLASS*MORB': 'RES',
+                 'BIOGRAPHY*MILESTONE_CLASS*MORO': 'RES',
+                 'BIOGRAPHY*MILESTONE_CLASS*MORON': 'RES',
+                 'BIOGRAPHY*MILESTONE_CLASS*MORONA': 'RES',
+                 'BIOGRAPHY*MILESTONE_CLASS*VIZI': 'RES',
                  'BIOGRAPHY*MILESTONE_CLASS*VEC': 'VEC',
                  'BIOGRAPHY*MILESTONE_CLASS*VCA': 'VCA',
                  },
@@ -136,7 +146,9 @@ class BiographyPreprocessor(GenericPreprocessor):
 
   def get_expanded_title(self, row, places, lang):
     # print(row)
-    title_number = self.lookupDataclip(row['TITLE_NUMBER'], lang) or ''
+    title_number = title = title_connector = title_place = ''
+    if title_num_clip := row.get('TITLE_NUMBER'):
+        title_number = self.lookupDataclip(title_num_clip, lang) or ''
     title = self.lookupDataclip(row['TITLE'], lang) or ''
     title_connector = self.lookupDataclip(row['TITLE_CONNECTOR'], lang) or ''
     title_geoid = self.get_value(row['TITLE_GEOID'])
@@ -383,8 +395,10 @@ class BiographyPreprocessor(GenericPreprocessor):
                milestone_default_secondary_nonempty, df[milestone_primary_column]))
 
     df['EXPANDED_TITLE_EN'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo, 'en'), axis=1)
+    df = self.clear_grouped_values_except_first(df, 'BIOID', ['EXPANDED_TITLE_EN'])
     df = self.move_last_column_after(df, 'TITLE_BASIS')
     df['EXPANDED_TITLE_U'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo, self.top_level_bib.language_code()), axis=1)
+    df = self.clear_grouped_values_except_first(df, 'BIOID', ['EXPANDED_TITLE_U'])
     df = self.move_last_column_after(df, 'EXPANDED_TITLE_EN')
 
     # Expanded name is pretty much ok
