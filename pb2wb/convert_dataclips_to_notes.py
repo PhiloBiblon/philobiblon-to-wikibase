@@ -4,6 +4,7 @@ from common.settings import TEMP_DICT
 import os
 import glob
 import re
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
@@ -13,6 +14,7 @@ parser.add_argument('--table', help="Table to process", choices=['analytic', 'bi
 parser.add_argument('--dry_run',  action='store_true', help='Dry run to test the script without making changes.')
 parser.add_argument('--reset_notes', action='store_true', help='If set, will reset the notes for the given instance and bibliography.  Default is False.')
 parser.add_argument('--alt_csv', type=str, required=False, help='Alternate csv to use in place of pre processed csv.  This is useful for testing purposes.')
+parser.add_argument('--limit', default=None ,type=int, required=False, help='Limit the number of notes to process.  This is useful for testing purposes.')
 
 
 instance = parser.parse_args().instance
@@ -22,6 +24,7 @@ table = parser.parse_args().table
 dry_run = parser.parse_args().dry_run
 reset_notes = parser.parse_args().reset_notes
 alt_csv = parser.parse_args().alt_csv
+limit = parser.parse_args().limit
 # Set the TEMP_DICT for the instance and bibliography
 TEMP_DICT['TEMP_WB'] = instance.upper()
 if reset_notes:
@@ -434,7 +437,9 @@ if filetype == 'text':
             if not dry_run:
                 post_notes(group_key, text=text)
                 count += 1
-                if count > 50:
+                time.sleep(.5)
+                if limit is not None and count >= limit:  # Limit posts for testing purposes
+                    print(f"Reached limit of {limit} posts, stopping.")
                     break
             else:
                 print(f"Dry run: Would post notes for {group_key}: {text}")
