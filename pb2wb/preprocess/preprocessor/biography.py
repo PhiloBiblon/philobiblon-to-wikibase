@@ -88,6 +88,8 @@ SINGLE_PROPERTY_COLUMNS = {
                 'BIOGRAPHY*RELATED_BIOCLASS*PPAAII BIOGRAPHY*SEX*M': 'SON',
                 'BIOGRAPHY*RELATED_BIOCLASS*PPAI BIOGRAPHY*SEX*F': 'DAUGHTER',
                 'BIOGRAPHY*RELATED_BIOCLASS*PPAI BIOGRAPHY*SEX*M': 'SON',
+                'BIOGRAPHY*RELATED_BIOCLASS*MAE BIOGRAPHY*SEX*F': 'DAUGHTER',
+                'BIOGRAPHY*RELATED_BIOCLASS*MAE BIOGRAPHY*SEX*M': 'SON',
                 'BIOGRAPHY*RELATED_BIOCLASS*MAE3 BIOGRAPHY*SEX*F': 'DAUGHTER',
                 'BIOGRAPHY*RELATED_BIOCLASS*MAE3 BIOGRAPHY*SEX*M': 'SON',
                 'BIOGRAPHY*RELATED_BIOCLASS*MAE4 BIOGRAPHY*SEX*F': 'DAUGHTER',
@@ -395,11 +397,16 @@ class BiographyPreprocessor(GenericPreprocessor):
                milestone_default_secondary_nonempty, df[milestone_primary_column]))
 
     df['EXPANDED_TITLE_EN'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo, 'en'), axis=1)
-    df = self.clear_grouped_values_except_first(df, 'BIOID', ['EXPANDED_TITLE_EN'])
     df = self.move_last_column_after(df, 'TITLE_BASIS')
-    df['EXPANDED_TITLE_U'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo, self.top_level_bib.language_code()), axis=1)
-    df = self.clear_grouped_values_except_first(df, 'BIOID', ['EXPANDED_TITLE_U'])
+    df['EXPANDED_TITLE_EN_FOR_DESC'] = df['EXPANDED_TITLE_EN']
+    df = self.clear_grouped_values_except_first(df, 'BIOID', ['EXPANDED_TITLE_EN_FOR_DESC'])
     df = self.move_last_column_after(df, 'EXPANDED_TITLE_EN')
+
+    df['EXPANDED_TITLE_U'] = df.apply (lambda row: self.get_expanded_title(row, dict_geo, self.top_level_bib.language_code()), axis=1)
+    df = self.move_last_column_after(df, 'EXPANDED_TITLE_EN_FOR_DESC')
+    df['EXPANDED_TITLE_U_FOR_DESC'] = df['EXPANDED_TITLE_U']
+    df = self.clear_grouped_values_except_first(df, 'BIOID', ['EXPANDED_TITLE_U_FOR_DESC'])
+    df = self.move_last_column_after(df, 'EXPANDED_TITLE_U')
 
     # Expanded name is pretty much ok
     df['EXPANDED_NAME'] = df.apply (lambda row: self.get_expanded_name(row), axis=1)

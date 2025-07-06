@@ -249,7 +249,7 @@ DATADICT = {
             'default': 'GEOGRAPHY*RELATED_GEOCLASS'
         },
         'id_fields': [
-            'GEOID', 'RELATED_GEOID_S', 'RELATED_GEOID_P', 'RELATED_BIBID', 'RELATED_MANID',
+            'GEOID', 'RELATED_GEOID', 'RELATED_GEOID_S', 'RELATED_GEOID_P', 'RELATED_BIBID', 'RELATED_MANID',
             'SUBJECT_BIOID', 'SUBJECT_INSID', 'SUBJECT_SUBID'
         ],
         'dataclip_fields': [
