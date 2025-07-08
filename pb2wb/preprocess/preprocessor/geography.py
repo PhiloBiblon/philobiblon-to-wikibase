@@ -45,9 +45,11 @@ class GeographyPreprocessor(GenericPreprocessor):
       return row['MONIKER']
     return ""
 
+
   def preprocess(self):
     print(f'{datetime.now()} INFO: Processing geography ..')
-
+    bib_name = str(self.top_level_bib).split('.')[-1]
+    print(f'{datetime.now()} INFO: Using bibliography: {bib_name}')
     file = self.get_input_csv(GeographyPreprocessor.TABLE)
     print(f'{datetime.now()} INFO: Input csv: {file}')
     df = pd.read_csv(file, dtype=str, keep_default_na=False)
@@ -59,8 +61,15 @@ class GeographyPreprocessor(GenericPreprocessor):
     df = self.split_internet_class(df)
 
     # Split RELATED_GEOID
-    df = self.split_column_by_clip(df, 'RELATED_GEOCLASS', 'RELATED_GEOID', 'GEOGRAPHY*RELATED_GEOCLASS',
-                                   ['P', 'S'])
+    if bib_name == 'BITAGAP':
+        df = self.split_column_by_clip(df, 'RELATED_GEOCLASS', 'RELATED_GEOID', 'GEOGRAPHY*RELATED_GEOCLASS',
+                                   ['MES', 'MES?', 'FREANT', 'LO', 'LP', 'SIFD', 'SUF'], bibliography=bib_name)
+    else:
+        df = self.split_column_by_clip(df, 'RELATED_GEOCLASS', 'RELATED_GEOID', 'GEOGRAPHY*RELATED_GEOCLASS',
+                                   ['P', 'S'], bibliography=bib_name)
+
+    print(df.head())
+    df.to_csv('test_file.csv', index=False)
 
     # add new columns for the qnumbers using the lookup table if supplied
     df = self.add_qnumber_columns(df, GeographyPreprocessor.TABLE)

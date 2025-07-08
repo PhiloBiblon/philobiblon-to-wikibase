@@ -232,34 +232,33 @@ class GenericPreprocessor:
     else:
       return None
 
-  def add_new_column_from_value(self, df, from_column_name, from_value, new_column_name, column_name_value,
-                                format_str=None):
+  def add_new_column_from_value(self, df, from_column_name, from_value, new_column_name, column_name_value, format_str=None):
     """
-    Creates a new column (new_column_name) when an existing column (from_column_name) contains a particular value (from_value),
-    the value for the new column is taken from another column (column_name_value). If format_str is set, the return value is formatted.
-
-    :param df: dataframe
-    :param from_column_name: existing column to check
-    :param from_value: filter value for existing column to check
-    :param new_column_name: new column name
-    :param column_name_value: column where to take the value for the new column
-    :param format_str: format_string
-    :return dataframe updated
+    Appends to a column by setting values only for rows where:
+    - from_column_name == from_value
+    - new_column_name is empty or missing
     """
     pd.options.mode.chained_assignment = 'raise'
     df_copy = df.copy()
-    condition_mask = df_copy[from_column_name] == from_value
+
+    # Ensure the new column exists
+    if new_column_name not in df_copy.columns:
+        df_copy[new_column_name] = pd.NA
+
+    condition_mask = (df_copy[from_column_name] == from_value)
+
     if condition_mask.any():
-      # Apply the condition to get values from column_name_value only when the condition is True
-      new_column_values = df_copy[column_name_value].where(condition_mask, "")
-      if format_str and new_column_values.any():
-        do_format = lambda x: x if x is None or not isinstance(x, str) or x == '' else format_str.format(
-          value=x)
-        new_column_values = new_column_values.apply(do_format)
-      df_copy[new_column_name] = new_column_values
-    else:
-      # Handle the case where the condition is not met
-      df_copy[new_column_name] = ""
+        # Only update where the column is empty
+        update_mask = condition_mask & df_copy[new_column_name].isna()
+
+        new_values = df_copy.loc[update_mask, column_name_value]
+
+        if format_str:
+            def formatter(x):
+                return x if pd.isna(x) or not isinstance(x, str) or x.strip() == '' else format_str.format(value=x)
+            new_values = new_values.apply(formatter)
+
+        df_copy.loc[update_mask, new_column_name] = new_values
 
     return df_copy
 
@@ -388,13 +387,48 @@ class GenericPreprocessor:
     print(f'{datetime.now()} INFO: Output csv: {output_csv}')
     df.to_csv(output_csv, index=False, quoting=csv.QUOTE_ALL)
 
+  def classify_geo_suffix(self, suffix: str, bibliography: str) -> str:
+    """
+    Map clip suffixes to 'P' or 'S' buckets depending on bibliography rules.
+    """
+    suffix = suffix.upper()
+    print(f'Classifying suffix: {suffix} for bibliography: {bibliography}')
+    if bibliography == 'BITAGAP':
+        # Special classification for BITAGAP
+        if suffix in {'MES', 'MES?'}:
+            print(f'Classified {suffix} as S for BITAGAP')
+            return 'S'
+        else:
+            print(f'Classified {suffix} as P for BITAGAP')
+            return 'P'
+    else:
+        # Default behavior for BETA, BITECA, etc.
+        return suffix if suffix in {'P', 'S'} else None
+
   def split_column_by_clip(self, df, clip_column: str, split_column: str, clip_base: str, clip_exts,
-                           format_strs=[]):
+                         format_strs=[], bibliography=""):
+    """
+    Split column based on clip extensions and bibliography rules.
+    """
     for clip_ext, format_str in zip_longest(clip_exts, format_strs):
-      df = self.add_new_column_from_value(df, clip_column, f'{clip_base}*{clip_ext}',
-                                          f'{split_column}_{clip_ext}', split_column,
-                                          format_str=format_str)
-      df = self.move_last_column_after(df, split_column)
+        normalized_key = self.classify_geo_suffix(clip_ext, bibliography)
+
+        # Skip unknown or unclassified suffixes
+        if not normalized_key:
+            print(f"Skipping unknown suffix: {clip_ext}")
+            continue
+
+        new_column_name = f'{split_column}_{normalized_key}'
+        print(f'Adding new column: {new_column_name} from {clip_column} with base {clip_base} and extension {clip_ext}')
+
+        df = self.add_new_column_from_value(
+            df, clip_column, f'{clip_base}*{clip_ext}',
+            new_column_name, split_column,
+            format_str=format_str
+        )
+
+        df = self.move_last_column_after(df, split_column)
+
     return df
 
   def split_internet_class(self, df):
