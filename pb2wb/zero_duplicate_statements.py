@@ -8,8 +8,6 @@ from common.settings import BASE_IMPORT_OBJECTS
 
 # ----- CONFIGURATION -----
 FACTGRID_API_URL = 'https://database.factgrid.de/w/api.php'
-USERNAME = 'Username'  # Use bot password account if possible
-PASSWORD = 'Password'
 KEEP_QID_FOR_P700 = 'Q447226'
 KEEP_QID_FOR_P131 = 'Q256809'
 
@@ -74,6 +72,21 @@ def should_keep(statement):
             return True
     return False
 
+def normalize_statement(statement):
+    # Extract the key parts to compare entire statement
+    mainsnak = statement.get("mainsnak", {})
+    qualifiers = statement.get("qualifiers", {})
+    # Normalize JSON representation to make it hashable/comparable
+    normalized = {
+        "property": mainsnak.get("property"),
+        "datavalue": mainsnak.get("datavalue"),
+        "datatype": mainsnak.get("datatype"),
+        "snaktype": mainsnak.get("snaktype"),
+        "qualifiers": qualifiers,
+        "rank": statement.get("rank", "normal")
+    }
+    return json.dumps(normalized, sort_keys=True)
+
 def remove_duplicate_claims(session, csrf_token, qid):
     r = session.get(FACTGRID_API_URL, params={
         "action": "wbgetclaims",
@@ -82,7 +95,7 @@ def remove_duplicate_claims(session, csrf_token, qid):
     })
     data = r.json()
     claims = data.get("claims", {})
-    print(claims)
+    #print(claims)
     print(f"Found {sum(len(v) for v in claims.values())} total claims for {qid}")
 
     for prop, statements in claims.items():
@@ -92,12 +105,10 @@ def remove_duplicate_claims(session, csrf_token, qid):
             if should_keep(statement):
                 continue
 
-            value = statement.get('mainsnak', {}).get('datavalue', {}).get('value')
-            val_id = json.dumps(value, sort_keys=True) if value else "null"
-            key = (prop, val_id)
+            key = normalize_statement(statement)
 
             if key in seen:
-                print(f"Duplicate found for {prop} = {val_id}, removing {guid}")
+                print(f"Exact duplicate found for {prop}, removing {guid}")
                 if not DRY_RUN:
                     r_del = session.post(FACTGRID_API_URL, data={
                         "action": "wbremoveclaims",
