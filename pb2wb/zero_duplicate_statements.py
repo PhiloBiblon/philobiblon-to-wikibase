@@ -4,6 +4,7 @@ import json
 import time
 import argparse
 import os
+from common.settings import BASE_IMPORT_OBJECTS
 
 # ----- CONFIGURATION -----
 FACTGRID_API_URL = 'https://database.factgrid.de/w/api.php'
@@ -81,6 +82,7 @@ def remove_duplicate_claims(session, csrf_token, qid):
     })
     data = r.json()
     claims = data.get("claims", {})
+    print(claims)
     print(f"Found {sum(len(v) for v in claims.values())} total claims for {qid}")
 
     for prop, statements in claims.items():
@@ -117,11 +119,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--csv", help="Path to the CSV file with 'item' column", required=True)
     parser.add_argument("--dry_run", action='store_true', help="Perform a dry run without deleting anything")
+    parser.add_argument("--instance", choices=["FACTGRID", "PBCOG"], default="FACTGRID", help="Instance to use, default is FACTGRID")
     args = parser.parse_args()
 
     csv_path = args.csv
-    global DRY_RUN
+    global USERNAME, PASSWORD, DRY_RUN
     DRY_RUN = args.dry_run
+    USERNAME = BASE_IMPORT_OBJECTS[args.instance]['WB_USER']
+    PASSWORD = BASE_IMPORT_OBJECTS[args.instance]['WB_PASSWORD']
     if not os.path.exists(csv_path):
         print(f"File not found: {csv_path}")
         return
