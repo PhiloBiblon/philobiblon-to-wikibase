@@ -9,6 +9,7 @@ from common.wb_manager import WBManager, PROPERTY_NOTES
 from common.settings import TEMP_DICT
 
 reset = TEMP_DICT['RESET']
+print(f"Resetting talk pages: {reset}")
 
 def get_full_input_path(file):
   return os.path.join(CLEAN_DIR, file)
@@ -69,27 +70,66 @@ def add_notes_property_to_item(q_item, page):
 def reset_talk_page_notes(q_number):
     page = pywikibot.Page(site, f'Item_talk:{q_number}')
     if page.text.strip():  # Check for existing content
+        print(f'Existing talk page found for {q_number}, resetting it to empty.')
         page.text = ""  # Zero out the talk page
         page.save('Reset Item_talk page to empty')
     else:
         print("Talk page is already empty.")
     return page
 
-def add_append_talk_page_notes(q_number, new_notes):
+def add_append_talk_page_notes(q_number, new_notes, reset, replacement_map=None):
+    """
+    Adds or updates notes on the Item talk page. 
+    If `replacement_map` is provided, it replaces matching substrings in the existing text.
+
+    Args:
+        q_number (str): Wikidata Q-number.
+        new_notes (str): New note text to append.
+        reset (bool): Whether to reset the talk page.
+        replacement_map (dict, optional): Keys are substrings to search for; values are their replacements.
+    """
     page = pywikibot.Page(site, f'Item_talk:{q_number}')
+    print(f'Using site: {site}, page: {page}, q_number: {q_number}, reset: {reset}')
+    
+    if reset:
+        print(f"Resetting talk page for {q_number}")
+        return reset_talk_page_notes(q_number)
+    
+    if not new_notes.strip():
+        print(f"No notes provided for {q_number}, skipping talk page update.")
+        return
+
     try:
         if page.exists():
             existing_text = page.text.strip()
+
+            # Check again after replacements
             if new_notes.strip() in existing_text:
                 print(f"No update needed: Notes already exist on talk page for {q_number}")
                 return
-            page.text = existing_text + "\n" + new_notes  # Append to existing talk page
+
+            # Replacement logic
+            if replacement_map:
+                for target, replacement in replacement_map.items():
+                    if target in existing_text:
+                        print(f"Replacing '{target}' with '{replacement}'")
+                        existing_text = existing_text.replace(target, replacement)
+                        page.text = existing_text
+                        edit_summary = "Editing notes to replace existing text"
+                        page.save(edit_summary)
+                        print(f"Successfully replaced text for {q_number}")
+                        return page # If replacements were made, save and exit
+
+            page.text = existing_text + "\n" + new_notes
             edit_summary = "Appending notes to existing discussion page"
         else:
-            page.text = new_notes  # Create a new talk page
+            page.text = new_notes
             edit_summary = "Creating new discussion page with notes"
-        page.save(edit_summary)  # Save with summary
+
+        page.save(edit_summary)
         print(f"Successfully updated talk page for {q_number}")
+
     except Exception as e:
         print(f"Error updating talk page for {q_number}: {e}")
+
     return page
