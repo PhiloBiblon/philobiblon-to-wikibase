@@ -3,8 +3,15 @@ import argparse
 from common.settings import TEMP_DICT
 import os
 import glob
-import re
 import time
+import re
+
+
+def parse_replacement(pair):
+    if ':' not in pair:
+        raise argparse.ArgumentTypeError("Replacement must be in format 'old:new'")
+    old, new = pair.split(':', 1)
+    return {old.strip(): new.strip()}
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
@@ -15,6 +22,7 @@ parser.add_argument('--dry_run',  action='store_true', help='Dry run to test the
 parser.add_argument('--reset_notes', action='store_true', help='If set, will reset the notes for the given instance and bibliography.  Default is False.')
 parser.add_argument('--alt_csv', type=str, required=False, help='Alternate csv to use in place of pre processed csv.  This is useful for testing purposes.')
 parser.add_argument('--limit', default=None ,type=int, required=False, help='Limit the number of notes to process.  This is useful for testing purposes.')
+parser.add_argument('--replace', type=parse_replacement, help='Replacement string in format old:new', required=False)
 
 
 instance = parser.parse_args().instance
@@ -25,8 +33,8 @@ dry_run = parser.parse_args().dry_run
 reset_notes = parser.parse_args().reset_notes
 alt_csv = parser.parse_args().alt_csv
 limit = parser.parse_args().limit
-processed_qnums = []
-failed_qnums = []
+replace = parser.parse_args().replace
+print(replace)
 # Set the TEMP_DICT for the instance and bibliography
 TEMP_DICT['TEMP_WB'] = instance.upper()
 print(f"Using instance: {TEMP_DICT['TEMP_WB']}")
@@ -49,40 +57,18 @@ language_columns = {
 HEADERS = {
     'BETA': '=== BETA / Bibliografía de Textos Antiguos ===',
     'BITECA': '=== BITECA / Bibliografía de Textos Catalanes Antiguos ===',
-    'BITAGAP': '=== BITAGAP / Bibliografía de Textos Galegos Antigos e Portugueses Antigos ==='
+    'BITAGAP': '=== BITAGAP / Bibliografía de Textos Antigos Galegos e Portugueses ==='
 }
 
 # Define mappings for column types
 MAPPINGS = {
     'BETA': {
-      'TITLE': {
-        'COLUMN': 'TITLE',
-        'TOPIC': '== Títulos ==',
-        'EXPANDED_TITLE_U': '* Título:',
-        'TITLE_Q': '** Calificador:',
-        'TITLE_BD': '** Fecha inicial:',
-        'TITLE_ED': '** Fecha final:',
-        'TITLE_EDQ': '** Calificador: fecha final:',
-        'TITLE_BASIS': '** Fuente:'
-      },
-      'MILESTONE': {
-        'COLUMN': 'MILESTONE',
-        'TOPIC': '== Hitos ==',
-        'COMBINED_DETAIL': '* Evento:',
-        'MILESTONE_GEOID': '** Localización:',
-        'MILESTONE_BD': '** Primera fecha conocida:',
-        'MILESTONE_BDQ': '** Calificador: fecha inicial:,
-        'MILESTONE_ED': '** Última fecha conocida:',
-        'MILESTONE_EDQ': '** Calificador: última fecha:',
-        'MILESTONE_BASIS': '** Fuente:'
-      },
       'RELATED_BIOID': {
         'COLUMN': 'RELATED_BIOID',
         'TOPIC': '== Personas asociadas ==',
-        'RELATED_BIOID': '* Les + QNUMBER:',
-        'COMBINED_BIO_DETAIL': '* Persona asociada:',
-        'COMBINED_BIOID_SUBJECT':'* Persona associada (sujeto):',
-        'COMBINED_BIOID_OBJECT':'* Persona associada (objeto):',
+        'RELATED_BIOID': '',
+        'COMBINED_BIOID': '* Persona associada:',
+        'RELATED_BIOID_OBJECT':'* Persona associada (objeto):',
         'RELATED_BIODETAIL': '** Nota:',
         'RELATED_BIOIDQ': '** Calificador:',
         'RELATED_BIOBD': '** Primera fecha conocida:',
@@ -90,93 +76,49 @@ MAPPINGS = {
         'RELATED_BIOED': '** Última fecha conocida:',
         'RELATED_BIOEDQ': '** Calificador: última fecha:',
         'RELATED_BIOBASIS': '** Fuente:'
+        },
+    'NOTES': {
+      'COLUMN': 'NOTES',
+      'TOPIC': '== Notas ==',
+      'NOTES': ''
+      }
+    },
+    'BITECA': {
+      'RELATED_BIOID': {
+        'COLUMN': 'RELATED_BIOID',
+        'TOPIC': '== Persones associades ==',
+        'RELATED_BIOID': '',
+        'COMBINED_BIOID': '* Persona associada:',
+        'RELATED_BIOID_OBJECT':'* Persona associada (objecte):',
+        'RELATED_BIODETAIL': '** Nota:',
+        'RELATED_BIOIDQ': '** Qualificador:',
+        'RELATED_BIOBD': '** Primera data coneguda:',
+        'RELATED_BIOBDQ': '** Qualificador: primera data:',
+        'RELATED_BIOED': '** Última data coneguda:',
+        'RELATED_BIOEDQ': '** Qualificador: última data:',
+        'RELATED_BIOBASIS': '** Font:'
       },
       'NOTES': {
         'COLUMN': 'NOTES',
         'TOPIC': '== Notas ==',
-        'NOTES': 'Notas'
-      }
-    },
-    'BITECA': {
-        'TITLE': {
-            'COLUMN': 'TITLE',
-            'TOPIC': '== Títols ==',
-            'EXPANDED_TITLE_U': '* Títol:',
-            'TITLE_Q': '** Qualificador:',
-            'TITLE_BD': '** Data inicial:',
-            'TITLE_ED': '** Data final:',
-            'TITLE_EDQ': '** Qualificador: data final:',
-            'TITLE_BASIS': '** Font:'
-        },
-        'MILESTONE': {
-            'COLUMN': 'MILESTONE',
-            'TOPIC': '== Fites ==',
-            'COMBINED_DETAIL': '* Esdeveniment:',
-            'MILESTONE_GEOID': '',
-            'MILESTONE_BD': '** FPrimera data coneguda:',
-            'MILESTONE_BDQ': '** Qualificador: primera data:',
-            'MILESTONE_ED': '** Última data coneguda:',
-            'MILESTONE_EDQ': '** Qualificador: última data:',
-            'MILESTONE_BASIS': '** Font:'
-        },
-        'RELATED_BIOID': {
-            'COLUMN': 'RELATED_BIOID',
-            'TOPIC': '== Persones associades ==',
-            'RELATED_BIOID': '',
-            'COMBINED_BIO_DETAIL': '* Persona associade:',
-            'COMBINED_BIOID_SUBJECT':'* Persona associada (subjecte):',
-            'COMBINED_BIOID_OBJECT':'* Persona associada (objecte):',
-            'RELATED_BIODETAIL': '** Nota:',
-            'RELATED_BIOIDQ': '** Qualificador:',
-            'RELATED_BIOBD': '** Primera data coneguda:',
-            'RELATED_BIOBDQ': '** Qualificador: primera data:',
-            'RELATED_BIOED': '** Última data coneguda:',
-            'RELATED_BIOEDQ': '** Qualificador: última data:',
-            'RELATED_BIOBASIS': '** Font:'
-        },
-        'NOTES': {
-            'COLUMN': 'NOTES',
-            'TOPIC': '== Notas ==',
-            'NOTES': ''
-        },
-    },
+        'NOTES': ''
+      },
+   },
     'BITAGAP': {
-        'TITLE': {
-            'COLUMN': 'TITLE',
-            'TOPIC': '== Títulos ==',
-            'EXPANDED_TITLE_U': '* Título:',
-            'TITLE_Q': '** Qualificador',
-            'TITLE_BD': '** Data inicial:',
-            'TITLE_ED': '** Data inicial:',
-            'TITLE_EDQ': '** Qualificador: data final:',
-            'TITLE_BASIS': '** Fonte:'
-        },
-        'MILESTONE': {
-            'COLUMN': 'MILESTONE',
-            'TOPIC': '== Marcos ==',
-            'COMBINED_DETAIL': '* Evento:',
-            'MILESTONE_GEOID': '',
-            'MILESTONE_BD': '** Primeira data conhecida:',
-            'MILESTONE_BDQ': '** Qualificador: primeira data',
-            'MILESTONE_ED': '** Última data conhecida:',
-            'MILESTONE_EDQ': '** Qualificador: última data',
-            'MILESTONE_BASIS': '** Fonte:'
-        },
-        'RELATED_BIOID': {
-            'COLUMN': 'RELATED_BIOID',
-            'TOPIC': '== Pessoas associadas ==',
-            'RELATED_BIOID': '',
-            'COMBINED_BIO_DETAIL': '* Pessoa asociada:',
-            'COMBINED_BIOID_SUBJECT':'* Pessoa associada (sujeito):',
-            'COMBINED_BIOID_OBJECT':'* Pessoa associada (objeto):',
-            'RELATED_BIODETAIL': '** Nota:',
-            'RELATED_BIOIDQ': '** Qualificador',
-            'RELATED_BIOBD': '** Primeira data conhecida',
-            'RELATED_BIOBDQ': '** Qualificador: primeira data',
-            'RELATED_BIOED': '** Última data conhecida:',
-            'RELATED_BIOEDQ': '** Qualificador: última data',
-            'RELATED_BIOBASIS': '** Fonte:'
-        },
+      'RELATED_BIOID': {
+        'COLUMN': 'RELATED_BIOID',
+        'TOPIC': '== Pessoas associadas ==',
+        'RELATED_BIOID': '',
+        'COMBINED_BIOID': '* Pessoa associada :',
+        'RELATED_BIOID_OBJECT':'* Pessoa associada (objeto):',
+        'RELATED_BIODETAIL': '** Nota:',
+        'RELATED_BIOIDQ': '** Qualificador:',
+        'RELATED_BIOBD': '** Primeira data conhecida:',
+        'RELATED_BIOBDQ': '** Qualificador: primeira data:',
+        'RELATED_BIOED': '** Última data conhecida:',
+        'RELATED_BIOEDQ': '** Qualificador: última data:',
+        'RELATED_BIOBASIS': '** Fonte:'
+      },
         'NOTES': {
             'COLUMN': 'NOTES',
             'TOPIC': '== Notas ==',
@@ -185,33 +127,35 @@ MAPPINGS = {
     }
 }
 
+
 BIOID_LABELS = {
     'BETA': {
-        'base': 'Persona asociada',
-        'subject': 'sujeto',
-        'object': 'objecto'
+      'base': 'Persona asociada',
+      'object': 'objecto'
     },
     'BITECA': {
-        'base': 'Persones associades',
-        'subject': 'subjecte',
-        'object': 'objecte'
-    },
+      'base': 'Persones associades',
+      'object': 'objecte'
+   },
     'BITAGAP': {
-        'base': 'Pessoas associadas',
-        'subject': 'sujeito',
-        'object': 'objeto'
+      'base': 'Pessoas associadas',
+      'object': 'objeto'
     }
 }
+
 header = HEADERS[bibliography.upper()]
 desired_order = list(MAPPINGS[bibliography.upper()].keys()) # Define the required order of the groups
 factgrid_url = 'https://database.factgrid.de/wiki/Item:'
 first_row_path = f'first_row/{bibliography.upper()}'
 beta_file = f'../data/processed/pre/BETA/{instance}_beta_{table}.csv'
 biteca_file = f'../data/processed/pre/BITECA/{instance}_biteca_{table}.csv'
-bib_first_row = f"{instance.lower()}_{bibliography.upper()}_{table.lower()}_first_row_*.csv" #bio first row file
-geo_first_row = f"{instance.lower()}_{bibliography.upper()}_GEOGRAPHY_*.csv"
+bib_first_row = f"{instance.lower()}_{bibliography.upper()}_{table.lower()}_first_row_*.csv"
+bio_first_row = f"{instance.lower()}_{bibliography.upper()}_biography_*.csv"
+geo_first_row = f"{instance.lower()}_{bibliography.upper()}_geography_*.csv"
 # Get the correct column based on current bibliography
 lang_col = language_columns.get(bibliography.upper(), 'es')
+processed_qnums = []
+failed_qnums = []
 
 def get_latest_file(base_file_name):
     file_pattern = os.path.join(first_row_path, base_file_name)
@@ -228,6 +172,7 @@ def get_latest_file(base_file_name):
 # Get the latest first row file for the bibliography and table
 bib_file = get_latest_file(bib_first_row)
 geo_file = get_latest_file(geo_first_row)
+bio_file = get_latest_file(bio_first_row)
 
 # Import the CSV files
 if alt_csv:
@@ -236,9 +181,10 @@ else:
     df = pd.read_csv(f"../data/processed/pre/{bibliography}/{instance}_{bibliography}_{table}.csv", low_memory=False)
 
 beta_df = pd.read_csv(f'{beta_file}', low_memory=False)
-biteca_df = pd.read_csv(f'{biteca_file}', low_memory=False) 
+biteca_df = pd.read_csv(f'{biteca_file}', low_memory=False)
 df_ids = pd.read_csv(f"{bib_file}", low_memory=False)
 dc_df = pd.read_csv(f"../data/clean/{bibliography}/dataclips/{bibliography}_dataclips.csv", low_memory=False)
+bio_df = pd.read_csv(f"{bio_file}", low_memory=False)
 geo_df = pd.read_csv(f"{geo_file}", low_memory=False)
 lookup_df = pd.read_csv(f"../data/lookup_{instance}.csv", low_memory=False)
 
@@ -246,11 +192,11 @@ lookup_df = pd.read_csv(f"../data/lookup_{instance}.csv", low_memory=False)
 lookup_df.loc[lookup_df['QNUMBER'].notnull() & (lookup_df['QNUMBER'] != ''), 'QNUMBER'] = factgrid_url + lookup_df.loc[lookup_df['QNUMBER'].notnull() & (lookup_df['QNUMBER'] != ''), 'QNUMBER'].astype(str)
 
 # Edit TITLE_NUMBER column to prepend "BETA" to the value so it matches the mapping
-columns_to_update = ['TITLE_NUMBER', 'TITLE', 'TITLE_CONNECTOR', 'RELATED_BIOCLASS']
+columns_to_update = ['RELATED_BIOCLASS']
 if bibliography.upper() == 'BETA':
-  for col in columns_to_update:
+ for col in columns_to_update:
     df.loc[
-      df[col].notnull() & (df[col].astype(str).str.strip() != ""),
+     df[col].notnull() & (df[col].astype(str).str.strip() != ""),
       col
     ] = f"{bibliography.upper()} " + df.loc[
       df[col].notnull() & (df[col].astype(str).str.strip() != ""),
@@ -259,64 +205,36 @@ if bibliography.upper() == 'BETA':
 
 # Create a mapping of the dataframes to use for replacing values
 milestone_map = dict(zip(dc_df["code"], dc_df[lang_col]))
-df_mapping = dict(zip(df_ids.iloc[:, 0], df_ids['EXPANDED_NAME']))
+bio_mapping = dict(zip(bio_df['BIOID'], bio_df['EXPANDED_NAME']))
 geo_mapping = dict(zip(geo_df['GEOID'], geo_df['MONIKER']))
 lookup_mapping = dict(zip(lookup_df['PBID'], lookup_df['QNUMBER']))
 
 # Combine the values from the lookup_df QNUMBER column with the df on the MILESTONE_GEOID column where the column[0] values match in both dataframes
-df['GEOID_URL'] = df['MILESTONE_GEOID'].map(lookup_mapping)
 df['BIODATA_URL'] = df['RELATED_BIOID'].map(lookup_mapping)
-df['BIO_SUBJECT_URL'] = df['RELATED_BIOID_SUBJECT'].map(lookup_mapping)
-df['BIO_OBJECT_URL'] = df['RELATED_BIOID_OBJECT'].map(lookup_mapping)
 
 # Lets replace the values in the DataFrame with the mapping values
-print(f'Replacing values in the DataFrame with the mapping values for {table} values')
-# Replace mapping values in every column except the first column for source df
-df.iloc[:, 1:] = df.iloc[:, 1:].replace(df_mapping)
 print(f'Replacing values in the DataFrame with the mapping values for geo values')
 df = df.replace(geo_mapping)
 print(f'Replacing values in the DataFrame with the mapping values for dataclip values')
 df = df.replace(milestone_map)
-cols_to_clean = ['MILESTONE_DETAIL', 'RELATED_BIOCLASS', 'RELATED_BIOID', 'MILESTONE_GEOID']
+print(f'Replacing values in the DataFrame with the mapping values for bio values')
+df = df.replace(bio_mapping)
+cols_to_clean = ['RELATED_BIOCLASS', 'RELATED_BIOID']
 df[cols_to_clean] = df[cols_to_clean].fillna('').astype(str) # Ensure all listed columns are strings and not NaN
 with open('df.csv', 'w') as file: #just for testing
     df.to_csv(file)
 
-# Edit MILESTONE_DETAIL column to append geoid values to a combined column
-df['COMBINED_DETAIL'] = df.apply(
-    lambda row: row['MILESTONE_DETAIL'] +
-    (f" [{row['GEOID_URL']} {row['MILESTONE_GEOID']}]" if pd.notna(row['GEOID_URL']) and str(row['GEOID_URL']).strip() != "" and pd.notna(row['MILESTONE_GEOID']) and str(row['MILESTONE_GEOID']).strip() != "" 
-     else f" [{row['GEOID_URL']}]" if pd.notna(row['GEOID_URL']) and str(row['GEOID_URL']).strip() != "" 
-     else f" [{row['MILESTONE_GEOID']}]" if pd.notna(row['MILESTONE_GEOID']) and str(row['MILESTONE_GEOID']).strip() != "" 
-     else ""),
-    axis=1
-)
-
-# Edit RELATED_BIOID_SUBJECT column to append bioid values to a combined column
-df['COMBINED_BIOID_SUBJECT'] = df.apply(
+## Edit RELATED_BIOID column to append bioid values to a combined column
+df['COMBINED_BIOID'] = df.apply(
     lambda row: (
         (
             re.sub(r'^\*\s*', '', str(row.get('RELATED_BIOCLASS', '')).strip())  # removes leading “* ”
         ) +
-    (f" [{row['BIO_SUBJECT_URL']} ({row['RELATED_BIOID_SUBJECT']})]" if pd.notna(row['BIO_SUBJECT_URL']) and str(row['BIO_SUBJECT_URL']).strip() != "" and pd.notna(row['RELATED_BIOID_SUBJECT']) and str(row['RELATED_BIOID_SUBJECT']).strip() != ""
-     else f" [{row['BIO_SUBJECT_URL']}]" if pd.notna(row['BIO_SUBJECT_URL']) and str(row['BIO_SUBJECT_URL']).strip() != ""
-     else f" [{row['RELATED_BIOID_SUBJECT']}]" if pd.notna(row['RELATED_BIOID_SUBJECT']) and str(row['RELATED_BIOID_SUBJECT']).strip() != ""
+    (f" [{row['BIODATA_URL']} ({row['RELATED_BIOID']})]" if pd.notna(row['BIODATA_URL']) and str(row['BIODATA_URL']).strip() != "" and pd.notna(row['RELATED_BIOID']) and str(row['RELATED_BIOID']).strip() != ""
+     else f" [{row['BIODATA_URL']}]" if pd.notna(row['BIODATA_URL']) and str(row['BIODATA_URL']).strip() != ""
+     else f" [{row['RELATED_BIOID']}]" if pd.notna(row['RELATED_BIOID']) and str(row['RELATED_BIOID']).strip() != ""
      else "")
-     ) if pd.notna(row['BIO_SUBJECT_URL']) and str(row['BIO_SUBJECT_URL']).strip() != "" else "",
-    axis=1
-)
-
-# Edit RELATED_BIOID_OBJECT column to append bioid values to a combined column
-df['COMBINED_BIOID_OBJECT'] = df.apply(
-    lambda row: (
-        (
-            re.sub(r'^\*\s*', '', str(row.get('RELATED_BIOCLASS', '')).strip())  # removes leading “* ”
-        ) +
-    (f" [{row['BIO_OBJECT_URL']} ({row['RELATED_BIOID_OBJECT']})]" if pd.notna(row['BIO_OBJECT_URL']) and str(row['BIO_OBJECT_URL']).strip() != "" and pd.notna(row['RELATED_BIOID_OBJECT']) and str(row['RELATED_BIOID_OBJECT']).strip() != ""
-     else f" [{row['BIO_OBJECT_URL']}]" if pd.notna(row['BIO_OBJECT_URL']) and str(row['BIO_OBJECT_URL']).strip() != ""
-     else f" [{row['RELATED_BIOID_OBJECT']}]" if pd.notna(row['RELATED_BIOID_OBJECT']) and str(row['RELATED_BIOID_OBJECT']).strip() != ""
-     else "")
-     ) if pd.notna(row['BIO_OBJECT_URL']) and str(row['BIO_OBJECT_URL']).strip() != "" else "",
+     ) if pd.notna(row['BIODATA_URL']) and str(row['BIODATA_URL']).strip() != "" else "",
     axis=1
 )
 
@@ -327,7 +245,8 @@ print(first_two_columns)
 desired_column_order = []
 metadata_keys = {'COLUMN', 'TOPIC'}  # Define the metadata keys from the dict that we want to skip
 # Define columns to drop from the mapping groups (if they exist) as they are not needed in the final output
-drop_columns = {'MILESTONE_DETAIL', 'MILESTONE_GEOID', 'GEOID_URL', 'BIODATA_URL', 'RELATED_BIOCLASS', 'RELATED_BIOID', 'BIO_SUBJECT_URL', 'BIO_OBJECT_URL'}
+drop_columns = {'GEOID_URL', 'BIODATA_URL', 'RELATED_BIOCLASS', 'RELATED_BIOID'}
+#drop_columns = {'GEOID_URL', 'BIODATA_URL'}
 for group in MAPPINGS[bibliography.upper()].values():
     for col in group.keys():
         if col not in metadata_keys or col not in drop_columns:
@@ -374,6 +293,10 @@ def post_notes(q_number, text):
     from notes import notes
     print(f"Adding notes for {q_number} into talk page..")
     print(f"Notes: {text}")
+    if replace:
+        print(f"Attempting to apply text replacements: {replace}")
+        notes.add_append_talk_page_notes(q_number, text, reset=reset_notes, replacement_map=replace)
+        return  # Exit after applying replacements
     if reset_notes and bibliography.upper() in ['BITECA', 'BITAGAP']:
         print(f"Checking if qnum is shared between {bibliography} and BETA")
         # Check if the QNUMBER is shared between BITECA/BITAGAP and BETA
@@ -386,7 +309,7 @@ def post_notes(q_number, text):
             return # Skip resetting notes if shared with BETA
     while retry_count < max_retries:
         try:
-            notes.add_append_talk_page_notes(q_number, text, reset=reset_notes)  # Use the notes module to add or reset notes
+            notes.add_append_talk_page_notes(q_number, text, reset=reset_notes, replacement_map=None)  # Use the notes module to add or reset notes
             print(f"Successfully posted notes for {q_number}")
             break  # Exit loop if successful
         except Exception as e:
@@ -403,19 +326,21 @@ def create_notes_text(aggregated):
     # Build the final text output.
     group_texts = {}
     for group_key, mapping_dict in aggregated.items():
+        print(f"Processing group: {group_key} with mapping: {mapping_dict}")
+        #lines = [header] # Add the header only once
         #lines = [str(group_key)]  # group header, e.g. the Qnumber
         if mapping_dict:
             lines = [header] # Add the header only once
-        for mapping_key, values in mapping_dict.items():
-            topic = MAPPINGS[bibliography.upper()].get(mapping_key, {}).get('TOPIC', "").strip()
-            if topic:
-                lines.append(topic)
-            for val in values:
-                if val.strip():  # only add non-empty values
-                    lines.append(val)
+            for mapping_key, values in mapping_dict.items():
+                topic = MAPPINGS[bibliography.upper()].get(mapping_key, {}).get('TOPIC', "").strip()
+                if topic:
+                    lines.append(topic)
+                for val in values:
+                    if val.strip():  # only add non-empty values
+                        lines.append(val)
         # Join lines for this group with newlines.
         #group_texts[group_key] = "\n".join(line for line in lines if line.strip() != "")
-        group_texts[group_key] = "\n".join(lines) # omit group key
+            group_texts[group_key] = "\n".join(lines) # omit group key
     return group_texts
 
 def create_group_texts(df_milestones):
