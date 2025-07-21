@@ -107,6 +107,8 @@ def remove_duplicate_claims(session, csrf_token, qid):
 
             key = normalize_statement(statement)
 
+            #print(key)
+
             if key in seen:
                 print(f"Exact duplicate found for {prop}, removing {guid}")
                 if not DRY_RUN:
