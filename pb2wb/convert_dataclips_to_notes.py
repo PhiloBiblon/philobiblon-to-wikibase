@@ -6,6 +6,13 @@ import glob
 import re
 import time
 
+# Parse the replacement argument
+def parse_replacement(pair):
+    if ':' not in pair:
+        raise argparse.ArgumentTypeError("Replacement must be in format 'old:new'")
+    old, new = pair.split(':', 1)
+    return {old.strip(): new.strip()}
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--instance', default='FACTGRID', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--bib', default='beta', choices=['beta', 'bitagap', 'biteca'], help='Bibliography.  Default is beta.')
@@ -15,7 +22,7 @@ parser.add_argument('--dry_run',  action='store_true', help='Dry run to test the
 parser.add_argument('--reset_notes', action='store_true', help='If set, will reset the notes for the given instance and bibliography.  Default is False.')
 parser.add_argument('--alt_csv', type=str, required=False, help='Alternate csv to use in place of pre processed csv.  This is useful for testing purposes.')
 parser.add_argument('--limit', default=None ,type=int, required=False, help='Limit the number of notes to process.  This is useful for testing purposes.')
-
+parser.add_argument('--replace', type=parse_replacement, help='Replacement string in format old:new', required=False)
 
 instance = parser.parse_args().instance
 bibliography = parser.parse_args().bib
@@ -25,6 +32,8 @@ dry_run = parser.parse_args().dry_run
 reset_notes = parser.parse_args().reset_notes
 alt_csv = parser.parse_args().alt_csv
 limit = parser.parse_args().limit
+replace = parser.parse_args().replace
+print(replace)
 processed_qnums = []
 failed_qnums = []
 # Set the TEMP_DICT for the instance and bibliography
@@ -47,8 +56,8 @@ language_columns = {
 
 # Define headers for each bibliography
 HEADERS = {
-    'BETA': '=== BETA / Bibliografía de Textos Antiguos ===',
-    'BITECA': '=== BITECA / Bibliografía de Textos Catalanes Antiguos ===',
+    'BETA': '=== BETA / Bibliografía Española de Textos Antiguos ===',
+    'BITECA': '=== BITECA / Bibliografia de Textos Antics Catalans, Valencians i Balears ===',
     'BITAGAP': '=== BITAGAP / Bibliografía de Textos Galegos Antigos e Portugueses Antigos ==='
 }
 
@@ -398,6 +407,10 @@ def post_notes(q_number, text):
     from notes import notes
     print(f"Adding notes for {q_number} into talk page..")
     print(f"Notes: {text}")
+    if replace:
+        print(f"Attempting to apply text replacements: {replace}")
+        notes.add_append_talk_page_notes(q_number, text, reset=reset_notes, replacement_map=replace)
+        return  # Exit after applying replacements
     if reset_notes and bibliography.upper() in ['BITECA', 'BITAGAP']:
         print(f"Checking if qnum is shared between {bibliography} and BETA")
         # Check if the QNUMBER is shared between BITECA/BITAGAP and BETA
