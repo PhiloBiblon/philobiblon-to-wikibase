@@ -7,7 +7,7 @@ import re
 import time
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--instance', default='PBCOG', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
+parser.add_argument('--instance', default='FACTGRID', choices=['PBCOG', 'FACTGRID'], help='Specify an instance from the list.  Default is PBCOG.')
 parser.add_argument('--bib', default='beta', choices=['beta', 'bitagap', 'biteca'], help='Bibliography.  Default is beta.')
 parser.add_argument('--filetype', default='text', choices=['text', 'html'], help='File type to output.  Default is text.')
 parser.add_argument('--table', help="Table to process", choices=['analytic', 'biography', 'geography', 'institutions', 'library', 'subject', 'bibliography', 'copies', 'ms_ed', 'uniform_title'], required=True)
@@ -202,6 +202,18 @@ BIOID_LABELS = {
         'object': 'objeto'
     }
 }
+
+relationship_columns = [
+    'SON_RELATED_BIOID',
+    'DAUGHTER_RELATED_BIOID',
+    'FATHER_RELATED_BIOID',
+    'MOTHER_RELATED_BIOID',
+    'SISTER_RELATED_BIOID',
+    'BROTHER_RELATED_BIOID',
+    'WIFE_RELATED_BIOID',
+    'HUSBAND_RELATED_BIOID'
+]
+
 header = HEADERS[bibliography.upper()]
 desired_order = list(MAPPINGS[bibliography.upper()].keys()) # Define the required order of the groups
 factgrid_url = 'https://database.factgrid.de/wiki/Item:'
@@ -225,6 +237,14 @@ def get_latest_file(base_file_name):
         print(f"No matching files found for {base_file_name}, please run the extract_first_row_from_csv.py script.")
         return None
 
+def clear_related_subject(row):
+    if pd.isna(row['RELATED_BIOID_SUBJECT']):
+        return row['RELATED_BIOID_SUBJECT']
+    for col in relationship_columns:
+        if col in row and row['RELATED_BIOID_SUBJECT'] == row[col]:
+            return '' # Clear the RELATED_BIOID_SUBJECT if it matches any relationship column
+    return row['RELATED_BIOID_SUBJECT']
+
 # Get the latest first row file for the bibliography and table
 bib_file = get_latest_file(bib_first_row)
 geo_file = get_latest_file(geo_first_row)
@@ -235,6 +255,10 @@ if alt_csv:
 else:
     df = pd.read_csv(f"../data/processed/pre/{bibliography}/{instance}_{bibliography}_{table}.csv", low_memory=False)
 
+# Clear the RELATED_BIOID_SUBJECT column based on relationship columns
+df['RELATED_BIOID_SUBJECT'] = df.apply(clear_related_subject, axis=1)
+
+# Import the other CSV files needed for processing
 beta_df = pd.read_csv(f'{beta_file}', low_memory=False)
 biteca_df = pd.read_csv(f'{biteca_file}', low_memory=False) 
 df_ids = pd.read_csv(f"{bib_file}", low_memory=False)
@@ -406,16 +430,16 @@ def create_notes_text(aggregated):
         #lines = [str(group_key)]  # group header, e.g. the Qnumber
         if mapping_dict:
             lines = [header] # Add the header only once
-        for mapping_key, values in mapping_dict.items():
-            topic = MAPPINGS[bibliography.upper()].get(mapping_key, {}).get('TOPIC', "").strip()
-            if topic:
-                lines.append(topic)
-            for val in values:
-                if val.strip():  # only add non-empty values
-                    lines.append(val)
-        # Join lines for this group with newlines.
-        #group_texts[group_key] = "\n".join(line for line in lines if line.strip() != "")
-        group_texts[group_key] = "\n".join(lines) # omit group key
+            for mapping_key, values in mapping_dict.items():
+                topic = MAPPINGS[bibliography.upper()].get(mapping_key, {}).get('TOPIC', "").strip()
+                if topic:
+                    lines.append(topic)
+                for val in values:
+                    if val.strip():  # only add non-empty values
+                        lines.append(val)
+            # Join lines for this group with newlines.
+            #group_texts[group_key] = "\n".join(line for line in lines if line.strip() != "")
+            group_texts[group_key] = "\n".join(lines) # omit group key
     return group_texts
 
 def create_group_texts(df_milestones):
