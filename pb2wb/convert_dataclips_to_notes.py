@@ -58,7 +58,7 @@ language_columns = {
 HEADERS = {
     'BETA': '=== BETA / Bibliografía Española de Textos Antiguos ===',
     'BITECA': '=== BITECA / Bibliografia de Textos Antics Catalans, Valencians i Balears ===',
-    'BITAGAP': '=== BITAGAP / Bibliografía de Textos Galegos Antigos e Portugueses Antigos ==='
+    'BITAGAP': '=== BITAGAP / Bibliografia de Textos Antigos Galegos e Portugueses ==='
 }
 
 # Define mappings for column types
