@@ -23,6 +23,7 @@ parser.add_argument('--reset_notes', action='store_true', help='If set, will res
 parser.add_argument('--alt_csv', type=str, required=False, help='Alternate csv to use in place of pre processed csv.  This is useful for testing purposes.')
 parser.add_argument('--limit', default=None ,type=int, required=False, help='Limit the number of notes to process.  This is useful for testing purposes.')
 parser.add_argument('--replace', type=parse_replacement, help='Replacement string in format old:new', required=False)
+parser.add_argument('--notes_only', action='store_true', help='If set, will only process notes and not related bioid data.  Default is False.')
 
 
 instance = parser.parse_args().instance
@@ -34,6 +35,7 @@ reset_notes = parser.parse_args().reset_notes
 alt_csv = parser.parse_args().alt_csv
 limit = parser.parse_args().limit
 replace = parser.parse_args().replace
+notes_only = parser.parse_args().notes_only
 print(replace)
 # Set the TEMP_DICT for the instance and bibliography
 TEMP_DICT['TEMP_WB'] = instance.upper()
@@ -55,9 +57,9 @@ language_columns = {
 
 # Define headers for each bibliography
 HEADERS = {
-    'BETA': '=== BETA / Bibliografía de Textos Antiguos ===',
-    'BITECA': '=== BITECA / Bibliografía de Textos Catalanes Antiguos ===',
-    'BITAGAP': '=== BITAGAP / Bibliografía de Textos Antigos Galegos e Portugueses ==='
+    'BETA': '=== BETA / Bibliografía Española de Textos Antiguos ===',
+    'BITECA': '=== BITECA / Bibliografia de Textos Antics Catalans, Valencians i Balears ===',
+    'BITAGAP': '=== BITAGAP / Bibliografia de Textos Antigos Galegos e Portugueses ==='
 }
 
 # Define mappings for column types
@@ -77,11 +79,11 @@ MAPPINGS = {
         'RELATED_BIOEDQ': '** Calificador: última fecha:',
         'RELATED_BIOBASIS': '** Fuente:'
         },
-    'NOTES': {
-      'COLUMN': 'NOTES',
-      'TOPIC': '== Notas ==',
-      'NOTES': ''
-      }
+      'NOTES': {
+        'COLUMN': 'NOTES',
+        'TOPIC': '== Notas ==',
+        'NOTES': ''
+        }
     },
     'BITECA': {
       'RELATED_BIOID': {
@@ -143,6 +145,10 @@ BIOID_LABELS = {
     }
 }
 
+omit_list = [
+    'UNIFORM_TITLE*RELATED_BIOCLASS*TRANSLATOR'  # Omit these columns from the final output
+]
+
 header = HEADERS[bibliography.upper()]
 desired_order = list(MAPPINGS[bibliography.upper()].keys()) # Define the required order of the groups
 factgrid_url = 'https://database.factgrid.de/wiki/Item:'
@@ -160,10 +166,8 @@ failed_qnums = []
 def get_latest_file(base_file_name):
     file_pattern = os.path.join(first_row_path, base_file_name)
     matching_files = glob.glob(file_pattern)
-
     if matching_files:
         latest_file = max(matching_files, key=lambda x: x[-12:-4])  # Extract date YYYYMMDD
-        print(f"Latest {base_file_name} File: {latest_file}")
         return latest_file
     else:
         print(f"No matching files found for {base_file_name}, please run the extract_first_row_from_csv.py script.")
@@ -188,20 +192,33 @@ bio_df = pd.read_csv(f"{bio_file}", low_memory=False)
 geo_df = pd.read_csv(f"{geo_file}", low_memory=False)
 lookup_df = pd.read_csv(f"../data/lookup_{instance}.csv", low_memory=False)
 
+# Remove values from df where the column 'RELATED_BIOCLASS' contains any term from omit_list
+if 'RELATED_BIOCLASS' in df.columns:
+    # Find the rows where RELATED_BIOCLASS matches any in omit_list
+    mask = df['RELATED_BIOCLASS'].isin(omit_list)
+    print(f"Clearing RELATED_BIOCLASS and RELATED_BIOID in {mask.sum()} rows where RELATED_BIOCLASS matches omit_list.")
+
+    # Clear the values if the mask is True
+    df.loc[mask, 'RELATED_BIOCLASS'] = ''
+    columns_to_clear = ['RELATED_BIOID', 'RELATED_BIODETAIL', 'RELATED_BIOIDQ', 'RELATED_BIOBD', 'RELATED_BIOBDQ', 'RELATED_BIOED', 'RELATED_BIOEDQ', 'RELATED_BIOBASIS']
+    for col in columns_to_clear:
+        if col in df.columns:
+            df.loc[mask, col] = ''
+
 # Lets massage the data a bit and append the factgrid url to the QNUMBER in the QNUMBER column
 lookup_df.loc[lookup_df['QNUMBER'].notnull() & (lookup_df['QNUMBER'] != ''), 'QNUMBER'] = factgrid_url + lookup_df.loc[lookup_df['QNUMBER'].notnull() & (lookup_df['QNUMBER'] != ''), 'QNUMBER'].astype(str)
 
 # Edit TITLE_NUMBER column to prepend "BETA" to the value so it matches the mapping
-columns_to_update = ['RELATED_BIOCLASS']
+columns_to_update = ['RELATED_BIOCLASS'] # omit for bibliography table
 if bibliography.upper() == 'BETA':
  for col in columns_to_update:
     df.loc[
-     df[col].notnull() & (df[col].astype(str).str.strip() != ""),
+    df[col].notnull() & (df[col].astype(str).str.strip() != ""),
       col
     ] = f"{bibliography.upper()} " + df.loc[
       df[col].notnull() & (df[col].astype(str).str.strip() != ""),
       col
-    ].astype(str)
+   ].astype(str)
 
 # Create a mapping of the dataframes to use for replacing values
 milestone_map = dict(zip(dc_df["code"], dc_df[lang_col]))
@@ -245,8 +262,8 @@ print(first_two_columns)
 desired_column_order = []
 metadata_keys = {'COLUMN', 'TOPIC'}  # Define the metadata keys from the dict that we want to skip
 # Define columns to drop from the mapping groups (if they exist) as they are not needed in the final output
-drop_columns = {'GEOID_URL', 'BIODATA_URL', 'RELATED_BIOCLASS', 'RELATED_BIOID'}
-#drop_columns = {'GEOID_URL', 'BIODATA_URL'}
+#drop_columns = {'GEOID_URL', 'BIODATA_URL', 'RELATED_BIOCLASS', 'RELATED_BIOID'}
+drop_columns = {'GEOID_URL', 'BIODATA_URL'}
 for group in MAPPINGS[bibliography.upper()].values():
     for col in group.keys():
         if col not in metadata_keys or col not in drop_columns:
@@ -326,7 +343,7 @@ def create_notes_text(aggregated):
     # Build the final text output.
     group_texts = {}
     for group_key, mapping_dict in aggregated.items():
-        print(f"Processing group: {group_key} with mapping: {mapping_dict}")
+        #print(f"Processing group: {group_key} with mapping: {mapping_dict}")
         #lines = [header] # Add the header only once
         #lines = [str(group_key)]  # group header, e.g. the Qnumber
         if mapping_dict:
@@ -339,7 +356,7 @@ def create_notes_text(aggregated):
                     if val.strip():  # only add non-empty values
                         lines.append(val)
         # Join lines for this group with newlines.
-        #group_texts[group_key] = "\n".join(line for line in lines if line.strip() != "")
+            #group_texts[group_key] = "\n".join(line for line in lines if line.strip() != "")
             group_texts[group_key] = "\n".join(lines) # omit group key
     return group_texts
 
@@ -355,6 +372,8 @@ def create_group_texts(df_milestones):
     # Extract column names from MAPPINGS (excluding 'COLUMN' and 'TOPIC')
     mapping_columns = {}
     for key, value in MAPPINGS[bibliography.upper()].items():
+        if notes_only and key != 'NOTES':
+            continue
         mapping_columns[key] = [col for col in value.keys() if col not in ['COLUMN', 'TOPIC']]
     print(f"Mapping columns: {mapping_columns}")
 

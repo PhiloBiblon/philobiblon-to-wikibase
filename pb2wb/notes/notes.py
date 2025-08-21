@@ -7,6 +7,7 @@ from common.wi_manager import site
 import pywikibot
 from common.wb_manager import WBManager, PROPERTY_NOTES
 from common.settings import TEMP_DICT
+import requests
 
 reset = TEMP_DICT['RESET']
 print(f"Resetting talk pages: {reset}")
@@ -133,3 +134,33 @@ def add_append_talk_page_notes(q_number, new_notes, reset, replacement_map=None)
         print(f"Error updating talk page for {q_number}: {e}")
 
     return page
+
+def get_notes_html(q_number: str) -> str:
+    title = f"Item_talk:{q_number}"
+    page = pywikibot.Page(site, title)
+    if not page.exists():
+        print(f"No talk page found for {q_number}")
+        return ""
+
+    req = site._simple_request(
+        action="parse",
+        page=title,
+        prop="text",
+        format="json",
+        formatversion="2",
+        disableeditsection="1",
+        disablelimitreport="1",
+    )
+    data = req.submit()
+    return data.get("parse", {}).get("text", "")
+
+def replace_notes_html(q_number: str, new_html: str):
+    title = f"Item_talk:{q_number}"
+    page = pywikibot.Page(site, title)
+
+    if not page.exists():
+        print(f"No talk page found for {q_number}, creating a new one.")
+
+    page.text = new_html
+    page.save("Replacing talk page HTML content")
+    print(f"Talk page for {q_number} updated with new HTML content.")
