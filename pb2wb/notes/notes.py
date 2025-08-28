@@ -8,6 +8,7 @@ import pywikibot
 from common.wb_manager import WBManager, PROPERTY_NOTES
 from common.settings import TEMP_DICT
 import requests
+import time
 
 reset = TEMP_DICT['RESET']
 print(f"Resetting talk pages: {reset}")
@@ -138,9 +139,12 @@ def add_append_talk_page_notes(q_number, new_notes, reset, replacement_map=None)
 def get_notes_html(q_number: str) -> str:
     title = f"Item_talk:{q_number}"
     page = pywikibot.Page(site, title)
-    if not page.exists():
-        print(f"No talk page found for {q_number}")
-        return ""
+    try:
+        if not page.exists():
+            print(f"No talk page found for {q_number}")
+            return ""
+    except Exception as e:
+        print(f"Error checking existence of talk page for {q_number}: {e}")
 
     req = site._simple_request(
         action="parse",
@@ -151,16 +155,36 @@ def get_notes_html(q_number: str) -> str:
         disableeditsection="1",
         disablelimitreport="1",
     )
-    data = req.submit()
+    for attempt in range(3):
+        try:
+            data = req.submit()
+            break
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+            if attempt < 2:
+                print("Retrying in 5 seconds...")
+                time.sleep(5)
+            else:
+                print(f"Failed to retrieve talk page HTML for {q_number} after 3 attempts.")
+                return ""
     return data.get("parse", {}).get("text", "")
 
 def replace_notes_html(q_number: str, new_html: str):
     title = f"Item_talk:{q_number}"
     page = pywikibot.Page(site, title)
 
-    if not page.exists():
-        print(f"No talk page found for {q_number}, creating a new one.")
-
-    page.text = new_html
-    page.save("Replacing talk page HTML content")
-    print(f"Talk page for {q_number} updated with new HTML content.")
+    try:
+        if not page.exists():
+            print(f"No talk page found for {q_number}, creating a new one.")
+        page.text = new_html
+        page.save("Replacing talk page HTML content", quiet=False)
+        print(f"Talk page HTML for {q_number} successfully replaced.")
+    except Exception as e:
+        print(f"Error updating talk page for {q_number}: {e}")
+        print("Retrying in 5 seconds...")
+        time.sleep(10)
+        try:
+            page.save("Replacing talk page HTML content", quiet=False)
+            print(f"Talk page HTML for {q_number} successfully replaced on retry.")
+        except Exception as e:
+            print(f"Failed again to update talk page for {q_number}: {e}")
