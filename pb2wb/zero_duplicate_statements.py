@@ -5,6 +5,17 @@ import time
 import argparse
 import os
 from common.settings import BASE_IMPORT_OBJECTS
+import logging
+from datetime import datetime
+
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+logging.basicConfig(
+    filename=f"zero_duplicate_statements_{timestamp}.log",
+    filemode="a",
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    level=logging.INFO
+)
+logging.info("Logging started at %s", timestamp)
 
 # ----- CONFIGURATION -----
 FACTGRID_API_URL = 'https://database.factgrid.de/w/api.php'
@@ -95,44 +106,71 @@ def remove_duplicate_claims(session, csrf_token, qid):
     })
     data = r.json()
     claims = data.get("claims", {})
-    #print(claims)
-    print(f"Found {sum(len(v) for v in claims.values())} total claims for {qid}")
+    logging.info(f"Found {sum(len(v) for v in claims.values())} total claims for {qid}")
+
+    any_deleted = False
+    to_delete = []  # list of GUIDs to delete
 
     for prop, statements in claims.items():
-        seen = set()
-        for statement in statements:
-            guid = statement['id']
-            if should_keep(statement):
+        # bucket statements by normalized content
+        buckets = {}  # key -> list[statement]
+        for st in statements:
+            if should_keep(st):     # your existing “don’t touch” rule
                 continue
+            key = normalize_statement(st)  # your canonicalization
+            buckets.setdefault(key, []).append(st)
 
-            key = normalize_statement(statement)
+        # decide what to keep in each bucket and mark the rest for deletion
+        for key, bucket in buckets.items():
+            if len(bucket) <= 1:
+                continue  # no duplicates
 
-            #print(key)
+            # pick a keeper (e.g., prefer Preferred > Normal > Deprecated; else first)
+            def rank_weight(s):
+                rank = s.get("rank", "normal").lower()
+                return {"preferred": 3, "normal": 2, "deprecated": 1}.get(rank, 0)
 
-            if key in seen:
-                print(f"Exact duplicate found for {prop}, removing {guid}")
-                if not DRY_RUN:
-                    r_del = session.post(FACTGRID_API_URL, data={
-                        "action": "wbremoveclaims",
-                        "claim": guid,
-                        "token": csrf_token,
-                        "format": "json"
-                    })
-                    result = r_del.json()
-                    if 'success' in result:
-                        print(f"Removed {guid}")
-                    else:
-                        print(f"Failed to remove {guid}: {result}")
-                else:
-                    print(f"[DRY RUN] Would delete {guid}")
-            else:
-                seen.add(key)
+            bucket.sort(key=rank_weight, reverse=True)
+            keeper = bucket[0]
+            dupes = bucket[1:]  # everything after keeper gets removed
+
+            dup_guids = [st["id"] for st in dupes]
+            if dup_guids:
+                logging.info(f"{qid} {prop}: keeping {keeper['id']} (rank={keeper.get('rank')}) "
+                             f"and deleting {len(dup_guids)} duplicates: {dup_guids}")
+                to_delete.extend(dup_guids)
+
+    # perform deletions (one-by-one; simple & safe)
+    for guid in to_delete:
+        if DRY_RUN:
+            logging.info(f"[DRY RUN] Would delete {guid}")
+            any_deleted = True
+            continue
+        r_del = session.post(FACTGRID_API_URL, data={
+            "action": "wbremoveclaims",
+            "claim": guid,
+            "token": csrf_token,
+            "format": "json"
+        })
+        try:
+            result = r_del.json()
+        except Exception:
+            logging.error(f"Failed to parse deletion response for {guid}: {r_del.text[:500]}")
+            continue
+        if result.get("success") == 1:
+            logging.info(f"Removed {guid}")
+            any_deleted = True
+        else:
+            logging.error(f"Failed to remove {guid}: {result}")
+
+    return any_deleted
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--csv", help="Path to the CSV file with 'item' column", required=True)
     parser.add_argument("--dry_run", action='store_true', help="Perform a dry run without deleting anything")
     parser.add_argument("--instance", choices=["FACTGRID", "PBCOG"], default="FACTGRID", help="Instance to use, default is FACTGRID")
+    parser.add_argument("--limit", type=int, default=None, help="Limit the number of items to process (for testing)")
     args = parser.parse_args()
 
     csv_path = args.csv
@@ -141,25 +179,33 @@ def main():
     USERNAME = BASE_IMPORT_OBJECTS[args.instance]['WB_USER']
     PASSWORD = BASE_IMPORT_OBJECTS[args.instance]['WB_PASSWORD']
     if not os.path.exists(csv_path):
-        print(f"File not found: {csv_path}")
+        logging.error(f"File not found: {csv_path}")
         return
 
     df = pd.read_csv(csv_path)
     if 'item' not in df.columns:
-        print("The CSV must contain a column named 'item'.")
+        logging.error("The CSV must contain a column named 'item'.")
         return
 
     qids = df['item'].dropna().apply(extract_qid).unique()
     session, csrf_token = login()
-    print("Logged in successfully.")
-
+    logging.info("Logged in successfully.")
+    print(f"Processing {len(qids)} items from {csv_path} (dry_run={DRY_RUN})")
+    count = 0
     for qid in qids:
         try:
-            print(f"Processing {qid}")
-            remove_duplicate_claims(session, csrf_token, qid)
+            if args.limit and count >= args.limit:
+                logging.info(f"Reached limit of {args.limit} items, stopping.")
+                break
+            logging.info(f"Processing {qid}")
+            result = remove_duplicate_claims(session, csrf_token, qid)
+            if result:
+                count += 1
+                logging.info(f"Processed {count} items so far.")
             time.sleep(1)  # throttle if needed
         except Exception as e:
-            print(f"Error processing {qid}: {e}")
+            logging.error(f"Error processing {qid}: {e}")
+    print("Done.")
 
 if __name__ == "__main__":
     main()
