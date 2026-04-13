@@ -1,5 +1,4 @@
 .env
 __pycache__
-test*.py
 common/wi-conf
 .idea/**
