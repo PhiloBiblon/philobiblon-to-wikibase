@@ -315,7 +315,6 @@ class GenericPreprocessor:
 
     # Merge the original DataFrame with the mapping DataFrame
     size_before_merge = len(df)
-    matched_df = mapping[mapping[mapping_from_column].isin(df[from_column_name])]
     # print(f'{mapping = }')
     merged_df = pd.merge(df, mapping, left_on=from_column_name, right_on=mapping_from_column, how='left')
     size_after_merge = len(merged_df)
