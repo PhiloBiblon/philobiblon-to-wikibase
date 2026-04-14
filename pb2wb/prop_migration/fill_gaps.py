@@ -279,18 +279,31 @@ def load_sheet(path):
     Read the sheet and return:
       strings — list of (string, count) sorted by count descending,
                 where string is the column C value (possibly hand-corrected)
-      seeded  — dict of string → QID for rows where P241 Qid is already filled
+      seeded  — dict of string → QID for rows where P241 Qid is trusted
+
+    Seeding rules:
+      - No 'vetted' column in sheet (original Charles sheet / bootstrap):
+        trust all rows that have a QID in column F.
+      - 'vetted' column present (sheet returned after a merge pass):
+        only trust rows where vetted is 'Y' or 'auto'.
     """
     counts = {}
     seeded = {}
     with open(path, encoding='utf-8') as f:
-        for row in csv.DictReader(f, delimiter='\t'):
+        reader = csv.DictReader(f, delimiter='\t')
+        has_vetted = 'vetted' in (reader.fieldnames or [])
+        for row in reader:
             s = row['_Place_of_publication'].strip()
             if not s:
                 continue
             counts[s] = counts.get(s, 0) + 1
             q = extract_qid(row.get('P241 Qid', ''))
-            if q and s not in seeded:
+            if not q or s in seeded:
+                continue
+            if has_vetted:
+                if row.get('vetted', '').strip() in ('Y', 'auto'):
+                    seeded[s] = q
+            else:
                 seeded[s] = q
     strings = sorted(counts.items(), key=lambda x: -x[1])
     return strings, seeded

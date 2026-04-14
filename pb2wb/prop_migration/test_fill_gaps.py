@@ -242,14 +242,23 @@ class TestResolveParts:
 # load_sheet  (uses tmp file)
 # ---------------------------------------------------------------------------
 
-SHEET_HEADER = 'item\tP1141\t_Place_of_publication\titem\tP241\tP241 Qid\tP241_values\tWikidata\n'
+SHEET_HEADER         = 'item\tP1141\t_Place_of_publication\titem\tP241\tP241 Qid\tP241_values\tWikidata\n'
+SHEET_HEADER_VETTED  = 'item\tP1141\t_Place_of_publication\titem\tP241\tP241 Qid\tP241_values\tWikidata\tauto_match\tvetted\n'
 
-def _make_sheet(*rows):
-    """Build a minimal sheet TSV string from (place_string, qid) pairs."""
-    lines = [SHEET_HEADER]
-    for place, qid in rows:
+def _make_sheet(*rows, with_vetted=False):
+    """Build a minimal sheet TSV string.
+    rows: (place_string, qid) or (place_string, qid, vetted) tuples.
+    """
+    header = SHEET_HEADER_VETTED if with_vetted else SHEET_HEADER
+    lines = [header]
+    for row in rows:
+        place, qid = row[0], row[1]
+        vetted = row[2] if len(row) > 2 else ''
         hyperlink = f'=HYPERLINK("https://database.factgrid.de/wiki/Item:{qid}","{qid}")' if qid else ''
-        lines.append(f'Q1\tP1141\t{place}\tQ1\tP241\t{hyperlink}\t\t\n')
+        if with_vetted:
+            lines.append(f'Q1\tP1141\t{place}\tQ1\tP241\t{hyperlink}\t\t\t\t{vetted}\n')
+        else:
+            lines.append(f'Q1\tP1141\t{place}\tQ1\tP241\t{hyperlink}\t\t\n')
     return ''.join(lines)
 
 
@@ -276,3 +285,28 @@ class TestLoadSheet:
         strings, _ = self._load(tsv)
         counts = dict(strings)
         assert counts['Paris'] == 3
+
+    # --- vetted column behaviour ---
+
+    def test_no_vetted_column_trusts_all_qids(self):
+        """Bootstrap: sheet without vetted column seeds all populated column F values."""
+        tsv = _make_sheet(('Madrid', 'Q1234'), ('Paris', 'Q5'))
+        _, seeded = self._load(tsv)
+        assert seeded.get('Madrid') == 'Q1234'
+        assert seeded.get('Paris') == 'Q5'
+
+    def test_vetted_Y_is_seeded(self):
+        tsv = _make_sheet(('Madrid', 'Q1234', 'Y'), with_vetted=True)
+        _, seeded = self._load(tsv)
+        assert seeded.get('Madrid') == 'Q1234'
+
+    def test_vetted_auto_is_seeded(self):
+        tsv = _make_sheet(('Madrid', 'Q1234', 'auto'), with_vetted=True)
+        _, seeded = self._load(tsv)
+        assert seeded.get('Madrid') == 'Q1234'
+
+    def test_vetted_blank_not_seeded(self):
+        """A QID with blank vetted (pending Charles's review) must not be seeded."""
+        tsv = _make_sheet(('Madrid', 'Q1234', ''), with_vetted=True)
+        _, seeded = self._load(tsv)
+        assert 'Madrid' not in seeded
