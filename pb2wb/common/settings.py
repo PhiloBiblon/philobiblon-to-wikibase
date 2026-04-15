@@ -1,4 +1,9 @@
 # local repo configuration - probably no need to change these
+#
+# Google Sheets sync (prop_migration/sync_sheet.py)
+# Set these in .env or your shell — never commit values here:
+#   GSHEETS_CREDENTIALS_PATH  path to service account JSON key file
+#   P1141_SHEET_ID            sheet ID from the Google Sheet URL
 
 CLEAN_DIR = '../data/clean'
 BASE_DATA_DIR = '../data'

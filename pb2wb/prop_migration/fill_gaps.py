@@ -2,7 +2,7 @@
 fill_gaps.py — find P241 candidate QIDs for P1141 strings not yet mapped.
 
 Reads:
-  Charles's sheet TSV (default: P1141-P241 - P1141-P241.tsv)
+  Charles's sheet TSV (default: P1141-P241.tsv)
     Column C (_Place_of_publication) — the strings to match; counts derived
       from how many rows share each string.  Charles's hand-corrections to
       column C are automatically picked up here.
@@ -92,7 +92,7 @@ from common.settings import BASE_IMPORT_OBJECTS
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
 
-SHEET_TSV = 'prop_migration/P1141-P241 - P1141-P241.tsv'
+SHEET_TSV = 'prop_migration/P1141-P241.tsv'
 OUT_TSV   = 'prop_migration/place_candidates.tsv'
 
 OUT_COLUMNS = [
@@ -537,6 +537,7 @@ def main():
 
     llm_fn = make_ollama_llm_fn(args.llm_model) if (args.llm or args.llm_verify) else None
 
+    print(f'Reading sheet:      {args.sheet}')
     strings, seeded = load_sheet(args.sheet)
     if args.limit:
         strings = strings[:args.limit]
@@ -710,7 +711,7 @@ def main():
 
     from collections import Counter
     mc = Counter(r['match_type'] for r in result_rows)
-    print(f'\nOutput: {args.out}  ({len(result_rows)} rows)')
+    print(f'\nWriting candidates: {args.out}  ({len(result_rows)} rows)')
     print(f'  sheet              : {mc["sheet"]}')
     print(f'  latin_lookup       : {mc["latin_lookup"]}')
     print(f'  corrections        : {mc["corrections"]}')

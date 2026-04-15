@@ -4,7 +4,7 @@ from place_candidates.tsv, producing a TSV ready to upload to Google Sheets.
 
 Reads:
   place_candidates.tsv          — per-string candidates from fill_gaps.py
-  P1141-P241 - P1141-P241.tsv  — student sheet (per-item rows)
+  P1141-P241.tsv  — sheet (per-item rows)
 
 Writes:
   sheet_updated.tsv — student sheet with P241 Qid and P241_values filled in
@@ -51,7 +51,7 @@ from common.settings import BASE_IMPORT_OBJECTS
 FG_WIKI_BASE = 'https://database.factgrid.de/wiki/Item:'
 
 CANDIDATES_TSV = 'prop_migration/place_candidates.tsv'
-SHEET_TSV      = 'prop_migration/P1141-P241 - P1141-P241.tsv'
+SHEET_TSV      = 'prop_migration/P1141-P241.tsv'
 OUT_TSV        = 'prop_migration/sheet_updated.tsv'
 
 BARE_QID_RE = re.compile(r'^Q\d+$')
@@ -119,6 +119,7 @@ def main():
     parser.add_argument('--out',        default=OUT_TSV)
     args = parser.parse_args()
 
+    print(f'Reading candidates: {args.candidates}')
     # --- Load candidates: string → {qid, label, match_type, parts} ---
     candidates = {}
     with open(args.candidates, encoding='utf-8') as f:
@@ -136,6 +137,7 @@ def main():
                 'parts':      parts,   # list of {part, qid, label} for compounds
             }
 
+    print(f'Reading sheet:      {args.sheet}')
     # --- Process student sheet ---
     out_rows = []
     filled = unchanged = skipped = 0
@@ -218,7 +220,7 @@ def main():
         writer.writeheader()
         writer.writerows(out_rows)
 
-    print(f'Output: {args.out}  ({len(out_rows)} rows)')
+    print(f'Writing merged sheet: {args.out}  ({len(out_rows)} rows)')
     print(f'  filled in    : {filled}')
     print(f'  already had  : {unchanged}')
     print(f'  no candidate : {skipped}')
