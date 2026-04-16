@@ -1,101 +1,86 @@
-# Vetting the Place-of-Publication Mapping
+# Place-of-Publication Mapping — Notes for Charles
 
-## What this spreadsheet is
-
-Each row represents one PhiloBiblon item that has a place-of-publication string
-(column C).  We have tried to match each string to the corresponding place item
-in FactGrid (column F, **P241 Qid**).  Your job is to check our work and approve,
-correct, or flag each assignment.
+You asked me to populate column F (P241 Qid) with FactGrid place items matching
+the place strings in column C. I've done that, and also added two new columns:
+H (auto_match) and I (vetted). Column H explains how I found each match.
+I'm asking you to record your judgment in column I.
 
 ---
 
-## Columns you care about
+## Columns of interest
 
-| Column | Name | What it contains |
-|--------|------|-----------------|
-| C | _Place_of_publication | The place string as it appears in the database |
-| F | P241 Qid | A link to the FactGrid place item we matched (click to verify) |
-| G | P241_values | The plain-text label of that item |
-| H | auto_match | A note explaining how confident we are (see below) |
-| I | vetted | **This is where you record your review** |
+| Column | Name | Contents |
+|--------|------|----------|
+| A | (item ID) | PhiloBiblon item identifier |
+| C | _Place_of_publication | Place string as it appears in the database |
+| F | P241 Qid | FactGrid place item (what you asked me to fill) |
+| G | P241_values | Plain-text label of that item |
+| H | auto_match | How I found the match |
+| I | vetted | Your judgment — please populate this |
 
----
-
-## The `auto_match` column — what the notes mean
-
-| Note | What it means |
-|------|--------------|
-| *(blank)* | High confidence — matched exactly on the item's label or a known alias |
-| `stripped qualifier — VERIFY` | We stripped a qualifier like ", PA" or "[Mass]" to find the match — please confirm the link is the right city |
-| `VERIFY` | Lower-confidence match — the name differs slightly from what we searched |
-| `compound — split (City)` | This string names two cities; this row covers one of them |
-| `compound — needs split` | Multi-city string we couldn't split automatically — needs manual attention |
-| `no match found` | Nothing in FactGrid matched — the place may not have an item yet |
-| `rejected — no match found` | We found a candidate but it was geographically wrong (e.g. wrong US state) |
+I started from [your spreadsheet](https://docs.google.com/spreadsheets/d/1tJmro7H-eH2LhMugzw30USNV4r7B8yR_KpdAUmlfELE/edit?gid=6214243#gid=6214243)
+Where there was already a value in column F, I've left the entire row alone and pre-populated column I with `Y`.
 
 ---
 
-## The `vetted` column — how to record your review
+## Column H — how I found the match
 
 | Value | Meaning |
 |-------|---------|
-| `auto` | We pre-approved this as high confidence — you don't need to check it, but you can |
-| `Y` | **You** have personally reviewed this row and are happy with column F |
-| *(blank)* | Still needs your attention |
+| *(blank)* | Exact match on FactGrid label or known alias — high confidence |
+| `stripped qualifier — VERIFY` | Matched after stripping something like ", OR" or "[Mass]" — please check |
+| `VERIFY` | Slight name difference — lower confidence |
+| `compound — split (City)` | One city from a multi-city string — see below |
+| `compound — needs split` | Couldn't split automatically |
+| `no match found` | Nothing in FactGrid matched |
+| `rejected — no match found` | Found a candidate but it was the wrong place |
 
 ---
 
-## What to do, row by row
+## Column I — your judgment
 
-### Rows where `vetted` = `auto`
-We are confident in these.  You don't need to do anything.  If one catches
-your eye and looks wrong, correct column F and change `auto` to `Y`.
+| Value | Meaning |
+|-------|---------|
+| `auto` | I'm confident — no action needed unless something looks off |
+| `Y` | You've reviewed it and are happy with column F |
+| *(blank)* | Needs your attention |
 
-### Rows where `vetted` is blank
-These need your attention.  For each one:
+**Please note**: If you correct column F, please also mark column I as `Y`.
+If I run the script again, we might lose your correction.
+For every row you touch: fix column F if needed, then mark `Y` in column I.
 
-1. **Click the link in column F** to open the FactGrid item.
-2. Check that it is the right place (pay attention to country/state in the
-   item description).
-3. If it looks correct: type **Y** in the `vetted` column (column I).
-4. If it is wrong: replace the link in column F with the correct FactGrid
-   item, then type **Y** in `vetted`.  If you can't find the right item,
-   clear column F and leave `vetted` blank — we will investigate.
-5. If the place name in column C is misspelled or garbled: correct it in
-   column C as well.  This helps us if we need to re-run the matching.
-
-### "no match found" rows
-The place string did not match anything in FactGrid.  Options:
-- If you know the correct FactGrid item, paste its link into column F and
-  type **Y** in `vetted`.
-- If the place doesn't have a FactGrid item yet, leave column F blank and
-  type **Y** in `vetted` to indicate you've seen it.
-- If the string in column C is so garbled that you're not sure what place
-  is meant, leave both blank and add a note in column H.
-
-### "compound" rows
-These strings contain two or more cities (e.g. "London - New York").  We
-have tried to split them into one row per city.  Check each split row as
-you would a normal row.  If the split is wrong or a city is missing, let
-Max know.
+If you can't find the right item, leave column F empty and mark `Y` — that
+tells me you've seen it and it needs further investigation. We might beam
+those places up from wikidata.
 
 ---
 
-## Asking for a fresh run
+## Compound place strings
 
-You don't need to finish every row before asking for a new round of
-predictions.  At any point you can send the sheet back and we will:
-
-1. Preserve all rows where `vetted` = `Y` or `auto` (we won't touch those).
-2. Re-run matching on everything else, picking up any corrections you've
-   made to column C.
-3. Return an updated sheet.
+Some original strings name two or more cities — e.g. "Como - Pavia". I've
+split these into one row per city, so that item now appears as two rows, each
+of which will generate a separate P241 statement. Where a compound string
+already had a value in column F from your original work, I've preserved it
+as-is.
 
 ---
 
-## Summary checklist
+## False positives
 
-- [ ] Work through rows where `vetted` is blank
-- [ ] For each: click the column F link, confirm or correct, type Y in column I
-- [ ] Correct any misspellings in column C as you go
-- [ ] Send the sheet back to Max when you're ready for another round (or when done)
+The matching process searches FactGrid by string, which means it can find the
+right name but the wrong place. All known examples were correctly flagged
+`stripped qualifier — VERIFY`, but they show why those rows need a look:
+
+- **"Burlington, Vermont"** matched Burlington in Iowa
+- **"Durham, NC"** matched County Durham, England
+- **"Eugene, OR"** matched Eugene as a given name
+
+I have no known silent false positives among `auto` rows, but can't guarantee
+there aren't any — so if something catches your eye there, please do correct it.
+
+---
+
+## Updates and iteration
+
+I can do another iteration of this script, maybe if I learn better ways to
+do this, maybe if new objects were added to FG. Rows marked `Y` won't be touched.

@@ -21,6 +21,7 @@ Usage:
                       skip_col='vetted', skip_value='Y')
 """
 
+import copy
 import csv
 import re
 import time
@@ -246,6 +247,8 @@ class SheetSync:
 
         # ---- Write new column headers if needed ----
         if new_cols:
+            # Expand the grid before writing beyond the current column boundary.
+            _api_call(ws.resize, rows=ws.row_count, cols=len(sheet_header))
             header_updates = [{
                 'range': f'{_col_letter(sheet_header.index(c) + 1)}1',
                 'values': [[c]],
@@ -314,17 +317,25 @@ class SheetSync:
 
 
 def _api_call(fn, *args, **kwargs):
-    """Throttle then call a gspread API function, retrying on 429."""
+    """Throttle then call a gspread API function, retrying on 429.
+
+    gspread.Worksheet.batch_update mutates its input dicts in-place (it
+    prepends the sheet name to each range string).  Deep-copying args before
+    every attempt ensures retries receive clean, unmutated data.
+    """
     global _last_call_time
     elapsed = time.time() - _last_call_time
     if elapsed < _MIN_CALL_INTERVAL:
         time.sleep(_MIN_CALL_INTERVAL - elapsed)
 
+    # Snapshot args before any mutation so each retry starts from the same state.
+    original_args = copy.deepcopy(args)
+
     backoff = _INITIAL_BACKOFF
     for attempt in range(_MAX_RETRIES):
         _last_call_time = time.time()
         try:
-            return fn(*args, **kwargs)
+            return fn(*copy.deepcopy(original_args), **kwargs)
         except gspread.exceptions.APIError as e:
             status = getattr(getattr(e, 'response', None), 'status_code', None)
             if status == 429 and attempt < _MAX_RETRIES - 1:

@@ -152,7 +152,7 @@ def main():
             if existing_qid:
                 row['P241 Qid']   = qid_to_hyperlink(existing_qid)
                 row['auto_match'] = ''
-                row['vetted']     = row.get('vetted', '').strip() or 'Y'
+                row['vetted']     = row.get('vetted', '').strip()
                 _hyperlink_bare_qids(row)
                 out_rows.append(row)
                 unchanged += 1
