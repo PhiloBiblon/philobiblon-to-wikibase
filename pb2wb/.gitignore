@@ -1,5 +1,6 @@
 .env
 __pycache__
-test*.py
 common/wi-conf
 .idea/**
+*service-account*.json
+*credentials*.json
