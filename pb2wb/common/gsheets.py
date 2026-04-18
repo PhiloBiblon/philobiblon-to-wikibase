@@ -266,7 +266,7 @@ class SheetSync:
         compound_groups.sort(key=lambda x: -x[0][-1][0])  # desc last row num
 
         for sheet_entries, local_group in tqdm(
-            compound_groups, desc='Compounds', unit='group', disable=not compound_groups
+            compound_groups, desc='Compounds', unit='group', leave=True, disable=not compound_groups
         ):
             n_sheet  = len(sheet_entries)
             n_local  = len(local_group)
@@ -350,7 +350,7 @@ def _api_call(fn, *args, **kwargs):
 def _batch(ws, updates, desc=None):
     """Send updates in chunks, retrying each chunk on 429."""
     chunks = range(0, len(updates), _BATCH_SIZE)
-    bar = tqdm(chunks, desc=desc, unit='batch', leave=False) if desc else chunks
+    bar = tqdm(chunks, desc=desc, unit='batch', leave=True) if desc else chunks
     for i in bar:
         _api_call(
             ws.batch_update,
