@@ -19,6 +19,7 @@ import os
 import sys
 import re
 import csv
+import json
 import argparse
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -33,9 +34,11 @@ from prop_migration.generate_basis_mapping import (
     vetted_value,
 )
 
-PARSED_TSV   = 'prop_migration/P721-parsed.tsv'
-OUT_TSV      = 'prop_migration/P721-P129-seed.tsv'
-XLSX_DEFAULT = 'prop_migration/Reference sources.xlsx'
+PARSED_TSV          = 'prop_migration/P721-parsed.tsv'
+OUT_TSV             = 'prop_migration/P721-P129-seed.tsv'
+XLSX_DEFAULT        = 'prop_migration/Reference sources.xlsx'
+CHECKPOINT_DEFAULT  = 'prop_migration/lookup_checkpoint.json'
+CHECKPOINT_EVERY    = 500
 
 _QID_RE = re.compile(r'Q\d+')
 
@@ -126,6 +129,10 @@ def main():
                             help=f'Legacy xlsx for QID pre-seeding (default: {XLSX_DEFAULT})')
     xlsx_group.add_argument('--no-xlsx', dest='xlsx', action='store_const', const=None,
                             help='Skip legacy xlsx seeding')
+    parser.add_argument('--checkpoint', default=CHECKPOINT_DEFAULT,
+                        help=f'Checkpoint JSON for resuming interrupted runs (default: {CHECKPOINT_DEFAULT})')
+    parser.add_argument('--checkpoint-every', type=int, default=CHECKPOINT_EVERY,
+                        help=f'Save checkpoint every N keys (default: {CHECKPOINT_EVERY})')
     args = parser.parse_args()
 
     if not os.path.exists(args.parsed):
@@ -161,11 +168,22 @@ def main():
         print('(dry-run: no API calls made, no output written)')
         return
 
-    # --- Build key → (qid, label, match_type) map ---
+    # --- Load checkpoint if present ---
+    checkpoint_path = args.checkpoint
     key_map = {}
+    if os.path.exists(checkpoint_path):
+        with open(checkpoint_path, encoding='utf-8') as f:
+            raw = json.load(f)
+        key_map = {k: tuple(v) for k, v in raw.items()}
+        print(f'Resumed from checkpoint: {len(key_map)} keys already done '
+              f'({checkpoint_path})')
+
+    # --- Build key → (qid, label, match_type) map ---
     matched = legacy = 0
-    with tqdm(unique_keys, unit='key') as bar:
-        for key in bar:
+    keys_to_do = [k for k in unique_keys if k not in key_map]
+    print(f'  keys to search: {len(keys_to_do)}  (skipping {len(unique_keys) - len(keys_to_do)} from checkpoint)')
+    with tqdm(keys_to_do, unit='key') as bar:
+        for i, key in enumerate(bar, start=1):
             if key in legacy_map:
                 key_map[key] = (legacy_map[key], '', 'legacy')
                 legacy += 1
@@ -179,6 +197,9 @@ def main():
                     mtype = ''  # resolved per-row below (llm_pending vs none)
                 key_map[key] = (qid, label, mtype)
             bar.set_postfix(matched=matched, legacy=legacy)
+            if i % args.checkpoint_every == 0:
+                with open(checkpoint_path, 'w', encoding='utf-8') as f:
+                    json.dump({k: list(v) for k, v in key_map.items()}, f)
 
     # --- Assemble output rows ---
     out_rows = []
@@ -192,7 +213,13 @@ def main():
     for r in to_search:
         qid, label, mtype = key_map.get(r['key'], ('', '', ''))
         if not qid and not mtype:
-            mtype = 'llm_pending' if r.get('parse_pattern') == 'raw' else 'none'
+            pp = r.get('parse_pattern', '')
+            if pp == 'raw':
+                mtype = 'llm_pending'
+            elif pp == 'shelfmark':
+                mtype = 'shelfmark'
+            else:
+                mtype = 'none'
         out_rows.append(out_row(r['freq'], r['basis'], r['key'],
                                 r['loc'], r['loc_type'], mtype, qid, label,
                                 vetted=vetted_value(mtype),
@@ -205,6 +232,10 @@ def main():
         writer = csv.DictWriter(f, fieldnames=OUT_COLUMNS, delimiter='\t')
         writer.writeheader()
         writer.writerows(out_rows)
+
+    if os.path.exists(checkpoint_path):
+        os.remove(checkpoint_path)
+        print(f'Checkpoint removed: {checkpoint_path}')
 
     from collections import Counter
     mc = Counter(r['match_type'] for r in out_rows)

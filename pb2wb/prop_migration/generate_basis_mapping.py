@@ -359,25 +359,30 @@ def _fetch_bibid_qids(qids):
     Given a list of QIDs, return the subset that have a PhiloBiblon BIBID alias
     (BETA/BITAGAP/BITECA bibid <number>) in any language.
     Makes one wbgetentities call for all QIDs.
+    Returns frozenset() on any network error.
     """
     if not qids:
         return frozenset()
-    resp = _SESSION.get(FG['MEDIAWIKI_API_URL'], params={
-        'action': 'wbgetentities',
-        'ids': '|'.join(qids),
-        'props': 'aliases',
-        'format': 'json',
-    }, timeout=15)
-    resp.raise_for_status()
-    entities = resp.json().get('entities', {})
-    found = set()
-    for qid, entity in entities.items():
-        for lang_aliases in entity.get('aliases', {}).values():
-            for alias in lang_aliases:
-                if _BIBID_RE.match(alias.get('value', '')):
-                    found.add(qid)
-                    break
-    return frozenset(found)
+    try:
+        resp = _SESSION.get(FG['MEDIAWIKI_API_URL'], params={
+            'action': 'wbgetentities',
+            'ids': '|'.join(qids),
+            'props': 'aliases',
+            'format': 'json',
+        }, timeout=15)
+        resp.raise_for_status()
+        entities = resp.json().get('entities', {})
+        found = set()
+        for qid, entity in entities.items():
+            for lang_aliases in entity.get('aliases', {}).values():
+                for alias in lang_aliases:
+                    if _BIBID_RE.match(alias.get('value', '')):
+                        found.add(qid)
+                        break
+        return frozenset(found)
+    except requests.RequestException as e:
+        print(f'\nWarning: wbgetentities error ({e}) — skipping BIBID disambiguation')
+        return frozenset()
 
 
 def _pick_best_result(results, value, ref_qids=frozenset()):
@@ -440,16 +445,20 @@ def api_search_one(value):
     makes a second wbgetentities call to check for PhiloBiblon BIBID aliases
     and prefers reference-source items over person/place items.
     """
-    resp = _SESSION.get(FG['MEDIAWIKI_API_URL'], params={
-        'action': 'wbsearchentities',
-        'search': value,
-        'language': 'en',
-        'type': 'item',
-        'limit': 5,
-        'format': 'json',
-    }, timeout=10)
-    resp.raise_for_status()
-    results = resp.json().get('search', [])
+    try:
+        resp = _SESSION.get(FG['MEDIAWIKI_API_URL'], params={
+            'action': 'wbsearchentities',
+            'search': value,
+            'language': 'en',
+            'type': 'item',
+            'limit': 5,
+            'format': 'json',
+        }, timeout=10)
+        resp.raise_for_status()
+        results = resp.json().get('search', [])
+    except requests.RequestException as e:
+        print(f'\nWarning: API error for {value!r}: {e}')
+        return '', '', '', ''
     if not results:
         return '', '', '', ''
 
@@ -712,7 +721,12 @@ def main():
     for r, pp in to_search:
         qid, label, mtype = key_map.get(pp['key'], ('', '', ''))
         if not qid and not mtype:
-            mtype = 'llm_pending' if pp['parse_pattern'] == 'raw' else 'none'
+            if pp['parse_pattern'] == 'raw':
+                mtype = 'llm_pending'
+            elif pp['parse_pattern'] == 'shelfmark':
+                mtype = 'shelfmark'
+            else:
+                mtype = 'none'
         out_rows.append(out_row(r.get('freq', ''), pp['basis'], pp['key'],
                                 pp['loc'], pp['loc_type'], mtype, qid, label,
                                 vetted=vetted_value(mtype),

@@ -81,6 +81,25 @@ class SheetSync:
     # pull
     # ------------------------------------------------------------------
 
+    def seed(self, worksheet_name, local_tsv_path):
+        """
+        Write all rows from a local TSV to worksheet, replacing existing content.
+        Use once for initial upload; use push() for subsequent iterative updates.
+        Returns the number of data rows written (excluding header).
+        """
+        ws = self._ws(worksheet_name)
+        with open(local_tsv_path, encoding='utf-8') as f:
+            rows = list(csv.reader(f, delimiter='\t'))
+        if not rows:
+            raise ValueError(f'Local TSV {local_tsv_path!r} is empty')
+        print(f'  Clearing worksheet...', end=' ', flush=True)
+        _api_call(ws.clear)
+        print('done')
+        print(f'  Writing {len(rows)} rows...', end=' ', flush=True)
+        _api_call(ws.update, 'A1', rows, value_input_option='USER_ENTERED')
+        print('done')
+        return len(rows) - 1
+
     def pull(self, worksheet_name, output_path):
         """
         Read all rows from worksheet and write to a local TSV file.
