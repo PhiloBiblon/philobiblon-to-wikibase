@@ -1,8 +1,22 @@
+import time
+
 from wikibaseintegrator import WikibaseIntegrator, wbi_login
 from wikibaseintegrator.wbi_config import config as wbi_config
 from wikibaseintegrator import wbi_helpers
+from wikibaseintegrator.datatypes import Item as WBItem
+from wikibaseintegrator.models import Claim
 from common.settings import BASE_IMPORT_OBJECTS, TEMP_DICT
 from wikibaseintegrator.wbi_exceptions import MWApiError
+
+_WRITE_DELAY = 0.5   # seconds between write calls
+
+
+def _find_claim_by_guid(item, guid):
+    """Return the Claim whose .id matches guid, or raise KeyError."""
+    for claim in item.claims:
+        if claim.id == guid:
+            return claim
+    raise KeyError(f'Statement GUID {guid!r} not found on item {item.id}')
 
 # FactGrid properties
 PROPERTY_INSTANCE_OF='P2'
@@ -128,6 +142,110 @@ class WBManager():
       return self.wbi.property.get(results['results']['bindings'][0]['p']['value'].split('/')[-1])
     else:
       return None
+
+  # ------------------------------------------------------------------
+  # Statement-level mutation methods (P721 → P129 migration)
+  # ------------------------------------------------------------------
+
+  def get_statements_with_qualifier(self, item_id, qualifier_property, qualifier_value):
+    """
+    Return a list of (guid, claim) pairs for all statements on item_id
+    that have a qualifier qualifier_property whose string value equals
+    qualifier_value.
+
+    Parameters
+    ----------
+    item_id           : str  e.g. 'Q1234'
+    qualifier_property: str  e.g. 'P721'
+    qualifier_value   : str  exact string to match
+
+    Returns
+    -------
+    list of (guid: str, claim: Claim)
+    """
+    item = self.wbi.item.get(item_id)
+    matches = []
+    for claim in item.claims:
+      snaks = claim.qualifiers.get(qualifier_property) or []
+      for snak in snaks:
+        dv = snak.datavalue
+        value = dv.get('value') if isinstance(dv, dict) else None
+        if value == qualifier_value:
+          matches.append((claim.id, claim))
+          break
+    return matches
+
+  def add_reference_to_statement(self, item_id, statement_guid, ref_property, ref_qid):
+    """
+    Add an item-valued reference to an existing statement.
+
+    Fetches item_id, locates the statement by GUID, appends a reference
+    with ref_property → ref_qid, and writes the item back.
+
+    Parameters
+    ----------
+    item_id         : str  e.g. 'Q1234'
+    statement_guid  : str  e.g. 'Q1234$abc-def-...'
+    ref_property    : str  e.g. 'P129'
+    ref_qid         : str  e.g. 'Q5678'
+
+    Raises
+    ------
+    KeyError    if statement_guid not found on item
+    MWApiError  on write failure
+    """
+    item  = self.wbi.item.get(item_id)
+    claim = _find_claim_by_guid(item, statement_guid)
+
+    ref_claim = WBItem(value=ref_qid, prop_nr=ref_property)
+    claim.references.add(ref_claim)
+
+    time.sleep(_WRITE_DELAY)
+    item.write()
+
+  def remove_qualifier_from_statement(self, item_id, statement_guid,
+                                      qualifier_property, qualifier_value):
+    """
+    Remove a string-valued qualifier from an existing statement.
+
+    Fetches item_id, locates the statement by GUID, removes the first
+    qualifier on qualifier_property whose string value equals
+    qualifier_value, and writes the item back.
+
+    Parameters
+    ----------
+    item_id            : str  e.g. 'Q1234'
+    statement_guid     : str  e.g. 'Q1234$abc-def-...'
+    qualifier_property : str  e.g. 'P721'
+    qualifier_value    : str  exact string value to remove
+
+    Raises
+    ------
+    KeyError    if statement_guid not found, or qualifier not present
+    MWApiError  on write failure
+    """
+    item  = self.wbi.item.get(item_id)
+    claim = _find_claim_by_guid(item, statement_guid)
+
+    snaks = claim.qualifiers.get(qualifier_property) or []
+    target = None
+    for snak in snaks:
+      dv = snak.datavalue
+      value = dv.get('value') if isinstance(dv, dict) else None
+      if value == qualifier_value:
+        target = snak
+        break
+
+    if target is None:
+      raise KeyError(
+        f'Qualifier {qualifier_property}="{qualifier_value}" not found '
+        f'on statement {statement_guid}'
+      )
+
+    claim.qualifiers.remove(target)
+
+    time.sleep(_WRITE_DELAY)
+    item.write()
 
   # run an SPARQL query
   def runSparQlQuery(self, query):
