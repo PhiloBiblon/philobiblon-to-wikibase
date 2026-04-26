@@ -20,12 +20,13 @@ Pre-processing pipeline (applied in order after HTML stripping):
   raw           — no pattern matched; key = whole string
 
 loc_type is inferred from the loc component (or returned directly by the LLM):
-  page     — plain page number or range
-  folio    — e.g. "93v", "f. 3r"
-  footnote — e.g. "27n"
-  volume   — roman numeral or volume:page reference
+  page      — plain page number or range
+  folio     — e.g. "93v", "f. 3r"
+  footnote  — e.g. "27n"
+  volume    — roman numeral or volume:page reference
+  annotation — catalog annotation term (ex-libris, sello); key=catalog prefix, loc=term
   llm_guess — LLM saw something locator-like but could not classify it
-  ''       — no locator
+  ''        — no locator
 
 match_type values in output:
   vetted       — row was already vetted (Y) in the sheet; passed through
@@ -113,6 +114,34 @@ EXCLUDED_PATTERNS = [
 
 # Compound references: two sources separated by " / "
 COMPOUND_RE = re.compile(r'\s/\s')
+
+# Catalog annotations: "PREFIX: TERM" where TERM is a known annotation word.
+# Examples: "BNE Cat.: sello", "BNE Cat.: ex-libris", "IBIS: ex-libris"
+# key → catalog prefix (looked up for P129 QID), loc → annotation term (P700 qualifier)
+_ANNOTATION_TERMS = frozenset({
+    'ex-libris', 'ex libris', 'ex-libris ms', 'ex-libris mss',
+    'sello', 'sellos', 'timbre',
+})
+# QIDs for P700 qualifier values (annotation term → QID)
+ANNOTATION_QIDS = {
+    'ex-libris':     'Q418813',
+    'ex libris':     'Q418813',
+    'ex-libris ms':  'Q418813',
+    'ex-libris mss': 'Q418813',
+    'sello':         'Q394152',
+    'sellos':        'Q394152',
+}
+_COLON_SPLIT_RE = re.compile(r'^(.+?)\s*:\s*(.+)$')
+
+def _catalog_annotation_split(basis):
+    """Return (prefix, annotation) if basis is 'PREFIX: known-term', else None."""
+    m = _COLON_SPLIT_RE.match(basis)
+    if not m:
+        return None
+    annotation = m.group(2).strip().lower()
+    if annotation in _ANNOTATION_TERMS:
+        return m.group(1).strip(), annotation
+    return None
 
 # Shelfmarks: slash not surrounded by spaces (e.g. BNE MSS/7811, Frankfurt a/M: …)
 SHELFMARK_RE = re.compile(r'(?<! )/|/(?! )')
@@ -253,8 +282,8 @@ def preprocess(raw):
       loc           — locator/page component
       loc_type      — '', 'page', 'folio', 'footnote', 'volume', 'llm_guess'
       preproc_type  — '', 'excluded', 'compound'
-      parse_pattern — rule that fired: 'bnm_norm', 'dhee', 'auth_year_loc',
-                      'roman_vol', 'roman_lower', 'auth_year', 'raw'
+      parse_pattern — rule that fired: 'bnm_norm', 'catalog_annotation', 'dhee',
+                      'auth_year_loc', 'roman_vol', 'roman_lower', 'auth_year', 'raw'
     """
     basis = strip_html(raw)
 
@@ -268,6 +297,11 @@ def preprocess(raw):
     if bnm:
         key, loc, loc_type = bnm
         return _pp(basis, key, loc, loc_type, '', 'bnm_norm')
+
+    ann = _catalog_annotation_split(basis)
+    if ann:
+        prefix, annotation = ann
+        return _pp(basis, prefix, annotation, 'annotation', '', 'catalog_annotation')
 
     m = DHEE_RE.match(basis)
     if m:
@@ -646,7 +680,7 @@ def _load_env():
             return
 
 
-_DEFAULT_LLM_MODEL = 'gemini/gemini-2.0-flash'
+_DEFAULT_LLM_MODEL = 'anthropic/claude-sonnet-4-6'
 
 # Map litellm model prefix → env var that must be set.
 # litellm reads these automatically once they're in the environment.
@@ -660,6 +694,10 @@ _MODEL_KEY_ENV = {
 def _check_llm_env(model):
     """Load .qs_env and verify the required API key is present. Exits on failure."""
     _load_env()
+    if model.startswith('anthropic/') and 'haiku' in model.lower():
+        print(f'Warning: prompt caching will not work with {model!r} — Haiku requires '
+              f'≥4,096 tokens to cache but this prompt is ~1,066 tokens. '
+              f'Use anthropic/claude-sonnet-4-6 instead.')
     for prefix, env_var in _MODEL_KEY_ENV.items():
         if model.startswith(prefix):
             if env_var and not os.environ.get(env_var):
@@ -880,6 +918,33 @@ def _load_known_qids(path=KNOWN_QIDS):
     return known
 
 
+def _promote_vetted_keys(key_corrections, path=KNOWN_QIDS):
+    """
+    Append key_corrections entries not already in known_qids.tsv, then return
+    the merged dict {key: (qid, label, 'known')} for use as key_map seed.
+
+    This makes known_qids.tsv the single source of truth: vetted sheet rows
+    are promoted into it automatically so key_corrections never needs a separate
+    lookup chain.
+    """
+    existing = _load_known_qids(path)
+    new_entries = [
+        (k, qid, label)
+        for k, (qid, label) in key_corrections.items()
+        if k not in existing
+    ]
+    if new_entries:
+        with open(path, 'a', encoding='utf-8', newline='') as f:
+            writer = csv.writer(f, delimiter='\t')
+            for key, qid, label in new_entries:
+                writer.writerow([key, qid, label, 'promoted from vetted sheet rows'])
+        print(f'  Promoted {len(new_entries)} vetted keys → {path}')
+    merged = dict(existing)
+    for key, qid, label in new_entries:
+        merged[key] = (qid, label, 'known')
+    return merged
+
+
 def _build_key_corrections(vetted_rows):
     """
     Build a key → (qid, label) map from vetted sheet rows.
@@ -1056,8 +1121,12 @@ def main():
         print('(dry-run: no API calls made, no output written)')
         return
 
+    # Pre-populate key_map before dedup: known_qids.tsv is the single source of truth.
+    # Vetted sheet keys not yet in the file are promoted into it automatically.
+    key_map: dict = dict(_promote_vetted_keys(key_corrections))
+    print(f'  known QIDs: {len(key_map)} entries in {KNOWN_QIDS}')
+
     # --- Deduplicate keys, preserving frequency order ---
-    # Skip keys that have a direct QID from charles_gold or key_corrections.
     seen_keys: set = set()
     unique_keys = []
     key_to_pattern: dict = {}
@@ -1077,15 +1146,6 @@ def main():
     else:
         print(f'  unique keys: {len(unique_keys)}  '
               f'(dedup saves {len(to_search) - len(unique_keys)} API calls)')
-
-    # Pre-populate key_map: known QIDs → key_corrections → API cache/search (priority order)
-    known_qids = _load_known_qids()
-    if known_qids:
-        print(f'  known QIDs: {len(known_qids)} entries loaded from {KNOWN_QIDS}')
-    key_map: dict = {k: v for k, v in known_qids.items()}
-    for k, (qid, label) in key_corrections.items():
-        if k not in key_map:
-            key_map[k] = (qid, label, 'key_vetted')
 
     # --- API lookup: one call per unique key ---
     api_cache = _load_api_ckpt(API_CKPT)
