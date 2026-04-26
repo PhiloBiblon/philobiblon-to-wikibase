@@ -4,7 +4,7 @@ generate_basis_mapping.py — iterative search pass for P721 basis/reference mig
 Reads the pulled Google Sheet TSV (P721-P129.tsv), re-processes all rows where
 vetted is blank, and writes a candidates TSV for review/merge.
 
-Rows already marked vetted (Y or auto) are passed through unchanged.
+Rows already marked vetted (Y) are passed through unchanged.
 Rows where vetted is blank are re-preprocessed from the basis string and
 re-searched via the wbsearchentities API.  This means Charles's or Max's
 corrections to the basis column are automatically picked up on re-run.
@@ -15,16 +15,20 @@ Pre-processing pipeline (applied in order after HTML stripping):
   dhee          — "DHEE <loc>" → key=DHEE, loc=<loc>
   auth_year_loc — "Author 1997:60" → key="Author 1997", loc="60"
   roman_vol     — "Author I:286" → key="Author", loc="I:286"
+  roman_lower   — "Azáceta xxii" → key="Azáceta", loc="xxii"
   auth_year     — "Author 2006" → key="Author 2006", loc=""
   raw           — no pattern matched; key = whole string
 
-loc_type is inferred from the loc component:
+loc_type is inferred from the loc component (or returned directly by the LLM):
+  page     — plain page number or range
   folio    — e.g. "93v", "f. 3r"
   footnote — e.g. "27n"
-  ''       — plain page number or unrecognised
+  volume   — roman numeral or volume:page reference
+  llm_guess — LLM saw something locator-like but could not classify it
+  ''       — no locator
 
 match_type values in output:
-  vetted       — row was already vetted (Y/auto) in the sheet; passed through
+  vetted       — row was already vetted (Y) in the sheet; passed through
   excluded     — non-reference string, not searched
   compound     — contains ' / ', needs manual handling
   api_label    — exact label match via wbsearchentities
@@ -41,11 +45,13 @@ Usage (from pb2wb/):
     python prop_migration/generate_basis_mapping.py --out prop_migration/basis_candidates.tsv
 """
 
+import hashlib
 import os
 import sys
 import re
 import csv
 import argparse
+import time
 import unicodedata
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -58,14 +64,29 @@ from common.settings import BASE_IMPORT_OBJECTS
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
 
-SHEET_TSV = 'prop_migration/P721-P129.tsv'
-OUT_TSV   = 'prop_migration/basis_candidates.tsv'
+SHEET_TSV   = 'prop_migration/P721-P129.tsv'
+OUT_TSV     = 'prop_migration/basis_candidates.tsv'
+GOLD_SEED   = 'prop_migration/reference_source.gold_seed.tsv'
+KNOWN_QIDS  = 'prop_migration/known_qids.tsv'
+_LLM_CKPT_DIR = 'prop_migration'
+API_CKPT      = 'prop_migration/.api_ckpt.tsv'
+
+
+def _llm_ckpt_paths(model):
+    """Return (tsv_path, meta_path) for the given model+prompt combination.
+
+    Both model name and a short prompt hash are embedded in the filename so
+    that changing either produces a new, separate cache file.
+    """
+    slug  = re.sub(r'[^a-zA-Z0-9._-]', '-', model.split('/')[-1])
+    phash = _cache_key(model)[:6]
+    base  = f'{_LLM_CKPT_DIR}/.llm_ckpt.{slug}.{phash}'
+    return base + '.tsv', base + '.meta'
 
 OUT_COLUMNS = [
     'freq', 'basis', 'key',
     'match_type', 'qid', 'label', 'vetted',
     'loc', 'loc_type',
-    'col_folio', 'col_page', 'col_volume', 'col_date', 'col_footnote', 'col_literal',
 ]
 
 # Strings that are not bibliographic references and should be excluded.
@@ -96,6 +117,45 @@ COMPOUND_RE = re.compile(r'\s/\s')
 # Shelfmarks: slash not surrounded by spaces (e.g. BNE MSS/7811, Frankfurt a/M: …)
 SHELFMARK_RE = re.compile(r'(?<! )/|/(?! )')
 
+# BNM / bare-BNE shelfmarks → normalise to BNE MSS/ or BNE R/ canonical form.
+# Examples: BNM 12688 → BNE MSS/12688, BNM R 4277 → BNE R/4277,
+#           BNM Res. 151 → BNE Res./151, BNE 11277 → BNE MSS/11277
+# An optional trailing locator (folio, page) is captured separately.
+_BNM_RE = re.compile(
+    r'^(?:BNM|BNE)\s+'                     # prefix
+    r'(R|Res\.|MS|MSS|I)?\s*'              # optional section code
+    r'(\d[\d/]*(?:\.\d+)?)'                # shelfmark number (may include /)
+    r'(?:\s+(.+))?$',                       # optional trailing locator
+    re.IGNORECASE,
+)
+
+def _bnm_normalise(basis):
+    """
+    Return (key, loc, loc_type) for a BNM/BNE shelfmark string, or None if no match.
+    Normalises BNM → BNE and adds MSS/ where no section code is present.
+    """
+    m = _BNM_RE.match(basis)
+    if not m:
+        return None
+    section = (m.group(1) or '').upper().rstrip('.')
+    number  = m.group(2)
+    trailer = (m.group(3) or '').strip()
+
+    if section in ('R',):
+        key = f'BNE R/{number}'
+    elif section in ('RES', 'RES.'):
+        key = f'BNE Res./{number}'
+    elif section in ('MS', 'MSS'):
+        key = f'BNE MSS/{number}'
+    elif section == 'I':
+        key = f'BNE {section}/{number}'
+    else:
+        key = f'BNE MSS/{number}'
+
+    loc      = trailer
+    loc_type = detect_loc_type(loc)
+    return key, loc, loc_type
+
 # DHEE followed by a locator (looks like a year but is a page number)
 DHEE_RE = re.compile(r'^DHEE\s+(\S+)\s*$', re.IGNORECASE)
 
@@ -105,6 +165,11 @@ AUTH_YEAR_LOC_RE = re.compile(r'^(.+?\s+\d{4}):(.+)$')
 # Roman-numeral volume + arabic page  e.g. "Arteaga I:286"
 # Requires at least one uppercase Roman-numeral letter before the colon.
 ROMAN_VOL_RE = re.compile(r'^(.+?)\s+([IVXLCDM]+:\d+\S*)\s*$')
+
+# Lowercase roman-numeral locator at end, no colon  e.g. "Azáceta xxii", "Penna ciii"
+# The last token must consist entirely of lowercase roman-numeral characters.
+# Placed after ROMAN_VOL_RE (uppercase+colon takes priority).
+ROMAN_LOWER_RE = re.compile(r'^(.+?)\s+([ivxlcdm]+)$')
 
 # Author + year (plain, range, or parenthesised) with no locator after a colon.
 # Matches: "Hernández 2006", "Dutton 1990-91", "Faria (2021)",
@@ -128,12 +193,8 @@ FOOTNOTE_LOC_RE = re.compile(r'^\d+n$')
 # Volume:page locator in loc, e.g. "I:286", "XIV:45", "4:60"
 _VOL_PAGE_RE = re.compile(r'^([IVXLCDMivxlcdm]+|\d+):(.+)$')
 
-# Page-like content: digits, ranges, comma-separated — but not free text
-_PAGE_LIKE_RE = re.compile(r'^\d[\d\s,\-–]*$')
-
-# Four-digit year bounds for col_date
-_YEAR_RE = re.compile(r'^(\d{4})$')
-_YEAR_MIN, _YEAR_MAX = 1500, 2100
+# Trailing plain year (not already in parens) for auth_year fallback search
+_AUTH_YEAR_TAIL_RE = re.compile(r'^(.+?)\s+(\d{4}(?:-\d{2,4})?)$')
 
 # PhiloBiblon bibliographic-ID alias pattern: "BETA bibid 1234"
 _BIBID_RE = re.compile(r'^(BETA|BITAGAP|BITECA)\s+bibid\s+\d+', re.IGNORECASE)
@@ -165,51 +226,21 @@ def is_excluded(s):
 
 
 def detect_loc_type(loc):
-    """Infer the type of a locator string: 'folio', 'footnote', 'page', or ''."""
+    """
+    Infer the type of a locator string.
+
+    Returns one of: 'folio', 'footnote', 'volume', 'page', or '' (no locator).
+    'llm_guess' is also a valid value, set by the LLM when uncertain.
+    """
     if not loc:
         return ''
     if FOOTNOTE_LOC_RE.match(loc):
         return 'footnote'
     if FOLIO_LOC_RE.match(loc):
         return 'folio'
+    if _VOL_PAGE_RE.match(loc):
+        return 'volume'
     return 'page'
-
-
-def parse_loc_columns(loc, loc_type, parse_pattern=''):
-    """
-    Decompose loc + loc_type into typed col_ fields for the FactGrid reference block.
-    Returns a dict with keys: col_folio, col_page, col_volume, col_date,
-    col_footnote, col_literal.
-
-    parse_pattern='dhee' forces the locator into col_page regardless of whether
-    it looks like a year — DHEE locators are page numbers, not publication dates.
-    """
-    result = {
-        'col_folio': '', 'col_page': '', 'col_volume': '',
-        'col_date': '', 'col_footnote': '', 'col_literal': '',
-    }
-    if not loc:
-        return result
-    if loc_type == 'folio':
-        result['col_folio'] = loc
-    elif loc_type == 'footnote':
-        result['col_footnote'] = loc
-    elif loc_type == 'page':
-        m = _YEAR_RE.match(loc)
-        if m and _YEAR_MIN <= int(m.group(1)) <= _YEAR_MAX and parse_pattern != 'dhee':
-            result['col_date'] = loc
-        else:
-            m = _VOL_PAGE_RE.match(loc)
-            if m:
-                result['col_volume'] = m.group(1)
-                result['col_page'] = m.group(2)
-            elif _PAGE_LIKE_RE.match(loc):
-                result['col_page'] = loc
-            else:
-                result['col_literal'] = loc
-    else:
-        result['col_literal'] = loc
-    return result
 
 
 def preprocess(raw):
@@ -220,10 +251,10 @@ def preprocess(raw):
       basis         — HTML-stripped string
       key           — searchable component (sent to wbsearchentities)
       loc           — locator/page component
-      loc_type      — '', 'folio', 'footnote'
+      loc_type      — '', 'page', 'folio', 'footnote', 'volume', 'llm_guess'
       preproc_type  — '', 'excluded', 'compound'
-      parse_pattern — rule that fired: 'dhee', 'auth_year_loc', 'roman_vol',
-                      'auth_year', 'raw'
+      parse_pattern — rule that fired: 'bnm_norm', 'dhee', 'auth_year_loc',
+                      'roman_vol', 'roman_lower', 'auth_year', 'raw'
     """
     basis = strip_html(raw)
 
@@ -232,6 +263,11 @@ def preprocess(raw):
 
     if COMPOUND_RE.search(basis):
         return _pp(basis, basis, '', '', 'compound', 'raw')
+
+    bnm = _bnm_normalise(basis)
+    if bnm:
+        key, loc, loc_type = bnm
+        return _pp(basis, key, loc, loc_type, '', 'bnm_norm')
 
     m = DHEE_RE.match(basis)
     if m:
@@ -249,6 +285,12 @@ def preprocess(raw):
         key = m.group(1).strip()
         loc = m.group(2).strip()
         return _pp(basis, key, loc, detect_loc_type(loc), '', 'roman_vol')
+
+    m = ROMAN_LOWER_RE.match(basis)
+    if m:
+        key = m.group(1).strip()
+        loc = m.group(2).strip()
+        return _pp(basis, key, loc, detect_loc_type(loc), '', 'roman_lower')
 
     if AUTH_YEAR_RE.match(basis):
         return _pp(basis, basis.strip(), '', '', '', 'auth_year')
@@ -284,7 +326,7 @@ def load_sheet(path, refresh=False):
     """
     Read the sheet TSV and return three lists:
 
-      vetted_rows   — vetted=Y/auto with qid; output as match_type='vetted'
+      vetted_rows   — vetted=Y with qid; output as match_type='vetted'
       resolved_rows — already searched (match_type set, not llm_pending);
                       passed through with original match_type, no re-search
       pending_rows  — llm_pending or no match_type yet; (re-)preprocessed
@@ -309,9 +351,9 @@ def load_sheet(path, refresh=False):
             match_type = row.get('match_type', '').strip() if has_match_type else ''
             qid        = extract_qid(row.get('qid', ''))
 
-            if vetted in ('Y', 'auto') and qid:
+            if vetted == 'Y' and qid:
                 vetted_rows.append(dict(row))
-            elif match_type and match_type != 'llm_pending':
+            elif match_type and match_type not in ('llm_pending', 'compound', 'legacy'):
                 if refresh and match_type == 'none':
                     pending_rows.append(dict(row))
                 else:
@@ -432,19 +474,17 @@ def _pick_best_result(results, value, ref_qids=frozenset()):
     return '', '', '', ''
 
 
-def api_search_one(value):
+def _auth_year_paren_form(key):
     """
-    Search FactGrid via wbsearchentities.
-    Returns (qid, label, description, subtype) where subtype is:
-      'label'  — matched on primary label, text == value (exact)
-      'alias'  — matched on an alias, text == value (exact)
-      'fuzzy'  — API returned a hit but matched text differs from query
-      ''       — no result
+    Convert 'Author YYYY' or 'Author YYYY-YY' to 'Author (YYYY)' / 'Author (YYYY-YY)'.
+    Returns None if year is already parenthesised or pattern doesn't match.
+    """
+    m = _AUTH_YEAR_TAIL_RE.match(key)
+    return f'{m.group(1)} ({m.group(2)})' if m else None
 
-    Fetches up to 5 candidates. When multiple exact matches are found,
-    makes a second wbgetentities call to check for PhiloBiblon BIBID aliases
-    and prefers reference-source items over person/place items.
-    """
+
+def _wbsearch(value):
+    """Raw wbsearchentities call. Returns list of results or [] on error."""
     try:
         resp = _SESSION.get(FG['MEDIAWIKI_API_URL'], params={
             'action': 'wbsearchentities',
@@ -455,103 +495,258 @@ def api_search_one(value):
             'format': 'json',
         }, timeout=10)
         resp.raise_for_status()
-        results = resp.json().get('search', [])
+        return resp.json().get('search', [])
     except requests.RequestException as e:
         print(f'\nWarning: API error for {value!r}: {e}')
-        return '', '', '', ''
-    if not results:
-        return '', '', '', ''
+        return []
 
-    norm_value = _normalize(value)
-    exact_qids = [
-        r['id'] for r in results
-        if r.get('match', {}).get('type') in ('label', 'alias')
-        and _normalize(r.get('match', {}).get('text', '')) == norm_value
-    ]
-    ref_qids = _fetch_bibid_qids(exact_qids) if len(exact_qids) > 1 else frozenset()
-    return _pick_best_result(results, value, ref_qids)
+
+def api_search_one(value, parse_pattern=''):
+    """
+    Search FactGrid via wbsearchentities.
+    Returns (qid, label, description, subtype) where subtype is:
+      'label'  — exact label match
+      'alias'  — exact alias match
+      'fuzzy'  — API hit but matched text differs from query
+      ''       — no result
+
+    For auth_year keys (e.g. 'Norton 1978') that return no exact match,
+    retries with parenthesised year form ('Norton (1978)') since many FG
+    items have labels like 'Norton (1978), A Descriptive Catalogue...'.
+    """
+    results = _wbsearch(value)
+    if results:
+        norm_value = _normalize(value)
+        exact_qids = [
+            r['id'] for r in results
+            if r.get('match', {}).get('type') in ('label', 'alias')
+            and _normalize(r.get('match', {}).get('text', '')) == norm_value
+        ]
+        ref_qids = _fetch_bibid_qids(exact_qids) if len(exact_qids) > 1 else frozenset()
+        qid, label, desc, subtype = _pick_best_result(results, value, ref_qids)
+        if qid:
+            return qid, label, desc, subtype
+
+    if parse_pattern in ('auth_year', 'llm', 'raw'):
+        # Fallback 1: retry with year in parentheses e.g. "Norton (1978)"
+        paren = _auth_year_paren_form(value)
+        if paren:
+            fb_results = _wbsearch(paren)
+            if fb_results:
+                qid, label, desc, _ = _pick_best_result(fb_results, paren)
+                if qid:
+                    return qid, label, desc, 'fuzzy'
+
+        # Fallback 2: search author name only, filter results containing (YYYY)
+        # Handles compound surnames: "Sáez 2002" → search "Sáez", filter "(2002)"
+        m = _AUTH_YEAR_TAIL_RE.match(value)
+        if m:
+            author, year = m.group(1), m.group(2)[:4]
+            author_results = _wbsearch(author)
+            year_paren = f'({year})'
+            year_matches = [
+                r for r in author_results
+                if year_paren in r.get('label', '')
+                and not _REJECT_DESC_RE.search(r.get('description', ''))
+            ]
+            if year_matches:
+                r = year_matches[0]
+                return r.get('id', ''), r.get('label', ''), r.get('description', ''), 'fuzzy'
+
+    return '', '', '', ''
 
 
 # ---------------------------------------------------------------------------
 # Anthropic API  (prompt caching on system prompt)
 # ---------------------------------------------------------------------------
 
-_ANTHROPIC_SYSTEM_PROMPT = """\
+_LLM_SYSTEM_PROMPT = """\
 You are a citation parser for PhiloBiblon, a bibliography of medieval Iberian texts.
 
 Each input is a raw P721 string — a source/basis citation that has already had HTML
-tags stripped.  Your job is to split it into a searchable KEY and an optional LOCATOR.
+tags stripped.  Your job is to split it into a searchable KEY, an optional LOCATOR,
+and a LOCATOR TYPE.
+
+These strings have already been tested against standard patterns (Author YEAR,
+Author YEAR:LOC, Roman-volume:page, DHEE locator) and did not match.  Treat them
+conservatively — most should have loc="" and loc_type="".
 
 Definitions:
-  key  — the part that identifies the reference work, author, or institution.
-          This is what will be searched in a bibliographic database.
-  loc  — page number, folio, volume+page, or other locator.  Empty string if none.
+  key      — the part that identifies the reference work, author, or institution.
+              This is what will be searched in a bibliographic database.
+  loc      — page number, folio, volume+page, or other locator.  Empty string if none.
+  loc_type — one of: "page", "folio", "footnote", "volume", "llm_guess", or "".
+             Use "" when loc is empty.
+             Use "llm_guess" when you see something that looks like a locator but
+             you cannot confidently classify it as page, folio, footnote, or volume.
 
-Locator patterns (extract these into loc, remove from key):
-  Plain page:      169  /  48-50  /  281, 283
-  Volume+page:     I:48-50  /  XIV:3  /  4:286  (keep colon, keep together in loc)
-  Folio:           93v  /  f. 3r  /  ff. 12v-13r
-  Footnote:        27n  /  14n
-  Year alone:      2004  (only when it appears after the key, separated by space,
-                          and the key already contains a year — otherwise the year
-                          is part of the key)
+Locator types:
+  page:     169  /  48-50  /  281, 283  /  138-40
+  volume:   I:48-50  /  XIV:3  /  4:286  /  x  /  xxii  /  VII:492
+            (roman numerals alone, or roman/arabic with colon)
+  folio:    93v  /  f. 3r  /  ff. 12v-13r  /  244v
+            (digits followed by r or v, optionally preceded by f. or ff.)
+  footnote: 27n  /  14n  /  218n
+            (digits followed by n)
 
 Conservative rules:
-  - When in doubt, put the whole string in key and leave loc empty.
-  - Shelfmarks (e.g. BNE MSS/7811, AHN Clero Aragón 2099) are keys, not locators.
-  - Abbreviations (IGM, DHEE, ACA) are keys.
-  - If the string looks like "Author YEAR" (already handled upstream), echo it unchanged.
+  - When in doubt, put the whole string in key and leave loc and loc_type empty.
+  - Shelfmarks and library call numbers are always keys, not locators
+    (e.g. BNE MSS/7811, AHN Clero Aragón 2099, BNM 12688, esc. h.I.14).
+  - Abbreviations and database names (IGM, DHEE, IBIS, PARES) are keys.
+  - Institution names, catalog titles, and multi-word proper names are keys.
+  - A colon in a string does NOT always mean key:locator — it may be part of
+    a city:institution pattern or a descriptive qualifier; keep the whole string
+    as the key unless there is a clear numeric locator after the colon.
 
 Return exactly one JSON object and nothing else:
-{"key": "...", "loc": "..."}
+{"key": "...", "loc": "...", "loc_type": "..."}
 
 Examples:
-"Faulhaber" → {"key": "Faulhaber", "loc": ""}
-"BNE MSS/7811" → {"key": "BNE MSS/7811", "loc": ""}
-"AHN Clero Aragón 2099" → {"key": "AHN Clero Aragón 2099", "loc": ""}
-"Rodríguez x" → {"key": "Rodríguez", "loc": "x"}
-"Gómez Moreno 1994:138-40" → {"key": "Gómez Moreno 1994", "loc": "138-40"}
-"García de la Concha 1983" → {"key": "García de la Concha 1983", "loc": ""}
-"Arxiu de la Corona d'Aragó" → {"key": "Arxiu de la Corona d'Aragó", "loc": ""}
-"IGM" → {"key": "IGM", "loc": ""}
+"Faulhaber" → {"key": "Faulhaber", "loc": "", "loc_type": ""}
+"BNE MSS/7811" → {"key": "BNE MSS/7811", "loc": "", "loc_type": ""}
+"BNM 12688" → {"key": "BNM 12688", "loc": "", "loc_type": ""}
+"AHN Clero Aragón 2099" → {"key": "AHN Clero Aragón 2099", "loc": "", "loc_type": ""}
+"Frankfurt: UB, lat. oct. 231" → {"key": "Frankfurt: UB, lat. oct. 231", "loc": "", "loc_type": ""}
+"BNE Cat.: sello" → {"key": "BNE Cat.: sello", "loc": "", "loc_type": ""}
+"Gómez Moreno 1994:138-40" → {"key": "Gómez Moreno 1994", "loc": "138-40", "loc_type": "page"}
+"García de la Concha 1983" → {"key": "García de la Concha 1983", "loc": "", "loc_type": ""}
+"Beltrán 1997:27n" → {"key": "Beltrán 1997", "loc": "27n", "loc_type": "footnote"}
+"Simó 1998:74n" → {"key": "Simó 1998", "loc": "74n", "loc_type": "footnote"}
+"RB II/86 f. 93v" → {"key": "RB II/86", "loc": "f. 93v", "loc_type": "folio"}
+"Egerton 292:3r" → {"key": "Egerton 292", "loc": "3r", "loc_type": "folio"}
+"Rodríguez x" → {"key": "Rodríguez", "loc": "x", "loc_type": "volume"}
+"Azáceta xxii" → {"key": "Azáceta", "loc": "xxii", "loc_type": "volume"}
+"Dutton 1991 7:492" → {"key": "Dutton 1991", "loc": "VII:492", "loc_type": "volume"}
+"Lilao et al." → {"key": "Lilao et al.", "loc": "", "loc_type": ""}
+"Arxiu de la Corona d'Aragó" → {"key": "Arxiu de la Corona d'Aragó", "loc": "", "loc_type": ""}
+"IGM" → {"key": "IGM", "loc": "", "loc_type": ""}
+"Morel-Fatio" → {"key": "Morel-Fatio", "loc": "", "loc_type": ""}
+"Alvar & Lucía" → {"key": "Alvar & Lucía", "loc": "", "loc_type": ""}
+"RBME Cat." → {"key": "RBME Cat.", "loc": "", "loc_type": ""}
+"BnF Espagnol 80" → {"key": "BnF Espagnol 80", "loc": "", "loc_type": ""}
+"RAE MS. 68" → {"key": "RAE MS. 68", "loc": "", "loc_type": ""}
+"Índice Salazar y Castro" → {"key": "Índice Salazar y Castro", "loc": "", "loc_type": ""}
+"Llull DB" → {"key": "Llull DB", "loc": "", "loc_type": ""}
+"Ms. Zabálburu" → {"key": "Ms. Zabálburu", "loc": "", "loc_type": ""}
+"BETA bibid 1234" → {"key": "BETA bibid 1234", "loc": "", "loc_type": ""}
+"Avenoza 2001:24n" → {"key": "Avenoza 2001", "loc": "24n", "loc_type": "footnote"}
 """
 
 
-def _make_anthropic_client():
-    """Create Anthropic client. Requires ANTHROPIC_API_KEY env var."""
-    try:
-        import anthropic
-        return anthropic.Anthropic()
-    except (ImportError, Exception):
-        return None
+def _load_env():
+    for fname in ('.qs_env', '.env'):
+        if os.path.exists(fname):
+            with open(fname) as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        k, v = line.split('=', 1)
+                        os.environ.setdefault(k.strip(), v.strip())
+            return
 
 
-def anthropic_parse_citation(basis, client):
+_DEFAULT_LLM_MODEL = 'gemini/gemini-2.0-flash'
+
+# Map litellm model prefix → env var that must be set.
+# litellm reads these automatically once they're in the environment.
+_MODEL_KEY_ENV = {
+    'gemini/':     'GEMINI_API_KEY',
+    'anthropic/':  'ANTHROPIC_API_KEY',
+    'ollama/':     None,   # no key needed for local Ollama
+}
+
+
+def _check_llm_env(model):
+    """Load .qs_env and verify the required API key is present. Exits on failure."""
+    _load_env()
+    for prefix, env_var in _MODEL_KEY_ENV.items():
+        if model.startswith(prefix):
+            if env_var and not os.environ.get(env_var):
+                sys.exit(f'Fatal: {env_var} not set — required for model {model!r}.\n'
+                         f'Add it to .qs_env.')
+            return
+    # Unknown prefix — let litellm handle it; just load env.
+
+
+def parse_citation(basis, model):
     """
-    Parse an ambiguous P721 string using the Anthropic API with prompt caching.
-    Returns {'key': str, 'loc': str, 'loc_type': str} or None on failure.
+    Parse an ambiguous P721 string via litellm.
+    Returns {'key': str, 'loc': str, 'loc_type': str} or None on transient failure.
+    Raises SystemExit on fatal auth/credit errors so the run aborts immediately.
+
+    Supports any litellm model string, e.g.:
+      gemini/gemini-2.0-flash
+      anthropic/claude-haiku-4-5-20251001
+      ollama/llama3
     """
     import json
+
     try:
-        response = client.messages.create(
-            model='claude-haiku-4-5-20251001',
-            max_tokens=128,
-            system=[{
-                'type': 'text',
-                'text': _ANTHROPIC_SYSTEM_PROMPT,
-                'cache_control': {'type': 'ephemeral'},
-            }],
-            messages=[{'role': 'user', 'content': basis}],
-        )
-        text = response.content[0].text.strip()
-        parsed = json.loads(text)
-        key = parsed.get('key', '').strip()
-        loc = parsed.get('loc', '').strip()
+        if model.startswith('anthropic/'):
+            import anthropic as _anthropic
+            model_id = model.split('/', 1)[1]
+            client = _anthropic.Anthropic()
+            response = client.messages.create(
+                model=model_id,
+                max_tokens=256,
+                system=[{
+                    'type': 'text',
+                    'text': _LLM_SYSTEM_PROMPT,
+                    'cache_control': {'type': 'ephemeral'},
+                }],
+                messages=[{'role': 'user', 'content': basis}],
+            )
+            text = response.content[0].text.strip()
+        else:
+            import litellm
+            litellm.suppress_debug_info = True
+            response = litellm.completion(
+                model=model,
+                messages=[
+                    {'role': 'system', 'content': _LLM_SYSTEM_PROMPT},
+                    {'role': 'user',   'content': basis},
+                ],
+                max_tokens=256,
+            )
+            text = response.choices[0].message.content.strip()
+        text = re.sub(r'^```[a-z]*\n?', '', text)
+        text = re.sub(r'\n?```$', '', text)
+        parsed, _ = json.JSONDecoder().raw_decode(text)
+        key      = parsed.get('key', '').strip()
+        loc      = parsed.get('loc', '').strip()
+        loc_type = parsed.get('loc_type', '').strip() or detect_loc_type(loc)
         if not key:
             return None
-        return {'key': key, 'loc': loc, 'loc_type': detect_loc_type(loc)}
-    except Exception:
-        return None
+        return {'key': key, 'loc': loc, 'loc_type': loc_type}
+    except Exception as e:
+        if 'auth' in type(e).__name__.lower() or 'authentication' in str(e).lower():
+            sys.exit(f'\nFatal LLM auth error ({model}): {e}\nCheck your API key.')
+        raise   # let parse_citation_with_retry see the real error
+
+
+def parse_citation_with_retry(basis, model, max_retries=6, initial_backoff=2):
+    """
+    Call parse_citation() with exponential backoff on rate-limit errors (429).
+    Returns the result dict or None on persistent failure.
+    """
+    backoff = initial_backoff
+    for attempt in range(max_retries):
+        try:
+            return parse_citation(basis, model)
+        except Exception as e:
+            is_rate_limit = ('429' in str(e) or 'rate' in str(e).lower()
+                             or 'quota' in str(e).lower())
+            tqdm.write(f'  LLM {"rate-limit" if is_rate_limit else "error"} '
+                       f'(attempt {attempt+1}/{max_retries}, {type(e).__name__}): '
+                       f'{str(e)[:200]}')
+            if is_rate_limit and attempt < max_retries - 1:
+                tqdm.write(f'  Retrying in {backoff}s...')
+                time.sleep(backoff)
+                backoff = min(backoff * 2, 60)
+                continue
+            return None
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -566,11 +761,6 @@ def hyperlink(qid):
 
 
 def vetted_value(match_type):
-    """Initial vetted value for a freshly matched row.
-    High-confidence matches get 'auto'; everything else is blank (needs review).
-    """
-    if match_type in ('api_label', 'api_alias'):
-        return 'auto'
     return ''
 
 
@@ -586,8 +776,136 @@ def out_row(freq, basis, key, loc, loc_type, match_type, qid, label, vetted='',
         'vetted':     vetted,
         'loc':        loc,
         'loc_type':   loc_type,
-        **parse_loc_columns(loc, loc_type, parse_pattern),
     }
+
+
+# ---------------------------------------------------------------------------
+# Checkpointing helpers
+# ---------------------------------------------------------------------------
+
+def _cache_key(model):
+    """Short hash combining model name + system prompt — detects stale LLM caches."""
+    payload = f'{model}\n{_LLM_SYSTEM_PROMPT}'.encode()
+    return hashlib.sha256(payload).hexdigest()[:12]
+
+
+def _load_llm_ckpt(path, model, meta_path=None):
+    """
+    Load LLM parse results.  Returns dict {basis: {key, loc, loc_type}}.
+
+    If the meta sidecar doesn't match (model or prompt changed), the cache
+    is considered stale and an empty dict is returned with a warning.
+    """
+    import json as _json
+    if meta_path is None:
+        _, meta_path = _llm_ckpt_paths(model)
+    cache = {}
+    if not os.path.exists(path):
+        return cache
+    if not os.path.exists(meta_path):
+        print(f'  WARNING: LLM checkpoint has no meta sidecar — loading anyway.')
+    with open(path, encoding='utf-8') as f:
+        for row in csv.DictReader(f, delimiter='\t'):
+            cache[row['basis']] = row
+    return cache
+
+
+def _write_llm_ckpt_meta(model, meta_path=None):
+    """Write human-readable metadata sidecar for the LLM checkpoint."""
+    import json as _json
+    if meta_path is None:
+        _, meta_path = _llm_ckpt_paths(model)
+    meta = {
+        'model':          model,
+        'cache_key':      _cache_key(model),
+        'prompt_preview': _LLM_SYSTEM_PROMPT[:120].replace('\n', ' '),
+    }
+    with open(meta_path, 'w') as f:
+        _json.dump(meta, f, indent=2)
+
+
+def _load_api_ckpt(path):
+    """Load API search results. Returns dict {key: (qid, label, mtype)}."""
+    cache = {}
+    if not os.path.exists(path):
+        return cache
+    with open(path, encoding='utf-8') as f:
+        for row in csv.DictReader(f, delimiter='\t'):
+            cache[row['key']] = (row['qid'], row['label'], row['mtype'])
+    return cache
+
+
+def _load_charles_gold(path=GOLD_SEED):
+    """
+    Load Charles's gold seed.  Returns dict {basis: {key, loc, qid}}.
+
+    Rows with a QID in the key column are direct assignments (skip API search).
+    Rows with a corrected string key still need an API search but use Charles's key.
+    Missing file is silently ignored (returns empty dict).
+    """
+    _QID_RE = re.compile(r'^Q\d+$')
+    gold = {}
+    if not os.path.exists(path):
+        return gold
+    with open(path, encoding='utf-8') as f:
+        for row in csv.DictReader(f, delimiter='\t'):
+            basis = row.get('basis', '').strip()
+            key   = row.get('key',   '').strip()
+            loc   = row.get('loc',   '').strip()
+            if not basis or not key:
+                continue
+            qid = key if _QID_RE.match(key) else ''
+            if qid:
+                key = ''   # QID rows don't need a search key
+            gold[basis] = {'key': key, 'loc': loc, 'qid': qid}
+    return gold
+
+
+def _load_known_qids(path=KNOWN_QIDS):
+    """
+    Load manually curated key → QID mappings for cases the API search misses.
+    Returns dict {key: (qid, label, 'known')}.
+    Missing file is silently ignored.
+    """
+    known = {}
+    if not os.path.exists(path):
+        return known
+    with open(path, encoding='utf-8') as f:
+        for row in csv.DictReader(f, delimiter='\t'):
+            key   = row.get('key',   '').strip()
+            qid   = row.get('qid',   '').strip()
+            label = row.get('label', '').strip()
+            if key and qid:
+                known[key] = (qid, label, 'known')
+    return known
+
+
+def _build_key_corrections(vetted_rows):
+    """
+    Build a key → (qid, label) map from vetted sheet rows.
+
+    If two vetted rows share the same key but map to different QIDs, both are
+    excluded and a warning is printed — the conflict must be resolved manually.
+
+    Returns dict {key: (qid, label)}.
+    """
+    seen    = {}   # key → (qid, label) from first occurrence
+    conflicts = set()
+    for r in vetted_rows:
+        key   = r.get('key',   '').strip()
+        qid   = extract_qid(r.get('qid', ''))
+        label = r.get('label', '').strip()
+        if not key or not qid:
+            continue
+        if key in seen:
+            if seen[key][0] != qid:
+                conflicts.add(key)
+        else:
+            seen[key] = (qid, label)
+    for key in conflicts:
+        del seen[key]
+        print(f'  WARNING: conflicting QIDs for key {key!r} — excluded from key propagation')
+    return seen
 
 
 # ---------------------------------------------------------------------------
@@ -606,16 +924,36 @@ def main():
     parser.add_argument('--dry-run', action='store_true',
                         help='Show what would be searched without calling the API')
     parser.add_argument('--llm',     action='store_true',
-                        help='Use Anthropic API to parse llm_pending rows')
+                        help='Use LLM to parse llm_pending rows')
+    parser.add_argument('--llm-model', default=_DEFAULT_LLM_MODEL,
+                        help=f'litellm model string (default: {_DEFAULT_LLM_MODEL}). '
+                             f'Examples: gemini/gemini-2.0-flash, '
+                             f'anthropic/claude-haiku-4-5-20251001, ollama/llama3')
+    parser.add_argument('--llm-delay', type=float, default=1.5,
+                        help='Seconds to sleep between LLM calls (default: 1.5)')
     parser.add_argument('--refresh', action='store_true',
                         help='Re-search match_type=none rows (e.g. after new FactGrid items)')
+    parser.add_argument('--clear-cache', action='store_true',
+                        help='Delete LLM and API checkpoints and start fresh')
+    parser.add_argument('--api-limit', type=int, default=0,
+                        help='Search only the top N unique keys (by frequency); useful for iterative runs')
     args = parser.parse_args()
 
-    anthropic_client = None
+    if args.clear_cache:
+        llm_ckpt, llm_meta = _llm_ckpt_paths(args.llm_model)
+        for p in (llm_ckpt, llm_meta, API_CKPT):
+            if os.path.exists(p):
+                os.remove(p)
+                print(f'Deleted cache: {p}')
+
+
     if args.llm:
-        anthropic_client = _make_anthropic_client()
-        if anthropic_client is None:
-            print('Warning: Anthropic client unavailable — --llm has no effect.')
+        _check_llm_env(args.llm_model)
+        print(f'LLM model: {args.llm_model}')
+
+    charles_gold = _load_charles_gold()
+    if charles_gold:
+        print(f'Charles gold seed: {len(charles_gold)} rows loaded from {GOLD_SEED}')
 
     print(f'Reading sheet:  {args.sheet}')
     vetted_rows, resolved_rows, pending_rows = load_sheet(args.sheet, refresh=args.refresh)
@@ -623,69 +961,160 @@ def main():
     print(f'  resolved : {len(resolved_rows)}')
     print(f'  pending  : {len(pending_rows)}')
 
+    key_corrections = _build_key_corrections(vetted_rows)
+    if key_corrections:
+        print(f'  key corrections from vetted rows: {len(key_corrections)}')
+
     if args.limit:
         pending_rows = pending_rows[:args.limit]
         print(f'  (limited to top {args.limit} pending rows)')
 
     # --- Preprocess all pending rows upfront ---
-    preprocessed = [(r, preprocess(r['basis'])) for r in pending_rows]
-    excluded  = [(r, pp) for r, pp in preprocessed if pp['preproc_type'] == 'excluded']
-    compound  = [(r, pp) for r, pp in preprocessed if pp['preproc_type'] == 'compound']
-    to_search = [(r, pp) for r, pp in preprocessed if pp['preproc_type'] == '']
+    # Gold seed rows bypass preprocess(): use Charles's key/loc directly.
+    preprocessed = []
+    for r in pending_rows:
+        basis = r.get('basis', '').strip()
+        if basis in charles_gold:
+            g = charles_gold[basis]
+            pp = _pp(basis, g['key'], g['loc'],
+                     detect_loc_type(g['loc']), '', 'charles_edit')
+            pp['_charles_qid'] = g['qid']
+        else:
+            pp = preprocess(basis)
+        preprocessed.append((r, pp))
+    excluded     = [(r, pp) for r, pp in preprocessed if pp['preproc_type'] == 'excluded']
+    compound_raw = [(r, pp) for r, pp in preprocessed if pp['preproc_type'] == 'compound']
+    to_search    = [(r, pp) for r, pp in preprocessed if pp['preproc_type'] == '']
+
+    # Expand compound rows: split on ' / ', search each part separately.
+    # Emit one output row per part (same basis, different key) so gsheets
+    # compound-group logic inserts the extra sheet rows automatically.
+    compound_parts = []  # (orig_row, orig_basis, part_pp)
+    for r, pp in compound_raw:
+        parts = [p.strip() for p in pp['basis'].split(' / ')]
+        for part in parts:
+            part_pp = preprocess(part)
+            if part_pp['preproc_type'] == '':
+                part_pp['parse_pattern'] = 'compound_part'  # skip LLM routing
+                compound_parts.append((r, pp['basis'], part_pp))
+                to_search.append((r, part_pp))
 
     pending = [(r, pp) for r, pp in to_search if pp['parse_pattern'] == 'raw']
-    print(f'  excluded : {len(excluded)}  compound : {len(compound)}  '
+    print(f'  excluded : {len(excluded)}  compound : {len(compound_raw)} '
+          f'({len(compound_parts)} parts)  '
           f'to search: {len(to_search)}  (llm_pending: {len(pending)})')
 
     # --- LLM pass: parse llm_pending rows into key + loc ---
-    if args.llm and anthropic_client and pending:
-        print(f'Running Anthropic on {len(pending)} pending rows...')
-        llm_ok = llm_fail = 0
-        with tqdm(pending, unit='row') as bar:
-            for r, pp in bar:
-                result = anthropic_parse_citation(pp['basis'], anthropic_client)
-                if result:
-                    pp['key']           = result['key']
-                    pp['loc']           = result['loc']
-                    pp['loc_type']      = result['loc_type']
-                    pp['parse_pattern'] = 'llm'
-                    llm_ok += 1
-                else:
-                    llm_fail += 1
-                bar.set_postfix(ok=llm_ok, fail=llm_fail)
-        print(f'  LLM parsed: {llm_ok}  failed/unchanged: {llm_fail}')
+    if args.llm and pending:
+        llm_ckpt, _ = _llm_ckpt_paths(args.llm_model)
+        llm_cache = _load_llm_ckpt(llm_ckpt, args.llm_model)
+        ckpt_hits = sum(1 for _, pp in pending if pp['basis'] in llm_cache)
+        if ckpt_hits:
+            print(f'  LLM checkpoint: resuming ({ckpt_hits}/{len(pending)} already done)')
+        print(f'Running LLM on {len(pending) - ckpt_hits} remaining rows...')
+        llm_ok = llm_cached = llm_fail = 0
+        is_new_ckpt = not os.path.exists(llm_ckpt)
+        if is_new_ckpt:
+            _write_llm_ckpt_meta(args.llm_model)
+        with open(llm_ckpt, 'a', encoding='utf-8', newline='') as ckpt_f:
+            ckpt_w = csv.DictWriter(ckpt_f, fieldnames=['basis', 'key', 'loc', 'loc_type'],
+                                    delimiter='\t')
+            if is_new_ckpt:
+                ckpt_w.writeheader()
+            with tqdm(pending, unit='row') as bar:
+                for r, pp in bar:
+                    if pp['basis'] in llm_cache:
+                        cached = llm_cache[pp['basis']]
+                        pp['key'] = cached['key']
+                        pp['loc'] = cached['loc']
+                        pp['loc_type'] = cached['loc_type']
+                        pp['parse_pattern'] = 'llm'
+                        llm_cached += 1
+                        llm_ok += 1
+                    else:
+                        time.sleep(args.llm_delay)
+                        result = parse_citation_with_retry(pp['basis'], args.llm_model)
+                        if result:
+                            pp['key']           = result['key']
+                            pp['loc']           = result['loc']
+                            pp['loc_type']      = result['loc_type']
+                            pp['parse_pattern'] = 'llm'
+                            llm_ok += 1
+                            ckpt_w.writerow({'basis': pp['basis'], 'key': result['key'],
+                                             'loc': result['loc'], 'loc_type': result['loc_type']})
+                            ckpt_f.flush()
+                        else:
+                            llm_fail += 1
+                    bar.set_postfix(ok=llm_ok, cached=llm_cached, fail=llm_fail)
+        print(f'  LLM parsed: {llm_ok} (from cache: {llm_cached})  failed: {llm_fail}')
 
     if args.dry_run:
         for r, pp in to_search:
+            orig = f"  ← {r.get('basis','')!r}" if pp['parse_pattern'] == 'compound_part' else ''
             print(f"  [{pp['parse_pattern']:14s}] key={pp['key']!r:35s}  "
-                  f"loc={pp['loc']!r}  ({r.get('freq', '?')}×)")
+                  f"loc={pp['loc']!r}  ({r.get('freq', '?')}×){orig}")
         print('(dry-run: no API calls made, no output written)')
         return
 
     # --- Deduplicate keys, preserving frequency order ---
+    # Skip keys that have a direct QID from charles_gold or key_corrections.
     seen_keys: set = set()
     unique_keys = []
+    key_to_pattern: dict = {}
     for _, pp in to_search:
         k = pp['key']
-        if k not in seen_keys:
-            seen_keys.add(k)
-            unique_keys.append(k)
-    print(f'  unique keys: {len(unique_keys)}  '
-          f'(dedup saves {len(to_search) - len(unique_keys)} API calls)')
+        if not k:
+            continue   # charles_gold direct-QID rows have no search key
+        if k in key_map or k in seen_keys:
+            continue
+        seen_keys.add(k)
+        unique_keys.append(k)
+        key_to_pattern[k] = pp['parse_pattern']
+    if args.api_limit:
+        unique_keys = unique_keys[:args.api_limit]
+        print(f'  unique keys: {len(unique_keys)} (limited to top {args.api_limit})  '
+              f'(dedup saves {len(to_search) - len(unique_keys)} API calls)')
+    else:
+        print(f'  unique keys: {len(unique_keys)}  '
+              f'(dedup saves {len(to_search) - len(unique_keys)} API calls)')
+
+    # Pre-populate key_map: known QIDs → key_corrections → API cache/search (priority order)
+    known_qids = _load_known_qids()
+    if known_qids:
+        print(f'  known QIDs: {len(known_qids)} entries loaded from {KNOWN_QIDS}')
+    key_map: dict = {k: v for k, v in known_qids.items()}
+    for k, (qid, label) in key_corrections.items():
+        if k not in key_map:
+            key_map[k] = (qid, label, 'key_vetted')
 
     # --- API lookup: one call per unique key ---
-    key_map: dict = {}
+    api_cache = _load_api_ckpt(API_CKPT)
+    api_hits = sum(1 for k in unique_keys if k in api_cache)
+    if api_hits:
+        print(f'  API checkpoint: resuming ({api_hits}/{len(unique_keys)} already done)')
     matched = 0
-    with tqdm(unique_keys, unit='key') as bar:
-        for key in bar:
-            qid, label, _, subtype = api_search_one(key)
-            if qid:
-                mtype = f'api_{subtype}' if subtype in ('label', 'alias') else 'api_fuzzy'
-                matched += 1
-            else:
-                qid = label = mtype = ''
-            key_map[key] = (qid, label, mtype)
-            bar.set_postfix(matched=matched)
+    is_new_api_ckpt = not os.path.exists(API_CKPT)
+    with open(API_CKPT, 'a', encoding='utf-8', newline='') as api_ckpt_f:
+        api_ckpt_w = csv.DictWriter(api_ckpt_f, fieldnames=['key', 'qid', 'label', 'mtype'],
+                                    delimiter='\t')
+        if is_new_api_ckpt:
+            api_ckpt_w.writeheader()
+        with tqdm(unique_keys, unit='key') as bar:
+            for key in bar:
+                if key in api_cache:
+                    qid, label, mtype = api_cache[key]
+                else:
+                    qid, label, _, subtype = api_search_one(key, key_to_pattern.get(key, ''))
+                    if qid:
+                        mtype = f'api_{subtype}' if subtype in ('label', 'alias') else 'api_fuzzy'
+                    else:
+                        qid = label = mtype = ''
+                    api_ckpt_w.writerow({'key': key, 'qid': qid, 'label': label, 'mtype': mtype})
+                    api_ckpt_f.flush()
+                if qid:
+                    matched += 1
+                key_map[key] = (qid, label, mtype)
+                bar.set_postfix(matched=matched)
 
     # --- Assemble output rows ---
     out_rows = []
@@ -714,19 +1143,40 @@ def main():
         out_rows.append(out_row(r.get('freq', ''), pp['basis'], pp['key'],
                                 pp['loc'], pp['loc_type'], 'excluded', '', '',
                                 parse_pattern=pp['parse_pattern']))
-    for r, pp in compound:
-        out_rows.append(out_row(r.get('freq', ''), pp['basis'], pp['key'],
-                                pp['loc'], pp['loc_type'], 'compound', '', '',
-                                parse_pattern=pp['parse_pattern']))
-    for r, pp in to_search:
-        qid, label, mtype = key_map.get(pp['key'], ('', '', ''))
+    for r, orig_basis, part_pp in compound_parts:
+        qid, label, mtype = key_map.get(part_pp['key'], ('', '', ''))
         if not qid and not mtype:
+            mtype = 'none'
+        out_rows.append(out_row(r.get('freq', ''), orig_basis, part_pp['key'],
+                                part_pp['loc'], part_pp['loc_type'], mtype, qid, label,
+                                vetted=vetted_value(mtype),
+                                parse_pattern=part_pp['parse_pattern']))
+    for r, pp in to_search:
+        if pp['parse_pattern'] == 'compound_part':
+            continue  # already emitted in compound_parts block above
+        if pp['parse_pattern'] == 'charles_edit':
+            # Direct QID from gold seed — no API search needed.
+            charles_qid = pp.get('_charles_qid', '')
+            if charles_qid:
+                out_rows.append(out_row(r.get('freq', ''), pp['basis'], pp['key'],
+                                        pp['loc'], pp['loc_type'], 'charles_edit',
+                                        charles_qid, '',
+                                        vetted='',
+                                        parse_pattern='charles_edit'))
+                continue
+            # Corrected key — fall through to key_map lookup below.
+        qid, label, mtype = key_map.get(pp['key'], ('', '', ''))
+        if pp['parse_pattern'] == 'charles_edit' and not mtype:
+            mtype = 'none'
+        elif not qid and not mtype:
             if pp['parse_pattern'] == 'raw':
                 mtype = 'llm_pending'
             elif pp['parse_pattern'] == 'shelfmark':
                 mtype = 'shelfmark'
             else:
                 mtype = 'none'
+        if pp['parse_pattern'] == 'charles_edit' and mtype not in ('charles_edit', 'none'):
+            mtype = 'charles_edit'
         out_rows.append(out_row(r.get('freq', ''), pp['basis'], pp['key'],
                                 pp['loc'], pp['loc_type'], mtype, qid, label,
                                 vetted=vetted_value(mtype),
@@ -743,14 +1193,13 @@ def main():
     from collections import Counter
     mc = Counter(r['match_type'] for r in out_rows)
     print(f'\nWritten: {args.out}  ({len(out_rows)} rows)')
-    print(f'  vetted      : {mc["vetted"]}')
-    print(f'  excluded    : {mc["excluded"]}')
-    print(f'  compound    : {mc["compound"]}')
-    print(f'  api_label   : {mc["api_label"]}')
-    print(f'  api_alias   : {mc["api_alias"]}')
-    print(f'  api_fuzzy   : {mc["api_fuzzy"]}')
-    print(f'  none        : {mc["none"]}')
-    print(f'  llm_pending : {mc["llm_pending"]}')
+    print(f'  vetted         : {mc["vetted"]}')
+    print(f'  excluded       : {mc["excluded"]}')
+    print(f'  api_label      : {mc["api_label"]}')
+    print(f'  api_alias      : {mc["api_alias"]}')
+    print(f'  api_fuzzy      : {mc["api_fuzzy"]}')
+    print(f'  none           : {mc["none"]}')
+    print(f'  llm_pending    : {mc["llm_pending"]}')
 
 
 if __name__ == '__main__':

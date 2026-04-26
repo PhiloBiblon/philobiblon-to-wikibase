@@ -1,0 +1,7 @@
+key	qid	label	note
+BNE Cat. en línea	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	BNE Cat. gold seed key → alias BNE Cat. in FG
+Morel-Fatio	Q1068128	Morel-Fatio (1892), Catalogue des manuscrits espagnols et des manuscrits portugais	API search missed; label starts with full title
+BNE MSS/12689	Q1041374	Jacobus de Voragine, Flor de los santos (MSS/12689)	BNM 12689 normalised to this key via bnm_norm rule
+Cappelli	Q1277439	Cappelli (1987), Dizionario di Abbreviature latine ed italiane	Single surname; API search missed full-title label
+Moll	Q1069585	Moll Dexeus (1991), Inspección personal	Single surname; API search missed full-title label
+Penney	Q1068131	Penney (1965), Printed Books 1468-1700 in the Hispanic Society of America	Single surname; API search missed full-title label

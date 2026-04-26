@@ -47,8 +47,10 @@ def _display_value(cell):
     """
     Return the plain display text for a cell value.
     Strips HYPERLINK formulas: =HYPERLINK("url","text") → "text".
-    Leaves plain strings untouched.
+    Coerces non-string values (int, float) to str.
     """
+    if not isinstance(cell, str):
+        return str(cell) if cell is not None else ''
     m = re.match(r'=HYPERLINK\([^,]+,\s*"([^"]+)"\)', cell, re.IGNORECASE)
     return m.group(1) if m else cell
 

@@ -4,3 +4,7 @@ common/wi-conf
 .idea/**
 *service-account*.json
 *credentials*.json
+
+# Generated checkpoint files (not for commit)
+prop_migration/.llm_ckpt.*
+prop_migration/.api_ckpt.tsv

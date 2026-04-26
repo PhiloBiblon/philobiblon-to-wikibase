@@ -214,6 +214,18 @@ Then upload `P721-P129-seed.tsv` to Google Sheets as the initial P721-P129 sheet
 `generate_basis_seed.py` still works as a single-pass shortcut (steps 1+2 combined)
 but the three-step flow above is preferred when iterating on parse logic.
 
+#### The legacy seed and what to trust
+
+`Reference sources.xlsx` was created by Max and shared with Charles for manual review.
+Charles edited some rows (correcting `key`, `loc`, or adding a `Comment`).
+**Only those edits are ground truth.** Rows Charles left unchanged may have been implicitly
+accepted, or may never have been reviewed — there is no way to tell from the file alone.
+
+The Google Sheets version history of the Reference Sources sheet is the authoritative
+record of which rows Charles actually changed. Before re-seeding from this file, extract
+the diff between the original upload and Charles's edited version; use only the diffed rows
+as `legacy` seeds. Treat unchanged rows as unvetted candidates for the normal pipeline.
+
 ### Iterative fill-gaps (after bootstrap)
 
 ```bash
@@ -222,8 +234,9 @@ python prop_migration/sync_sheet.py pull --worksheet P721-P129
 #    writes: prop_migration/P721-P129.tsv
 
 # 2. Re-search all unvetted rows
-python prop_migration/generate_basis_mapping.py          # rule-based only
-python prop_migration/generate_basis_mapping.py --llm    # also parse llm_pending via Anthropic
+python prop_migration/generate_basis_mapping.py                                    # rule-based only
+python prop_migration/generate_basis_mapping.py --llm                              # LLM via litellm (default: gemini/gemini-2.0-flash)
+python prop_migration/generate_basis_mapping.py --llm --llm-model anthropic/claude-haiku-4-5-20251001  # specify model
 #    reads:  prop_migration/P721-P129.tsv
 #    writes: prop_migration/basis_candidates.tsv
 
@@ -273,13 +286,13 @@ matches, preference order is:
 
 | match_type | meaning | vetted |
 |---|---|---|
-| `legacy` | QID taken from legacy `Reference sources.xlsx` | blank — VERIFY |
+| `legacy` | QID taken from legacy `Reference sources.xlsx` — only rows Charles actually edited are reliable; see seeding note above | blank — VERIFY |
 | `api_label` / `api_alias` | exact match on FactGrid label or alias | `auto` |
 | `api_fuzzy` | API hit but matched text differs from key | blank — VERIFY |
 | `excluded` | non-reference string, not searched | — |
 | `compound` | contains ` / `; needs manual splitting | blank |
 | `none` | no match found; known parse pattern | blank |
-| `llm_pending` | no match found; raw string, Anthropic parse not yet run | blank |
+| `llm_pending` | no match found; raw string, LLM parse not yet run | blank |
 | `vetted` | row already vetted in sheet; passed through unchanged | preserved |
 
 ### Working files (untracked)
@@ -292,3 +305,6 @@ matches, preference order is:
 | `P721-P129.tsv` | `sync_sheet.py pull` | Charles's sheet, local copy |
 | `basis_candidates.tsv` | `generate_basis_mapping.py` | Per-string QID candidates |
 | `Reference sources.xlsx` | downloaded manually | Legacy QID map from Charles's prior work |
+| `.llm_ckpt.{model}.{hash}.tsv` | `generate_basis_mapping.py --llm` | LLM parse cache; one file per model+prompt combination |
+| `.llm_ckpt.{model}.{hash}.meta` | same | Human-readable JSON: model name, prompt preview, cache key |
+| `.api_ckpt.tsv` | `generate_basis_mapping.py` | FactGrid API search cache; shared across models |

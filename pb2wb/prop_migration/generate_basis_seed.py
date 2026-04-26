@@ -143,10 +143,11 @@ def main():
     parser.add_argument('--dry-run', action='store_true',
                         help='Show what would be searched without calling the API')
     xlsx_group = parser.add_mutually_exclusive_group()
-    xlsx_group.add_argument('--xlsx', default=XLSX_DEFAULT,
-                            help=f'Legacy xlsx for pre-seeding QIDs (default: {XLSX_DEFAULT})')
+    xlsx_group.add_argument('--xlsx', default=None,
+                            help='Legacy xlsx for pre-seeding QIDs (disabled by default; '
+                                 'use reference_source.gold_seed.tsv via generate_basis_mapping.py instead)')
     xlsx_group.add_argument('--no-xlsx', dest='xlsx', action='store_const', const=None,
-                            help='Skip legacy xlsx seeding')
+                            help='Skip legacy xlsx seeding (default)')
     args = parser.parse_args()
 
     legacy_map = load_legacy_map(args.xlsx) if args.xlsx else {}
