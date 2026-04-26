@@ -9,7 +9,7 @@ Two migrations are documented here:
 - **P1141 → P241** (place of publication): pilot; place items already exist in
   FactGrid and require no new item creation. *(Phase 2: vetting in progress.)*
 - **P721 → P129 + locators** (basis/reference qualifier): converts free-text
-  citation strings to structured references. *(Phase 1: bootstrapping.)*
+  citation strings to structured references. *(Phase 2: vetting in progress; pilot migrations executed.)*
 
 For general environment setup (Python version, virtualenv, `common/settings.py`)
 see the [top-level README](../README.md).
@@ -137,8 +137,6 @@ See [`vetting.md`](vetting.md) for the instructions given to Charles.
 
 **How iteration works:**
 
-- Rows where `vetted = auto` were matched with high confidence; Charles can
-  spot-check but does not need to review every one.
 - Rows where `vetted` is blank need Charles's attention. He confirms or
   corrects column F and types `Y` in the vetted column.
 - He may correct place name spellings in column C at any time; these are
@@ -230,7 +228,7 @@ as `legacy` seeds. Treat unchanged rows as unvetted candidates for the normal pi
 
 ```bash
 # 1. Pull Charles's current sheet from Google Sheets
-python prop_migration/sync_sheet.py pull --worksheet P721-P129
+python prop_migration/sync_sheet.py --pipeline p721 pull
 #    writes: prop_migration/P721-P129.tsv
 
 # 2. Re-search all unvetted rows
@@ -241,8 +239,8 @@ python prop_migration/generate_basis_mapping.py --llm --llm-model anthropic/clau
 #    writes: prop_migration/basis_candidates.tsv
 
 # 3. Push candidates to Google Sheets (dry-run first)
-python prop_migration/sync_sheet.py push --worksheet P721-P129 --dry-run
-python prop_migration/sync_sheet.py push --worksheet P721-P129
+python prop_migration/sync_sheet.py --pipeline p721 push --dry-run
+python prop_migration/sync_sheet.py --pipeline p721 push
 #    reads:  prop_migration/basis_candidates.tsv
 #    writes: Google Sheet (qid, label, match_type, vetted columns only)
 ```
@@ -266,7 +264,8 @@ Applied to each raw P721 string before API search (in order):
 HTML tags are stripped before classification (`<i>IGM</i>` → `IGM`).
 
 `loc_type` is inferred from the locator: `folio` (e.g. `93v`, `f. 3r`),
-`footnote` (e.g. `27n`), `page` (plain number or range).
+`footnote` (e.g. `27n`), `page` (plain number or range), `volume` (e.g. `I:286`).
+If the LLM detects a locator but cannot determine the type, it uses `llm_guess`.
 
 ### API search and disambiguation
 
@@ -284,27 +283,120 @@ matches, preference order is:
 
 ### match_type values
 
-| match_type | meaning | vetted |
+| match_type | meaning | confidence |
 |---|---|---|
-| `legacy` | QID taken from legacy `Reference sources.xlsx` — only rows Charles actually edited are reliable; see seeding note above | blank — VERIFY |
-| `api_label` / `api_alias` | exact match on FactGrid label or alias | `auto` |
-| `api_fuzzy` | API hit but matched text differs from key | blank — VERIFY |
-| `excluded` | non-reference string, not searched | — |
-| `compound` | contains ` / `; needs manual splitting | blank |
-| `none` | no match found; known parse pattern | blank |
-| `llm_pending` | no match found; raw string, LLM parse not yet run | blank |
-| `vetted` | row already vetted in sheet; passed through unchanged | preserved |
+| `charles_edit` | row Charles manually edited in the Reference Sources sheet — ground truth | high |
+| `known` | manually curated entry in `known_qids.tsv` | high |
+| `api_label` / `api_alias` | exact match on FactGrid label or alias | high |
+| `api_fuzzy` | API hit but matched text differs from key | medium — VERIFY |
+| `shelfmark` | BNE/BNM shelfmark pattern — no FG search attempted | low — needs lookup |
+| `bnm_norm` | BNM NNNN normalised to BNE MSS/NNNN | medium |
+| `excluded` | non-reference string (fol. mod., ?, princeps …), not searched | — |
+| `compound` | contains ` / `; needs manual splitting | — |
+| `none` | no match found | blank |
+| `llm_pending` | LLM was called but returned no usable parse | blank |
+| `llm_guess` | LLM inferred a loc but was uncertain about loc_type — Charles should review | blank — VERIFY |
+
+### Supplementary lookup tools
+
+These are run manually when the main pipeline leaves gaps.
+
+```bash
+# Find FactGrid items for reference works matched by surname prefix
+python prop_migration/lookup_surname_refs.py
+
+# Resolve BNE shelfmark strings (BNE MSS/NNNN) to QIDs
+python prop_migration/lookup_bne_shelfmarks.py
+
+# Print match_type distribution and top unmatched rows
+python prop_migration/match_type_report.py
+
+# One-time: extract Charles's gold edits from Reference Sources sheet history
+python prop_migration/extract_gold_seed.py
+```
+
+Results from the first two feed into `known_qids.tsv` for the next pipeline run.
 
 ### Working files (untracked)
 
 | File | Created by | Purpose |
 |---|---|---|
 | `P721-raw-values.tsv` | `fetch_basis_values.py` | Raw (value, freq) pairs from FactGrid SPARQL |
-| `P721-parsed.tsv` | `parse_basis_values.py` | Rule-parsed key + loc + col_* (no QIDs) |
+| `P721-parsed.tsv` | `parse_basis_values.py` | Rule-parsed key + loc (no QIDs) |
 | `P721-P129-seed.tsv` | `lookup_basis_keys.py` | Initial seed to upload to Google Sheets |
 | `P721-P129.tsv` | `sync_sheet.py pull` | Charles's sheet, local copy |
-| `basis_candidates.tsv` | `generate_basis_mapping.py` | Per-string QID candidates |
+| `basis_candidates.tsv` | `generate_basis_mapping.py` | Per-string QID candidates, ready to push |
 | `Reference sources.xlsx` | downloaded manually | Legacy QID map from Charles's prior work |
-| `.llm_ckpt.{model}.{hash}.tsv` | `generate_basis_mapping.py --llm` | LLM parse cache; one file per model+prompt combination |
+| `reference_source.gold_seed.tsv` | `extract_gold_seed.py` | Charles's confirmed edits only |
+| `.llm_ckpt.{model}.{hash}.tsv` | `generate_basis_mapping.py --llm` | LLM parse cache; one file per model+prompt |
 | `.llm_ckpt.{model}.{hash}.meta` | same | Human-readable JSON: model name, prompt preview, cache key |
 | `.api_ckpt.tsv` | `generate_basis_mapping.py` | FactGrid API search cache; shared across models |
+
+### tracked working files
+
+| File | Purpose |
+|---|---|
+| `known_qids.tsv` | Manually curated QID mappings for strings the API misses |
+
+---
+
+## P721 → P129 implementation
+
+The other property migrations (P1141 → P241, P1134 → P845, etc.) will be
+implemented via QuickStatements, which handles add/delete of statement values
+natively. P721 requires the Wikibase API directly because QuickStatements has
+no syntax for adding a reference to a *pre-existing* statement — it can only
+create new statements with references attached.
+
+Once a basis string has a vetted QID in `basis_candidates.tsv`, use
+`apply_basis_migration.py` to convert the matching P721 qualifiers to P129
+references in FactGrid via the Wikibase API.
+
+### How it works
+
+For each targeted `(basis_string, p129_qid)` pair the script:
+
+1. Runs a SPARQL query to find all items carrying `pq:P721 = basis_string`
+2. For each item, fetches it once, then for every matching statement:
+   - Adds a reference: `P129 = qid` (plus a locator qualifier if `loc` is set)
+   - Removes the `P721` qualifier
+3. Writes the item once (all changes batched per item)
+
+**Locator property mapping:**
+
+| loc_type | FactGrid property |
+|---|---|
+| `page` | P54 (Page(s)) |
+| `folio` | P100 (Folio(s)) |
+| `number` | P90 (Number) |
+| `footnote` | P90 — *pending confirmation from Charles; existing data uses P54* |
+| `volume` | *not yet mapped — pending confirmation from Charles* |
+
+### Usage
+
+Edit the `CASES` dict at the top of `apply_basis_migration.py` to add the
+basis strings you want to migrate:
+
+```python
+CASES = {
+    'Faulhaber':        {'qid': 'Q164508'},
+    'Perea 2004':       {'qid': 'Q1071227'},
+    '<i>DHEE</i> 2400': {'qid': 'Q426064', 'loc': '2400', 'loc_type': 'page'},
+}
+```
+
+Then:
+
+```bash
+# Dry run (default) — shows what would change, writes nothing
+python prop_migration/apply_basis_migration.py --basis "Faulhaber" --item Q1086703
+
+# Restrict to one item for a pilot
+python prop_migration/apply_basis_migration.py --basis "Perea 2004" --item Q425307 --execute
+
+# Run across all items with that basis value
+python prop_migration/apply_basis_migration.py --basis "Faulhaber" --execute
+```
+
+The `--item` flag is recommended for initial testing. Omit it only once you
+are confident in the QID mapping.
