@@ -52,3 +52,26 @@ Deckert	Q1068724	Deckert (1957), Katalog der Inkunabeln der sächsischen Landesb
 Cummings	Q1073026	Cummings (1973), “Pedro Guillén de Segovia y el ms 4114”, Hispanic Review	unambiguous bibid SPARQL match
 Bisson	Q1117233	Bisson (1988), Història de la Corona d’Aragó a l’Edat Mitjana	unambiguous bibid SPARQL match
 Abella	Q1120193	Abella et al. (2000), “Pus axi·t plau ta bandera estendre [text electrònic a internet]”, RIALC (Repertorio informatizzato della antica lirica catalana)	unambiguous bibid SPARQL match
+Faulhaber	Q164508	Faulhaber	gold seed direct QID
+Dutton	Q1078975	Dutton, El Cancionero del Siglo XV (complete)	gold seed direct QID
+Dutton 1983	Q1068184	Dutton (1983)	gold seed direct QID
+Dutton 1982:	Q1068061	Dutton (1982)	gold seed direct QID; trailing colon in source data
+D~e	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo; gold seed correction
+B~e	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo
+DB ~E	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo
+DB~ e	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo
+DB~w	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo
+Wilipedia	Q629842	Wikipedia	Wikipedia typo
+Wiipedia	Q629842	Wikipedia	Wikipedia typo
+Wikipeda	Q629842	Wikipedia	Wikipedia typo
+Wikipedoa	Q629842	Wikipedia	Wikipedia typo
+Wikipwsi	Q629842	Wikipedia	Wikipedia typo
+ikidata	Q370382	Wikidata	Wikidata typo
+Wikidato	Q370382	Wikidata	Wikidata typo
+Wikiidata	Q370382	Wikidata	Wikidata typo
+Wikiata	Q370382	Wikidata	Wikidata typo
+Wikidaa	Q370382	Wikidata	Wikidata typo
+Cronoligía	Q246095	Chronology	Cronología typo
+Boronat I, 449	Q1069821	Boronat y Barrachina (1901), Los moriscos españoles	loc I:449 not preserved
+Boronat I, 461	Q1069821	Boronat y Barrachina (1901), Los moriscos españoles	loc I:461 not preserved
+Les Enluminures ref. no. 502	Q991518	Les Enluminures	loc ref.no.502 not preserved

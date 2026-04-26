@@ -67,7 +67,6 @@ FG = BASE_IMPORT_OBJECTS['FACTGRID']
 
 SHEET_TSV   = 'prop_migration/P721-P129.tsv'
 OUT_TSV     = 'prop_migration/basis_candidates.tsv'
-GOLD_SEED   = 'prop_migration/reference_source.gold_seed.tsv'
 KNOWN_QIDS  = 'prop_migration/known_qids.tsv'
 _LLM_CKPT_DIR = 'prop_migration'
 API_CKPT      = 'prop_migration/.api_ckpt.tsv'
@@ -873,31 +872,6 @@ def _load_api_ckpt(path):
     return cache
 
 
-def _load_charles_gold(path=GOLD_SEED):
-    """
-    Load Charles's gold seed.  Returns dict {basis: {key, loc, qid}}.
-
-    Rows with a QID in the key column are direct assignments (skip API search).
-    Rows with a corrected string key still need an API search but use Charles's key.
-    Missing file is silently ignored (returns empty dict).
-    """
-    _QID_RE = re.compile(r'^Q\d+$')
-    gold = {}
-    if not os.path.exists(path):
-        return gold
-    with open(path, encoding='utf-8') as f:
-        for row in csv.DictReader(f, delimiter='\t'):
-            basis = row.get('basis', '').strip()
-            key   = row.get('key',   '').strip()
-            loc   = row.get('loc',   '').strip()
-            if not basis or not key:
-                continue
-            qid = key if _QID_RE.match(key) else ''
-            if qid:
-                key = ''   # QID rows don't need a search key
-            gold[basis] = {'key': key, 'loc': loc, 'qid': qid}
-    return gold
-
 
 def _load_known_qids(path=KNOWN_QIDS):
     """
@@ -1016,10 +990,6 @@ def main():
         _check_llm_env(args.llm_model)
         print(f'LLM model: {args.llm_model}')
 
-    charles_gold = _load_charles_gold()
-    if charles_gold:
-        print(f'Charles gold seed: {len(charles_gold)} rows loaded from {GOLD_SEED}')
-
     print(f'Reading sheet:  {args.sheet}')
     vetted_rows, resolved_rows, pending_rows = load_sheet(args.sheet, refresh=args.refresh)
     print(f'  vetted   : {len(vetted_rows)}')
@@ -1035,17 +1005,10 @@ def main():
         print(f'  (limited to top {args.limit} pending rows)')
 
     # --- Preprocess all pending rows upfront ---
-    # Gold seed rows bypass preprocess(): use Charles's key/loc directly.
     preprocessed = []
     for r in pending_rows:
         basis = r.get('basis', '').strip()
-        if basis in charles_gold:
-            g = charles_gold[basis]
-            pp = _pp(basis, g['key'], g['loc'],
-                     detect_loc_type(g['loc']), '', 'charles_edit')
-            pp['_charles_qid'] = g['qid']
-        else:
-            pp = preprocess(basis)
+        pp = preprocess(basis)
         preprocessed.append((r, pp))
     excluded     = [(r, pp) for r, pp in preprocessed if pp['preproc_type'] == 'excluded']
     compound_raw = [(r, pp) for r, pp in preprocessed if pp['preproc_type'] == 'compound']
@@ -1133,7 +1096,7 @@ def main():
     for _, pp in to_search:
         k = pp['key']
         if not k:
-            continue   # charles_gold direct-QID rows have no search key
+            continue   # rows with no key (e.g. empty after preprocess) are skipped
         if k in key_map or k in seen_keys:
             continue
         seen_keys.add(k)
@@ -1214,29 +1177,14 @@ def main():
     for r, pp in to_search:
         if pp['parse_pattern'] == 'compound_part':
             continue  # already emitted in compound_parts block above
-        if pp['parse_pattern'] == 'charles_edit':
-            # Direct QID from gold seed — no API search needed.
-            charles_qid = pp.get('_charles_qid', '')
-            if charles_qid:
-                out_rows.append(out_row(r.get('freq', ''), pp['basis'], pp['key'],
-                                        pp['loc'], pp['loc_type'], 'charles_edit',
-                                        charles_qid, '',
-                                        vetted='',
-                                        parse_pattern='charles_edit'))
-                continue
-            # Corrected key — fall through to key_map lookup below.
         qid, label, mtype = key_map.get(pp['key'], ('', '', ''))
-        if pp['parse_pattern'] == 'charles_edit' and not mtype:
-            mtype = 'none'
-        elif not qid and not mtype:
+        if not qid and not mtype:
             if pp['parse_pattern'] == 'raw':
                 mtype = 'llm_pending'
             elif pp['parse_pattern'] == 'shelfmark':
                 mtype = 'shelfmark'
             else:
                 mtype = 'none'
-        if pp['parse_pattern'] == 'charles_edit' and mtype not in ('charles_edit', 'none'):
-            mtype = 'charles_edit'
         out_rows.append(out_row(r.get('freq', ''), pp['basis'], pp['key'],
                                 pp['loc'], pp['loc_type'], mtype, qid, label,
                                 vetted=vetted_value(mtype),
