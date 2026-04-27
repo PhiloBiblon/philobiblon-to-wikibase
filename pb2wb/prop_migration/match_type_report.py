@@ -98,6 +98,7 @@ def main():
                 if mt in rows_by_type:
                     writer.writerow([mt, rows_by_type[mt], freq_by_type[mt], MEANINGS.get(mt, '')])
                     seen.add(mt)
+            writer.writerow([f'-- Subtotal --', group_rows, group_freq, ''])
         for mt, count in sorted(rows_by_type.items(), key=lambda x: -x[1]):
             if mt not in seen:
                 writer.writerow([mt, count, freq_by_type[mt], MEANINGS.get(mt, '')])

@@ -36,7 +36,7 @@ def load_candidates(path):
         for row in csv.DictReader(f, delimiter='\t'):
             key = row.get('key', '').strip()
             mt  = row.get('match_type', '').strip()
-            if key.startswith('BNE MSS/') and mt == 'none':
+            if key.startswith('BNE MSS/') and mt in ('none', 'shelfmark'):
                 rows.append((int(row.get('freq', '0') or 0), key))
     # Deduplicate, keep highest freq
     seen = {}

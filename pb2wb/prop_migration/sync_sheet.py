@@ -25,8 +25,7 @@ Pipeline defaults:
     seed  ← prop_migration/P721-P129-seed.tsv
     tab     P721-P129
     key     basis
-    write   match_type, qid, label, vetted,
-            col_folio, col_page, col_volume, col_date, col_footnote, col_literal
+    write   freq, key, match_type, qid, label, vetted, loc_type, loc
 
 Required environment variables (add to .qs_env, never commit):
     GSHEETS_CREDENTIALS_PATH  — path to service account JSON key file
@@ -65,10 +64,7 @@ _PIPELINES = {
         'seed_tsv':     'prop_migration/P721-P129-seed.tsv',
         'worksheet':    'P721-P129',
         'key_cols':     ['basis'],
-        'write_cols':   [
-            'match_type', 'qid', 'label', 'vetted',
-            'col_folio', 'col_page', 'col_volume', 'col_date', 'col_footnote', 'col_literal',
-        ],
+        'write_cols':   ['freq', 'key', 'match_type', 'qid', 'label', 'vetted', 'loc_type', 'loc'],
         'skip_col':     'vetted',
         'skip_value':   'Y',
     },

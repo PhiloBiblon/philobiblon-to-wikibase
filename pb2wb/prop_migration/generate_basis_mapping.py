@@ -86,7 +86,7 @@ def _llm_ckpt_paths(model):
 OUT_COLUMNS = [
     'freq', 'basis', 'key',
     'match_type', 'qid', 'label', 'vetted',
-    'loc', 'loc_type',
+    'loc_type', 'loc',
 ]
 
 # Strings that are not bibliographic references and should be excluded.
@@ -99,16 +99,18 @@ EXCLUDED_VALUES = {
     'fol. ant. en xifres romanes', 'fol. ant. en romans',
     'fol. moderna a llapis', 'fol. ant. en xifres aràbigues',
     'fol. moderna en xifres aràbigues',
+    # Catalan equivalent of fol. mod.
+    'paginació moderna',
 }
 
 # Regex patterns for exclusion — applied case-insensitively after strip_html.
 # Covers families of variants too broad for exact matching.
 EXCLUDED_PATTERNS = [
-    re.compile(r'^wikidata',    re.IGNORECASE),  # Wikidata, WIkidata, Wikidata (2012-), …
-    re.compile(r'^wikipedia',   re.IGNORECASE),  # Wikipedia, WIkipedia, Wikipedia en español, …
+    re.compile(r'^wikidata\s*\(',  re.IGNORECASE),  # Wikidata (2012-) and similar dated variants
+    re.compile(r'^wikipedia\s+en\b', re.IGNORECASE),  # Wikipedia en español, Wikipedia en català, …
     re.compile(r'\bfichero\b',  re.IGNORECASE),  # fichero, fichero de Palacio, BNE fichero, …
-    re.compile(r'^oskicat',     re.IGNORECASE),  # OskiCat, OskICat, Oskicat, …
     re.compile(r'^https?://',   re.IGNORECASE),  # bare URLs
+    re.compile(r'^f{1,2}\.\s*\d+\s*[rv]', re.IGNORECASE),  # folio refs used as basis: f. 1r, ff. 3v…
 ]
 
 # Compound references: two sources separated by " / "
@@ -664,6 +666,48 @@ Examples:
 "Ms. Zabálburu" → {"key": "Ms. Zabálburu", "loc": "", "loc_type": ""}
 "BETA bibid 1234" → {"key": "BETA bibid 1234", "loc": "", "loc_type": ""}
 "Avenoza 2001:24n" → {"key": "Avenoza 2001", "loc": "24n", "loc_type": "footnote"}
+"Aragüés 2008" → {"key": "Aragüés 2008", "loc": "", "loc_type": ""}
+"Villacorta 2005" → {"key": "Villacorta 2005", "loc": "", "loc_type": ""}
+"Accorsi 2011" → {"key": "Accorsi 2011", "loc": "", "loc_type": ""}
+"Fernández 1901" → {"key": "Fernández 1901", "loc": "", "loc_type": ""}
+"García & Gonzálvez 1970" → {"key": "García & Gonzálvez 1970", "loc": "", "loc_type": ""}
+"Lilao et al." → {"key": "Lilao et al.", "loc": "", "loc_type": ""}
+"Álvarez & Crespí" → {"key": "Álvarez & Crespí", "loc": "", "loc_type": ""}
+"Beceiro Pita & Franco Silva 1985:292" → {"key": "Beceiro Pita & Franco Silva 1985", "loc": "292", "loc_type": "page"}
+"Fradejas 2023" → {"key": "Fradejas 2023", "loc": "", "loc_type": ""}
+"Haro ed. 1998" → {"key": "Haro ed. 1998", "loc": "", "loc_type": ""}
+"RAH Cat." → {"key": "RAH Cat.", "loc": "", "loc_type": ""}
+"Huntington Cat." → {"key": "Huntington Cat.", "loc": "", "loc_type": ""}
+"BnF Cat." → {"key": "BnF Cat.", "loc": "", "loc_type": ""}
+"BU Salamanca Cat." → {"key": "BU Salamanca Cat.", "loc": "", "loc_type": ""}
+"RAE Cat." → {"key": "RAE Cat.", "loc": "", "loc_type": ""}
+"BNP Cat." → {"key": "BNP Cat.", "loc": "", "loc_type": ""}
+"Newton Cat." → {"key": "Newton Cat.", "loc": "", "loc_type": ""}
+"BCol. Cat." → {"key": "BCol. Cat.", "loc": "", "loc_type": ""}
+"PARES" → {"key": "PARES", "loc": "", "loc_type": ""}
+"Digital Scriptorium" → {"key": "Digital Scriptorium", "loc": "", "loc_type": ""}
+"Manuscripta Medievalia" → {"key": "Manuscripta Medievalia", "loc": "", "loc_type": ""}
+"Manuscriptorium" → {"key": "Manuscriptorium", "loc": "", "loc_type": ""}
+"GENi" → {"key": "GENi", "loc": "", "loc_type": ""}
+"National Library of Wales" → {"key": "National Library of Wales", "loc": "", "loc_type": ""}
+"Bibl. de Catalunya" → {"key": "Bibl. de Catalunya", "loc": "", "loc_type": ""}
+"BNE Inv. topográfico provisional" → {"key": "BNE Inv. topográfico provisional", "loc": "", "loc_type": ""}
+"Ex Bibliotheca Gondomariensi" → {"key": "Ex Bibliotheca Gondomariensi", "loc": "", "loc_type": ""}
+"Compilación A" → {"key": "Compilación A", "loc": "", "loc_type": ""}
+"ed. Sevilla, 1520" → {"key": "ed. Sevilla, 1520", "loc": "", "loc_type": ""}
+"Santander BMyP 169 (8)" → {"key": "Santander BMyP 169 (8)", "loc": "", "loc_type": ""}
+"B Catalunya 1225" → {"key": "B Catalunya 1225", "loc": "", "loc_type": ""}
+"RAH 9-28-3/5495" → {"key": "RAH 9-28-3/5495", "loc": "", "loc_type": ""}
+"Ureña y Bonilla" → {"key": "Ureña y Bonilla", "loc": "", "loc_type": ""}
+"Fernández-Ordóñez 2000" → {"key": "Fernández-Ordóñez 2000", "loc": "", "loc_type": ""}
+"Mangas 2020 \"Transmisión\"" → {"key": "Mangas 2020 \"Transmisión\"", "loc": "", "loc_type": ""}
+"Puerto Moro 2008" → {"key": "Puerto Moro 2008", "loc": "", "loc_type": ""}
+"Carriazo 1943" → {"key": "Carriazo 1943", "loc": "", "loc_type": ""}
+"Sáez" → {"key": "Sáez", "loc": "", "loc_type": ""}
+"Kraus" → {"key": "Kraus", "loc": "", "loc_type": ""}
+"Capuano" → {"key": "Capuano", "loc": "", "loc_type": ""}
+"von Euw & Plotzek" → {"key": "von Euw & Plotzek", "loc": "", "loc_type": ""}
+"Martín Abad 1994 [1998]" → {"key": "Martín Abad 1994 [1998]", "loc": "", "loc_type": ""}
 """
 
 
@@ -798,7 +842,7 @@ def hyperlink(qid):
 
 
 def vetted_value(match_type):
-    return ''
+    return 'Y' if match_type in ('vetted', 'known') else ''
 
 
 def out_row(freq, basis, key, loc, loc_type, match_type, qid, label, vetted='',
@@ -1152,23 +1196,33 @@ def main():
             vetted=r.get('vetted', 'Y'),
             parse_pattern=r.get('parse_pattern', ''),
         ))
+    patched = 0
     for r in resolved_rows:
+        mtype = r.get('match_type', '')
+        qid   = extract_qid(r.get('qid', ''))
+        label = r.get('label', '')
+        if mtype in ('none', 'excluded', 'shelfmark'):
+            key = r.get('key', '').strip()
+            hit_qid, hit_label, hit_mtype = key_map.get(key, ('', '', ''))
+            if hit_qid:
+                qid, label, mtype = hit_qid, hit_label, hit_mtype
+                patched += 1
         out_rows.append(out_row(
             r.get('freq', ''), r['basis'],
             r.get('key', ''), r.get('loc', ''), r.get('loc_type', ''),
-            r.get('match_type', ''),
-            extract_qid(r.get('qid', '')),
-            r.get('label', ''),
-            vetted=r.get('vetted', ''),
+            mtype, qid, label,
+            vetted=vetted_value(mtype) or r.get('vetted', ''),
             parse_pattern=r.get('parse_pattern', ''),
         ))
+    if patched:
+        print(f'  Patched {patched} none→known from known_qids.tsv')
     for r, pp in excluded:
         out_rows.append(out_row(r.get('freq', ''), pp['basis'], pp['key'],
                                 pp['loc'], pp['loc_type'], 'excluded', '', '',
                                 parse_pattern=pp['parse_pattern']))
     for r, orig_basis, part_pp in compound_parts:
         qid, label, mtype = key_map.get(part_pp['key'], ('', '', ''))
-        if not qid and not mtype:
+        if not mtype:
             mtype = 'none'
         out_rows.append(out_row(r.get('freq', ''), orig_basis, part_pp['key'],
                                 part_pp['loc'], part_pp['loc_type'], mtype, qid, label,
