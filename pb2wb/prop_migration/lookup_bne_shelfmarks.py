@@ -6,6 +6,18 @@ shelfmark appears mid-label, not at the start).
 Reads basis_candidates.tsv, collects all BNE MSS/NNNN keys with match_type=none,
 queries FactGrid in batches, and writes matches to known_qids.tsv.
 
+NOTE: The current approach (CONTAINS/REGEX on rdfs:label of P476 items) is
+unreliable — it finds FG items that merely *mention* the shelfmark in their
+label (microfilm records, MANID records, researcher notes, articles) rather
+than the canonical manuscript item itself. All results were discarded after
+spot-checking (2026-04-27).
+
+Needs a better strategy before use, e.g.:
+  - Query for items where a shelfmark property directly equals the BNE call number
+  - Filter by item type (manuscript) rather than label contents
+  - Use the BNE OPAC API or wbsearchentities with the full "MS: Madrid: Nacional
+    (BNE), MSS/NNNN" label form
+
 Usage (from pb2wb/):
     python prop_migration/lookup_bne_shelfmarks.py
     python prop_migration/lookup_bne_shelfmarks.py --dry-run
@@ -14,16 +26,19 @@ Usage (from pb2wb/):
 import argparse
 import csv
 import os
+import re
 import sys
 import time
+
+import requests
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, os.path.dirname(dir_path))
 
 from common.settings import BASE_IMPORT_OBJECTS
-from wikibaseintegrator import wbi_helpers
 
 FG          = BASE_IMPORT_OBJECTS['FACTGRID']
+_HEADERS    = {'User-Agent': 'pb2wb/1.0', 'Accept': 'application/json'}
 CANDIDATES  = 'prop_migration/basis_candidates.tsv'
 KNOWN_QIDS  = 'prop_migration/known_qids.tsv'
 BATCH_SIZE  = 5    # shelfmarks per SPARQL query
@@ -43,7 +58,7 @@ def load_candidates(path):
     for freq, key in rows:
         if key not in seen or freq > seen[key]:
             seen[key] = freq
-    return sorted(seen.items(), key=lambda x: -x[1])
+    return sorted(((freq, key) for key, freq in seen.items()), key=lambda x: -x[0])
 
 
 def load_known(path):
@@ -57,33 +72,49 @@ def load_known(path):
     return known
 
 
-def query_batch(shelfmarks, prefix):
+def query_batch(shelfmarks, retries=4, backoff=5):
     """
     Query FactGrid for items whose English label contains any of the shelfmarks.
-    Returns dict {shelfmark: [(qid, label), ...]}
+    Returns dict {shelfmark: [(qid, label), ...]}. Retries on transient errors.
     """
     filters = ' || '.join(
-        f'CONTAINS(?label, "{s}")'
+        f'REGEX(?label, "{s}([^0-9]|$)")'
         for s in shelfmarks
     )
     sparql = f"""
 SELECT ?item ?label WHERE {{
+  ?item wdt:P476 ?bibid .
   ?item rdfs:label ?label .
   FILTER(LANG(?label) = "en")
-  FILTER(STRSTARTS(?label, "MS:"))
   FILTER({filters})
 }}
 """
-    results = wbi_helpers.execute_sparql_query(sparql, prefix)
-    hits = {}
-    for binding in results.get('results', {}).get('bindings', []):
-        qid   = binding['item']['value'].split('/')[-1]
-        label = binding['label']['value']
-        # Find which shelfmark matched
-        for s in shelfmarks:
-            if s in label:
-                hits.setdefault(s, []).append((qid, label))
-    return hits
+    for attempt in range(retries):
+        try:
+            resp = requests.get(
+                FG['SPARQL_ENDPOINT_URL'],
+                params={'query': sparql, 'format': 'json'},
+                headers=_HEADERS,
+                timeout=30,
+            )
+            resp.raise_for_status()
+            hits = {}
+            for binding in resp.json().get('results', {}).get('bindings', []):
+                qid   = binding['item']['value'].split('/')[-1]
+                label = str(binding['label']['value'])
+                for s in shelfmarks:
+                    if str(s) in label:
+                        hits.setdefault(s, []).append((qid, label))
+            return hits
+        except Exception as e:
+            if attempt < retries - 1:
+                wait = backoff * (2 ** attempt)
+                print(f'retrying in {wait}s ({e})...', end=' ', flush=True)
+                time.sleep(wait)
+            else:
+                print(f'failed after {retries} attempts: {e}')
+                return {}
+    return {}
 
 
 def main():
@@ -103,53 +134,48 @@ def main():
 
     shelfmarks = [key for _, key in to_query]
 
-    found = {}
-    for i in range(0, len(shelfmarks), BATCH_SIZE):
-        batch = shelfmarks[i:i + BATCH_SIZE]
-        print(f'  Querying batch {i//BATCH_SIZE + 1} ({len(batch)} shelfmarks)...', end=' ', flush=True)
-        hits = query_batch(batch, FG['SPARQL_PREFIX'])
-        for s, matches in hits.items():
-            found[s] = matches
-        print(f'{len(hits)} matched')
-        if i + BATCH_SIZE < len(shelfmarks):
-            time.sleep(1)
-
-    print(f'\nMatched: {len(found)} / {len(shelfmarks)}')
-
-    if not found:
-        print('Nothing to add.')
-        return
-
-    # Show results
     freq_map = {key: freq for freq, key in to_query}
-    for key, matches in sorted(found.items(), key=lambda x: -freq_map.get(x[0], 0)):
-        freq = freq_map.get(key, 0)
-        print(f'  {freq:>4}  {key}')
-        for qid, label in matches:
-            print(f'         {qid}  {label[:80]}')
+    found = {}
+    added = ambiguous = 0
 
-    if args.dry_run:
-        print('\n[dry-run] nothing written')
-        return
+    out_f = None if args.dry_run else open(args.out, 'a', newline='', encoding='utf-8')
+    out_w = None
+    if out_f:
+        out_w = csv.DictWriter(out_f, fieldnames=['key', 'qid', 'label', 'note'], delimiter='\t')
+        if not os.path.exists(args.out) or os.path.getsize(args.out) == 0:
+            out_w.writeheader()
 
-    # Append unambiguous matches (exactly one hit) to known_qids.tsv
-    added = 0
-    is_new = not os.path.exists(args.out)
-    with open(args.out, 'a', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, fieldnames=['key', 'qid', 'label', 'note'], delimiter='\t')
-        if is_new:
-            w.writeheader()
-        for key, matches in sorted(found.items(), key=lambda x: -freq_map.get(x[0], 0)):
-            if len(matches) == 1:
-                qid, label = matches[0]
-                w.writerow({'key': key, 'qid': qid,
-                            'label': label[:120],
-                            'note': 'SPARQL label-contains match'})
-                added += 1
-            else:
-                print(f'  AMBIGUOUS ({len(matches)} hits for {key!r}) — skipped, review manually')
+    try:
+        for i in range(0, len(shelfmarks), BATCH_SIZE):
+            batch = shelfmarks[i:i + BATCH_SIZE]
+            n_batches = (len(shelfmarks) - 1) // BATCH_SIZE + 1
+            print(f'  Querying batch {i//BATCH_SIZE + 1}/{n_batches}'
+                  f' ({len(batch)} shelfmarks)...', end=' ', flush=True)
+            hits = query_batch(batch)
+            print(f'{len(hits)} matched')
+            for s, matches in hits.items():
+                found[s] = matches
+                freq = freq_map.get(s, 0)
+                if len(matches) == 1:
+                    qid, label = matches[0]
+                    print(f'    {freq:>4}  {s}  →  {qid}  {label[:60]}')
+                    if not args.dry_run and out_w:
+                        out_w.writerow({'key': s, 'qid': qid,
+                                        'label': label[:120],
+                                        'note': 'SPARQL label-contains match'})
+                        out_f.flush()
+                    added += 1
+                else:
+                    print(f'    {freq:>4}  {s}  AMBIGUOUS ({len(matches)} hits) — skipped')
+                    ambiguous += 1
+            if i + BATCH_SIZE < len(shelfmarks):
+                time.sleep(1)
+    finally:
+        if out_f:
+            out_f.close()
 
-    print(f'\nAdded {added} entries to {args.out}')
+    suffix = '[dry-run] ' if args.dry_run else ''
+    print(f'\n{suffix}Matched: {len(found)}  unambiguous: {added}  ambiguous: {ambiguous}')
 
 
 if __name__ == '__main__':
