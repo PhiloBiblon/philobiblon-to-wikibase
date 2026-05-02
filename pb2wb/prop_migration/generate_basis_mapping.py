@@ -938,28 +938,18 @@ def _load_known_qids(path=KNOWN_QIDS):
 
 def _promote_vetted_keys(key_corrections, path=KNOWN_QIDS):
     """
-    Append key_corrections entries not already in known_qids.tsv, then return
-    the merged dict {key: (qid, label, 'known')} for use as key_map seed.
+    Return merged dict {key: (qid, label, match_type)} combining known_qids.tsv
+    with in-memory vetted key corrections.
 
-    This makes known_qids.tsv the single source of truth: vetted sheet rows
-    are promoted into it automatically so key_corrections never needs a separate
-    lookup chain.
+    Vetted keys are NOT written to known_qids.tsv — that file is reserved for
+    deliberately curated entries. Vetted keys propagate in-memory only, so that
+    unvetted rows sharing the same key get the same QID within a single run.
     """
     existing = _load_known_qids(path)
-    new_entries = [
-        (k, qid, label)
-        for k, (qid, label) in key_corrections.items()
-        if k not in existing
-    ]
-    if new_entries:
-        with open(path, 'a', encoding='utf-8', newline='') as f:
-            writer = csv.writer(f, delimiter='\t')
-            for key, qid, label in new_entries:
-                writer.writerow([key, qid, label, 'promoted from vetted sheet rows'])
-        print(f'  Promoted {len(new_entries)} vetted keys → {path}')
     merged = dict(existing)
-    for key, qid, label in new_entries:
-        merged[key] = (qid, label, 'known')
+    for key, (qid, label) in key_corrections.items():
+        if key not in merged:
+            merged[key] = (qid, label, 'key_vetted')
     return merged
 
 
@@ -1131,7 +1121,9 @@ def main():
     # Pre-populate key_map before dedup: known_qids.tsv is the single source of truth.
     # Vetted sheet keys not yet in the file are promoted into it automatically.
     key_map: dict = dict(_promote_vetted_keys(key_corrections))
-    print(f'  known QIDs: {len(key_map)} entries in {KNOWN_QIDS}')
+    n_file = sum(1 for v in key_map.values() if v[2] == 'known')
+    n_vetted = sum(1 for v in key_map.values() if v[2] == 'key_vetted')
+    print(f'  known QIDs: {n_file} from {KNOWN_QIDS} + {n_vetted} key_vetted from sheet')
 
     # --- Deduplicate keys, preserving frequency order ---
     seen_keys: set = set()

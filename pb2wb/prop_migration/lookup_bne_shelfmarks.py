@@ -4,7 +4,8 @@ by searching label text via SPARQL (wbsearchentities misses these because the
 shelfmark appears mid-label, not at the start).
 
 Reads basis_candidates.tsv, collects all BNE MSS/NNNN keys with match_type=none,
-queries FactGrid in batches, and writes matches to known_qids.tsv.
+queries FactGrid in batches, and writes matches to bne_shelfmark_candidates.tsv for review
+before manually copying confirmed entries to known_qids.tsv.
 
 NOTE: The current approach (CONTAINS/REGEX on rdfs:label of P476 items) is
 unreliable — it finds FG items that merely *mention* the shelfmark in their
@@ -40,7 +41,7 @@ from common.settings import BASE_IMPORT_OBJECTS
 FG          = BASE_IMPORT_OBJECTS['FACTGRID']
 _HEADERS    = {'User-Agent': 'pb2wb/1.0', 'Accept': 'application/json'}
 CANDIDATES  = 'prop_migration/basis_candidates.tsv'
-KNOWN_QIDS  = 'prop_migration/known_qids.tsv'
+KNOWN_QIDS  = 'prop_migration/bne_shelfmark_candidates.tsv'
 BATCH_SIZE  = 5    # shelfmarks per SPARQL query
 
 
@@ -74,18 +75,21 @@ def load_known(path):
 
 def query_batch(shelfmarks, retries=4, backoff=5):
     """
-    Query FactGrid for items whose English label contains any of the shelfmarks.
+    Query FactGrid for manuscript items whose Spanish label starts with the
+    canonical BNE label prefix "MS: Madrid: Nacional (BNE), MSS/NNNN".
+    Using STRSTARTS avoids ambiguity — it selects the manuscript record itself,
+    not works contained within it that merely reference the shelfmark.
     Returns dict {shelfmark: [(qid, label), ...]}. Retries on transient errors.
     """
     filters = ' || '.join(
-        f'REGEX(?label, "{s}([^0-9]|$)")'
+        f'STRSTARTS(?label, "MS: Madrid: Nacional (BNE), {re.sub(r"^BNE ", "", s)}")'
         for s in shelfmarks
     )
     sparql = f"""
 SELECT ?item ?label WHERE {{
   ?item wdt:P476 ?bibid .
   ?item rdfs:label ?label .
-  FILTER(LANG(?label) = "en")
+  FILTER(LANG(?label) = "es")
   FILTER({filters})
 }}
 """
@@ -103,7 +107,8 @@ SELECT ?item ?label WHERE {{
                 qid   = binding['item']['value'].split('/')[-1]
                 label = str(binding['label']['value'])
                 for s in shelfmarks:
-                    if str(s) in label:
+                    prefix = f'MS: Madrid: Nacional (BNE), {re.sub(r"^BNE ", "", s)}'
+                    if label.startswith(prefix):
                         hits.setdefault(s, []).append((qid, label))
             return hits
         except Exception as e:
