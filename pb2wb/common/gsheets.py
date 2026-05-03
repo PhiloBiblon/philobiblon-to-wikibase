@@ -47,8 +47,10 @@ def _display_value(cell):
     """
     Return the plain display text for a cell value.
     Strips HYPERLINK formulas: =HYPERLINK("url","text") → "text".
-    Leaves plain strings untouched.
+    Coerces non-string values (int, float) to str.
     """
+    if not isinstance(cell, str):
+        return str(cell) if cell is not None else ''
     m = re.match(r'=HYPERLINK\([^,]+,\s*"([^"]+)"\)', cell, re.IGNORECASE)
     return m.group(1) if m else cell
 
@@ -80,6 +82,25 @@ class SheetSync:
     # ------------------------------------------------------------------
     # pull
     # ------------------------------------------------------------------
+
+    def seed(self, worksheet_name, local_tsv_path):
+        """
+        Write all rows from a local TSV to worksheet, replacing existing content.
+        Use once for initial upload; use push() for subsequent iterative updates.
+        Returns the number of data rows written (excluding header).
+        """
+        ws = self._ws(worksheet_name)
+        with open(local_tsv_path, encoding='utf-8') as f:
+            rows = list(csv.reader(f, delimiter='\t'))
+        if not rows:
+            raise ValueError(f'Local TSV {local_tsv_path!r} is empty')
+        print(f'  Clearing worksheet...', end=' ', flush=True)
+        _api_call(ws.clear)
+        print('done')
+        print(f'  Writing {len(rows)} rows...', end=' ', flush=True)
+        _api_call(ws.update, 'A1', rows, value_input_option='USER_ENTERED')
+        print('done')
+        return len(rows) - 1
 
     def pull(self, worksheet_name, output_path):
         """
@@ -266,7 +287,7 @@ class SheetSync:
         compound_groups.sort(key=lambda x: -x[0][-1][0])  # desc last row num
 
         for sheet_entries, local_group in tqdm(
-            compound_groups, desc='Compounds', unit='group', disable=not compound_groups
+            compound_groups, desc='Compounds', unit='group', leave=True, disable=not compound_groups
         ):
             n_sheet  = len(sheet_entries)
             n_local  = len(local_group)
@@ -350,7 +371,7 @@ def _api_call(fn, *args, **kwargs):
 def _batch(ws, updates, desc=None):
     """Send updates in chunks, retrying each chunk on 429."""
     chunks = range(0, len(updates), _BATCH_SIZE)
-    bar = tqdm(chunks, desc=desc, unit='batch', leave=False) if desc else chunks
+    bar = tqdm(chunks, desc=desc, unit='batch', leave=True) if desc else chunks
     for i in bar:
         _api_call(
             ws.batch_update,

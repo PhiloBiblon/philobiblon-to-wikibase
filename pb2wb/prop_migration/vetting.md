@@ -1,3 +1,99 @@
+# Source-Citation Mapping (P721→P129) — Notes for Charles
+
+I've created a new spreadsheet for P721 "basis" strings. It's ready for you to review and improve.
+
+Each basis
+string identifies the work or resource that was consulted. I've matched as many
+as I can automatically; I'm asking you to review and fill gaps.
+
+The sheet tab is **P721-P129**.
+
+---
+
+## Columns of interest
+
+| Column | Name | What it contains |
+|--------|------|-----------------|
+| A | freq | How many times this basis string appears in the database — read only |
+| B | basis | The original P721 string — **do not edit** |
+| C | key | The searchable part I extracted from the basis (e.g. "Beltrán 1997" from "Beltrán 1997:60") |
+| D | match_type | How I found the match — read only, set automatically |
+| E | qid | FactGrid item QID — the main thing to correct |
+| F | label | Plain-text label of that item — read only |
+| G | vetted | Your judgment — **please populate this** |
+| H | loc_type | Type of locator: page, folio, footnote, volume, or blank |
+| I | loc | Locator value extracted from the basis string (e.g. "60", "93v") |
+
+**Please note**: If you correct any cell, mark column G as `Y` in the same row.
+Otherwise your correction may be overwritten the next time I run the script.
+For every row you touch: fix what's wrong, then mark `Y` in column G.
+
+---
+
+## Column G — your judgment
+
+| Value | Meaning |
+|-------|---------|
+| `Y` | You've reviewed it and are happy with the QID in column E |
+| *(blank)* | Needs your attention or hasn't been reviewed yet |
+
+Rows already marked `Y` won't be touched by the script — they're locked.
+
+---
+
+## Column D — how I found the match
+
+| Value | Meaning |
+|-------|---------|
+| `vetted` | You previously marked this `Y` — carried forward unchanged |
+| `known` | QID comes from a curated list I maintain — high confidence |
+| `api_label` | Exact FactGrid label match — high confidence |
+| `api_alias` | Exact FactGrid alias match — high confidence |
+| `api_fuzzy` | FactGrid returned a hit but the label differs from my search key — **please review** |
+| `none` | Nothing found in FactGrid — if you know the item, please add the QID |
+| `excluded` | Not a bibliographic reference (e.g. "fol. mod.", "?") — no action needed |
+| `shelfmark` | Library call number — not yet matched |
+| `llm_pending` | Couldn't parse the string automatically — rare |
+
+The `api_fuzzy` rows (about 2,900) are the ones most in need of your attention.
+The match may be correct or it may be the wrong work by the same author —
+please check and mark `Y` if satisfied.
+
+---
+
+## What you can and cannot edit
+
+**Edit freely** (but mark `Y` when done):
+- Column E (qid) — enter the correct FactGrid QID if mine is wrong or missing
+- Column C (key) — correct the search key if I extracted it wrong
+- Column H (loc_type) and I (loc) — correct the locator type or value if wrong
+- Column G (vetted) — mark `Y` to lock a row
+
+**Do not edit**:
+- Column B (basis) — this is the raw database string and is used to match rows back; changing it will cause data loss
+- Column A (freq) — read-only count
+- Column D (match_type) and F (label) — set automatically by the script
+
+---
+
+## The `none` rows
+
+About 10,900 rows have no match. Many of these are scholarly works that simply
+aren't yet in FactGrid. If you recognise a reference, please add the QID in
+column E and mark `Y`. If you can't find it or it doesn't exist yet, you can
+leave column E blank and still mark `Y` — that tells me you've seen it and
+it's not findable for now.
+
+---
+
+## Updates and iteration
+
+I can re-run the reconciliation at any time to pick up newly added FactGrid
+items or corrections I've made to the matching rules. Rows marked `Y` won't
+be touched.
+
+---
+
 # Place-of-Publication Mapping — Notes for Charles
 
 You asked me to populate column F (P241 Qid) with FactGrid place items matching

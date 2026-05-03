@@ -145,6 +145,7 @@ def main():
     with open(args.sheet, encoding='utf-8') as f:
         reader = csv.DictReader(f, delimiter='\t')
         in_fieldnames = reader.fieldnames
+        has_vetted_col = 'vetted' in (in_fieldnames or [])
         for row in reader:
             string      = row['_Place_of_publication'].strip()
             existing_qid = extract_qid(row.get('P241 Qid', ''))
@@ -152,7 +153,11 @@ def main():
             if existing_qid:
                 row['P241 Qid']   = qid_to_hyperlink(existing_qid)
                 row['auto_match'] = ''
-                row['vetted']     = row.get('vetted', '').strip()
+                # Bootstrap sheet (no vetted column): QID was placed by Charles,
+                # so auto-approve. Post-run sheet: preserve whatever vetted value
+                # is there (blank means still awaiting review).
+                existing_vetted = row.get('vetted', '').strip()
+                row['vetted'] = existing_vetted if has_vetted_col else 'Y'
                 _hyperlink_bare_qids(row)
                 out_rows.append(row)
                 unchanged += 1

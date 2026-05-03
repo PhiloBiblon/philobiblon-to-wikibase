@@ -1,23 +1,36 @@
 """
-sync_sheet.py — push/pull the P1141→P241 place mapping Google Sheet.
+sync_sheet.py — push/pull prop_migration Google Sheets.
 
 Usage (from pb2wb/):
     python prop_migration/sync_sheet.py pull
-    python prop_migration/sync_sheet.py pull --worksheet "Sheet1"
-    python prop_migration/sync_sheet.py push
-    python prop_migration/sync_sheet.py push --dry-run
+    python prop_migration/sync_sheet.py push [--dry-run]
+    python prop_migration/sync_sheet.py seed           # initial upload only
 
-Pull  reads the Google Sheet and writes:
-    prop_migration/P1141-P241.tsv   (safe default — doesn't overwrite Charles's file)
+    All commands accept --pipeline {p1141,p721} (default: p1141)
+    and --worksheet TAB to override the default tab name.
 
-Push  reads prop_migration/sheet_updated.tsv and updates the sheet in place:
-    - matches rows by (item QID, place string) compound key
-    - only writes: P241 Qid, P241_values, auto_match, vetted
-    - skips rows where vetted is already 'Y' (Charles has finalised them)
+Pipeline defaults:
 
-Required environment variables (add to .env, never commit):
+  p1141 (Place of publication):
+    pull  → prop_migration/P1141-P241.tsv
+    push  ← prop_migration/sheet_updated.tsv
+    seed  ← (not used; sheet pre-exists)
+    tab     P1141-P241
+    key     item + _Place_of_publication
+    write   P241 Qid, P241_values, auto_match, vetted
+
+  p721 (Basis / reference qualifier):
+    pull  → prop_migration/P721-P129.tsv
+    push  ← prop_migration/basis_candidates.tsv
+    seed  ← prop_migration/P721-P129-seed.tsv
+    tab     P721-P129
+    key     basis
+    write   freq, key, match_type, qid, label, vetted, loc_type, loc
+
+Required environment variables (add to .qs_env, never commit):
     GSHEETS_CREDENTIALS_PATH  — path to service account JSON key file
-    P1141_SHEET_ID            — Google Sheet ID (from the sheet URL)
+    P1141_SHEET_ID            — Google Sheet ID for P1141→P241
+    P721_SHEET_ID             — Google Sheet ID for P721→P129
 """
 
 import argparse
@@ -30,24 +43,35 @@ sys.path.append(parent_dir_path)
 
 from common.gsheets import SheetSync
 
-# ── Paths ──────────────────────────────────────────────────────────────────
-PULL_TSV    = 'prop_migration/P1141-P241.tsv'       # pull writes here (safe default)
-UPDATED_TSV = 'prop_migration/sheet_updated.tsv'    # push reads from here
+# ── Pipeline configurations ─────────────────────────────────────────────────
 
-# ── Default worksheet tab name ──────────────────────────────────────────────
-DEFAULT_WORKSHEET = 'P1141-P241'
-
-# ── Column configuration ────────────────────────────────────────────────────
-KEY_COLS   = ['item', '_Place_of_publication']
-WRITE_COLS = ['P241 Qid', 'P241_values', 'auto_match', 'vetted']
-SKIP_COL   = 'vetted'
-SKIP_VALUE = 'Y'
+_PIPELINES = {
+    'p1141': {
+        'sheet_id_env': 'P1141_SHEET_ID',
+        'pull_tsv':     'prop_migration/P1141-P241.tsv',
+        'push_tsv':     'prop_migration/sheet_updated.tsv',
+        'seed_tsv':     None,
+        'worksheet':    'P1141-P241',
+        'key_cols':     ['item', '_Place_of_publication'],
+        'write_cols':   ['P241 Qid', 'P241_values', 'auto_match', 'vetted'],
+        'skip_col':     'vetted',
+        'skip_value':   'Y',
+    },
+    'p721': {
+        'sheet_id_env': 'P721_SHEET_ID',
+        'pull_tsv':     'prop_migration/P721-P129.tsv',
+        'push_tsv':     'prop_migration/basis_candidates.tsv',
+        'seed_tsv':     'prop_migration/P721-P129-seed.tsv',
+        'worksheet':    'P721-P129',
+        'key_cols':     ['basis'],
+        'write_cols':   ['freq', 'key', 'match_type', 'qid', 'label', 'vetted', 'loc_type', 'loc'],
+        'skip_col':     'vetted',
+        'skip_value':   'Y',
+    },
+}
 
 
 def _load_env():
-    """Load KEY=VALUE pairs from .qs_env or .env into os.environ.
-    Only sets values not already present (explicit env vars take precedence).
-    """
     for fname in ('.qs_env', '.env'):
         if os.path.exists(fname):
             with open(fname) as f:
@@ -59,37 +83,40 @@ def _load_env():
             return
 
 
-def _sync():
+def _sync(cfg):
     _load_env()
     creds = os.environ.get('GSHEETS_CREDENTIALS_PATH', '').strip()
-    sheet_id = os.environ.get('P1141_SHEET_ID', '').strip()
+    sheet_id = os.environ.get(cfg['sheet_id_env'], '').strip()
     if not creds:
         sys.exit('Error: GSHEETS_CREDENTIALS_PATH environment variable not set')
     if not sheet_id:
-        sys.exit('Error: P1141_SHEET_ID environment variable not set')
+        sys.exit(f'Error: {cfg["sheet_id_env"]} environment variable not set')
     if not os.path.exists(creds):
         sys.exit(f'Error: credentials file not found: {creds}')
-    return SheetSync(creds, sheet_id)
+    return SheetSync(creds, sheet_id), sheet_id
 
 
-def cmd_pull(args):
-    sync = _sync()
-    print(f'Reading sheet:    tab={args.worksheet!r}  sheet_id={os.environ.get("P1141_SHEET_ID", "?")}')
-    n = sync.pull(args.worksheet, PULL_TSV)
-    print(f'Writing TSV:      {PULL_TSV}  ({n} rows)')
+def cmd_pull(args, cfg):
+    sync, sheet_id = _sync(cfg)
+    tab = args.worksheet or cfg['worksheet']
+    print(f'Reading sheet:    tab={tab!r}  sheet_id={sheet_id}')
+    n = sync.pull(tab, cfg['pull_tsv'])
+    print(f'Writing TSV:      {cfg["pull_tsv"]}  ({n} rows)')
 
 
-def cmd_push(args):
-    sync = _sync()
-    print(f'Reading TSV:      {UPDATED_TSV}')
-    print(f'Writing sheet:    tab={args.worksheet!r}  sheet_id={os.environ.get("P1141_SHEET_ID", "?")}')
+def cmd_push(args, cfg):
+    sync, sheet_id = _sync(cfg)
+    tab = args.worksheet or cfg['worksheet']
+    push_tsv = cfg['push_tsv']
+    print(f'Reading TSV:      {push_tsv}')
+    print(f'Writing sheet:    tab={tab!r}  sheet_id={sheet_id}')
     stats = sync.push(
-        worksheet_name=args.worksheet,
-        local_tsv_path=UPDATED_TSV,
-        key_cols=KEY_COLS,
-        write_cols=WRITE_COLS,
-        skip_col=SKIP_COL,
-        skip_value=SKIP_VALUE,
+        worksheet_name=tab,
+        local_tsv_path=push_tsv,
+        key_cols=cfg['key_cols'],
+        write_cols=cfg['write_cols'],
+        skip_col=cfg['skip_col'],
+        skip_value=cfg['skip_value'],
         dry_run=args.dry_run,
     )
     prefix = '[dry-run] ' if args.dry_run else ''
@@ -101,23 +128,44 @@ def cmd_push(args):
         print(f'{prefix}new columns added: {stats["new_cols"]}')
 
 
+def cmd_seed(args, cfg):
+    seed_tsv = cfg['seed_tsv']
+    if not seed_tsv:
+        sys.exit(f'Error: seed is not configured for pipeline {args.pipeline!r}')
+    if not os.path.exists(seed_tsv):
+        sys.exit(f'Error: seed TSV not found: {seed_tsv}')
+    sync, sheet_id = _sync(cfg)
+    tab = args.worksheet or cfg['worksheet']
+    print(f'Seeding sheet:    tab={tab!r}  sheet_id={sheet_id}')
+    print(f'Reading TSV:      {seed_tsv}')
+    n = sync.seed(tab, seed_tsv)
+    print(f'Done: {n} data rows written to {tab!r}')
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description='Sync P1141→P241 mapping with Google Sheets')
+        description='Sync prop_migration Google Sheets')
+    parser.add_argument('--pipeline', choices=list(_PIPELINES), default='p1141',
+                        help='Which migration pipeline (default: p1141)')
     sub = parser.add_subparsers(dest='command', required=True)
 
     pull_p = sub.add_parser('pull', help='Download sheet → local TSV')
-    pull_p.add_argument('--worksheet', default=DEFAULT_WORKSHEET,
-                        help=f'Tab name (default: {DEFAULT_WORKSHEET!r})')
+    pull_p.add_argument('--worksheet', default=None,
+                        help='Tab name (overrides pipeline default)')
 
-    push_p = sub.add_parser('push', help='Upload sheet_updated.tsv → sheet')
-    push_p.add_argument('--worksheet', default=DEFAULT_WORKSHEET,
-                        help=f'Tab name (default: {DEFAULT_WORKSHEET!r})')
+    push_p = sub.add_parser('push', help='Upload candidates TSV → sheet (in-place update)')
+    push_p.add_argument('--worksheet', default=None,
+                        help='Tab name (overrides pipeline default)')
     push_p.add_argument('--dry-run', action='store_true',
                         help='Show what would change without writing')
 
+    seed_p = sub.add_parser('seed', help='Initial full upload of seed TSV → sheet')
+    seed_p.add_argument('--worksheet', default=None,
+                        help='Tab name (overrides pipeline default)')
+
     args = parser.parse_args()
-    {'pull': cmd_pull, 'push': cmd_push}[args.command](args)
+    cfg = _PIPELINES[args.pipeline]
+    {'pull': cmd_pull, 'push': cmd_push, 'seed': cmd_seed}[args.command](args, cfg)
 
 
 if __name__ == '__main__':

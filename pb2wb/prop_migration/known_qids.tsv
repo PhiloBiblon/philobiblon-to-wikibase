@@ -1,0 +1,498 @@
+key	qid	label	note
+BNE Cat. en línea	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	BNE Cat. gold seed key → alias BNE Cat. in FG
+BNE Cat.	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	catalog_annotation prefix key
+Morel-Fatio	Q1068128	Morel-Fatio (1892), Catalogue des manuscrits espagnols et des manuscrits portugais	API search missed; label starts with full title
+BNE MSS/12689	Q1041374	Jacobus de Voragine, Flor de los santos (MSS/12689)	BNM 12689 normalised to this key via bnm_norm rule
+BNE MSS/12688	Q1040264	MS: Madrid: Nacional (BNE), MSS/12688	BNM norm fires; Charles confirmed
+BNE MSS/780	Q1039058	MS: Madrid: Nacional (BNE), MSS/780	BNM norm fires; Charles confirmed
+Cappelli	Q1277439	Cappelli (1987), Dizionario di Abbreviature latine ed italiane	Single surname; API search missed full-title label
+Moll	Q1069585	Moll Dexeus (1991), Inspección personal	Single surname; API search missed full-title label
+Penney	Q1068131	Penney (1965), Printed Books 1468-1700 in the Hispanic Society of America	Single surname; API search missed full-title label
+IBIS	Q10712	IBIS. Base de datos del Patrimonio Bibliográfico [OPAC]	Royal Palace Library Madrid; Charles confirmed
+RB IBIS	Q10712	IBIS. Base de datos del Patrimonio Bibliográfico [OPAC]	Same item as IBIS; Charles confirmed
+Palacio IBIS	Q10712	IBIS. Base de datos del Patrimonio Bibliográfico [OPAC]	Same item as IBIS
+esc. h.I.14	Q1039196	MS: San Lorenzo de El Escorial, Monasterio h.I.14	Charles confirmed
+Fundación Medinaceli	Q1071866	Fundación Casa Ducal de Medinaceli	Charles confirmed
+Ms. Zabálburu	Q780080	Zabálburu Library, Madrid	Charles confirmed
+Dutton 1990-91	Q1070186	El Cancionero del Siglo XV	Charles confirmed
+Dutton 1990	Q1070186	El Cancionero del Siglo XV	Same work as Dutton 1990-91; Charles confirmed
+Valverde 2002	Q1075187	Valverde Ogallar (2002), Manuscritos y heráldica	Charles confirmed
+Haebler	Q1068093	Bibliografía ibérica del siglo XV (1903-17)	NOT Q369903 (GW); Charles confirmed
+Norton	Q1068254	Norton (1978), A Descriptive Catalogue of Printing in Spain and Portugal 1501-1520	Overrides api_label→Q241455; Charles confirmed
+Arteaga	Q1069178	Arteaga y Falguera (1940-44), La Casa del Infantado, cabeza de los Mendoza	unambiguous bibid SPARQL match
+Virseda	Q1075631	Virseda Bravo (2020-11-11), “La biblioteca de los Velasco en el Hospital de la Vera Cruz: arte y cultura escrita”,	unambiguous bibid SPARQL match
+Brumario	Q1072148	Brumario. Catálogo General de la U. de Salamanca (OPAC)	unambiguous bibid SPARQL match
+Schutzner	Q1070458	Schutzner (1996), Inspección personal	unambiguous bibid SPARQL match
+Krapf	Q1073138	Krapf (1899-1900), “Ediciones de la “Celestina’'. Ensayo de un catálogo cronológico de las mismas, basado principalmente en el de la biblioteca de Salvá, Valencia, 1872, tomo I”, La Celestina, tragicomedia de Calisto y Melibea, por Fernando de Rójas.	unambiguous bibid SPARQL match
+Mazzei	Q1068894	Mazzei (1922), “Un manoscritto della Crónica de los Reyes Católicos di Hernando del Pulgar”, Revue Hispanique	unambiguous bibid SPARQL match
+Blüher	Q1068843	Blüher et al. (1983), Séneca en España. Investigaciones sobre la recepción de Séneca en España desde el siglo XII hasta el siglo XVIII	unambiguous bibid SPARQL match
+Menhardt	Q1116945	Menhardt (1930), “Pharmacologie Catalane. Un manuscrit catalan dans la bibliothèque de l’évêque à Klagenfurt-Autriche”, Anuari de l’Oficina Romànica de Lingüística i Literatura	unambiguous bibid SPARQL match
+Martz	Q1074561	Martz (2001), A Network of Converso Families in Early Modern Toledo: Assimilating a Minority	unambiguous bibid SPARQL match
+Gertz	Q1072676	Gertz (2011-10-24), Magnificent Bindings, Bound to Be Great	unambiguous bibid SPARQL match
+Pellicer	Q1073710	Pellicer de Ossau y Tovar (1671), Bibliotheca formada de los libros, i obras publicas ; de don Ioseph Pellicer de Ossav, y Tovar, cavallero del orden de Sant-iago, señor de las casas de Pellicer, y de Ossav, del Consejo de sv magestad; i sv cronista	unambiguous bibid SPARQL match
+Bultot	Q1070274	Bultot (1964), “Les ‘Meditationes’ Pseudo-Bernardines sur la connaissance de la condition humaine”, Sacris Erudiri	unambiguous bibid SPARQL match
+Grenville	Q1072628	Grenville et al. (1842-72), Bibliotheca Grenvilliana; or, Bibliographical Notices of Rare and Curious Books, Forming Part of the Library of the Right Hon. Thomas Grenville	unambiguous bibid SPARQL match
+Ewald	Q1070389	Ewald (1881), Reise nach Spanien im Winter von 1878 auf 1879. Codices manuscripti Hispanici ad historiam medii aevi et praesertim ad res historicas Germaniae spectantes	unambiguous bibid SPARQL match
+Engelbrecht	Q1072636	Engelbrecht (2003), “Filologie in de dertiende eeuw: de Bursarii super Ovidios van Magister Willem van Orléans (fl. 1200 AD) : inleiding, editie en commentaar = Philology in the thirteenth century: the Bursarii super Ovidios of Master William of Orlé	unambiguous bibid SPARQL match
+Bergin	Q1071947	Bergin et al. (2004), Encyclopedia of the Renaissance and the Reformation	unambiguous bibid SPARQL match
+Baurmeister	Q1074529	Baurmeister et al. (1992), Des livres et des rois: la Bibliothèque royale de Blois.	unambiguous bibid SPARQL match
+Allende	Q1073252	Allende Salazar (1887), Biblioteca del bascófilo. Ensayo de un catálogo general sistemático y crítico de las obras referentes á las provincias de Vizcaya, Guipúzcoa, Álava y Navarra	unambiguous bibid SPARQL match
+Wiegers	Q1071958	Wiegers (1994), Yça Gidelli. Islamic Literature in Spanish and Aljamiado. Yça of Segovia (fl. 1450), his Antecedents and Successors	unambiguous bibid SPARQL match
+Tittmann	Q1070667	Tittmann (1969), “A contribution to the study of the ’Cancionero de Baena’ manuscript”, Aquila. Chestnut Hill Studies in Modern Languages and Literatures	unambiguous bibid SPARQL match
+Rosell	Q1069252	Rosell (1875-78), Crónicas de los reyes de Castilla, desde don Alfonso el Sabio, hasta los católicos don Fernando y doña Isabel	unambiguous bibid SPARQL match
+Prévost	Q1073992	Prévost (1915), Notes du premier président Pellot sur la Normandie: clergé;--gentilshommes et terres principales;--officiers de justice (1670-1683)	unambiguous bibid SPARQL match
+Dibdin	Q1072116	Dibdin (1814-23), Bibliotheca Spenceriana; or, A Descriptive Catalogue of the Books Printed in the Fifteenth Century and of many Valuable Additions in the Library of George John Earl Spencer , K.G., &c. &c. &c.	unambiguous bibid SPARQL match
+Aumer	Q1121538	Aumer (1866), Die Arabischen Handschriften der K. Hof- und Staatsbibliotehk in München	unambiguous bibid SPARQL match
+Metzger	Q1282609	Metzger (1977), Les manuscrits hébreux copiés et décorés à Lisbonne dans les derniéres décennies du XVe siècle	unambiguous bibid SPARQL match
+Matulka	Q1068830	Matulka (1931), The Novels of Juan de Flores and Their European Diffusion: A Study in Comparative Literature	unambiguous bibid SPARQL match
+Malet	Q1072474	Malet (2012-07-17), Carta (correo electrónico	unambiguous bibid SPARQL match
+Jenson	Q1068082	Jenson (1985-07-10 ad quem), Inspección personal	unambiguous bibid SPARQL match
+Delbrugge	Q1071650	Delbrugge (Fall, 2002), “Ties that Bind (and Print): Pablo Hurus and Andrés de Li”, La Corónica	unambiguous bibid SPARQL match
+Deckert	Q1068724	Deckert (1957), Katalog der Inkunabeln der sächsischen Landesbibliothek zu Dresden: ein Bestandsverzeichnis nach den Kriegsverlusten des Jahres 1945	unambiguous bibid SPARQL match
+Cummings	Q1073026	Cummings (1973), “Pedro Guillén de Segovia y el ms 4114”, Hispanic Review	unambiguous bibid SPARQL match
+Bisson	Q1117233	Bisson (1988), Història de la Corona d’Aragó a l’Edat Mitjana	unambiguous bibid SPARQL match
+Abella	Q1120193	Abella et al. (2000), “Pus axi·t plau ta bandera estendre [text electrònic a internet]”, RIALC (Repertorio informatizzato della antica lirica catalana)	unambiguous bibid SPARQL match
+Faulhaber	Q164508	Faulhaber	gold seed direct QID
+Dutton	Q1078975	Dutton, El Cancionero del Siglo XV (complete)	gold seed direct QID
+Dutton 1983	Q1068184	Dutton (1983)	gold seed direct QID
+Dutton 1982:	Q1068061	Dutton (1982)	gold seed direct QID; trailing colon in source data
+D~e	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo; gold seed correction
+B~e	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo
+DB ~E	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo
+DB~ e	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo
+DB~w	Q550714	Diccionario Biográfico Español (DB~e)	DB~e typo
+Wilipedia	Q629842	Wikipedia	Wikipedia typo
+Wiipedia	Q629842	Wikipedia	Wikipedia typo
+Wikipeda	Q629842	Wikipedia	Wikipedia typo
+Wikipedoa	Q629842	Wikipedia	Wikipedia typo
+Wikipwsi	Q629842	Wikipedia	Wikipedia typo
+ikidata	Q370382	Wikidata	Wikidata typo
+Wikidato	Q370382	Wikidata	Wikidata typo
+Wikiidata	Q370382	Wikidata	Wikidata typo
+Wikiata	Q370382	Wikidata	Wikidata typo
+Wikidaa	Q370382	Wikidata	Wikidata typo
+Cronoligía	Q1069592	Viña Liste et al. (1991), Cronología de la literatura española	Cronología typo
+Boronat I, 449	Q1069821	Boronat y Barrachina (1901), Los moriscos españoles	loc I:449 not preserved
+Boronat I, 461	Q1069821	Boronat y Barrachina (1901), Los moriscos españoles	loc I:461 not preserved
+Les Enluminures ref. no. 502	Q991518	Les Enluminures	loc ref.no.502 not preserved
+Dutton 1982	Q1068061	Dutton (1982)	"clean form of ""Dutton 1982:"" (trailing colon in source data)"
+Fauhaber	Q164508	Faulhaber	typo for Faulhaber
+Wikidata	Q370382	Wikidata	formerly excluded; legitimate weak citation
+Wikipedia	Q629842	Wikipedia	formerly excluded; legitimate weak citation
+OskiCat	Q1071201	University of California, Berkeley (2010-2021-07-27), OskiCat [OPAC]	formerly excluded; legitimate citation
+OskICat	Q1071201	University of California, Berkeley (2010-2021-07-27), OskiCat [OPAC]	capitalisation variant
+Oskicat	Q1071201	University of California, Berkeley (2010-2021-07-27), OskiCat [OPAC]	capitalisation variant
+BNE MSS/7673	Q1041219	MS: Madrid: Nacional (BNE), MSS/7673	Charles confirmed
+BNE MSS/7811	Q1040966	MS: Madrid: Nacional (BNE), MSS/7811	Charles confirmed
+Cronología	Q1069592	Viña Liste et al. (1991), Cronología de la literatura española	Charles confirmed; overrides api_alias→Q246095
+Dutton 1991	Q1070186	El Cancionero del Siglo XV	same work as Dutton 1990-91; Charles confirmed
+Perea	Q257011	Perea	Charles confirmed
+VIAF	Q101123	Virtual International Authority File	Charles confirmed
+Zarco	Q1345183	Zarco	Charles confirmed (freq=6488)
+BNE MSS/1619	Q1039787	MS: Madrid: Nacional (BNE), MSS/1619. Pedro de Rozas?, 1605 a quo - 1646 ad quem. Colectivo, Repertorio de algunos actos	SPARQL label-contains match
+BNE MSS/7674	Q1041223	MS: Madrid: Nacional (BNE), MSS/7674. 1504-02-28 a quo. Fernando V, rei d’Aragó ~ Isabel I, reina de Castilla y León, Co	SPARQL label-contains match
+BNE MSS/19704/10	Q1042747	MS: Madrid: Nacional (BNE), MSS/19704/10. 1526 ca. - 1550 ca. Caballeros y escuderos de Cuenca… [Carta de concordia otor	SPARQL label-contains match
+BNE MSS/10806	Q1039793	MS: Madrid: Nacional (BNE), MSS/10806. 1451 ca. - 1458-03-25 ad quem. Lucius Annaeus Seneca, Epístolas de Séneca a Lucil	SPARQL label-contains match
+BNE MSS/716	Q1039173	MS: Madrid: Nacional (BNE), MSS/716. 1394-02-26 a quo. Desconocido, Privilegios y ordenanzas de Sevilla, escrito 1251 - 	SPARQL label-contains match
+BNE MSS/7809	Q1041168	MS: Madrid: Nacional (BNE), MSS/7809. Cataluña:, 1464-10-14 a quo - 1500 ca. Colectivo, Cartas de batalla (tr. Desconoci	SPARQL label-contains match
+BNE MSS/3346	Q1043043	MS: Madrid: Nacional (BNE), MSS/3346. 1527-03-28 a quo. Desconocido, Suma de los reyes de Francia, escrito 1527-03-28 ad	SPARQL label-contains match
+BNE MSS/10649	Q1042488	MS: Madrid: Nacional (BNE), MSS/10649. 1701 - 1800. Colectivo, [Cortes y ordenamientos de los reinos de Castilla y León]	SPARQL label-contains match
+BNE MSS/1187	Q1039104	MS: Madrid: Nacional (BNE), MSS/1187. 1301 - 1400. Desconocido, Gran conquista de Ultramar (tr. Desconocido), traducido 	SPARQL label-contains match
+BNE MSS/684	Q1039267	MS: Madrid: Nacional (BNE), MSS/684. 1401 ca. - 1450 ca. Rodrigo Jiménez de Rada, arzobispo de Toledo, [Versión completa	SPARQL label-contains match
+BNE MSS/7431	Q1041066	MS: Madrid: Nacional (BNE), MSS/7431. Francisco de la Torre, para Mora?, 1501 ca. - 1510 ca. Diego Enríquez del Castillo	SPARQL label-contains match
+BNE MSS/1652	Q1042528	MS: Madrid: Nacional (BNE), MSS/1652. 1570 a quo. Pedro de Gracia Dei… Historia o defensa del rey don Pedro, escrito 145	SPARQL label-contains match
+BNE MSS/7495	Q1040770	MS: Madrid: Nacional (BNE), MSS/7495. 1454-07-21 a quo - 1474-12-12 ad quem. Constanza de Castilla, Devocionario y ofici	SPARQL label-contains match
+BNE MSS/9247	Q1040383	MS: Madrid: Nacional (BNE), MSS/9247. 1380-06-05 ad quem. Desconocido, Corona de los monjes y diversos dichos de los pad	SPARQL label-contains match
+BNE MSS/8561	Q1040781	MS: Madrid: Nacional (BNE), MSS/8561. Madrid: Alfonso Martínez de Madrid, rector de Canillas, para Martín Sánchez, visit	SPARQL label-contains match
+BNE MSS/7747	Q1041071	MS: Madrid: Nacional (BNE), MSS/7747. Oviedo: Para la Real Academia de la Historia, 1854-04-24 a quo - 1854-05-12 ad que	SPARQL label-contains match
+BNE MSS/11277	Q1042626	MS: Madrid: Nacional (BNE), MSS/11277. Rafael de Floranes y Encinas, señor de Tabaneros, 1778 - 1785. Pedro López de Aya	SPARQL label-contains match
+BNE MSS/830	Q1039005	MS: Madrid: Nacional (BNE), MSS/830. 1451 ca. - 1475 ca. Desconocido, Crónica de Castilla, escrito 1295 ad quem.	SPARQL label-contains match
+BNE MSS/2022	Q1041975	MS: Madrid: Nacional (BNE), MSS/2022. 1526 ca. - 1575 ca. Pedro López de Ayala, canciller mayor de Castilla, Libro de la	SPARQL label-contains match
+BNE MSS/10883	Q1042973	MS: Madrid: Nacional (BNE), MSS/10883. Guadalupe?:, 1520 a quo - 1550 ca. Diego de Mérida, Viaje de la Tierra Santa, esc	SPARQL label-contains match
+BNE MSS/10229	Q1040512	MS: Madrid: Nacional (BNE), MSS/10229. Pedro de Madrigal, 1391 ca. - 1410 ca. Alfonso XI, rey de Castilla y León, Ordena	SPARQL label-contains match
+BNE MSS/10148	Q1042334	MS: Madrid: Nacional (BNE), MSS/10148. Juan Bautista Valenzuela Velázquez, obispo de Salamanca, 1591 ca. - 1610 ca. Dieg	SPARQL label-contains match
+BNE MSS/12597	Q1042666	MS: Madrid: Nacional (BNE), MSS/12597. 1501 ca. - 1732-02-15. Pedro de Gracia Dei, Descendencia de los reyes de Castilla	SPARQL label-contains match
+BNE MSS/9175	Q1042872	MS: Madrid: Nacional (BNE), MSS/9175. Sebastián de Orozco, 1572-05-26 a quo - 1579 ad quem. Pontius Pilatus, Carta al em	SPARQL label-contains match
+BNE MSS/5644	Q1040959	MS: Madrid: Nacional (BNE), MSS/5644. Madrid:, 1450 ca. Desconocido, [Historia de las seis edades del mundo y de los cua	SPARQL label-contains match
+BNE MSS/6705	Q1041058	MS: Madrid: Nacional (BNE), MSS/6705. 1696 ad quem. Desconocido, Fuero general de Navarra (Versión C) (tr. Desconocido),	SPARQL label-contains match
+BNE MSS/2970	Q1041964	MS: Madrid: Nacional (BNE), MSS/2970. 1501 ca. - 1510 ca. Juan de Sahagún, Libro de las aves de caza, escrito 1453 ad qu	SPARQL label-contains match
+BNE MSS/2147	Q1040001	MS: Madrid: Nacional (BNE), MSS/2147. Guadalupe: Alonso Fernández, 1481-03-07. Lanfrancus Mediolanensis, Compendio de ci	SPARQL label-contains match
+BNE MSS/22189	Q1041735	MS: Madrid: Nacional (BNE), MSS/22189. 1591 ca. - 1610 ca. Pedro López de Ayala, canciller mayor de Castilla, Crónica de	SPARQL label-contains match
+BNE MSS/9299	Q1040974	MS: Madrid: Nacional (BNE), MSS/9299. 1426 - 1450. Juan, Carta al muy maravilloso varón sabio abad Juan, gobernador del 	SPARQL label-contains match
+BNE MSS/7403	Q1038997	MS: Madrid: Nacional (BNE), MSS/7403. 1526 ca. - 1550 ca. Desconocido, Crónica de Castilla, escrito 1295 ad quem.	SPARQL label-contains match
+BNE MSS/2252	Q1039618	MS: Madrid: Nacional (BNE), MSS/2252. 1401 ca. - 1410 ca. Titus Livius, Décadas de Tito Livio (tr. Pedro López de Ayala,	SPARQL label-contains match
+BNE MSS/6370	Q1041336	MS: Madrid: Nacional (BNE), MSS/6370. 1501 - 1600. Alfonso X, rey de Castilla y León, Fuero real, promulgado 1255-07-18.	SPARQL label-contains match
+BNE MSS/8582	Q1042313	MS: Madrid: Nacional (BNE), MSS/8582. Estremera: Pedro de Encinas, 1503-03. Orden de Santiago de la Espada… Establecimie	SPARQL label-contains match
+BNE MSS/10814	Q1039234	MS: Madrid: Nacional (BNE), MSS/10814. Benavente: Manuel Rodríguez de Sevilla, para Rodrigo Alfonso Pimentel, 2. conde d	SPARQL label-contains match
+BNE MSS/10278	Q1040842	MS: Madrid: Nacional (BNE), MSS/10278. Toledo:, 1581-12-21. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 	SPARQL label-contains match
+BNE MSS/10164	Q1040979	MS: Madrid: Nacional (BNE), MSS/10164. 1522-08-19 a quo. Ordo Cisterciensis, Señales pertenecientes a las cosas de la ig	SPARQL label-contains match
+BNE MSS/1203	Q1042507	MS: Madrid: Nacional (BNE), MSS/1203. 1726 ca. - 1750 ca. Lope García de Salazar, señor de Torre de Salazar, Bienandanza	SPARQL label-contains match
+BNE MSS/12955/70	Q1042757	MS: Madrid: Nacional (BNE), MSS/12955/70. 1501 - 1600. Cofradía de Nuestra Señora del Pilar de Sevilla, Carta de hermand	SPARQL label-contains match
+BNE MSS/2328	Q1040002	MS: Madrid: Nacional (BNE), MSS/2328. 1554 a quo. Johannes de Ketham, Compendio de la salud humana (tr. Desconocido), tr	SPARQL label-contains match
+BNE MSS/1530	Q1042553	MS: Madrid: Nacional (BNE), MSS/1530. Juan Gómez de Silva, 1553. Desconocido, Crónica de Castilla, escrito 1295 ad quem.	SPARQL label-contains match
+BNE MSS/18631/27	Q1043678	MS: Madrid: Nacional (BNE), MSS/18631/27. Sevilla: Cristóbal Gutiérrez Calderón, 1497-08-19. Juan II, rey de Castilla y 	SPARQL label-contains match
+BNE MSS/4202	Q1040250	MS: Madrid: Nacional (BNE), MSS/4202. San Cebrián de las Amayuelas: Alfonso Redondo, 1459-04-13. Iacopo da Benevento… Ve	SPARQL label-contains match
+BNE MSS/6175	Q1043044	MS: Madrid: Nacional (BNE), MSS/6175. 1701 - 1800. Antonio de Barahona, Rosal de la nobleza de España, escrito 1530-12-2	SPARQL label-contains match
+BNE MSS/5763	Q1043845	MS: Madrid: Nacional (BNE), MSS/5763. 1604?. Antonio de Herrera Tordesillas, Crónica de los turcos, escrito 1576-05-02 a	SPARQL label-contains match
+BNE MSS/9199	Q1040970	MS: Madrid: Nacional (BNE), MSS/9199. 1401 ca. - 1450 ca. Pedro I, rey de Castilla y León, [Carta de promulgación del Or	SPARQL label-contains match
+BNE MSS/11311	Q1042630	MS: Madrid: Nacional (BNE), MSS/11311. 1521 ca. - 1600. Juan Pérez de Vargas… [Libro de armería (versión tercera)], escr	SPARQL label-contains match
+BNE MSS/11766	Q1042651	MS: Madrid: Nacional (BNE), MSS/11766. 1650 ca. Diego Fernández de Mendoza… [Libro de armería (versión de 1496)], escrit	SPARQL label-contains match
+BNE MSS/11126	Q1042584	MS: Madrid: Nacional (BNE), MSS/11126. 1701 - 1800. Alfonso XI, rey de Castilla y León, Ordenamiento de Sevilla de 1337 	SPARQL label-contains match
+BNE MSS/1600	Q1040472	MS: Madrid: Nacional (BNE), MSS/1600. Bonaventura Vulcanius, para Juan Páez de Castro, 1561-02-22 - 1561-07. Pedro López	SPARQL label-contains match
+BNE MSS/12932/46	Q1042723	MS: Madrid: Nacional (BNE), MSS/12932/46. 1308-01-03. Constanza de Portugal, reina de Castilla y León, Corona de, [Carta	SPARQL label-contains match
+BNE MSS/20267/4	Q1043586	MS: Madrid: Nacional (BNE), MSS/20267/4. 1273-01-07 a quo. Velasco Gómez, [Carta puebla de Velada], escrito 1273-01-07.	SPARQL label-contains match
+BNE MSS/1599	Q1042966	MS: Madrid: Nacional (BNE), MSS/1599. 1701 ca. - 1750 ca. Pedro Rodríguez de Lena, [Paso honroso de Suero de Quiñones], 	SPARQL label-contains match
+BNE MSS/3378	Q1041322	MS: Madrid: Nacional (BNE), MSS/3378. 1451 ca. - 1500 ca. Abu al-Wafa’ al-Mubashshir ibn Fatik, Bocados de oro (tr. Desc	SPARQL label-contains match
+BNE MSS/4402	Q1040251	MS: Madrid: Nacional (BNE), MSS/4402. 1441 ca. - 1460 ca. Desconocido, Libro que trata de como se debe hombre regir en s	SPARQL label-contains match
+BNE MSS/21626	Q1040984	MS: Madrid: Nacional (BNE), MSS/21626. Juan de Zapata, 1451 ca. - 1475 ca. Gullielmus Paraldus, Criamiento e enseñamient	SPARQL label-contains match
+BNE MSS/22335	Q1041250	MS: Madrid: Nacional (BNE), MSS/22335. Palencia: Copista del Cancionero de Barrantes, 1474-12-11 a quo - 1480-03-20 ad q	SPARQL label-contains match
+BNE MSS/23043	Q1041916	MS: Madrid: Nacional (BNE), MSS/23043. 1426 ca. - 150 ca. Despensero de la reina Leonor, Sumario de los reyes de España,	SPARQL label-contains match
+BNE MSS/8598	Q1039631	MS: Madrid: Nacional (BNE), MSS/8598. Uclés?:, 1445-05-19 ad quem. Pedro López de Baeza, Dichos de los santos padres, es	SPARQL label-contains match
+BNE MSS/864	Q1039040	MS: Madrid: Nacional (BNE), MSS/864. 1451 ca. - 1475 ca. Desconocido, Declaración del credo que ordenaron por Espíritu S	SPARQL label-contains match
+BNE MSS/7684	Q1041067	MS: Madrid: Nacional (BNE), MSS/7684. 1501 ca. - 1550 ca. Fernán Sánchez de Valladolid, notario mayor de Castilla, Cróni	SPARQL label-contains match
+BNE MSS/6427	Q1041337	MS: Madrid: Nacional (BNE), MSS/6427. 1401 ca. - 1450 ca. Colectivo, Ordenamientos reales, escrito 1200 - 1800.	SPARQL label-contains match
+BNE MSS/9559	Q1039125	MS: Madrid: Nacional (BNE), MSS/9559. 1465 ca. - 1470 ca. Rodrigo Jiménez de Rada, arzobispo de Toledo ~ Desconocido… [H	SPARQL label-contains match
+BNE MSS/10196	Q1039565	MS: Madrid: Nacional (BNE), MSS/10196. para Íñigo López de Mendoza, 1. marqués de Santillana?, 1445-08-08 ad quem?. Benv	SPARQL label-contains match
+BNE MSS/10571	Q1040806	MS: Madrid: Nacional (BNE), MSS/10571. 1474 - 1500 ca. Bartolomé Talayero, Libro de confesión, compilado 1474.	SPARQL label-contains match
+BNE MSS/10188	Q1040836	MS: Madrid: Nacional (BNE), MSS/10188. 1535-09-19. Rodrigo Jiménez de Rada, arzobispo de Toledo, [Versión general incomp	SPARQL label-contains match
+BNE MSS/12732	Q1040016	MS: Madrid: Nacional (BNE), MSS/12732. Haro: Martín Sánchez de Tricio, 1433. Titus Livius, Décadas de Tito Livio (tr. Pe	SPARQL label-contains match
+BNE MSS/12672	Q1039921	MS: Madrid: Nacional (BNE), MSS/12672. 1510-09-08 a quo - 1520 ca. Diego de Valera, maestresala, Doctrinal de príncipes,	SPARQL label-contains match
+BNE MSS/10664	Q1042476	MS: Madrid: Nacional (BNE), MSS/10664. Madrid?:, 1788-12-14 ad quem?. Diego de Valera, maestresala, Crónica de España, e	SPARQL label-contains match
+BNE MSS/12181	Q1040809	MS: Madrid: Nacional (BNE), MSS/12181. 1401 ca. - 1450 ca. Johannes Gallensis, Suma de colaciones o ayuntamientos (tr. D	SPARQL label-contains match
+BNE MSS/12932/40	Q1042717	MS: Madrid: Nacional (BNE), MSS/12932/40. Burgos: Juan Díaz, 1307-09-03. Fernando IV, rey de Castilla y León, [Carta a J	SPARQL label-contains match
+BNE MSS/12933/7	Q1042708	MS: Madrid: Nacional (BNE), MSS/12933/7. José Jackson Veyán, 1880 ad quem. Lucianus de Samosata, Comparación entre Aleja	SPARQL label-contains match
+BNE MSS/12932/42	Q1042719	MS: Madrid: Nacional (BNE), MSS/12932/42. 1307. Alimosna Eginel, [Carta a Jaume II, sobre la estancia en Burgos de Ferna	SPARQL label-contains match
+BNE MSS/12932/45	Q1042722	MS: Madrid: Nacional (BNE), MSS/12932/45. 1308-01-14. Sancho Sánchez de Velasco, [Carta a Jaume II, sobre el pago de cua	SPARQL label-contains match
+BNE MSS/1496	Q1043364	MS: Madrid: Nacional (BNE), MSS/1496. 1525 a quo. Ibn al-Jatib de Loja, visir de Reino nazarí de Granada, Carta del rey 	SPARQL label-contains match
+BNE MSS/18635/32	Q1042729	MS: Madrid: Nacional (BNE), MSS/18635/32. Burgos:, 1314-01-31. Juan de Castilla, infante de Castilla y León, Corona de, 	SPARQL label-contains match
+BNE MSS/18696/17	Q1042738	MS: Madrid: Nacional (BNE), MSS/18696/17. Toledo: Domingo Guillén, para Beatriz de Portugal, 1281-04-22. Beatriz de Cast	SPARQL label-contains match
+BNE MSS/268	Q1041936	MS: Madrid: Nacional (BNE), MSS/268. 1651 ca. - 1750 ca. Isabel I, reina de Castilla y León, Corona de, Testamento, escr	SPARQL label-contains match
+BNE MSS/20262/15	Q1043684	MS: Madrid: Nacional (BNE), MSS/20262/15. Medina del Campo: Juan González de Ciudad Real, 1448-04-07. Juan II, rey de Ca	SPARQL label-contains match
+BNE MSS/4114	Q1038955	MS: Madrid: Nacional (BNE), MSS/4114. 1750 ca. Colectivo… Cancionero de Pero Guillén de Segovia y otros [MN19], escrito 	SPARQL label-contains match
+BNE MSS/4183	Q1040143	MS: Madrid: Nacional (BNE), MSS/4183. Andújar: Bartolomé de Alcaraz, para Pedro de Escavias, alcaide de Andújar, 1472-08	SPARQL label-contains match
+BNE MSS/8041	Q1040775	MS: Madrid: Nacional (BNE), MSS/8041. Oña?: para San Salvador de Oña, 1504 a quo. Desconocido, Devoción muy probada para	SPARQL label-contains match
+BNE MSS/3666	Q1039647	MS: Madrid: Nacional (BNE), MSS/3666. Gonzalo Cordubense, 1444-03-17 a quo. Homerus, Sumas de la Ilíada de Homero (tr. J	SPARQL label-contains match
+BNE MSS/9608	Q1039281	MS: Madrid: Nacional (BNE), MSS/9608. 1401 - 1455 ad quem. Sextus Iulius Frontinus, Libro llamado Julio Frontino (tr. De	SPARQL label-contains match
+BNE MSS/8567	Q1039642	MS: Madrid: Nacional (BNE), MSS/8567. 1437 a quo - 1440 ca. Pedro Díaz de Toledo, señor de Olmedilla, [Introducción y gl	SPARQL label-contains match
+BNE MSS/3468	Q1039149	MS: Madrid: Nacional (BNE), MSS/3468. 1401 - 1500. Teodorico Borgognoni, Libro de los caballos (tr. Desconocido), traduc	SPARQL label-contains match
+BNE MSS/10386	Q1042480	MS: Madrid: Nacional (BNE), MSS/10386. 1701 - 1800. Rodrigo del Padrón, arzobispo de Santiago de Compostela, Ordenamient	SPARQL label-contains match
+BNE MSS/10131	Q1039509	MS: Madrid: Nacional (BNE), MSS/10131. Avignon: Bernardo de Jaca, para Juan Fernández de Heredia, gran maestre de Rodas,	SPARQL label-contains match
+BNE MSS/10825	Q1042581	MS: Madrid: Nacional (BNE), MSS/10825. Francisco de Ojeda?, 1544. Ramon de Perellós, 1. vescomte de Perellós, Viaje mara	SPARQL label-contains match
+BNE MSS/11439	Q1042635	MS: Madrid: Nacional (BNE), MSS/11439. 1755-03-10. Pedro de Gracia Dei, Blasón general de todas las insignias del univer	SPARQL label-contains match
+BNE MSS/10648	Q1042487	MS: Madrid: Nacional (BNE), MSS/10648. 1701 - 1800. Juan I, rey de Castilla y León, Ordenamiento de Valladolid de 1385, 	SPARQL label-contains match
+BNE MSS/10133	Q1039505	MS: Madrid: Nacional (BNE), MSS/10133. Avignon: Alvar Pérez de Sevilla, canónigo de Jaén, 1385-01-13. Juan Fernández de 	SPARQL label-contains match
+BNE MSS/10234	Q1039608	MS: Madrid: Nacional (BNE), MSS/10234. 1441 ca. - 1458-03-25 ad quem. Desconocido, [Genealogía de la casa de Lara], escr	SPARQL label-contains match
+BNE MSS/10285	Q1040168	MS: Madrid: Nacional (BNE), MSS/10285. Sevilla: Alfonso Martínez del Puerto, 1421-12-23 a quo. Nicolas de Lyre, Postilla	SPARQL label-contains match
+BNE MSS/10673	Q1040263	MS: Madrid: Nacional (BNE), MSS/10673. Valladolid:, 1523-07-30. Pedro de Mena, Sumario de la crónica del rey don Enrique	SPARQL label-contains match
+BNE MSS/10263	Q1040841	MS: Madrid: Nacional (BNE), MSS/10263. 1526 ca. - 1575 ca. seudo-Alfonso de Palencia… Crónica castellana de Enrique IV, 	SPARQL label-contains match
+BNE MSS/1208	Q1039261	MS: Madrid: Nacional (BNE), MSS/1208. 1441 ca. - 1460 ca. Aegidius Romanus, arzobispo de Bourges, Regimiento de príncipe	SPARQL label-contains match
+BNE MSS/12367	Q1039503	MS: Madrid: Nacional (BNE), MSS/12367. Illueca: Juan de Oviedo, 1454. Juan Fernández de Heredia, gran maestre de Rodas, 	SPARQL label-contains match
+BNE MSS/12895	Q1041102	MS: Madrid: Nacional (BNE), MSS/12895. Guadalajara: Francisco Hurtado, para Sebastián Rodríguez, alguacil de Guadalajara	SPARQL label-contains match
+BNE MSS/11639	Q1042643	MS: Madrid: Nacional (BNE), MSS/11639. 1651 ca. Lope García de Salazar, señor de Torre de Salazar, Nobles familias de qu	SPARQL label-contains match
+BNE MSS/11541	Q1040980	MS: Madrid: Nacional (BNE), MSS/11541. 1420 ca. Desconocido, Capítulo de la fiesta de la visitación de santa María, escr	SPARQL label-contains match
+BNE MSS/1478	Q1039430	MS: Madrid: Nacional (BNE), MSS/1478. 1429-08-12 a quo - 1450 ca. Alfonso Chirino, Menor daño de medicina, escrito 1430 	SPARQL label-contains match
+BNE MSS/1462	Q1039998	MS: Madrid: Nacional (BNE), MSS/1462. 1541 ca. - 1560 ca. Desconocido, [Recetas de perfumes, medicinas y conservas], esc	SPARQL label-contains match
+BNE MSS/13414	Q1040853	MS: Madrid: Nacional (BNE), MSS/13414. San Lorenzo de El Escorial:, 1701 - 1800. Alfonso X, rey de Castilla y León, Priv	SPARQL label-contains match
+BNE MSS/13331	Q1041375	MS: Madrid: Nacional (BNE), MSS/13331. 1511 ca. - 1520 ca. Alfons I, rei d’Aragó, Fuero de Viguera y Val de Funes (tr. D	SPARQL label-contains match
+BNE MSS/1737	Q1042539	MS: Madrid: Nacional (BNE), MSS/1737. Cristóbal de Rojas, 1585-12-16. Diego Enríquez del Castillo, Crónica de Enrique IV	SPARQL label-contains match
+BNE MSS/1745	Q1041863	MS: Madrid: Nacional (BNE), MSS/1745. Madrid: para Francisco Guillamas Velázquez, 1590-04. Desconocido, [Crónica de la p	SPARQL label-contains match
+BNE MSS/1777	Q1043264	MS: Madrid: Nacional (BNE), MSS/1777. 1591 ca. - 1602 ad quem. Fernando de Pulgar, Crónica de los Reyes Católicos, escri	SPARQL label-contains match
+BNE MSS/2076	Q1042556	MS: Madrid: Nacional (BNE), MSS/2076. 1501 - 1600. Isa ben Gabir, alfaquí de Segovia, Breviario sunni, escrito 1462.	SPARQL label-contains match
+BNE MSS/18640/51	Q1042802	MS: Madrid: Nacional (BNE), MSS/18640/51. Guadalajara:, 1390-04-15. Juan I, rey de Castilla y León, Carta Real en que Ju	SPARQL label-contains match
+BNE MSS/20930	Q1043649	MS: Madrid: Nacional (BNE), MSS/20930. 1631-05-18. Lope García de Salazar, señor de Torre de Salazar, Bienandanzas y for	SPARQL label-contains match
+BNE MSS/250	Q1039069	MS: Madrid: Nacional (BNE), MSS/250. 1433-10-27 a quo. Desconocido, Fuero de Salamanca, escrito 1300 ca. ad quem.	SPARQL label-contains match
+BNE MSS/2165	Q1039271	MS: Madrid: Nacional (BNE), MSS/2165. 1426 ca. - 1450 ca. Lanfrancus Mediolanensis, Cirugía menor (tr. Desconocido), tra	SPARQL label-contains match
+BNE MSS/3384	Q1039431	MS: Madrid: Nacional (BNE), MSS/3384. 1441 ca. - 1460 ca. Alfonso Chirino, Espejo de medicina, escrito 1419 ad quem.	SPARQL label-contains match
+BNE MSS/2803	Q1042505	MS: Madrid: Nacional (BNE), MSS/2803. Manuel Pantoja, 1601 - 1700. Alfonso X, rey de Castilla y León, Repartimiento de S	SPARQL label-contains match
+BNE MSS/4514	Q1039204	MS: Madrid: Nacional (BNE), MSS/4514. 1467-11-28 a quo - 1475 ca. Aristoteles, Ética de Aristóteles (tr. Nuño de Guzmán 	SPARQL label-contains match
+BNE MSS/6176	Q1040381	MS: Madrid: Nacional (BNE), MSS/6176. 1571 ca. a quo - 1600 ca. Fernán Pérez del Pulgar, capitán general de Alhama, Crón	SPARQL label-contains match
+BNE MSS/4515	Q1039782	MS: Madrid: Nacional (BNE), MSS/4515. 1491 ca. - 1510 ca. Fernán Pérez de Guzmán, señor de Batres, Floresta de filósofos	SPARQL label-contains match
+BNE MSS/6539	Q1040960	MS: Madrid: Nacional (BNE), MSS/6539. 1504-11-26 a quo - 1550. Desconocido, Devocionario hispanolatino, escrito 1485 ca.	SPARQL label-contains match
+BNE MSS/7115	Q1040761	MS: Madrid: Nacional (BNE), MSS/7115. 1601 ca. - 1650 ca. seudo-Alfonso de Palencia… Crónica castellana de Enrique IV, e	SPARQL label-contains match
+BNE MSS/7376	Q1041377	MS: Madrid: Nacional (BNE), MSS/7376. 1501 ca. - 1550 ca. seudo-Alfonso de Palencia… Crónica castellana de Enrique IV, e	SPARQL label-contains match
+BNE MSS/7131	Q1042295	MS: Madrid: Nacional (BNE), MSS/7131. Madrid: Luis de Usoz y Río, 1855-07-13. Gregorius I, papa, Diálogos (tr. Gonzalo d	SPARQL label-contains match
+BNE MSS/6576	Q1043859	MS: Madrid: Nacional (BNE), MSS/6576. 1601 ca. - 1650 ca. Diego Fernández de Mendoza… [Libro de armería (versión de 1496	SPARQL label-contains match
+BNE MSS/800	Q1039102	MS: Madrid: Nacional (BNE), MSS/800. 1391 ca. - 1410 ca. Desconocido, Fuero general de Navarra (Versión B) (tr. Desconoc	SPARQL label-contains match
+BNE MSS/7629	Q1040820	MS: Madrid: Nacional (BNE), MSS/7629. 1501 ca. - 1550 ca. Fernando de Pulgar, Crónica de los Reyes Católicos, escrito 14	SPARQL label-contains match
+BNE MSS/8216	Q1041170	MS: Madrid: Nacional (BNE), MSS/8216. 1741 ca. - 1760 ca. Desconocido… Fuero viejo de Castilla (tr. Desconocido), traduc	SPARQL label-contains match
+BNE MSS/761	Q1041449	MS: Madrid: Nacional (BNE), MSS/761. Antonio Díaz?, 1594. Desconocido, Fuero general de Navarra (Versión C) (tr. Descono	SPARQL label-contains match
+BNE MSS/845	Q1043147	MS: Madrid: Nacional (BNE), MSS/845. para Miguel Beltrán y Peris, 1633. García López de Padilla ~ Pere Alegre… [Definici	SPARQL label-contains match
+BNE MSS/9180	Q1040969	MS: Madrid: Nacional (BNE), MSS/9180. 1434 ca. a quo - 1500 ca. Lucius Annaeus Seneca, [Tratados de Séneca] (tr. Alonso 	SPARQL label-contains match
+BNE MSS/9445	Q1040976	MS: Madrid: Nacional (BNE), MSS/9445. 1550 ca. Pedro Carrillo de Huete, [Crónica del Halconero de Juan II], escrito 1454	SPARQL label-contains match
+BNE MSS/9567	Q1040978	MS: Madrid: Nacional (BNE), MSS/9567. 1491-12-20?. Desconocido, Gloriosa pasión contemplativa de Nuestro Señor Jesucrist	SPARQL label-contains match
+BNE MSS/892	Q1042112	MS: Madrid: Nacional (BNE), MSS/892. Juan Vázquez del Mármol, 1583-12-20 - 1614-03-20. Desconocido, [Crónica particular 	SPARQL label-contains match
+BNE MSS/9580	Q1040257	MS: Madrid: Nacional (BNE), MSS/9580. Sevilla:, 1840. Pedro de Gracia Dei… Historia o defensa del rey don Pedro, escrito	SPARQL label-contains match
+BNE MSS/10118	Q1040009	MS: Madrid: Nacional (BNE), MSS/10118. Alfonso Gómez de Zamora, para Íñigo López de Mendoza, 1. marqués de Santillana, 1	SPARQL label-contains match
+BNE MSS/11261/38	Q1042609	MS: Madrid: Nacional (BNE), MSS/11261/38. 1701 - 1800. Fueros de Treviño, escrito 1254 ad quem.	SPARQL label-contains match
+BNE MSS/1503	Q1042536	MS: Madrid: Nacional (BNE), MSS/1503. Manuel Herrera Gallinato, para Gaspar de Balboa, corregidor, 1626-01-07. Diego Enr	SPARQL label-contains match
+BNE MSS/11170	Q1042604	MS: Madrid: Nacional (BNE), MSS/11170. para Rafael de Floranes y Encinas, señor de Tabaneros, 1801-12-06 ad quem. Privil	SPARQL label-contains match
+BNE MSS/11460	Q1042636	MS: Madrid: Nacional (BNE), MSS/11460. Francisco Gómez de Arévalo, 1665-05-20. Antonio de Barahona, Rosal de la nobleza 	SPARQL label-contains match
+BNE MSS/10171	Q1040497	MS: Madrid: Nacional (BNE), MSS/10171. 1401 - 1500. Leonardo Bruni d’Arezzo, Vida de Aristóteles (tr. Desconocido), trad	SPARQL label-contains match
+BNE MSS/10677	Q1042490	MS: Madrid: Nacional (BNE), MSS/10677. 1701 - 1800. Lorenzo Galíndez de Carvajal, Adiciones genealógicas a los Claros va	SPARQL label-contains match
+BNE MSS/11087	Q1042579	MS: Madrid: Nacional (BNE), MSS/11087. Madrid:, 1618 a quo - 1700 ca. Ramon de Perellós, 1. vescomte de Perellós, Viaje 	SPARQL label-contains match
+BNE MSS/431	Q1039100	MS: Madrid: Nacional (BNE), MSS/431. 1391 ca. - 1400 ca. Fernando III… Libro de los fueros de Castilla, compilado 1248 a	SPARQL label-contains match
+BNE MSS/10073	Q1040802	MS: Madrid: Nacional (BNE), MSS/10073. Juan Álvarez, 1391 ca. - 1410 ca. Desconocido, [Gramática latina con ejemplos en 	SPARQL label-contains match
+BNE MSS/12693	Q1042674	MS: Madrid: Nacional (BNE), MSS/12693. 1701 - 1800. Juan Núñez de Lara, Primeras leyes escritas que se hicieron en Vizca	SPARQL label-contains match
+BNE MSS/10208	Q1040508	MS: Madrid: Nacional (BNE), MSS/10208. 1401 - 1500. Benvenuto da Imola, [Comentario sobre el Infierno de la Divina comed	SPARQL label-contains match
+BNE MSS/10106	Q1040749	MS: Madrid: Nacional (BNE), MSS/10106. 1401 ca. - 1420 ca. Leonardus Pisanus, Aritmética práctica (tr. Desconocido), tra	SPARQL label-contains match
+BNE MSS/10141	Q1042332	MS: Madrid: Nacional (BNE), MSS/10141. 1401 - 1600. Gonzalo Chacón, señor de Casarrubios… Crónica de don Alvaro de Luna,	SPARQL label-contains match
+BNE MSS/10147	Q1042333	MS: Madrid: Nacional (BNE), MSS/10147. 1576 ca. - 1600 ca. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 1	SPARQL label-contains match
+BNE MSS/10150	Q1042335	MS: Madrid: Nacional (BNE), MSS/10150. 1525 ca. a quo. Fernando de Pulgar, Crónica de los Reyes Católicos, escrito 1482 	SPARQL label-contains match
+BNE MSS/10212	Q1040509	MS: Madrid: Nacional (BNE), MSS/10212. 1458-03-25 ad quem. Leonardo Bruni d’Arezzo, Tratado de la caballería (tr. Descon	SPARQL label-contains match
+BNE MSS/10246	Q1040513	MS: Madrid: Nacional (BNE), MSS/10246. 1491 ca. - 1510 ca. Marcus Tullius Cicero, Libro de officiis (tr. Gonzalo de la C	SPARQL label-contains match
+BNE MSS/10260	Q1042431	MS: Madrid: Nacional (BNE), MSS/10260. 1501 - 1600. Philippe de Commynes, sieur de Argenton, Crónica del rey Luis de Fra	SPARQL label-contains match
+BNE MSS/10284	Q1040167	MS: Madrid: Nacional (BNE), MSS/10284. Sevilla: Alfonso Martínez del Puerto, para Alfonso de Guzmán, señor de Ayamonte, 	SPARQL label-contains match
+BNE MSS/10269(3)	Q1043528	MS: Madrid: Nacional (BNE), MSS/10269(3). 1401 ca. - 1450 ca. Brunetto Latini, Libro del tesoro (tr. Alonso de Paredes…)	SPARQL label-contains match
+BNE MSS/10347	Q1039879	MS: Madrid: Nacional (BNE), MSS/10347. Granada: Hernando de Talavera, arzobispo de Granada, 1496-01-08 - 1497-06-28. Her	SPARQL label-contains match
+BNE MSS/10322	Q1041094	MS: Madrid: Nacional (BNE), MSS/10322. 1551 ca. - 1600 ca. Pedro López de Ayala, canciller mayor de Castilla, Libro de l	SPARQL label-contains match
+BNE MSS/10614	Q1041598	MS: Madrid: Nacional (BNE), MSS/10614. Madrid: Miquel Salvá Munar, obispo de Mallorca, 1840-03-20. Rodrigo Jiménez de Ra	SPARQL label-contains match
+BNE MSS/10703	Q1042491	MS: Madrid: Nacional (BNE), MSS/10703. Madrid: para Rafael de Floranes y Encinas, señor de Tabaneros, 1792. Fernando III	SPARQL label-contains match
+BNE MSS/11155	Q1042521	MS: Madrid: Nacional (BNE), MSS/11155. 1701 - 1800. Pedro de Gracia Dei… Historia o defensa del rey don Pedro, escrito 1	SPARQL label-contains match
+BNE MSS/1178	Q1039704	MS: Madrid: Nacional (BNE), MSS/1178. Pedro de Navas, para Alvar Gómez de Castro, 1578-03-11. Alfonso Martínez de Toledo	SPARQL label-contains match
+BNE MSS/11423	Q1042633	MS: Madrid: Nacional (BNE), MSS/11423. 1540 ca. - 1560 ca. Garci Alonso de Torres, rey de armas de Aragó, Espejo de nobl	SPARQL label-contains match
+BNE MSS/11682	Q1042646	MS: Madrid: Nacional (BNE), MSS/11682. Juan Pérez de Vargas, 1550 ca. Juan Pérez de Vargas… [Libro de armería (versión t	SPARQL label-contains match
+BNE MSS/11761	Q1042649	MS: Madrid: Nacional (BNE), MSS/11761. 1690 ca. Antonio de Barahona, Rosal de la nobleza de España, escrito 1530-12-25.	SPARQL label-contains match
+BNE MSS/12722	Q1040015	MS: Madrid: Nacional (BNE), MSS/12722. Gonzalo Rodríguez de Santiago, para Juan II, rey de Castilla y León, 1424. Titus 	SPARQL label-contains match
+BNE MSS/12743	Q1041101	MS: Madrid: Nacional (BNE), MSS/12743. Pedro, 1451 ca. - 1475 ca. Alonso de Cartagena, obispo de Burgos, Doctrinal de lo	SPARQL label-contains match
+BNE MSS/12875	Q1043040	MS: Madrid: Nacional (BNE), MSS/12875. 1701 - 1800. Diego de Castilla, deán de Toledo, Memoria de las cosas antiguas, es	SPARQL label-contains match
+BNE MSS/12929/30	Q1042715	MS: Madrid: Nacional (BNE), MSS/12929/30. 1307 ca. Diego García de Toledo, adelantado mayor de Reino de Galicia, [Carta 	SPARQL label-contains match
+BNE MSS/12932/48	Q1042725	MS: Madrid: Nacional (BNE), MSS/12932/48. Valladolid:, 1307-05-05. Vataza Lascaris, [Carta familiar a Jaume II d’Aragó],	SPARQL label-contains match
+BNE MSS/12932/49	Q1042726	MS: Madrid: Nacional (BNE), MSS/12932/49. 1313-10-27. Garcilaso de la Vega II, adelantado mayor de Castilla, [Carta a Ja	SPARQL label-contains match
+BNE MSS/1396	Q1039002	MS: Madrid: Nacional (BNE), MSS/1396. 1426 ca. - 1450 ca. Desconocido, Crónica ocampiana, escrito 1300 - 1400.	SPARQL label-contains match
+BNE MSS/13261	Q1040852	MS: Madrid: Nacional (BNE), MSS/13261. 1571 ca. - 1590 ca. Lorenzo Galíndez de Carvajal, Crónica de Enrique IV, escrito 	SPARQL label-contains match
+BNE MSS/13274	Q1040813	MS: Madrid: Nacional (BNE), MSS/13274. 1441 ca. - 1460 ca. Anicius Manlius Severinus Boethius, Consolación de filosofía 	SPARQL label-contains match
+BNE MSS/1376	Q1042548	MS: Madrid: Nacional (BNE), MSS/1376. 1577 a quo - 1591 ad quem. al-Razi, Crónica del moro Rasis (tr. Pedro del Corral…)	SPARQL label-contains match
+BNE MSS/1533	Q1039370	MS: Madrid: Nacional (BNE), MSS/1533. 1301 ca. - 1310 ca. Desconocido, [Recetas], escrito 1500 ca. ad quem.	SPARQL label-contains match
+BNE MSS/1518	Q1039751	MS: Madrid: Nacional (BNE), MSS/1518. 1471 ca. - 1480 ca. Desconocido, [Historia de los macabeos] (tr. Pedro Martínez de	SPARQL label-contains match
+BNE MSS/1487	Q1042549	MS: Madrid: Nacional (BNE), MSS/1487. 1501 ca. - 1550 ca. Alfonso X, rey de Castilla y León, Estoria de España (versión 	SPARQL label-contains match
+BNE MSS/1499	Q1042550	MS: Madrid: Nacional (BNE), MSS/1499. 1591 ca. - 1600 ca. Pedro de Portugal, 3. conde de Barcelos, Crónica de 1344 (segu	SPARQL label-contains match
+BNE MSS/1800	Q1039529	MS: Madrid: Nacional (BNE), MSS/1800. 1426 ca. - 1450 ca. Aegidius Romanus, arzobispo de Bourges, Regimiento de príncipe	SPARQL label-contains match
+BNE MSS/1804	Q1041220	MS: Madrid: Nacional (BNE), MSS/1804. 1551? - 1600?. Alfonso de Vivero, 2. vizconde de Altamira, Pregunta a fray Luis de	SPARQL label-contains match
+BNE MSS/1814	Q1040000	MS: Madrid: Nacional (BNE), MSS/1814. 1491 ca. - 1510 ca. Bernat Desclot, [Crónica de los reyes de Aragón y condes de Ba	SPARQL label-contains match
+BNE MSS/18631/21	Q1043671	MS: Madrid: Nacional (BNE), MSS/18631/21. 1491 ca. - 1510 ca. Juan II, rey de Castilla y León, [Carta a la ciudad de Tol	SPARQL label-contains match
+BNE MSS/18697/87	Q1042804	MS: Madrid: Nacional (BNE), MSS/18697/87. Madrigal de las Altas Torres:, 1438-12-08. Juan II, rey de Castilla y León, [C	SPARQL label-contains match
+BNE MSS/18631/23	Q1043673	MS: Madrid: Nacional (BNE), MSS/18631/23. 1491 ca. - 1510 ca. Juan II, rey de Castilla y León, [Carta patente a la ciuda	SPARQL label-contains match
+BNE MSS/18631/25	Q1043676	MS: Madrid: Nacional (BNE), MSS/18631/25. 1491 ca. - 1510 ca. Juan II, rey de Castilla y León, [Cédula real a la ciudad 	SPARQL label-contains match
+BNE MSS/18631/28	Q1043679	MS: Madrid: Nacional (BNE), MSS/18631/28. 1491 ca. - 1510 ca. Juan II, rey de Castilla y León, [Carta enviada a Juan de 	SPARQL label-contains match
+BNE MSS/18631/29	Q1043680	MS: Madrid: Nacional (BNE), MSS/18631/29. 1491 ca. - 1510 ca. Juan II, rey de Castilla y León, [Carta a Pedro López de A	SPARQL label-contains match
+BNE MSS/18772	Q1040269	MS: Madrid: Nacional (BNE), MSS/18772. 1401 - 1500. Francesc Eiximenis, patriarca de Jerusalén, Vida de Jesucristo (tr. 	SPARQL label-contains match
+BNE MSS/1904	Q1040476	MS: Madrid: Nacional (BNE), MSS/1904. 1604-08-31 ad quem?. Pedro López de Ayala, canciller mayor de Castilla, Crónica de	SPARQL label-contains match
+BNE MSS/1886	Q1041104	MS: Madrid: Nacional (BNE), MSS/18864. 1501 ca. - 1550 ca. Fernando de Pulgar, Crónica de los Reyes Católicos, escrito 1	SPARQL label-contains match
+BNE MSS/19700/64	Q1043682	MS: Madrid: Nacional (BNE), MSS/19700/64. 1476-05-05 a quo. Rodrigo Manrique, 1. conde de Paredes de Nava, [Carta al duq	SPARQL label-contains match
+BNE MSS/2255	Q1039623	MS: Madrid: Nacional (BNE), MSS/2255. 1434-03-13 a quo. Titus Livius, Décadas de Tito Livio (tr. Pedro López de Ayala, c	SPARQL label-contains match
+BNE MSS/2041	Q1042932	MS: Madrid: Nacional (BNE), MSS/2041. 1701 ca. - 1750 ca. Desconocido, Sucesos en la ciudad de Toledo contra los convers	SPARQL label-contains match
+BNE MSS/20262/18	Q1043686	MS: Madrid: Nacional (BNE), MSS/20262/18. Tordesillas:, 1409-05-02. Juan II, rey de Castilla y León ~ Catherine of Lanca	SPARQL label-contains match
+BNE MSS/3367	Q1041033	MS: Madrid: Nacional (BNE), MSS/3367. Corona d’Aragó:, 1441 ca. a quo - 1500 ca. Desconocido, [Glosa a la Visión deleita	SPARQL label-contains match
+BNE MSS/2882 (2)	Q1042377	MS: Madrid: Nacional (BNE), MSS/2882 (2). Nicosia:, 1469-05-03. Íñigo López de Mendoza, 1. marqués de Santillana, Pregun	SPARQL label-contains match
+BNE MSS/3258	Q1043831	MS: Madrid: Nacional (BNE), MSS/3258. 1591 ca. - 1600 ca. Garci Alonso de Torres, rey de armas de Aragó, Blasón y recogi	SPARQL label-contains match
+BNE MSS/5626	Q1040767	MS: Madrid: Nacional (BNE), MSS/5626. 1441 ca. - 1460 ca. Desconocido, Ejemplos muy notables, escrito 1460 ca. ad quem.	SPARQL label-contains match
+BNE MSS/4987	Q1041758	MS: Madrid: Nacional (BNE), MSS/4987. Aragón:, 1541 ca. - 1560 ca. Desconocido, [Tratado jurídico aljamiado], escrito 14	SPARQL label-contains match
+BNE MSS/6119	Q1042258	MS: Madrid: Nacional (BNE), MSS/6119. 1501 - 1600. Pedro Barrantes Maldonado Sanabria, Crónica de Enrique III, escrito 1	SPARQL label-contains match
+BNE MSS/6149	Q1042765	MS: Madrid: Nacional (BNE), MSS/6149. Juan Vázquez del Mármol?, 1579-04-01. Desconocido, “Por la barbacana viene | el bu	SPARQL label-contains match
+BNE MSS/6608	Q1039150	MS: Madrid: Nacional (BNE), MSS/6608. 1401 ca. - 1450 ca. Desconocido, Dichos de sabios, escrito 1400 ca. ad quem.	SPARQL label-contains match
+BNE MSS/6228	Q1040253	MS: Madrid: Nacional (BNE), MSS/6228. Guadalupe?: Juan, 1451 ca. - 1475 ca. Francesc Eiximenis, patriarca de Jerusalén, 	SPARQL label-contains match
+BNE MSS/6416	Q1041233	MS: Madrid: Nacional (BNE), MSS/6416. 1351 ca. - 1400 ca. Desconocido, Código (El) (tr. Desconocido), traducido 1400 ca.	SPARQL label-contains match
+BNE MSS/6655	Q1038772	MS: Madrid: Nacional (BNE), MSS/6655. 1301 - 1350. Alfonso X, rey de Castilla y León, Fuero real, promulgado 1255-07-18.	SPARQL label-contains match
+BNE MSS/6609	Q1040961	MS: Madrid: Nacional (BNE), MSS/6609. 1444-03-17 a quo - 1500. Íñigo López de Mendoza, 1. marqués de Santillana ~ Alonso	SPARQL label-contains match
+BNE MSS/6710	Q1039206	MS: Madrid: Nacional (BNE), MSS/6710. Esteban de Masparranta, 1479-07-31. Aristoteles, Ética de Aristóteles (tr. Nuño de	SPARQL label-contains match
+BNE MSS/7012	Q1040758	MS: Madrid: Nacional (BNE), MSS/7012. Lázaro Díaz del Valle y de la Puerta, 1662-09. Pedro Rodríguez de Lena, [Paso honr	SPARQL label-contains match
+BNE MSS/7289	Q1040766	MS: Madrid: Nacional (BNE), MSS/7289. 1541 ca. - 1560 ca. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 14	SPARQL label-contains match
+BNE MSS/691 (1)	Q1038832	MS: Madrid: Nacional (BNE), MSS/691 (1). 1341 ca. - 1360 ca. Alfonso X, rey de Castilla y León, Fuero real, promulgado 1	SPARQL label-contains match
+BNE MSS/691 (2)	Q1042761	MS: Madrid: Nacional (BNE), MSS/691 (2). 1483 ca. a quo. Alfonso XI, rey de Castilla y León, Ordenamiento de Alcalá de H	SPARQL label-contains match
+BNE MSS/7798	Q1040774	MS: Madrid: Nacional (BNE), MSS/7798. 1301 ca. - 1310 ca. Alfonso X, rey de Castilla y León, Fuero real, promulgado 1255	SPARQL label-contains match
+BNE MSS/7565	Q1040964	MS: Madrid: Nacional (BNE), MSS/7565. 1468 a quo - 1500 ca. Plutarchus, El tratado de Plutarco de las conquistas del rey	SPARQL label-contains match
+BNE MSS/802	Q1039071	MS: Madrid: Nacional (BNE), MSS/802. 1401 ca. - 1425 ca. Desconocido, [Jueces y anales de Teruel hasta 1379], escrito 13	SPARQL label-contains match
+BNE MSS/869	Q1040249	MS: Madrid: Nacional (BNE), MSS/869. 1401 ca. - 1425 ca. Albertus de Morra, Regla de la Orden de caballería de Santiago 	SPARQL label-contains match
+BNE MSS/9243	Q1040254	MS: Madrid: Nacional (BNE), MSS/9243. 1434 a quo - 1470 ca. ad quem. Francesc Eiximenis, patriarca de Jerusalén, Libro q	SPARQL label-contains match
+BNE MSS/8822	Q1040784	MS: Madrid: Nacional (BNE), MSS/8822. 1441 ca. - 1460 ca. Polybius, [Primera guerra púnica] (tr. Desconocido), traducido	SPARQL label-contains match
+BNE MSS/9087	Q1043031	MS: Madrid: Nacional (BNE), MSS/9087. 1683-09 a quo. Pedro de Gracia Dei, La universal de casas y solares nobles de Espa	SPARQL label-contains match
+BNE MSS/9556	Q1040523	MS: Madrid: Nacional (BNE), MSS/9556. para Pedro González de Mendoza y Figueroa, cardenal?, 1451 ca. - 1495-01-11 ad que	SPARQL label-contains match
+BNE MSS/9427	Q1040790	MS: Madrid: Nacional (BNE), MSS/9427. Segovia: Fernando Díaz de Toledo, doctor en leyes, para Juan II, rey de Castilla y	SPARQL label-contains match
+BNE MSS/9263	Q1040972	MS: Madrid: Nacional (BNE), MSS/9263. 1451 ca. - 1500 ca. Diego de Valera, maestresala, [Epístola a Juan II estando su a	SPARQL label-contains match
+BNE MSS/9428	Q1040975	MS: Madrid: Nacional (BNE), MSS/9428. 1401 ca. - 1450 ca. pseudo-Aristoteles, Notables enseñamientos que envió Aristótel	SPARQL label-contains match
+BNE MSS/9532	Q1040155	MS: Madrid: Nacional (BNE), MSS/9532. Alfonso, arcediano de Palenzuela, 1426 ca. - 1450 ca. Desconocido, Tratado sobre l	SPARQL label-contains match
+BNE MSS/9742	Q1041085	MS: Madrid: Nacional (BNE), MSS/9742. 1546-07-17. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 1481 ca.	SPARQL label-contains match
+BNE MSS/11261/37	Q1042608	MS: Madrid: Nacional (BNE), MSS/11261/37. 1701 - 1800. Leocadia Fernández, Fueros de Azután (era de 1312), escrito 1274-	SPARQL label-contains match
+BNE MSS/9244	Q1040255	MS: Madrid: Nacional (BNE), MSS/9244. Villalpando: Manuel Rodríguez de Sevilla, para Pedro Fernández de Velasco y Solier	SPARQL label-contains match
+BNE MSS/1771	Q1042540	MS: Madrid: Nacional (BNE), MSS/1771. 1685. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 1481 ca.	SPARQL label-contains match
+BNE MSS/1367	Q1042547	MS: Madrid: Nacional (BNE), MSS/1367. 1601 - 1700. Diego Fernández de Mendoza… [Libro de armería (versión de 1496)], esc	SPARQL label-contains match
+BNE MSS/1464	Q1041974	MS: Madrid: Nacional (BNE), MSS/1464. 1562. Pedro López de Ayala, canciller mayor de Castilla, Libro de la caza de las a	SPARQL label-contains match
+BNE MSS/13316	Q1042503	MS: Madrid: Nacional (BNE), MSS/13316. Valladolid: Antonio de Castrillón, 1667-06-24. Samuel Abu Nasr Ibn Abbas, rabí, E	SPARQL label-contains match
+BNE MSS/10065	Q1039571	MS: Madrid: Nacional (BNE), MSS/10065. 1469-10-08 a quo - 1500. Pedro Guillén de Segovia, Gaya (La), escrito 1469-10-08 	SPARQL label-contains match
+BNE MSS/10253	Q1040261	MS: Madrid: Nacional (BNE), MSS/10253. Cuenca?: Antón de Aguilar, para Lope de Barrientos, canciller mayor de Castilla, 	SPARQL label-contains match
+BNE MSS/11304	Q1042627	MS: Madrid: Nacional (BNE), MSS/11304. 1701 - 1800. Pedro Garcés de Cariñena, Nobiliario de Aragón.	SPARQL label-contains match
+BNE MSS/11534	Q1042638	MS: Madrid: Nacional (BNE), MSS/11534. 1701 - 1800. Blanca de Portugal y de Castilla, Fuero de Briviesca, escrito 1313-0	SPARQL label-contains match
+BNE MSS/11040	Q1042570	MS: Madrid: Nacional (BNE), MSS/11040. 1774-07-19 a quo?. Alfonso XI, rey de Castilla y León, [Carta al Abad de San Pedr	SPARQL label-contains match
+BNE MSS/279	Q1039101	MS: Madrid: Nacional (BNE), MSS/279. Navarra:, 1301 ca. - 1350 ca. Desconocido, Fuero general de Navarra (Versión B) (tr	SPARQL label-contains match
+BNE MSS/11661	Q1042644	MS: Madrid: Nacional (BNE), MSS/11661. 1540 ca. Juan Pérez de Vargas… [Libro de armería (versión tercera)], escrito 1541	SPARQL label-contains match
+BNE MSS/11543	Q1040578	MS: Madrid: Nacional (BNE), MSS/11543. 1291 ca. - 1300 ca. Rodrigo Pérez, Fuero de Alcázar (tr. Desconocido), traducido 	SPARQL label-contains match
+BNE MSS/6962	Q1041278	MS: Madrid: Nacional (BNE), MSS/6962. 1441 ca. - 1460 ca. Lucius Annaeus Seneca, Libro primero de la providencia divinal	SPARQL label-contains match
+BNE MSS/9975	Q1042560	MS: Madrid: Nacional (BNE), MSS/9975. para Lorenzo Ramírez de Prado, 1601 ca. - 1658 ad quem. Alfonso X, rey de Castilla	SPARQL label-contains match
+BNE MSS/10111	Q1039346	MS: Madrid: Nacional (BNE), MSS/10111. 1428-10-10 a quo - 1450 ca. Enrique de Aragón, marqués de Villena, Comentario a V	SPARQL label-contains match
+BNE MSS/10136	Q1039628	MS: Madrid: Nacional (BNE), MSS/10136. Escritorio de los Morales de Job?, 1450 ca. Beda, Prólogo de los Morales de san G	SPARQL label-contains match
+BNE MSS/10107	Q1040320	MS: Madrid: Nacional (BNE), MSS/10107. 1401 - 1500. Alonso de Cartagena, obispo de Burgos, Doctrinal de los caballeros, 	SPARQL label-contains match
+BNE MSS/10172	Q1040259	MS: Madrid: Nacional (BNE), MSS/10172. 1426 ca. - 1458-03-25 ad quem. Johannes Egidii Zamorensis, Alabanzas de España (t	SPARQL label-contains match
+BNE MSS/10211	Q1039995	MS: Madrid: Nacional (BNE), MSS/10211. 1440 ca. - 1460 ca. Rutilius Taurus Aemilianus Palladius, Obra de agricultura (tr	SPARQL label-contains match
+BNE MSS/10193	Q1040499	MS: Madrid: Nacional (BNE), MSS/10193. Alcañiz: Pedro de Valladolid, 1436-09-21. Anicius Manlius Severinus Boethius, Con	SPARQL label-contains match
+BNE MSS/10201	Q1040503	MS: Madrid: Nacional (BNE), MSS/10201. 1434 ca. - 1479 ca. Innocentius III, papa, Libro de la vileza de la humana condic	SPARQL label-contains match
+BNE MSS/10203	Q1040505	MS: Madrid: Nacional (BNE), MSS/10203. Gonzalo Sánchez, para Íñigo López de Mendoza, 1. marqués de Santillana?, 1441-09-	SPARQL label-contains match
+BNE MSS/10232	Q1040151	MS: Madrid: Nacional (BNE), MSS/10232. 1391 ca. - 1400 ca. Desconocido, Biblia moralizada (tr. Desconocido), traducido 1	SPARQL label-contains match
+BNE MSS/10245	Q1040837	MS: Madrid: Nacional (BNE), MSS/10245. 1551 ca. - 1600 ca. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 1	SPARQL label-contains match
+BNE MSS/10248	Q1040838	MS: Madrid: Nacional (BNE), MSS/10248. Cuenca:, 1579. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 1481 c	SPARQL label-contains match
+BNE MSS/10240	Q1042356	MS: Madrid: Nacional (BNE), MSS/10240. 1581 ca. - 1600 ca. Fernando de Pulgar, Crónica de los Reyes Católicos, escrito 1	SPARQL label-contains match
+BNE MSS/10282	Q1040165	MS: Madrid: Nacional (BNE), MSS/10282. Sevilla: Alfonso Martínez del Puerto, para Alfonso de Guzmán, señor de Ayamonte?,	SPARQL label-contains match
+BNE MSS/10283	Q1040166	MS: Madrid: Nacional (BNE), MSS/10283. Sevilla: Alfonso Martínez del Puerto, para Alfonso de Guzmán, señor de Ayamonte, 	SPARQL label-contains match
+BNE MSS/10287	Q1040170	MS: Madrid: Nacional (BNE), MSS/10287. Sevilla: Alfonso Martínez del Puerto, 1427-12-17 a quo. Nicolas de Lyre, Postilla	SPARQL label-contains match
+BNE MSS/10276	Q1040805	MS: Madrid: Nacional (BNE), MSS/10276. 1412-08 a quo - 1425 ca. Josué ha-Lorki, [Libros contra el Talmud y disputa con l	SPARQL label-contains match
+BNE MSS/10289	Q1040211	MS: Madrid: Nacional (BNE), MSS/10289. Zafra: Alfonso Pérez de Cáceres, para Gómez Suárez de Figueroa I, 1. señor de Zaf	SPARQL label-contains match
+BNE MSS/10678	Q1042498	MS: Madrid: Nacional (BNE), MSS/10678. 1701 - 1800. Alfonso XI, rey de Castilla y León, Ordenamiento de León de 1349 (er	SPARQL label-contains match
+BNE MSS/11357	Q1040807	MS: Madrid: Nacional (BNE), MSS/11357. 1465 ca. - 1490 ca. Innocentius III, papa, Libro de la vileza de la humana condic	SPARQL label-contains match
+BNE MSS/11011	Q1042569	MS: Madrid: Nacional (BNE), MSS/11011. 1724-09-07 a quo. Desconocido, Vida y muerte de D. Álvaro de Luna en 17 julio 145	SPARQL label-contains match
+BNE MSS/11261/50	Q1042620	MS: Madrid: Nacional (BNE), MSS/11261/50. 1701 - 1800. Alfonso X, rey de Castilla y León, Ordenamiento de Sevilla de 125	SPARQL label-contains match
+BNE MSS/1181	Q1039264	MS: Madrid: Nacional (BNE), MSS/1181. 1401 - 1500. Despensero de la reina Leonor, Sumario de los reyes de España, escrit	SPARQL label-contains match
+BNE MSS/1189	Q1041314	MS: Madrid: Nacional (BNE), MSS/1189. 1551 ca. - 1600 ca. Juan Pérez de Vargas… [Libro de armería (versión tercera)], es	SPARQL label-contains match
+BNE MSS/11437	Q1042634	MS: Madrid: Nacional (BNE), MSS/11437. 1601 - 1700. Diego Fernández de Mendoza… [Libro de armería (versión de 1496)], es	SPARQL label-contains match
+BNE MSS/11773	Q1042652	MS: Madrid: Nacional (BNE), MSS/11773. 1501 - 1700. Pedro de Gracia Dei, La universal de casas y solares nobles de Españ	SPARQL label-contains match
+BNE MSS/1195	Q1038752	MS: Madrid: Nacional (BNE), MSS/1195. 1429 ca. - 1461 ca. Alfonso X, rey de Castilla y León, Estoria de España (versión 	SPARQL label-contains match
+BNE MSS/1197	Q1039997	MS: Madrid: Nacional (BNE), MSS/1197. 1501 - 1600. Abu-l-Husayn al-Sufi… Libro de la octava esfera (tr. Abd al-Rahman al	SPARQL label-contains match
+BNE MSS/12535	Q1042663	MS: Madrid: Nacional (BNE), MSS/12535. 1601 - 1700. Desconocido, Reyes de España, escrito 1516-01-23 a quo.	SPARQL label-contains match
+BNE MSS/12598	Q1042667	MS: Madrid: Nacional (BNE), MSS/12598. 1576 ca. - 1600 ca. Pedro de Gracia Dei, Blasones de las ciudades y villas, escri	SPARQL label-contains match
+BNE MSS/12622	Q1042669	MS: Madrid: Nacional (BNE), MSS/12622. 1501 - 1600. Antonio de Barahona, Rosal de la nobleza de España, escrito 1530-12-	SPARQL label-contains match
+BNE MSS/12720	Q1039626	MS: Madrid: Nacional (BNE), MSS/12720. Haro:, 1426 ca. - 1450 ca. Gregorius I, papa, Morales [versión abreviada] (tr. Pe	SPARQL label-contains match
+BNE MSS/12677	Q1040014	MS: Madrid: Nacional (BNE), MSS/12677. 1426 ca. - 1450 ca. Titus Livius, Décadas de Tito Livio (tr. Pedro López de Ayala	SPARQL label-contains match
+BNE MSS/12897	Q1040018	MS: Madrid: Nacional (BNE), MSS/12897. 1301 - 1400. Alfonso X, rey de Castilla y León, Siete partidas, escrito 1256-06-2	SPARQL label-contains match
+BNE MSS/12796	Q1041012	MS: Madrid: Nacional (BNE), MSS/12796. Johannes de Nebreda, 1401 - 1500. Alonso de Cartagena, obispo de Burgos, Doctrina	SPARQL label-contains match
+BNE MSS/12929/29	Q1042714	MS: Madrid: Nacional (BNE), MSS/12929/29. 1307 ca. Fernando IV, rey de Castilla y León, [Concierto de Fernando IV en el 	SPARQL label-contains match
+BNE MSS/12932/39	Q1042716	MS: Madrid: Nacional (BNE), MSS/12932/39. 1303-04-30 a quo. Sancho Gómez de la Vega, [Carta a don Juan Manuel sobre las 	SPARQL label-contains match
+BNE MSS/12932/44	Q1042721	MS: Madrid: Nacional (BNE), MSS/12932/44. 1307. Diego García de Toledo, adelantado mayor de Reino de Galicia, [Carta a J	SPARQL label-contains match
+BNE MSS/13259	Q1040812	MS: Madrid: Nacional (BNE), MSS/13259. 1443-11-08 a quo. Juan II, rey de Castilla y León… [Registro de documentos del re	SPARQL label-contains match
+BNE MSS/12932/47	Q1042724	MS: Madrid: Nacional (BNE), MSS/12932/47. Valladolid:, 1308-07-01. Diego García de Toledo, adelantado mayor de Reino de 	SPARQL label-contains match
+BNE MSS/1317	Q1042525	MS: Madrid: Nacional (BNE), MSS/1317. 1591 ca. - 1600 ca. Francesc Eiximenis, patriarca de Jerusalén, De natura angélica	SPARQL label-contains match
+BNE MSS/1507	Q1039022	MS: Madrid: Nacional (BNE), MSS/1507. Salamanca:, 1587-02-01. Desconocido, Crónica de veinte reyes, escrito 1295 - 1312.	SPARQL label-contains match
+BNE MSS/1354	Q1041467	MS: Madrid: Nacional (BNE), MSS/1354. 1601 - 1700. Pedro de Gracia Dei… Historia o defensa del rey don Pedro, escrito 14	SPARQL label-contains match
+BNE MSS/1526	Q1038754	MS: Madrid: Nacional (BNE), MSS/1526. 1451 ca. - 1475 ca. Alfonso X, rey de Castilla y León, Estoria de España (versión 	SPARQL label-contains match
+BNE MSS/1517	Q1041586	MS: Madrid: Nacional (BNE), MSS/1517. 1560 ca. a quo. Fernando de Pulgar, [Letra para el cardenal Pedro González de Mend	SPARQL label-contains match
+BNE MSS/1622	Q1042036	MS: Madrid: Nacional (BNE), MSS/1622. Francisco Méndez, para Enrique Flórez, 1798. Desconocido, [Coplas sobre el conde F	SPARQL label-contains match
+BNE MSS/1763	Q1042516	MS: Madrid: Nacional (BNE), MSS/1763. 1681 ca.? - 1720 ca.?. Desconocido, [Crónica de los Reyes Católicos hasta principi	SPARQL label-contains match
+BNE MSS/1810	Q1039003	MS: Madrid: Nacional (BNE), MSS/1810. 1441 ca. - 1460 ca. Desconocido, [Crónica particular del Cid], escrito 1500 ca. ad	SPARQL label-contains match
+BNE MSS/18635/40	Q1042730	MS: Madrid: Nacional (BNE), MSS/18635/40. 1336-07-30. Juan Manuel, señor de Peñafiel, [Carta a Pere IV anunciando que se	SPARQL label-contains match
+BNE MSS/18631/20	Q1043670	MS: Madrid: Nacional (BNE), MSS/18631/20. 1491 ca. - 1510 ca. Juan II, rey de Castilla y León, [Cédula real a la ciudad 	SPARQL label-contains match
+BNE MSS/1891	Q1039540	MS: Madrid: Nacional (BNE), MSS/1891. 1476 ca. - 1500 ca. Gonzalo García de Santa María, jurado de Zaragoza, [Vida del s	SPARQL label-contains match
+BNE MSS/19413	Q1041108	MS: Madrid: Nacional (BNE), MSS/19413. Valladolid: Acosta, 1811-02-23. Pedro I, rey de Castilla y León, Becerro de las b	SPARQL label-contains match
+BNE MSS/1966	Q1041215	MS: Madrid: Nacional (BNE), MSS/1966. 1521 ca. - 1536 ad quem. Enrique de Aragón, marqués de Villena, Arte de trovar, es	SPARQL label-contains match
+BNE MSS/18697/86	Q1042911	MS: Madrid: Nacional (BNE), MSS/18697/86. Matilla:, 1445-06-28. Juan II, rey de Castilla y León, [Carta para informar a 	SPARQL label-contains match
+BNE MSS/2078	Q1041909	MS: Madrid: Nacional (BNE), MSS/2078. 1501 - 1600. Desconocido, Crónica de San Juan de la Peña (tr. Juan de Barbastro), 	SPARQL label-contains match
+BNE MSS/20217/1	Q1043589	MS: Madrid: Nacional (BNE), MSS/20217/1. 1460 ad quem?. Marcus Tullius Cicero, [Discurso en pro de Marco Marcelo] (tr. A	SPARQL label-contains match
+BNE MSS/20262/17	Q1043685	MS: Madrid: Nacional (BNE), MSS/20262/17. Medina del Campo: Miguel Pérez de Almazán, señor de Maella, 1497-08-11. Fernan	SPARQL label-contains match
+BNE MSS/21629	Q1040858	MS: Madrid: Nacional (BNE), MSS/21629. 1651 ca. - 1700 ca. seudo-Alfonso de Palencia… Crónica castellana de Enrique IV, 	SPARQL label-contains match
+BNE MSS/22500	Q1041895	MS: Madrid: Nacional (BNE), MSS/22500. 1501 ca. - 1525 ca. Benedictus, Regla de San Benito (tr. Desconocido), traducido 	SPARQL label-contains match
+BNE MSS/21282	Q1043588	MS: Madrid: Nacional (BNE), MSS/21282. 1481-05-12 a quo. Íñigo López de Mendoza, 1. marqués de Santillana, Proverbios, e	SPARQL label-contains match
+BNE MSS/21398/1	Q1043590	MS: Madrid: Nacional (BNE), MSS/21398/1. 1451 ca. - 1476 ca. Lucius Annaeus Seneca, Epístolas de Séneca a Lucilo (tr. De	SPARQL label-contains match
+BNE MSS/248	Q448846	MS: Madrid: Nacional (BNE), MSS/248. 1330-09-10 a quo. Desconocido, Fuero general de Navarra (Versión C) (tr. Desconocid	SPARQL label-contains match
+BNE MSS/23090	Q1040489	MS: Madrid: Nacional (BNE), MSS/23090. 1451 ca. - 1470 ca. Martinus Bracarensis, arzobispo de Braga… Las cuatro virtudes	SPARQL label-contains match
+BNE MSS/23123	Q1042593	MS: Madrid: Nacional (BNE), MSS/23123. 1501 - 1600. Anicius Manlius Severinus Boethius, Consolación de filosofía [con co	SPARQL label-contains match
+BNE MSS/23071	Q1043612	MS: Madrid: Nacional (BNE), MSS/23071. 1476 ca. - 1500 ca. Diego Fernández de Mendoza… Remedio de perdidos, escrito 1439	SPARQL label-contains match
+BNE MSS/2497	Q1043493	MS: Madrid: Nacional (BNE), MSS/2497. Diego Alejandro de Gálvez, 1768 ca. Cristoforo Colombo, Libro de las profecías, es	SPARQL label-contains match
+BNE MSS/2617	Q1039257	MS: Madrid: Nacional (BNE), MSS/2617. 1441 ca. - 1460 ca. Marcus Tullius Cicero, Libro de la vejez (tr. Desconocido), tr	SPARQL label-contains match
+BNE MSS/3009	Q1043892	MS: Madrid: Nacional (BNE), MSS/3009. 1601 - 1700. Juan Pérez de Vargas… [Libro de armería (versión tercera)], escrito 1	SPARQL label-contains match
+BNE MSS/3306	Q1038828	MS: Madrid: Nacional (BNE), MSS/3306. 1501 ca. - 1550 ca. Alfonso X, rey de Castilla y León, Libro del saber de astrolog	SPARQL label-contains match
+BNE MSS/3370	Q1040004	MS: Madrid: Nacional (BNE), MSS/3370. 1401 ca. - 1450 ca. Desconocido, Cuento para hallar la luna, escrito 1394 a quo - 	SPARQL label-contains match
+BNE MSS/3259	Q1041318	MS: Madrid: Nacional (BNE), MSS/3259. 1601 ca. - 1650 ca. Diego Fernández de Mendoza… [Libro de armería (versión de 1496	SPARQL label-contains match
+BNE MSS/3257	Q1042401	MS: Madrid: Nacional (BNE), MSS/3257. 1591 ca. - 1610 ca. Garci Alonso de Torres, rey de armas de Aragó, Espejo de noble	SPARQL label-contains match
+BNE MSS/3387	Q1039892	MS: Madrid: Nacional (BNE), MSS/3387. 1451 ca. - 1500 ca. Alfonso de la Torre, Visión deleitable, escrito 1440 ca.	SPARQL label-contains match
+BNE MSS/3385	Q1040480	MS: Madrid: Nacional (BNE), MSS/3385. 1491 ca. - 1500 ca. Diego de Torres, [Reglas astrológicas], escrito 1487-05-25.	SPARQL label-contains match
+BNE MSS/3449	Q1042220	MS: Madrid: Nacional (BNE), MSS/3449. 1601 - 1700. Pedro de Gracia Dei, Dedicación a la católica reina doña Isabel, escr	SPARQL label-contains match
+BNE MSS/3687	Q1043266	MS: Madrid: Nacional (BNE), MSS/3687. 1548?. Francesco Petrarca, Los triunfos (tr. Hernando de Hoces), traducido 1549 ca	SPARQL label-contains match
+BNE MSS/3993	Q1038973	MS: Madrid: Nacional (BNE), MSS/3993. 1550 ca. Colectivo… Cancionero de Gallardo (MN17), compilado 1550 ca.	SPARQL label-contains match
+BNE MSS/3694	Q1039774	MS: Madrid: Nacional (BNE), MSS/3694. Barcelona?: Cristofol Bosch?, 1457-11-13. Pedro de Portugal, rey intruso d’Aragó, 	SPARQL label-contains match
+BNE MSS/3742	Q1040377	MS: Madrid: Nacional (BNE), MSS/3742. 1768-01-20 ad quem. Pedro Guillén de Segovia, Obras (MN12), escrito 1700 - 1800.	SPARQL label-contains match
+BNE MSS/4052	Q1043430	MS: Madrid: Nacional (BNE), MSS/4052. 1601 ca. - 1750 ca. Jorge Manrique, Coplas por la muerte de su padre, escrito 1476	SPARQL label-contains match
+BNE MSS/4283	Q1040757	MS: Madrid: Nacional (BNE), MSS/4283. 1451 ca. - 1500 ca. Vicent Ferrer, Sermón del viernes de la Cruz (tr. Desconocido)	SPARQL label-contains match
+BNE MSS/4306	Q1041364	MS: Madrid: Nacional (BNE), MSS/4306. 1426 ca. - 1450 ca. Juan el Viejo de Toledo, Memorial de Jesucristo, escrito 1416.	SPARQL label-contains match
+BNE MSS/473 (2)	Q1042684	MS: Madrid: Nacional (BNE), MSS/473 (2). 1421 ca. - 1440 ca. Aurelius Augustinus, Soliloquios (tr. Desconocido), traduci	SPARQL label-contains match
+BNE MSS/5795	Q1038748	MS: Madrid: Nacional (BNE), MSS/5795. 1326 ca. - 1350 ca. Alfonso X, rey de Castilla y León, Estoria de España (versión 	SPARQL label-contains match
+BNE MSS/5880	Q1040482	MS: Madrid: Nacional (BNE), MSS/5880. 1401 - 1500. Desconocido, Vida e historia de señor san Ginés de la Jara, escrito 1	SPARQL label-contains match
+BNE MSS/5645	Q1040768	MS: Madrid: Nacional (BNE), MSS/5645. 1501 - 1600. Guillermus I, Visitación que hizo en la casa de Alcántara don fray Gu	SPARQL label-contains match
+BNE MSS/5571	Q1043174	MS: Madrid: Nacional (BNE), MSS/5571. 1701 - 1800. Lorenzo de Padilla, arcediano de Ronda, Las crónicas de España, escri	SPARQL label-contains match
+BNE MSS/5936	Q1042248	MS: Madrid: Nacional (BNE), MSS/5936. para Enrique Flórez, 1760. Diego de Castilla, deán de Toledo, Descendencia de don 	SPARQL label-contains match
+BNE MSS/6099	Q1042257	MS: Madrid: Nacional (BNE), MSS/6099. 1801 ca. - 1825 ca. Desconocido, Compendio de la historia de los reyes moros de Gr	SPARQL label-contains match
+BNE MSS/6326	Q1041332	MS: Madrid: Nacional (BNE), MSS/6326. Castilla:, 1401 ca. - 1450 ca. Desconocido, “Señor Jesucristo, yo indigna pecadora	SPARQL label-contains match
+BNE MSS/6406	Q1041339	MS: Madrid: Nacional (BNE), MSS/6406. 1351-09-19 a quo - 1369-03-23 ad quem. Pedro I, rey de Castilla y León, [Carta de 	SPARQL label-contains match
+BNE MSS/628	Q1041920	MS: Madrid: Nacional (BNE), MSS/628. 1690 ad quem. Pedro de Gracia Dei… Historia o defensa del rey don Pedro, escrito 14	SPARQL label-contains match
+BNE MSS/6599	Q1039356	MS: Madrid: Nacional (BNE), MSS/6599. 1435 ca. - 1450 ca. Enrique de Aragón, marqués de Villena, Obras, escrito 1434 ad 	SPARQL label-contains match
+BNE MSS/6605	Q1039928	MS: Madrid: Nacional (BNE), MSS/6605. 1491 ca. - 1510 ca. Honoré Bouvet, Árbol de batallas (tr. Diego de Valera, maestre	SPARQL label-contains match
+BNE MSS/6502	Q1040564	MS: Madrid: Nacional (BNE), MSS/6502. 1281 ad quem. Alfonso IX, rey de León, Fuero de Zamora (tr. Desconocido), traducid	SPARQL label-contains match
+BNE MSS/6542	Q1042119	MS: Madrid: Nacional (BNE), MSS/6542. 1601 - 1700. Carlos de Aragón, 1. principe de Viana, Crónica de los reyes de Navar	SPARQL label-contains match
+BNE MSS/6578	Q1042284	MS: Madrid: Nacional (BNE), MSS/6578. Fréscano: para Gaspar Galcerán de Castro Aragón y Pinós, 1. conde de Guimerà, 1622	SPARQL label-contains match
+BNE MSS/6728	Q1039652	MS: Madrid: Nacional (BNE), MSS/6728. Roma: para Juan de Lucena, protonotario, 1463-04-30. Juan de Lucena, protonotario,	SPARQL label-contains match
+BNE MSS/685	Q1039771	MS: Madrid: Nacional (BNE), MSS/685. Valladolid:, 1433-12-05. Brunetto Latini, Libro del tesoro (tr. Alonso de Paredes…)	SPARQL label-contains match
+BNE MSS/6607	Q1041011	MS: Madrid: Nacional (BNE), MSS/6607. 1445 ca. a quo. Alonso de Cartagena, obispo de Burgos, Doctrinal de los caballeros	SPARQL label-contains match
+BNE MSS/6765	Q1041279	MS: Madrid: Nacional (BNE), MSS/6765. 1451 ca. - 1475 ca. Lucius Annaeus Seneca, [Tratados de Séneca] (tr. Alonso de Car	SPARQL label-contains match
+BNE MSS/686	Q1301784	MS: Madrid: Nacional (BNE), MSS/6867. Alfonso de Ajofrín, 1657-12-18. Pedro Seguín, bispo de Ourense… História Gótica (t	SPARQL label-contains match
+BNE MSS/6958	Q1039894	MS: Madrid: Nacional (BNE), MSS/6958. Burgos:, 1531-08-16. Bernardus Silvestris… [Carta para la gobernación de la casa] 	SPARQL label-contains match
+BNE MSS/7093	Q1040759	MS: Madrid: Nacional (BNE), MSS/7093. 1551 ca. - 1600 ca. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 14	SPARQL label-contains match
+BNE MSS/7107	Q1042294	MS: Madrid: Nacional (BNE), MSS/7107. 1701 - 1800. Pedro I, rey de Castilla y León, Ordenamiento de peticiones generales	SPARQL label-contains match
+BNE MSS/7415	Q1042296	MS: Madrid: Nacional (BNE), MSS/7415. 1325 ca. a quo. Desconocido, [Semblanzas de reyes], compilado 1312 ca.	SPARQL label-contains match
+BNE MSS/7365	Q1042773	MS: Madrid: Nacional (BNE), MSS/7365. Nicolás Antonio, 1641 ca. - 1660 ca. Alonso de Cartagena, obispo de Burgos, Doctri	SPARQL label-contains match
+BNE MSS/7195	Q1040763	MS: Madrid: Nacional (BNE), MSS/7195. 1501 ca. - 1550 ca. Pedro López de Ayala, canciller mayor de Castilla, Libro de la	SPARQL label-contains match
+BNE MSS/721	Q1041929	MS: Madrid: Nacional (BNE), MSS/721. 1601 - 1700. Desconocido, Fuero juzgo (tr. Desconocido), traducido 1260 ca.	SPARQL label-contains match
+BNE MSS/7594	Q1039025	MS: Madrid: Nacional (BNE), MSS/7594. 1460 ca. - 1500 ca. Pedro de Portugal, 3. conde de Barcelos… Crónica de 1344 (segu	SPARQL label-contains match
+BNE MSS/7569	Q1040773	MS: Madrid: Nacional (BNE), MSS/7569. 1486-10-26?. Desconocido, Crónica de los muy ilustres señores de Vizcaya del linaj	SPARQL label-contains match
+BNE MSS/7675	Q1042300	MS: Madrid: Nacional (BNE), MSS/7675. 1601 ca. - 1610 ca. Desconocido… [Cronicón de siete reyes de Castilla y León], esc	SPARQL label-contains match
+BNE MSS/7678	Q1301785	MS: Madrid: Nacional (BNE), MSS/7678. 1701 - 1800. Pedro Seguín, bispo de Ourense… História Gótica (tr. Pedro Seguín, bi	SPARQL label-contains match
+BNE MSS/7815	Q1039405	MS: Madrid: Nacional (BNE), MSS/7815. Alonso de Cartagena, obispo de Burgos, et al.?, 1422 - 1500 ca. Marcus Tullius Cic	SPARQL label-contains match
+BNE MSS/7799	Q1040965	MS: Madrid: Nacional (BNE), MSS/7799. 1451 ca. - 1475 ca. Giovanni Boccaccio, Caída de príncipes (tr. Pedro López de Aya	SPARQL label-contains match
+BNE MSS/7727	Q1042301	MS: Madrid: Nacional (BNE), MSS/7727. 1801 - 1900. Desconocido, Fuero viejo de las Encartaciones de Vizcaya, promulgado 	SPARQL label-contains match
+BNE MSS/8188	Q1040967	MS: Madrid: Nacional (BNE), MSS/8188. 1434 - 1470 ca. Lucius Annaeus Seneca, [Tratados de Séneca] (tr. Alonso de Cartage	SPARQL label-contains match
+BNE MSS/8113	Q1041010	MS: Madrid: Nacional (BNE), MSS/8113. 1549-09-30. Lope de Barrientos, canciller mayor de Castilla, Tratado del dormir y 	SPARQL label-contains match
+BNE MSS/8189	Q1041073	MS: Madrid: Nacional (BNE), MSS/8189. 1526 ca. - 1550 ca. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 14	SPARQL label-contains match
+BNE MSS/815	Q1040607	MS: Madrid: Nacional (BNE), MSS/815. 1526 ca. - 1550 ca. Juan de Villafuerte, [Adiciones y glosa a la Genealogía de los 	SPARQL label-contains match
+BNE MSS/8405	Q1039151	MS: Madrid: Nacional (BNE), MSS/8405. Juan?, 1391 ca. - 1400 ca. Desconocido, Texto sapiencial (fragm.), escrito 1450 ca	SPARQL label-contains match
+BNE MSS/8283	Q1043861	MS: Madrid: Nacional (BNE), MSS/8283. 1591 ca. - 1610 ca. Diego Fernández de Mendoza… [Libro de armería (versión de 1496	SPARQL label-contains match
+BNE MSS/8463	Q1040780	MS: Madrid: Nacional (BNE), MSS/8463. 1401 - 1500. Despensero de la reina Leonor, Sumario de los reyes de España, escrit	SPARQL label-contains match
+BNE MSS/8634	Q1040782	MS: Madrid: Nacional (BNE), MSS/8634. Corona d’Aragó:, 1491 ca. - 1500 ca. Colectivo… Actas de las cortes de Aragón, esc	SPARQL label-contains match
+BNE MSS/8586	Q1040968	MS: Madrid: Nacional (BNE), MSS/8586. 1491 ca. - 1500 ca. Johannes Unay, Libro … de los grandes hechos que deben ser en 	SPARQL label-contains match
+BNE MSS/852	Q1042493	MS: Madrid: Nacional (BNE), MSS/852. 1461-12-13 a quo - 1475 ca. Joan II, rei d’Aragó… [Corte general de Fraga, Zaragoza	SPARQL label-contains match
+BNE MSS/9215	Q1040829	MS: Madrid: Nacional (BNE), MSS/9215. 1455 ad quem. Lucius Annaeus Seneca, Epístolas de Séneca a Lucilo (tr. Desconocido	SPARQL label-contains match
+BNE MSS/8852	Q1040785	MS: Madrid: Nacional (BNE), MSS/8852. 1401 - 1500. Lucius Annaeus Seneca, [Epístolas morales a Lucilo] (tr. Desconocido)	SPARQL label-contains match
+BNE MSS/9294	Q1038823	MS: Madrid: Nacional (BNE), MSS/9294. Escritorio real de Alfonso X, 1259-02-26 a quo. Abu Sa’id ’Ubaid-Allah… Libro de l	SPARQL label-contains match
+BNE MSS/9433	Q1040791	MS: Madrid: Nacional (BNE), MSS/9433. 1401 - 1425. Desconocido, Vestigio al conocimiento beatificante, escrito 1430 ad q	SPARQL label-contains match
+BNE MSS/9218	Q1039564	MS: Madrid: Nacional (BNE), MSS/9218. 1401 ca. - 1450 ca. Ruy González de Clavijo… Historia del gran Tamorlán, escrito 1	SPARQL label-contains match
+BNE MSS/9268	Q1040973	MS: Madrid: Nacional (BNE), MSS/9268. 1406-12-25 a quo - 1425 ca. Desconocido, Estoria de España [?], escrito 1300 - 140	SPARQL label-contains match
+BNE MSS/9477	Q1038611	MS: Madrid: Nacional (BNE), MSS/9477. 1423-09-10 a quo - 1455 ad quem. Juan de Alarcón y Valverde, Libro del regimiento 	SPARQL label-contains match
+BNE MSS/9513	Q1039279	MS: Madrid: Nacional (BNE), MSS/9513. Medina de Pomar: Sancho García de Medina?, para Pedro Fernández de Velasco y Solie	SPARQL label-contains match
+BNE MSS/9522	Q1039280	MS: Madrid: Nacional (BNE), MSS/9522. Medina de Pomar: para Pedro Fernández de Velasco y Solier II, 1. conde de Haro, 14	SPARQL label-contains match
+BNE MSS/9436	Q1039385	MS: Madrid: Nacional (BNE), MSS/9436. 1491 ca. - 1500 ca. Juan de Villafuerte, [Adiciones y glosa a la Genealogía de los	SPARQL label-contains match
+BNE MSS/9563	Q1039124	MS: Madrid: Nacional (BNE), MSS/9563. 1430-12-24 a quo - 1455 ad quem. Rodrigo Jiménez de Rada, arzobispo de Toledo, [Hi	SPARQL label-contains match
+BNE MSS/9536	Q1042309	MS: Madrid: Nacional (BNE), MSS/9536. 1426 ca. - 1450 ca. Desconocido, “Señor Jesucristo, pongo entre mí y tu juicio en 	SPARQL label-contains match
+BNE MSS/9537	Q1042310	MS: Madrid: Nacional (BNE), MSS/9537. 1401 ca. - 1425 ca. Desconocido, [Carta para pedir dos tablas de beril o de crista	SPARQL label-contains match
+BNE MSS/9535	Q1043545	MS: Madrid: Nacional (BNE), MSS/9535(2). 1401 - 1500. Desconocido, Libro de confesiones, escrito 1500 ca. ad quem.	SPARQL label-contains match
+BNE MSS/9747	Q1041086	MS: Madrid: Nacional (BNE), MSS/9747. 1501 - 1600. Caius Iulius Caesar, Comentarios de Cayo Julio César (tr. Diego López	SPARQL label-contains match
+BNE MSS/9879	Q1040831	MS: Madrid: Nacional (BNE), MSS/9879. 1601 - 1700. seudo-Alfonso de Palencia… Crónica castellana de Enrique IV, escrito 	SPARQL label-contains match
+BNE MSS/9691	Q1042354	MS: Madrid: Nacional (BNE), MSS/9691. 1491 ca. - 1510 ca. Baudri de Bourgueil, abad de Bourgueil, Historia Hierosolymita	SPARQL label-contains match
+BNE MSS/9737	Q1042319	MS: Madrid: Nacional (BNE), MSS/9737. Navarra: Pedro Puerto de Hernani, 1597-09-06. Carlos de Aragón, 1. principe de Via	SPARQL label-contains match
+BNE MSS/1537	Q1039119	MS: Madrid: Nacional (BNE), MSS/1537. 1551 ca. - 1600 ca. Giovanni Boccaccio, Teseida (tr. Desconocido), traducido 1440 	SPARQL label-contains match
+BNE MSS/1250	Q1042518	MS: Madrid: Nacional (BNE), MSS/1250. 1701 - 1800. Desconocido, [Sumario de historia de España hasta la muerte de Enriqu	SPARQL label-contains match
+BNE MSS/1233	Q1042210	MS: Madrid: Nacional (BNE), MSS/1233. 1501 - 1600. Pedro Fernández de Velasco IV, 3. duque de Frías, Abreviación de los 	SPARQL label-contains match
+BNE MSS/1885	Q1042541	MS: Madrid: Nacional (BNE), MSS/1885. 1501 - 1600. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 1481 ca.	SPARQL label-contains match
+BNE MSS/3681	Q1039875	MS: Madrid: Nacional (BNE), MSS/3681. 1491 ca. - 1500 ca. Fernán Pérez de Guzmán, señor de Batres, [Doctrina que dieron 	SPARQL label-contains match
+BNE MSS/7812	Q1040572	MS: Madrid: Nacional (BNE), MSS/7812. 1351 ca. - 1400 ca. Desconocido… Fuero de Albarracín (tr. Desconocido), traducido 	SPARQL label-contains match
+BNE MSS/4420	Q1041383	MS: Madrid: Nacional (BNE), MSS/4420. 1391 ca. - 1410 ca. Bartholomaeus de Sancto Concordio, Suma de casos de conciencia	SPARQL label-contains match
+BNE MSS/4030	Q1042565	MS: Madrid: Nacional (BNE), MSS/4030. 1398-08-26. Desconocido, [Veinte art\culos de confesión de fe según el prólogo del	SPARQL label-contains match
+BNE MSS/9256	Q1039586	MS: Madrid: Nacional (BNE), MSS/9256. 1341 ca.? - 1360 ca.?. Desconocido, “Quien vivir libre desea | no debe querer mira	SPARQL label-contains match
+BNE MSS/9240	Q1041380	MS: Madrid: Nacional (BNE), MSS/9240. Castilla:, 1476 ca. - 1500 ca. Desconocido, Glosas al Liber hymnorum (tr. Desconoc	SPARQL label-contains match
+BNE MSS/8229	Q1041079	MS: Madrid: Nacional (BNE), MSS/8229. 1501 ca. - 1525 ca. Diego Enríquez del Castillo, Crónica de Enrique IV, escrito 14	SPARQL label-contains match
+BNE MSS/10187	Q1040498	MS: Madrid: Nacional (BNE), MSS/10187. 1401 - 1500. Caius Iulius Caesar, Comentarios (tr. Desconocido), traducido 1500 c	SPARQL label-contains match
+BNE MSS/10197	Q1040500	MS: Madrid: Nacional (BNE), MSS/10197. 1451 ca. - 1500 ca. Ambrosius, arzobispo de Milano, Obras morales (tr. Desconocid	SPARQL label-contains match
+BNE MSS/10198	Q1040501	MS: Madrid: Nacional (BNE), MSS/10198. 1401 - 1500. Aristoteles, De animalibus (tr. Desconocido), traducido 1500 ca. ad 	SPARQL label-contains match
+BNE MSS/10207	Q1040507	MS: Madrid: Nacional (BNE), MSS/10207. 1401 ca. - 1450 ca. Pietro Alighieri, [Comentario a la Divina Comedia de Dante] (	SPARQL label-contains match
+BNE MSS/10448	Q1042473	MS: Madrid: Nacional (BNE), MSS/10448. 1501 ca. - 1520 ca. Alonso de Ávila, Compendio universal sacado de las historias 	SPARQL label-contains match
+BNE MSS/10463	Q1042484	MS: Madrid: Nacional (BNE), MSS/10463. Tolosa:, 1583-10-15. Desconocido, Recopilación de las leyes y ordenanzas de Guipú	SPARQL label-contains match
+BNE MSS/11050	Q1042578	MS: Madrid: Nacional (BNE), MSS/11050. 1501 - 1600. Hernando de Talavera, arzobispo de Granada, Instrucción que ordenó e	SPARQL label-contains match
+BNE MSS/11542	Q1040808	MS: Madrid: Nacional (BNE), MSS/11542. Madrid?: García Sánchez?, 1347-12-18?. Alfonso XI, rey de Castilla y León, [Orden	SPARQL label-contains match
+BNE MSS/11604	Q1042642	MS: Madrid: Nacional (BNE), MSS/11604. 1521 ca. - 1550 ca. Juan Pérez de Vargas… [Libro de armería (versión tercera)], e	SPARQL label-contains match
+BNE MSS/12564	Q1042664	MS: Madrid: Nacional (BNE), MSS/12564/6. 1601 - 1700. Lope García de Salazar, señor de Torre de Salazar, Bienandanzas y 	SPARQL label-contains match
+BNE MSS/11127	Q1042585	MS: Madrid: Nacional (BNE), MSS/11127. 1701 - 1800. Enrique II, rey de Castilla y León, Ordenamiento de Medina del Campo	SPARQL label-contains match
+BNE MSS/172	Q1040606	MS: Madrid: Nacional (BNE), MSS/172. 1478-06-29 a quo. Orden de Santiago de la Espada, Forma de rezar de los caballeros 	SPARQL label-contains match
+BNE MSS/19365	Q1040270	MS: Madrid: Nacional (BNE), MSS/19365. 1501 - 1600. Juan Díaz de Alcocer, regidor de Toledo, Oración que hizo … en Segov	SPARQL label-contains match
+BNE MSS/302	Q1039120	MS: Madrid: Nacional (BNE), MSS/302. 1291 ca. - 1300 ca. Rodrigo Jiménez de Rada, arzobispo de Toledo, Historia de los g	SPARQL label-contains match
