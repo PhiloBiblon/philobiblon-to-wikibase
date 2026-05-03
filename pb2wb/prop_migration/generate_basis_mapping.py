@@ -739,7 +739,7 @@ def _check_llm_env(model):
     _load_env()
     if model.startswith('anthropic/') and 'haiku' in model.lower():
         print(f'Warning: prompt caching will not work with {model!r} — Haiku requires '
-              f'≥4,096 tokens to cache but this prompt is ~1,066 tokens. '
+              f'≥4,096 tokens to cache but this prompt is ~{len(_LLM_SYSTEM_PROMPT)//4} tokens. '
               f'Use anthropic/claude-sonnet-4-6 instead.')
     for prefix, env_var in _MODEL_KEY_ENV.items():
         if model.startswith(prefix):

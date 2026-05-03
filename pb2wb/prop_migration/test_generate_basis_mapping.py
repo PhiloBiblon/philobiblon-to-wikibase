@@ -21,7 +21,6 @@ from prop_migration.generate_basis_mapping import (
     hyperlink,
     is_excluded,
     load_sheet,
-    parse_loc_columns,
     preprocess,
     strip_html,
     vetted_value,
@@ -81,22 +80,26 @@ class TestIsExcluded:
     def test_catalan_fol_variant_2(self):
         assert is_excluded('fol. moderna a llapis')
 
-    def test_wikidata_excluded(self):
-        assert is_excluded('Wikidata')
+    def test_wikidata_bare_not_excluded(self):
+        # Bare "Wikidata" is now a legitimate citation → known_qids Q370382
+        assert not is_excluded('Wikidata')
 
-    def test_wikidata_case_variant(self):
-        assert is_excluded('WIkidata')
+    def test_wikidata_case_variant_not_excluded(self):
+        assert not is_excluded('WIkidata')
 
-    def test_wikidata_with_date(self):
+    def test_wikidata_with_date_excluded(self):
+        # Dated variant like "Wikidata (2012-)" is still excluded
         assert is_excluded('Wikidata (2012-)')
 
-    def test_wikipedia_excluded(self):
-        assert is_excluded('Wikipedia')
+    def test_wikipedia_bare_not_excluded(self):
+        # Bare "Wikipedia" is now a legitimate citation → known_qids Q629842
+        assert not is_excluded('Wikipedia')
 
-    def test_wikipedia_case_variant(self):
-        assert is_excluded('WIkipedia')
+    def test_wikipedia_case_variant_not_excluded(self):
+        assert not is_excluded('WIkipedia')
 
-    def test_wikipedia_with_lang(self):
+    def test_wikipedia_with_lang_excluded(self):
+        # "Wikipedia en español" etc. still excluded (too vague)
         assert is_excluded('Wikipedia en español')
 
     def test_fichero_excluded(self):
@@ -108,11 +111,18 @@ class TestIsExcluded:
     def test_fichero_with_prefix(self):
         assert is_excluded('BNE fichero')
 
-    def test_oskicat_excluded(self):
-        assert is_excluded('OskiCat')
+    def test_oskicat_not_excluded(self):
+        # OskiCat is now a legitimate citation → known_qids Q1071201
+        assert not is_excluded('OskiCat')
 
-    def test_oskicat_case_variant(self):
-        assert is_excluded('OskICat')
+    def test_oskicat_case_variant_not_excluded(self):
+        assert not is_excluded('OskICat')
+
+    def test_folio_as_basis_excluded(self):
+        assert is_excluded('f. 1r')
+
+    def test_folio_as_basis_ff_excluded(self):
+        assert is_excluded('ff. 12v')
 
     def test_url_excluded(self):
         assert is_excluded('https://de.wikipedia.org/wiki/Ferdinand')
@@ -159,8 +169,8 @@ class TestDetectLocType:
     def test_folio_with_f_no_space(self):
         assert detect_loc_type('f.3r') == 'folio'
 
-    def test_roman_vol_page_is_page(self):
-        assert detect_loc_type('I:286') == 'page'
+    def test_roman_vol_page_is_volume(self):
+        assert detect_loc_type('I:286') == 'volume'
 
     def test_year_like_number_is_page(self):
         assert detect_loc_type('1875') == 'page'
@@ -255,7 +265,7 @@ class TestPreprocess:
         r = preprocess('Arteaga I:286')
         assert r['key'] == 'Arteaga'
         assert r['loc'] == 'I:286'
-        assert r['loc_type'] == 'page'
+        assert r['loc_type'] == 'volume'
         assert r['parse_pattern'] == 'roman_vol'
 
     def test_roman_vol_multidigit(self):
@@ -352,10 +362,12 @@ class TestPreprocess:
         r = preprocess('IGM')
         assert r['parse_pattern'] == 'raw'
 
-    def test_raw_ambiguous(self):
-        # "Rodríguez x" — roman numeral 'x' without colon; ambiguous
+    def test_roman_lower_single_char(self):
+        # "Rodríguez x" — 'x' is a valid lowercase Roman numeral, ROMAN_LOWER_RE fires
         r = preprocess('Rodríguez x')
-        assert r['parse_pattern'] == 'raw'
+        assert r['parse_pattern'] == 'roman_lower'
+        assert r['key'] == 'Rodríguez'
+        assert r['loc'] == 'x'
 
     # --- Priority ordering ---
 
@@ -380,95 +392,6 @@ class TestPreprocess:
         # "Pérez 2001" — auth_year fires, not raw
         r = preprocess('Pérez 2001')
         assert r['parse_pattern'] == 'auth_year'
-
-
-# ---------------------------------------------------------------------------
-# parse_loc_columns
-# ---------------------------------------------------------------------------
-
-class TestParseLocColumns:
-    def test_empty_loc(self):
-        r = parse_loc_columns('', '')
-        assert all(v == '' for v in r.values())
-
-    def test_folio_verso(self):
-        r = parse_loc_columns('93v', 'folio')
-        assert r['col_folio'] == '93v'
-        assert r['col_page'] == '' and r['col_volume'] == ''
-
-    def test_folio_with_prefix(self):
-        r = parse_loc_columns('f. 3r', 'folio')
-        assert r['col_folio'] == 'f. 3r'
-
-    def test_footnote(self):
-        r = parse_loc_columns('27n', 'footnote')
-        assert r['col_footnote'] == '27n'
-        assert r['col_page'] == ''
-
-    def test_plain_page(self):
-        r = parse_loc_columns('60', 'page')
-        assert r['col_page'] == '60'
-        assert r['col_date'] == '' and r['col_volume'] == ''
-
-    def test_page_range(self):
-        r = parse_loc_columns('48-50', 'page')
-        assert r['col_page'] == '48-50'
-
-    def test_page_range_en_dash(self):
-        r = parse_loc_columns('48–50', 'page')
-        assert r['col_page'] == '48–50'
-
-    def test_roman_vol_page(self):
-        r = parse_loc_columns('I:286', 'page')
-        assert r['col_volume'] == 'I'
-        assert r['col_page'] == '286'
-
-    def test_roman_vol_page_range(self):
-        r = parse_loc_columns('XIV:45-50', 'page')
-        assert r['col_volume'] == 'XIV'
-        assert r['col_page'] == '45-50'
-
-    def test_arabic_vol_page(self):
-        r = parse_loc_columns('4:286', 'page')
-        assert r['col_volume'] == '4'
-        assert r['col_page'] == '286'
-
-    def test_year_in_range(self):
-        r = parse_loc_columns('2004', 'page')
-        assert r['col_date'] == '2004'
-        assert r['col_page'] == ''
-
-    def test_dhee_year_loc_goes_to_page(self):
-        r = parse_loc_columns('1875', 'page', parse_pattern='dhee')
-        assert r['col_page'] == '1875'
-        assert r['col_date'] == ''
-
-    def test_year_lower_bound(self):
-        r = parse_loc_columns('1500', 'page')
-        assert r['col_date'] == '1500'
-
-    def test_year_upper_bound(self):
-        r = parse_loc_columns('2100', 'page')
-        assert r['col_date'] == '2100'
-
-    def test_year_below_range_is_page(self):
-        r = parse_loc_columns('1499', 'page')
-        assert r['col_page'] == '1499'
-        assert r['col_date'] == ''
-
-    def test_year_above_range_is_page(self):
-        r = parse_loc_columns('2101', 'page')
-        assert r['col_page'] == '2101'
-        assert r['col_date'] == ''
-
-    def test_free_text_is_literal(self):
-        r = parse_loc_columns('fecha de bautismo', 'page')
-        assert r['col_literal'] == 'fecha de bautismo'
-        assert r['col_page'] == ''
-
-    def test_unknown_loc_type_is_literal(self):
-        r = parse_loc_columns('something', '')
-        assert r['col_literal'] == 'something'
 
 
 # ---------------------------------------------------------------------------
@@ -624,11 +547,17 @@ class TestApiSearchOne:
 # ---------------------------------------------------------------------------
 
 class TestVettedValue:
-    def test_api_label_is_auto(self):
-        assert vetted_value('api_label') == 'auto'
+    def test_vetted_is_Y(self):
+        assert vetted_value('vetted') == 'Y'
 
-    def test_api_alias_is_auto(self):
-        assert vetted_value('api_alias') == 'auto'
+    def test_known_is_Y(self):
+        assert vetted_value('known') == 'Y'
+
+    def test_api_label_is_blank(self):
+        assert vetted_value('api_label') == ''
+
+    def test_api_alias_is_blank(self):
+        assert vetted_value('api_alias') == ''
 
     def test_api_fuzzy_is_blank(self):
         assert vetted_value('api_fuzzy') == ''
@@ -725,10 +654,12 @@ class TestLoadSheet:
         vetted, resolved, pending = self._load(tsv)
         assert len(vetted) == 1 and len(resolved) == 0 and len(pending) == 0
 
-    def test_vetted_auto_with_qid_is_vetted(self):
+    def test_vetted_auto_with_qid_is_resolved(self):
+        # 'auto' is no longer a valid vetted marker; only 'Y' locks a row
         tsv = _make_sheet(('Faulhaber', 'Q123', 'auto'), with_vetted=True)
         vetted, resolved, pending = self._load(tsv)
-        assert len(vetted) == 1
+        assert len(vetted) == 0
+        assert len(resolved) == 1
 
     def test_vetted_Y_without_qid_is_pending(self):
         # Charles marked Y but no QID — still needs LLM/re-search
@@ -761,10 +692,11 @@ class TestLoadSheet:
         vetted, resolved, pending = self._load(tsv)
         assert len(resolved) == 1 and len(pending) == 0
 
-    def test_compound_is_resolved(self):
+    def test_compound_is_pending(self):
+        # 'compound' is in the exclusion list — goes to pending for re-expansion
         tsv = _make_sheet(('A / B', '', '', 'compound'), with_vetted=True)
         vetted, resolved, pending = self._load(tsv)
-        assert len(resolved) == 1 and len(pending) == 0
+        assert len(resolved) == 0 and len(pending) == 1
 
     # --- pending rows ---
 
@@ -786,16 +718,16 @@ class TestLoadSheet:
 
     def test_mixed_rows(self):
         tsv = _make_sheet(
-            ('Faulhaber', 'Q1', 'Y'),           # vetted
-            ('IGM',       'Q2', 'auto'),         # vetted
+            ('Faulhaber', 'Q1', 'Y'),           # vetted (Y)
+            ('IGM',       'Q2', 'auto'),         # resolved ('auto' != 'Y')
             ('Norton',    'Q3', '', 'api_label'),# resolved (matched, not yet vetted)
             ('Unknown',   '',   '', 'none'),     # resolved (searched, no match)
             ('Pending',   '',   ''),             # pending (llm_pending)
             with_vetted=True,
         )
         vetted, resolved, pending = self._load(tsv)
-        assert len(vetted)   == 2
-        assert len(resolved) == 2
+        assert len(vetted)   == 1
+        assert len(resolved) == 3
         assert len(pending)  == 1
 
     def test_pending_sorted_by_freq_desc(self):

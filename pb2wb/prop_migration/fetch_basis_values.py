@@ -20,8 +20,12 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 parent_dir_path = os.path.dirname(dir_path)
 sys.path.append(parent_dir_path)
 
+import requests
+
 from common.settings import BASE_IMPORT_OBJECTS
-from prop_migration.generate_basis_mapping import _SESSION
+
+_SESSION = requests.Session()
+_SESSION.headers.update({'User-Agent': 'pb2wb-fetch-basis/1.0'})
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
 

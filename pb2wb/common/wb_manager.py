@@ -197,8 +197,10 @@ class WBManager():
     item  = self.wbi.item.get(item_id)
     claim = _find_claim_by_guid(item, statement_guid)
 
-    ref_claim = WBItem(value=ref_qid, prop_nr=ref_property)
-    claim.references.add(ref_claim)
+    from wikibaseintegrator.models import Reference
+    ref = Reference()
+    ref.add(WBItem(value=ref_qid, prop_nr=ref_property))
+    claim.references.add(ref)
 
     time.sleep(_WRITE_DELAY)
     item.write()
