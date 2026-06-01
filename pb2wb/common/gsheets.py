@@ -144,7 +144,8 @@ class SheetSync:
         write_cols : column names to update.  Missing columns are appended
                      to the sheet header automatically.
         skip_col   : column in the SHEET to check before writing.
-        skip_value : rows where skip_col already equals this are left alone.
+        skip_value : rows where skip_col already equals one of these values
+                     are left alone.  May be a single string or a list/set.
         dry_run    : print a summary without writing anything.
 
         Returns
@@ -179,6 +180,11 @@ class SheetSync:
         key_indices   = [idx(c) for c in key_cols]
         write_indices = [idx(c) for c in write_cols]
         skip_idx      = idx(skip_col) if skip_col else None
+        skip_values   = (frozenset(skip_value) if isinstance(skip_value, (list, tuple, set))
+                         else frozenset([skip_value]) if skip_value else frozenset())
+        # Canonical forms: if sheet has a non-canonical skip value, normalize it
+        # on push (e.g. 'y' → 'Y') while still protecting the row from overwrite.
+        _normalize    = {'y': 'Y'}
 
         # ---- key → list of (1-based row number, padded row data) ----
         # A key may appear multiple times when a previous push already inserted
@@ -228,7 +234,13 @@ class SheetSync:
             if skip_idx is not None:
                 current = (first_row_data[skip_idx]
                            if skip_idx < len(first_row_data) else '')
-                if current == skip_value:
+                if current in skip_values:
+                    if current in _normalize:
+                        cell_ref = f'{_col_letter(skip_idx + 1)}{first_row_num}'
+                        cell_updates.append({
+                            'range': cell_ref,
+                            'values': [[_normalize[current]]],
+                        })
                     skipped += len(local_group)
                     continue
 
@@ -258,7 +270,7 @@ class SheetSync:
                   f'({sum(len(lg) for _, lg in compound_groups)} parts, '
                   f'{n_to_insert} rows to insert, '
                   f'{sum(len(lg) for _, lg in compound_groups) - n_to_insert} already in sheet)')
-            print(f'[dry-run] skipped (vetted=Y): {skipped}  not found: {missing}')
+            print(f'[dry-run] skipped (locked): {skipped}  not found: {missing}')
             if new_cols:
                 print(f'[dry-run] new columns: {new_cols}')
             return {

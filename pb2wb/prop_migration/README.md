@@ -133,7 +133,7 @@ python prop_migration/merge_candidates.py [options]
 
 ### Vetting protocol
 
-See [`vetting.md`](vetting.md) for the instructions given to Charles.
+See [`vetting_p1141.md`](vetting_p1141.md) for the instructions given to Charles.
 
 **How iteration works:**
 

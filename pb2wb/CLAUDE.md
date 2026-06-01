@@ -74,7 +74,7 @@ complete. Phase 3 (QuickStatements generation) not yet started.
 | `sync_sheet.py` | Pushes/pulls data to/from Google Sheets via service account; matches rows by compound key (column A, column C); never overwrites rows where column I = Y |
 | `README.md` | Summary of prop_migration workflow and current state |
 | `test_fill_gaps.py` | 41 pytest unit tests |
-| `vetting.md` | Instructions for Charles |
+| `vetting_p1141.md` | Instructions for Charles |
 
 #### Key design decisions
 - Match rows to Google Sheet by compound key (col A, col C) — never by row
@@ -111,8 +111,8 @@ latin_lookup, corrections, sheet, rejected, compound, none
 | `sync_sheet.py` | Push/pull Google Sheets for p721 and p1141 pipelines |
 | `match_type_report.py` | Summary report of basis_candidates.tsv by match_type |
 | `test_generate_basis_mapping.py` | Unit tests for generate_basis_mapping.py helpers |
-| `basis_vetting.md` | Instructions for Charles on how to vet the P721 sheet |
-| `vetting.md` | Instructions for Charles on how to vet the P1141 place sheet |
+| `vetting_p721.md` | Instructions for Charles on how to vet the P721 sheet |
+| `vetting_p1141.md` | Instructions for Charles on how to vet the P1141 place sheet |
 
 P721 is a string-valued **qualifier** (prefix pq:, not wdt:) used across all
 PhiloBiblon tables to record the source/basis of statements. Goal is to convert
@@ -120,8 +120,8 @@ to structured references: P129 (According to, item-valued) + optional locator
 qualifiers P54 (pages), P100 (folio), P90 (number).
 
 #### Scale
-- 130,330 total P721 usages
-- 15,831 distinct strings
+- 132,259 total P721 usages
+- 17,004 distinct strings
 - Top ~50 values cover majority of usages — start there
 
 #### Pre-processing rules (before FactGrid search)

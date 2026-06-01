@@ -35,11 +35,30 @@ be used as the structured reference when we do the actual data conversion. A
 wrong QID here means wrong data in FactGrid, so I'd like you to check as many
 as you can — especially the high-frequency rows.
 
-For every row where you're satisfied with the QID in column E, please mark `Y`
-in column G. That shows me which ones you have approved and which ones remain.
+Column G can hold the following values:
 
-**Important**: if you correct any cell in a row, please also mark `Y` in
-column G — otherwise the next run of the script may overwrite your correction.
+| Value | Meaning |
+|-------|---------|
+| `Y` | You have reviewed and approved the QID — row is locked |
+| `seen` | You have looked at this row and consciously decided not to approve it yet — row is locked |
+| `check` | I have flagged this row because something looks wrong — please review |
+| *(blank)* | Not yet reviewed |
+
+For every row where you're satisfied with the QID in column E, please mark `Y`.
+
+If you have looked at a row and are unsure or want to come back to it later,
+mark `seen` — this tells me you've considered it and prevents the script from
+overwriting anything you may have changed.
+
+**Important**: if you correct any cell in a row, please also mark `Y` (or at
+minimum `seen`) in column G — otherwise the next run of the script may overwrite
+your correction.
+
+You may occasionally see `check` in column G. This means I have flagged the row
+because something looks wrong — typically a missing or unrecognizable QID.
+Please review it, correct column E if you can, and change column G to `Y` when
+satisfied. If you cannot identify the right QID, leave it as `check` and I will
+follow up.
 
 
 ---

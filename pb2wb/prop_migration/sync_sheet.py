@@ -55,18 +55,18 @@ _PIPELINES = {
         'key_cols':     ['item', '_Place_of_publication'],
         'write_cols':   ['P241 Qid', 'P241_values', 'auto_match', 'vetted'],
         'skip_col':     'vetted',
-        'skip_value':   'Y',
+        'skip_value':   ['Y', 'y', 'check', 'seen'],
     },
     'p721': {
         'sheet_id_env': 'P721_SHEET_ID',
         'pull_tsv':     'prop_migration/P721-P129.tsv',
         'push_tsv':     'prop_migration/basis_candidates.tsv',
         'seed_tsv':     'prop_migration/P721-P129-seed.tsv',
-        'worksheet':    'P721-P129',
+        'worksheet':    'cleaned_beta_bio_bases',
         'key_cols':     ['basis'],
         'write_cols':   ['freq', 'key', 'match_type', 'qid', 'label', 'vetted', 'loc_type', 'loc'],
         'skip_col':     'vetted',
-        'skip_value':   'Y',
+        'skip_value':   ['Y', 'y', 'check', 'seen'],
     },
 }
 
@@ -122,7 +122,7 @@ def cmd_push(args, cfg):
     prefix = '[dry-run] ' if args.dry_run else ''
     print(f'{prefix}updated: {stats["updated"]}  '
           f'inserted rows: {stats["inserted_rows"]}  '
-          f'skipped (vetted=Y): {stats["skipped"]}  '
+          f'skipped (locked): {stats["skipped"]}  '
           f'not found in sheet: {stats["missing"]}')
     if stats['new_cols']:
         print(f'{prefix}new columns added: {stats["new_cols"]}')
