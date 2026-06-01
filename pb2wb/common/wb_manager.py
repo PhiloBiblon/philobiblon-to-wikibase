@@ -1,3 +1,4 @@
+import os
 import time
 
 from wikibaseintegrator import WikibaseIntegrator, wbi_login
@@ -7,6 +8,19 @@ from wikibaseintegrator.datatypes import Item as WBItem
 from wikibaseintegrator.models import Claim
 from common.settings import BASE_IMPORT_OBJECTS, TEMP_DICT
 from wikibaseintegrator.wbi_exceptions import MWApiError
+
+
+def _load_env():
+    """Load key=value pairs from .qs_env or .env into os.environ (setdefault)."""
+    for fname in ('.qs_env', '.env'):
+        if os.path.exists(fname):
+            with open(fname) as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        k, v = line.split('=', 1)
+                        os.environ.setdefault(k.strip(), v.strip())
+            return
 
 _WRITE_DELAY = 0.5   # seconds between write calls
 
@@ -28,12 +42,15 @@ PROPERTY_NOTES='P817'
 class WBManager():
 
   def __init__(self):
+    _load_env()
     wb = TEMP_DICT['TEMP_WB']
     wbi_config['MEDIAWIKI_API_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['MEDIAWIKI_API_URL']
     wbi_config['SPARQL_ENDPOINT_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_ENDPOINT_URL']
     user = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
-    print(f'Using user: {user}')
+    user = os.environ.get('FACTGRID_WB_USER', user)
     password = BASE_IMPORT_OBJECTS[f'{wb}']['WB_PASSWORD']
+    password = os.environ.get('FACTGRID_WB_PASSWORD', password)
+    print(f'Using user: {user}')
     self.prefix = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_PREFIX']
     login_instance = wbi_login.Login(user, password)
     self.wbi = WikibaseIntegrator(login=login_instance)
