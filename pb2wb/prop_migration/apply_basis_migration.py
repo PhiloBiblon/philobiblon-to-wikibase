@@ -93,16 +93,18 @@ def load_done_guids(path):
     return done
 
 
-def log_progress(path, guid, item_id, basis, qid, loc, loc_type):
+def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_value=''):
     """Append one converted-statement record to the progress log."""
     rec = {
-        'guid':     guid,
-        'item':     item_id,
-        'basis':    basis,
-        'qid':      qid,
-        'loc':      loc,
-        'loc_type': loc_type,
-        'ts':       datetime.now(timezone.utc).isoformat(),
+        'guid':       guid,
+        'item':       item_id,
+        'prop':       prop,
+        'main_value': main_value,
+        'basis':      basis,
+        'qid':        qid,
+        'loc':        loc,
+        'loc_type':   loc_type,
+        'ts':         datetime.now(timezone.utc).isoformat(),
     }
     with open(path, 'a', encoding='utf-8') as f:
         f.write(json.dumps(rec, ensure_ascii=False) + '\n')
@@ -222,47 +224,97 @@ SELECT DISTINCT ?item WHERE {{
                 raise
 
 
-def spot_check(basis_str, ref_qid, item_ids, n=5):
+SPOT_CHECK_LIMIT = 20   # check all GUIDs if ≤ this many, else sample
+
+
+def api_spot_check(guids, basis_str, ref_qid):
     """
-    ASK-based SPARQL spot-check on a random sample of converted items.
-    Verifies P129=ref_qid is present and P721=basis_str is absent.
-    Returns (ok, fail) counts.
+    API-based GUID-level spot-check (no SPARQL propagation lag).
+
+    Checks all GUIDs when ≤ SPOT_CHECK_LIMIT converted this run, otherwise
+    samples SPOT_CHECK_LIMIT at random. For each GUID, fetches the statement
+    via wbgetclaims and verifies:
+      - pr:P129 = ref_qid is present in references
+      - pq:P721 = basis_str is absent from qualifiers
+
+    Returns (ok, fail, errors).
     """
-    sample = random.sample(sorted(item_ids), min(n, len(item_ids)))
-    safe   = basis_str.replace('\\', '\\\\').replace('"', '\\"')
-    ok = fail = 0
-    for item_id in sample:
-        q = f"""
-PREFIX pq: <https://database.factgrid.de/prop/qualifier/>
-PREFIX pr: <https://database.factgrid.de/prop/reference/>
-PREFIX wd: <https://database.factgrid.de/entity/>
-ASK {{
-  wd:{item_id} ?prop ?stmt .
-  ?stmt pr:{P129} wd:{ref_qid} .
-  FILTER NOT EXISTS {{ ?stmt pq:{P721} "{safe}" }}
-}}"""
+    sample = guids if len(guids) <= SPOT_CHECK_LIMIT else random.sample(guids, SPOT_CHECK_LIMIT)
+    ok = fail = errors = 0
+    for guid in sample:
+        item_id = guid.split('$')[0]
         try:
-            r = requests.post(
-                SPARQL_ENDPOINT,
-                data={'query': q, 'format': 'json'},
+            r = requests.get(
+                API_ENDPOINT,
+                params={'action': 'wbgetclaims', 'entity': item_id, 'format': 'json'},
                 headers={'User-Agent': 'PB apply_basis_migration/2'},
                 timeout=30,
             )
-            if r.json().get('boolean', False):
-                ok += 1
-                log.info('  spot-check %s: OK', item_id)
-            else:
+            claims = r.json().get('claims', {})
+            stmt = None
+            for prop_stmts in claims.values():
+                for s in prop_stmts:
+                    if s.get('id', '').lower() == guid.lower():
+                        stmt = s
+                        break
+                if stmt:
+                    break
+
+            if stmt is None:
+                log.warning('  spot-check %s: statement not found on item', guid)
                 fail += 1
-                log.warning('  spot-check %s: FAILED (P129 absent or P721 still present)',
-                            item_id)
+                continue
+
+            has_p129 = any(
+                isinstance(snak.get('datavalue', {}).get('value'), dict)
+                and snak['datavalue']['value'].get('id') == ref_qid
+                for ref in stmt.get('references', [])
+                for snak in ref.get('snaks', {}).get(P129, [])
+            )
+            has_p721 = any(
+                snak.get('datavalue', {}).get('value') == basis_str
+                for snak in stmt.get('qualifiers', {}).get(P721, [])
+            )
+
+            if has_p129 and not has_p721:
+                ok += 1
+                log.info('  spot-check %s: OK', guid)
+            else:
+                reasons = []
+                if not has_p129:
+                    reasons.append('P129 missing')
+                if has_p721:
+                    reasons.append('P721 still present')
+                fail += 1
+                log.warning('  spot-check %s: FAILED (%s)', guid, ', '.join(reasons))
+
         except Exception as e:
-            log.warning('  spot-check %s: error (%s)', item_id, e)
-    return ok, fail
+            log.warning('  spot-check %s: error (%s)', guid, e)
+            errors += 1
+
+    return ok, fail, errors
 
 
 # ---------------------------------------------------------------------------
 # Claim-level helpers
 # ---------------------------------------------------------------------------
+
+def _snak_label(claim):
+    """Return a compact human-readable string for a claim's main value."""
+    try:
+        dv = claim.mainsnak.datavalue
+        if isinstance(dv, dict):
+            v = dv.get('value', '')
+            if isinstance(v, dict):
+                if 'text' in v:       return v['text']           # monolingualtext
+                if 'id' in v:         return v['id']             # wikibase-entityid
+                if 'time' in v:       return v['time']           # time
+                if 'amount' in v:     return v['amount']         # quantity
+            return str(v)
+    except Exception:
+        pass
+    return ''
+
 
 def _find_p721_snak(claim, basis_str):
     """Return the first P721 qualifier snak matching basis_str, or None."""
@@ -314,12 +366,14 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     to_add  = []   # (guid, claim) — need ref added
     already = []   # (guid, claim) — ref already present, just need qual removed
     n_skip  = 0
+    guid_meta = {}  # guid → (prop, main_value) for logging
 
     for claim in item.claims:
         if _find_p721_snak(claim, basis_str) is None:
             continue
         guid = claim.id
         prop = getattr(getattr(claim, 'mainsnak', None), 'property_number', '?')
+        guid_meta[guid] = (prop, _snak_label(claim))
         if guid in done_guids:
             n_skip += 1
             log.info('%s  %-36s prop=%-5s  already done — skipping', item_id, guid, prop)
@@ -334,14 +388,14 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     if not to_add and not already:
         if n_skip == 0:
             log.info('%s: no matching statements', item_id)
-        return 0, n_skip, 0
+        return [], n_skip, 0
 
     if dry_run:
         for guid, claim in to_add:
             prop = getattr(getattr(claim, 'mainsnak', None), 'property_number', '?')
             log.info('[dry-run] %s  %-36s prop=%-5s  → P129=%s%s',
                      item_id, guid, prop, ref_qid, loc_desc)
-        return len(to_add), n_skip, 0
+        return [guid for guid, _ in to_add], n_skip, 0
 
     # ---- Phase 1: add P129 references ----
     for guid, claim in to_add:
@@ -357,7 +411,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
         log.info('%s: Phase 1 done — added P129 ref to %d statement(s)', item_id, len(to_add))
     except Exception as e:
         log.error('%s: Phase 1 write (add refs) failed: %s', item_id, e)
-        return 0, n_skip, len(to_add)
+        return [], n_skip, len(to_add)
 
     # ---- Phase 2: remove P721 qualifiers ----
     # Process to_add + already (ref was pre-existing; qualifier may still be there).
@@ -367,7 +421,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
         item = _call_with_retry(lambda: wbi.item.get(item_id))
     except Exception as e:
         log.error('%s: Phase 2 fetch failed (refs WERE added): %s', item_id, e)
-        return 0, n_skip, len(all_guids)
+        return [], n_skip, len(all_guids)
 
     removed = []
     for guid in all_guids:
@@ -391,16 +445,18 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     except Exception as e:
         log.error('%s: Phase 2 write (remove quals) failed (refs WERE added): %s',
                   item_id, e)
-        return 0, n_skip, len(removed)
+        return [], n_skip, len(removed)
 
     # ---- Log progress ----
-    converted = 0
+    converted_guids = []
     for guid in removed:
-        log_progress(progress_path, guid, item_id, basis_str, ref_qid, loc, loc_type)
+        prop, main_value = guid_meta.get(guid, ('', ''))
+        log_progress(progress_path, guid, item_id, basis_str, ref_qid, loc, loc_type,
+                     prop=prop, main_value=main_value)
         log.info('CONVERTED  %s  %s%s', item_id, guid, loc_desc)
-        converted += 1
+        converted_guids.append(guid)
 
-    return converted, n_skip, 0
+    return converted_guids, n_skip, 0
 
 
 # ---------------------------------------------------------------------------
@@ -486,7 +542,7 @@ def main():
 
     # ---- Process items ----
     total_converted = total_skipped = total_errors = 0
-    converted_item_ids = set()
+    converted_guids = []
 
     for item_id in items:
         if args.max_statements is not None and total_converted >= args.max_statements:
@@ -494,16 +550,16 @@ def main():
             break
 
         log.info('--- %s ---', item_id)
-        converted, skipped, errors = process_item(
+        guids, skipped, errors = process_item(
             wbi, item_id, args.basis, ref_qid, loc, loc_type,
             done_guids, args.dry_run, args.delay, args.progress_log,
         )
-        total_converted += converted
+        total_converted += len(guids)
         total_skipped   += skipped
         total_errors    += errors
 
-        if converted > 0:
-            converted_item_ids.add(item_id)
+        if guids:
+            converted_guids.extend(guids)
             done_guids = load_done_guids(args.progress_log)
 
     # ---- Summary ----
@@ -516,12 +572,13 @@ def main():
         log.warning('There were errors — review the log above before continuing.')
 
     # ---- Spot-check ----
-    if not args.dry_run and converted_item_ids:
+    if not args.dry_run and converted_guids:
+        n_check = min(len(converted_guids), SPOT_CHECK_LIMIT)
         log.info('')
-        log.info('SPARQL spot-check on %d item(s)...', min(5, len(converted_item_ids)))
-        ok, fail = spot_check(args.basis, ref_qid, converted_item_ids)
-        log.info('Spot-check: %d OK, %d FAILED', ok, fail)
-        if fail:
+        log.info('API spot-check on %d/%d GUID(s)...', n_check, len(converted_guids))
+        ok, fail, errs = api_spot_check(converted_guids, args.basis, ref_qid)
+        log.info('Spot-check: %d OK, %d FAILED, %d errors', ok, fail, errs)
+        if fail or errs:
             log.warning(
                 'Spot-check failures — investigate before running further batches.'
             )

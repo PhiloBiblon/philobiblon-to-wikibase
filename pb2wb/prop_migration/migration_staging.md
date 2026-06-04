@@ -4,7 +4,7 @@ Pre-selected test cases for the live rollout of `apply_basis_migration.py`.
 These were chosen deliberately before touching production data; don't substitute
 them ad hoc.
 
-Olaf will be watching. Every stage should be verified before advancing.
+Every stage should be verified before advancing.
 
 ---
 
@@ -23,7 +23,7 @@ Shallow dry-run (WBManager not needed without credentials).
 
 ## Stage 2 — Single-item live test
 
-**Status: PENDING** (requires FactGrid credentials in settings.py)
+**Status: DONE** (2026-06-02)
 
 **Basis:** `Perea 2004`  
 **Target item:** Q1086665  
