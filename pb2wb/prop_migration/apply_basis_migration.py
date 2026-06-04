@@ -479,6 +479,11 @@ def main():
                     help='Log what would be done without writing to FactGrid')
     ap.add_argument('--delay', type=float, default=DEFAULT_DELAY, metavar='SECS',
                     help=f'Seconds between item writes (default: {DEFAULT_DELAY})')
+    ap.add_argument('--maint-wait', type=int, default=3000, metavar='SECS',
+                    help='Seconds to sleep when consecutive failures suggest a maintenance '
+                         'window (default: 3000 = 50 min). Set 0 to disable.')
+    ap.add_argument('--maint-threshold', type=int, default=3, metavar='N',
+                    help='Consecutive item errors before sleeping (default: 3)')
     ap.add_argument('--progress-log', default=PROGRESS_LOG, metavar='PATH',
                     help=f'JSONL progress file (default: {PROGRESS_LOG})')
     ap.add_argument('--tsv', default=CANDIDATES_TSV, metavar='PATH',
@@ -544,23 +549,60 @@ def main():
     total_converted = total_skipped = total_errors = 0
     converted_guids = []
 
-    for item_id in items:
-        if args.max_statements is not None and total_converted >= args.max_statements:
-            log.info('Reached --max-statements %d — stopping early.', args.max_statements)
-            break
+    def _process_list(item_list):
+        """Process a list of items; return failed item_ids for retry queue."""
+        nonlocal total_converted, total_skipped, total_errors, converted_guids
+        failed = []
+        consecutive = 0
 
-        log.info('--- %s ---', item_id)
-        guids, skipped, errors = process_item(
-            wbi, item_id, args.basis, ref_qid, loc, loc_type,
-            done_guids, args.dry_run, args.delay, args.progress_log,
-        )
-        total_converted += len(guids)
-        total_skipped   += skipped
-        total_errors    += errors
+        for item_id in item_list:
+            if args.max_statements is not None and total_converted >= args.max_statements:
+                log.info('Reached --max-statements %d — stopping early.', args.max_statements)
+                break
 
-        if guids:
-            converted_guids.extend(guids)
-            done_guids = load_done_guids(args.progress_log)
+            log.info('--- %s ---', item_id)
+            guids, skipped, errors = process_item(
+                wbi, item_id, args.basis, ref_qid, loc, loc_type,
+                done_guids, args.dry_run, args.delay, args.progress_log,
+            )
+            total_converted += len(guids)
+            total_skipped   += skipped
+            total_errors    += errors
+
+            if guids:
+                converted_guids.extend(guids)
+                done_guids.update(guids)
+
+            if errors and not guids:
+                consecutive += 1
+                failed.append(item_id)
+                if (args.maint_wait > 0
+                        and args.maint_threshold > 0
+                        and consecutive >= args.maint_threshold):
+                    log.warning(
+                        '%d consecutive item failures — possible FactGrid maintenance '
+                        'window. Sleeping %ds before continuing.',
+                        consecutive, args.maint_wait,
+                    )
+                    time.sleep(args.maint_wait)
+                    log.info('Resuming after sleep.')
+                    consecutive = 0
+            else:
+                consecutive = 0
+
+        return failed
+
+    retry_queue = _process_list(items)
+
+    # ---- Retry failed items ----
+    if retry_queue and not args.dry_run:
+        log.info('')
+        log.info('Retrying %d item(s) that failed during the run...', len(retry_queue))
+        done_guids = load_done_guids(args.progress_log)
+        still_failed = _process_list(retry_queue)
+        if still_failed:
+            log.warning('%d item(s) still failing after retry: %s',
+                        len(still_failed), ', '.join(still_failed))
 
     # ---- Summary ----
     log.info('')
