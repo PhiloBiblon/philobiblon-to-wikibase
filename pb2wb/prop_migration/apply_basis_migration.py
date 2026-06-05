@@ -53,9 +53,35 @@ P721            = 'P721'
 P129            = 'P129'
 PROGRESS_LOG    = 'prop_migration/basis_migration_progress.jsonl'
 CANDIDATES_TSV  = 'prop_migration/P721-P129.tsv'
+RAW_VALUES_TSV  = 'prop_migration/P721-raw-values.tsv'
 DEFAULT_DELAY   = 2.0   # seconds between item writes
 MAX_RETRIES     = 5
 RETRY_BACKOFF   = 30    # seconds (doubles each retry, capped at 300)
+
+import re as _re
+_HTML_TAG_RE = _re.compile(r'<[^>]+>')
+
+def strip_html(s):
+    return _HTML_TAG_RE.sub('', s).strip()
+
+
+def find_raw_variants(basis_str, raw_values_path=RAW_VALUES_TSV):
+    """
+    Return all P721 raw strings from raw_values_path that are HTML-equivalent
+    to basis_str (i.e. strip_html(raw) == strip_html(basis_str)).
+    Always includes basis_str itself. Falls back to trying <i>basis_str</i>
+    if the raw values file is unavailable.
+    """
+    target = strip_html(basis_str)
+    variants = {basis_str}
+    if os.path.exists(raw_values_path):
+        with open(raw_values_path, newline='', encoding='utf-8') as f:
+            for row in csv.reader(f, delimiter='\t'):
+                if row and strip_html(row[0]) == target:
+                    variants.add(row[0])
+    else:
+        variants.add(f'<i>{basis_str}</i>')
+    return sorted(variants)
 
 LOC_PROP = {
     'page':     'P54',
@@ -124,10 +150,12 @@ def load_candidate(basis_str, tsv_path):
         log.error('Candidates TSV not found: %s', tsv_path)
         return None
 
+    stripped = strip_html(basis_str)
     matches = []
     with open(tsv_path, newline='', encoding='utf-8') as f:
         for row in csv.DictReader(f, delimiter='\t'):
-            if row.get('basis', '').strip() != basis_str:
+            row_basis = row.get('basis', '').strip()
+            if row_basis != basis_str and row_basis != stripped:
                 continue
             if row.get('vetted', '').strip() not in ('Y', 'y'):
                 continue
@@ -526,14 +554,6 @@ def main():
     done_guids = load_done_guids(args.progress_log)
     log.info('Progress : %d GUIDs already done', len(done_guids))
 
-    # ---- Find items ----
-    log.info('Finding items via SPARQL...')
-    items = find_items(args.basis, args.item)
-    log.info('  %d item(s) found', len(items))
-    if not items:
-        log.info('Nothing to do.')
-        return
-
     # ---- Connect ----
     try:
         wbm = WBManager()
@@ -541,17 +561,20 @@ def main():
     except Exception as e:
         if args.dry_run:
             log.info('WBManager unavailable (%s).', e)
-            log.info('Shallow dry-run: %d items found via SPARQL — done.', len(items))
+            log.info('Shallow dry-run (no credentials) — SPARQL item counts only.')
+            for v in find_raw_variants(args.basis):
+                v_items = find_items(v, args.item)
+                log.info('  %r: %d item(s)', v, len(v_items))
             return
         sys.exit(f'ERROR: Cannot connect to FactGrid: {e}')
 
     # ---- Process items ----
     total_converted = total_skipped = total_errors = 0
-    converted_guids = []
+    converted_guid_variant = {}   # guid -> basis_variant (for spot-check)
 
-    def _process_list(item_list):
-        """Process a list of items; return failed item_ids for retry queue."""
-        nonlocal total_converted, total_skipped, total_errors, converted_guids
+    def _process_list(item_list, basis_variant):
+        """Process a list of items for one basis variant; return failed item_ids."""
+        nonlocal total_converted, total_skipped, total_errors, converted_guid_variant
         failed = []
         consecutive = 0
 
@@ -562,7 +585,7 @@ def main():
 
             log.info('--- %s ---', item_id)
             guids, skipped, errors = process_item(
-                wbi, item_id, args.basis, ref_qid, loc, loc_type,
+                wbi, item_id, basis_variant, ref_qid, loc, loc_type,
                 done_guids, args.dry_run, args.delay, args.progress_log,
             )
             total_converted += len(guids)
@@ -570,7 +593,8 @@ def main():
             total_errors    += errors
 
             if guids:
-                converted_guids.extend(guids)
+                for g in guids:
+                    converted_guid_variant[g] = basis_variant
                 done_guids.update(guids)
 
             if errors and not guids:
@@ -592,17 +616,36 @@ def main():
 
         return failed
 
-    retry_queue = _process_list(items)
+    # ---- Discover HTML variants and process each ----
+    variants = find_raw_variants(args.basis)
+    if len(variants) > 1:
+        extras = [v for v in variants if v != args.basis]
+        log.info('HTML variants: %s', ', '.join(repr(v) for v in extras))
+
+    variant_retries = {}   # variant -> [item_ids]
+    for variant in variants:
+        v_items = find_items(variant, args.item)
+        if not v_items:
+            if variant != args.basis:
+                log.info('Variant %r: 0 items, skipping', variant)
+            continue
+        if variant != args.basis:
+            log.info('Variant %r: %d item(s)', variant, len(v_items))
+        failed = _process_list(v_items, variant)
+        if failed:
+            variant_retries[variant] = failed
 
     # ---- Retry failed items ----
-    if retry_queue and not args.dry_run:
+    if variant_retries and not args.dry_run:
+        total_retry = sum(len(v) for v in variant_retries.values())
         log.info('')
-        log.info('Retrying %d item(s) that failed during the run...', len(retry_queue))
+        log.info('Retrying %d item(s)...', total_retry)
         done_guids = load_done_guids(args.progress_log)
-        still_failed = _process_list(retry_queue)
-        if still_failed:
-            log.warning('%d item(s) still failing after retry: %s',
-                        len(still_failed), ', '.join(still_failed))
+        for variant, retry_items in variant_retries.items():
+            still_failed = _process_list(retry_items, variant)
+            if still_failed:
+                log.warning('%d item(s) still failing for %r: %s',
+                            len(still_failed), variant, ', '.join(still_failed))
 
     # ---- Summary ----
     log.info('')
@@ -614,11 +657,21 @@ def main():
         log.warning('There were errors — review the log above before continuing.')
 
     # ---- Spot-check ----
-    if not args.dry_run and converted_guids:
-        n_check = min(len(converted_guids), SPOT_CHECK_LIMIT)
+    if not args.dry_run and converted_guid_variant:
+        all_guids = list(converted_guid_variant)
+        sample = (all_guids if len(all_guids) <= SPOT_CHECK_LIMIT
+                  else random.sample(all_guids, SPOT_CHECK_LIMIT))
         log.info('')
-        log.info('API spot-check on %d/%d GUID(s)...', n_check, len(converted_guids))
-        ok, fail, errs = api_spot_check(converted_guids, args.basis, ref_qid)
+        log.info('API spot-check on %d/%d GUID(s)...', len(sample), len(all_guids))
+        # Group sample by variant so each api_spot_check call uses the right P721 string.
+        by_variant = {}
+        for guid in sample:
+            v = converted_guid_variant[guid]
+            by_variant.setdefault(v, []).append(guid)
+        ok = fail = errs = 0
+        for variant, guids in by_variant.items():
+            o, f, e = api_spot_check(guids, variant, ref_qid)
+            ok += o; fail += f; errs += e
         log.info('Spot-check: %d OK, %d FAILED, %d errors', ok, fail, errs)
         if fail or errs:
             log.warning(
