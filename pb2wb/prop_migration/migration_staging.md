@@ -21,63 +21,42 @@ Shallow dry-run (WBManager not needed without credentials).
 
 ---
 
-## Stage 2 — Single-item live test
+## Stage 2 — Single-item live tests
 
-**Status: DONE** (2026-06-02)
+**Status: DONE** (2026-06-02 and 2026-06-04)
 
-**Basis:** `Perea 2004`  
-**Target item:** Q1086665  
-**Item label:** Juan Tallante, regidor de Murcia, *Obra en loor de veinte excelencias de Nuestra Señora*, escrito 1488 ca.  
-**Statements to convert on this item:** 1  
-**Total items with P721="Perea 2004" in FactGrid:** 8  
-**ref_qid (P129):** Q1071227 — Perea Rodríguez (2004), "Las cortes literarias hispánicas del siglo XV..."  
-**match_type in TSV:** vetted (Charles approved), no locator
+Two single-item pilots run:
 
-**Why this item:** Q1086665 has only 1 P721="Perea 2004" statement and 2 total
-P721 statements, making the before/after trivially verifiable on the FactGrid UI.
+**Perea 2004 / Q1086665** (2026-06-02): 1 statement converted. Verified on FactGrid UI.
+
+**S. Leigh Sotheby & Co. / Q1080532** (2026-06-04): 1 statement converted. First run
+with new `prop` and `main_value` fields in progress log (P34, "William Brownsword Chorley").
 
 ```bash
 python prop_migration/apply_basis_migration.py --basis "Perea 2004" --item Q1086665
+python prop_migration/apply_basis_migration.py --basis "S. Leigh Sotheby & Co." --item Q1080532
 ```
-
-**Verification:** Open https://database.factgrid.de/wiki/Q1086665 and confirm:
-- P129 = Q1071227 appears in the references section of the affected statement
-- pq:P721 = "Perea 2004" is gone from that statement's qualifier section
-- All other statements on the item are unchanged
 
 ---
 
 ## Stage 3 — Low-frequency full run
 
-**Status: PENDING** (run after Stage 2 is verified)
+**Status: DONE** (2026-06-02)
 
-**Basis:** `Cuartero`  
-**ref_qid (P129):** Q1068432 — Cuartero y Huerta et al. (1949-79), *Índice...*  
-**match_type in TSV:** vetted (Charles approved), no locator  
-**Frequency in TSV:** 10  
-**Items in FactGrid with P721="Cuartero":** 7  
-
-**Why this basis:** Freq=10 / 7 items keeps blast radius small for first multi-item
-run. `match_type=vetted` means Charles explicitly approved Q1068432. No locator
-means the reference snak is a simple P129=item with nothing else to go wrong.
+**Basis:** `Cuartero` — 10 statements, 7 items. 0 errors.
 
 ```bash
 python prop_migration/apply_basis_migration.py --basis "Cuartero"
 ```
 
-**Verification:** Spot-check runs automatically after the script completes.
-Manually inspect 1-2 items from the SPARQL list if the spot-check reports any
-failures.
-
 ---
 
 ## Stage 4 — Perea 2004 full run
 
-**Status: PENDING** (run after Stage 3 is verified)
+**Status: DONE** (2026-06-04)
 
-**Basis:** `Perea 2004`  
-**ref_qid (P129):** Q1071227  
-**Items in FactGrid:** 8 (Stage 2 item Q1086665 will be skipped via progress log)
+**Basis:** `Perea 2004` — 7 remaining items (Q1086665 skipped via progress log).
+7 converted, 0 errors, 7/7 spot-checks OK.
 
 ```bash
 python prop_migration/apply_basis_migration.py --basis "Perea 2004"
@@ -85,31 +64,57 @@ python prop_migration/apply_basis_migration.py --basis "Perea 2004"
 
 ---
 
-## Stage 5 — High-frequency batch (top 35 bases, 50% coverage)
+## Stage 5 — Faulhaber (highest-frequency basis, run solo)
 
-**Status: PENDING** (run after Stage 4 verified)
+**Status: DONE** (2026-06-04 to 2026-06-05)
 
-**Coverage target:** 50% of actionable usages (64,600 / 128,927)  
-**Bases to run:** 35 distinct `--basis` values (all with freq ≥ 332)  
-**Execution:** batch runner (see below)
+Faulhaber was run on its own before the batch runner, given its scale (8,347 items,
+21,531 statements). Running it solo gave us reliable timing data and validated the
+maintenance-window retry logic under real conditions.
 
-Top of the list (sorted by descending frequency):
+**Results:** 21,252 converted, 0 errors, 20/20 spot-checks OK.  
+**Elapsed:** ~17 hours (including daytime connection interruptions).  
+**Measured rate:** 20.8 GUIDs/min avg (11/min daytime, 30/min overnight).  
+**Timing model:** ~7.3s/item at `--delay 2`; estimated ~5.3s/item at `--delay 1`.
 
-| # | Freq  | Basis            | ref_qid   |
-|---|-------|------------------|-----------|
-| 1 | 21531 | Faulhaber        | Q164508   |
-| 2 | 6488  | Zarco            | Q1345183  |
-| 3 | 5708  | IGM              | Q395978   |
-| 4 | 3746  | BNE Cat.         | Q396047   |
-| 5 | 3374  | Wikidata         | Q370382   |
-| 6 | 3323  | DB~e             | Q550714   |
-| 7 | 3168  | Wikipedia        | Q629842   |
-| 8 | 2690  | Norton           | Q1068254  |
-| … | …     | (see TSV, vetted=Y, freq ≥ 332) | |
+```bash
+python prop_migration/apply_basis_migration.py --basis "Faulhaber"
+```
 
-> **Note:** Faulhaber alone has 8,347 items. At 2s/item + write overhead,
-> each large basis takes hours. Use `--max-statements 500` to run in chunks
-> across sessions; the progress log makes each restart seamless.
+Also completed in this phase: CCPBE (627 stmts, 412 items, ~44 min).
+
+---
+
+## Stage 6 — High-frequency batch (remaining top-35 bases)
+
+**Status: IN PROGRESS** — Zarco next
+
+**Use `--delay 1` from here on** (safe based on Faulhaber overnight performance; ~27% faster).
+
+Top of the remaining list (sorted by descending frequency):
+
+| # | Freq  | Basis      | Items  | ref_qid   | Status |
+|---|-------|------------|--------|-----------|--------|
+| 1 | 21531 | Faulhaber  | 8,347  | Q164508   | ✓ Done |
+| 2 | 6488  | Zarco      | 2,095  | Q1345183  | **Next** (~3-4 hrs) |
+| 3 | 5708  | IGM        | 15     | Q395978   | ⚠ Pilot first (380 GUIDs/item) |
+| 4 | 3746  | BNE Cat.   | 1,689  | Q396047   | pending |
+| 5 | 3374  | Wikidata   | —      | Q370382   | pending |
+| 6 | 3323  | DB~e       | —      | Q550714   | pending |
+| 7 | 3168  | Wikipedia  | —      | Q629842   | pending |
+| 8 | 2690  | Norton     | —      | Q1068254  | pending |
+| … | …     | (see TSV, vetted=Y, freq ≥ 332) | | | |
+
+> **IGM warning:** Only 15 items but 5,708 GUIDs (~380/item). Each write is a
+> massive payload. Do a single-item pilot before running the full 15.
+
+```bash
+# Run each basis individually with --delay 1
+python prop_migration/apply_basis_migration.py --basis "Zarco" --delay 1
+
+# Or use the batch runner for the remaining bases (skips already-done ones)
+python prop_migration/run_basis_batch.py --min-freq 332 --delay 1
+```
 
 ---
 
@@ -125,41 +130,49 @@ All figures are actionable usages (excluded rows removed). Total = 128,927.
 | 75%      | 2,513       | ≥ 1      | 96,696         |
 | 80%      | not reachable with current vetted=Y set | — | — |
 
-**Key implication:** 70% is achievable by running 433 bases (a day or two of
-compute). Getting the final 5% to 75% requires running all 2,513 vetted=Y
-bases — including 2,080 low-frequency ones (freq 1–18). This is only feasible
-with the batch runner script; don't attempt it interactively.
+**Runtime estimate at `--delay 1`:** ~42 hours to complete all remaining vetted=Y bases
+(~74,000 GUIDs remaining as of 2026-06-05). Spread across multiple sessions via the
+batch runner; each restart resumes cleanly from the progress log.
 
-The 75% target corresponds to Charles having vetted 96,696 of 128,927
-actionable statement usages. Rows not yet vetted by Charles (vetted blank)
-are excluded from all runs.
+**Key implication:** 70% is achievable by running 433 bases. Getting to 75% requires
+running all 2,513 vetted=Y bases — only feasible with the batch runner.
 
 ---
 
-## Batch execution (Stages 5+)
-
-Running 433+ `--basis` commands manually is not feasible. The execution model is:
+## Batch execution
 
 ```bash
-# 1. Generate the run list from the TSV (frequency-descending, vetted=Y only)
-python prop_migration/run_basis_batch.py --min-freq 332 --dry-run   # preview
-python prop_migration/run_basis_batch.py --min-freq 332             # execute
+# Preview
+python prop_migration/run_basis_batch.py --min-freq 332 --delay 1 --dry-run
 
-# 2. After confirming Stage 5, lower the threshold
-python prop_migration/run_basis_batch.py --min-freq 80
-python prop_migration/run_basis_batch.py --min-freq 19
-python prop_migration/run_basis_batch.py --min-freq 1   # final 75% push
+# Run top-35 (50% coverage target)
+python prop_migration/run_basis_batch.py --min-freq 332 --delay 1
+
+# Next tiers
+python prop_migration/run_basis_batch.py --min-freq 80  --max-freq 331 --delay 1
+python prop_migration/run_basis_batch.py --min-freq 19  --max-freq 79  --delay 1
+python prop_migration/run_basis_batch.py --min-freq 1   --max-freq 18  --delay 1
 ```
 
-`run_basis_batch.py` does not exist yet. It needs to:
-- Read `P721-P129.tsv`, filter `vetted=Y` + valid QID, sort by descending freq
-- Skip any basis already fully converted (check progress log vs SPARQL count)
-- Call `apply_basis_migration.py` for each remaining basis, passing `--delay`
-- Log a summary line after each basis completes (basis, items, statements, errors)
-- Support `--min-freq`, `--max-freq`, and `--limit N` (run only first N bases)
-- Support `--dry-run` (shows what would be run without writing)
+The batch runner skips already-done bases (done_guids ≥ tsv_freq) and sleeps 50 min
+on consecutive failures to survive the daily FactGrid maintenance window (7pm ET).
 
-Build `run_basis_batch.py` before starting Stage 5.
+---
+
+## Locator bases (DHEE page numbers etc.)
+
+757 vetted=Y bases have a `loc` field (5,533 GUIDs total). The majority are DHEE page
+numbers (182 bases, 3,275 GUIDs, all `loc_type=page` → P54).
+
+**Do a single-item pilot on a DHEE base before running in bulk:**
+
+```bash
+python prop_migration/apply_basis_migration.py --basis "DHEE 2400" --item <qid> --delay 1
+```
+
+Unmapped loc types (skip until confirmed with Charles):
+- `volume` (e.g. "Arteaga I:286") — no FactGrid property assigned
+- `annotation` (e.g. "BNE Cat.: sello") — no FactGrid property assigned
 
 ---
 
@@ -169,17 +182,28 @@ The script appends a JSONL record to `prop_migration/basis_migration_progress.js
 for every successfully converted statement GUID. Each run is fully resumable:
 re-running the same `--basis` command skips already-converted GUIDs automatically.
 
-To see overall progress at any time:
+To inspect the most recent entry:
+
+```bash
+tail -1 prop_migration/basis_migration_progress.jsonl | jq .
+
+# Fields useful for verifying a change (item as URL):
+tail -1 prop_migration/basis_migration_progress.jsonl | jq '{item: ("https://database.factgrid.de/wiki/" + .item), prop, main_value, basis, qid}'
+```
+
+To see overall progress:
 
 ```bash
 python - <<'EOF'
 import json, csv
 
-done = set()
+done = {}
 with open('prop_migration/basis_migration_progress.jsonl') as f:
     for line in f:
-        try: done.add(json.loads(line)['basis'])
+        try:
+            r = json.loads(line)
+            done[r['basis']] = done.get(r['basis'], 0) + 1
         except: pass
-print(f'{len(done)} distinct basis values fully converted so far')
+print(f'{len(done)} distinct basis values converted, {sum(done.values()):,} total GUIDs')
 EOF
 ```
