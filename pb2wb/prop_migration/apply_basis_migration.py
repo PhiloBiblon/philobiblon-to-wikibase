@@ -369,7 +369,8 @@ def _ref_present(claim, ref_qid):
 # ---------------------------------------------------------------------------
 
 def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
-                 done_guids, dry_run, delay, progress_path):
+                 done_guids, dry_run, delay, progress_path,
+                 canonical_basis=None):
     """
     Convert all P721=basis_str qualifiers on item_id to P129=ref_qid references.
 
@@ -388,7 +389,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
         item = _call_with_retry(lambda: wbi.item.get(item_id))
     except Exception as e:
         log.error('%s: fetch failed: %s', item_id, e)
-        return 0, 0, 1
+        return [], 0, 1
 
     # ---- Classify claims ----
     to_add  = []   # (guid, claim) — need ref added
@@ -438,6 +439,13 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
         _call_with_retry(lambda: item.write())
         log.info('%s: Phase 1 done — added P129 ref to %d statement(s)', item_id, len(to_add))
     except Exception as e:
+        err_str = str(e)
+        if 'external client site' in err_str and 'did not provide page information' in err_str:
+            # Stale sitelink on the item — FactGrid can't verify it. Permanent, not a
+            # maintenance window. Skip silently so it doesn't trigger the sleep logic.
+            log.warning('%s: skipping — permanent sitelink error (stale external link): %s',
+                        item_id, e)
+            return [], n_skip, 0
         log.error('%s: Phase 1 write (add refs) failed: %s', item_id, e)
         return [], n_skip, len(to_add)
 
@@ -476,10 +484,11 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
         return [], n_skip, len(removed)
 
     # ---- Log progress ----
+    log_basis = canonical_basis if canonical_basis is not None else basis_str
     converted_guids = []
     for guid in removed:
         prop, main_value = guid_meta.get(guid, ('', ''))
-        log_progress(progress_path, guid, item_id, basis_str, ref_qid, loc, loc_type,
+        log_progress(progress_path, guid, item_id, log_basis, ref_qid, loc, loc_type,
                      prop=prop, main_value=main_value)
         log.info('CONVERTED  %s  %s%s', item_id, guid, loc_desc)
         converted_guids.append(guid)
@@ -587,6 +596,7 @@ def main():
             guids, skipped, errors = process_item(
                 wbi, item_id, basis_variant, ref_qid, loc, loc_type,
                 done_guids, args.dry_run, args.delay, args.progress_log,
+                canonical_basis=args.basis,
             )
             total_converted += len(guids)
             total_skipped   += skipped

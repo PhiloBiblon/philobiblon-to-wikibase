@@ -33,11 +33,14 @@ import csv
 import json
 import logging
 import os
+import re as _re
 import subprocess
 import sys
 import time
 from collections import Counter
 from datetime import datetime, timezone
+
+_HTML_TAG_RE = _re.compile(r'<[^>]+>')
 
 CANDIDATES_TSV       = 'prop_migration/P721-P129.tsv'
 PROGRESS_LOG         = 'prop_migration/basis_migration_progress.jsonl'
@@ -56,7 +59,11 @@ log = logging.getLogger(__name__)
 
 
 def load_done_counts(path):
-    """Return Counter of basis -> GUIDs converted so far."""
+    """Return Counter of basis -> GUIDs converted so far.
+
+    Strips HTML tags from the basis field so that '<i>IGM</i>' and 'IGM'
+    are counted together (matching the stripped form used in the TSV).
+    """
     counts = Counter()
     if not os.path.exists(path):
         return counts
@@ -66,7 +73,8 @@ def load_done_counts(path):
             if not line:
                 continue
             try:
-                counts[json.loads(line)['basis']] += 1
+                basis = _HTML_TAG_RE.sub('', json.loads(line)['basis']).strip()
+                counts[basis] += 1
             except (json.JSONDecodeError, KeyError):
                 pass
     return counts
