@@ -544,6 +544,12 @@ def main():
     loc      = case['loc']
     loc_type = case['loc_type']
 
+    if loc and loc_type and loc_type not in LOC_PROP:
+        sys.exit(
+            f"ERROR: loc_type={loc_type!r} has no mapped property in LOC_PROP. "
+            f"Add a property mapping before running this basis to avoid losing locator data."
+        )
+
     log.info('Basis    : %r  →  P129=%s', args.basis, ref_qid)
     if loc:
         log.info('Locator  : %r  (%s  →  %s)',
