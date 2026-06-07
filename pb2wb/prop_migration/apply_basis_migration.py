@@ -29,6 +29,7 @@ import json
 import logging
 import os
 import random
+import signal
 import sys
 import time
 from datetime import datetime, timezone
@@ -57,6 +58,7 @@ RAW_VALUES_TSV  = 'prop_migration/P721-raw-values.tsv'
 DEFAULT_DELAY   = 2.0   # seconds between item writes
 MAX_RETRIES     = 5
 RETRY_BACKOFF   = 30    # seconds (doubles each retry, capped at 300)
+CALL_TIMEOUT    = 90    # seconds before a hung wbi API call is aborted and retried
 
 import re as _re
 _HTML_TAG_RE = _re.compile(r'<[^>]+>')
@@ -194,21 +196,34 @@ def ping_api(timeout=10):
         return False
 
 
+class _CallTimeout(Exception):
+    pass
+
+
 def _call_with_retry(fn):
     """
-    Call fn(). On requests.RequestException, retry with exponential backoff,
-    logging a maintenance-window warning. Other exceptions propagate immediately.
+    Call fn() with a per-call timeout (CALL_TIMEOUT seconds). On timeout or
+    requests.RequestException, retry with exponential backoff. Other exceptions
+    propagate immediately.
     """
+    def _handler(signum, frame):
+        raise _CallTimeout(f'wbi API call exceeded {CALL_TIMEOUT}s')
+
     backoff = RETRY_BACKOFF
     for attempt in range(MAX_RETRIES):
         try:
-            return fn()
-        except requests.RequestException as e:
+            signal.signal(signal.SIGALRM, _handler)
+            signal.alarm(CALL_TIMEOUT)
+            try:
+                result = fn()
+            finally:
+                signal.alarm(0)  # cancel alarm whether call succeeded or not
+            return result
+        except (_CallTimeout, requests.RequestException) as e:
             if attempt < MAX_RETRIES - 1:
                 log.warning(
-                    'Connection error — possible FactGrid maintenance window: %s. '
-                    'Retrying in %ds (attempt %d/%d).',
-                    e, backoff, attempt + 1, MAX_RETRIES,
+                    'Call failed/timed out — retrying in %ds (attempt %d/%d): %s',
+                    backoff, attempt + 1, MAX_RETRIES, e,
                 )
                 time.sleep(backoff)
                 backoff = min(backoff * 2, 300)
