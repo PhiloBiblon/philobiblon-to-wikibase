@@ -598,11 +598,15 @@ def main():
                 break
 
             log.info('--- %s ---', item_id)
-            guids, skipped, errors = process_item(
-                wbi, item_id, basis_variant, ref_qid, loc, loc_type,
-                done_guids, args.dry_run, args.delay, args.progress_log,
-                canonical_basis=args.basis,
-            )
+            try:
+                guids, skipped, errors = process_item(
+                    wbi, item_id, basis_variant, ref_qid, loc, loc_type,
+                    done_guids, args.dry_run, args.delay, args.progress_log,
+                    canonical_basis=args.basis,
+                )
+            except Exception as e:
+                log.error('%s: unexpected error (retry exhaustion?): %s', item_id, e)
+                guids, skipped, errors = [], 0, 1
             total_converted += len(guids)
             total_skipped   += skipped
             total_errors    += errors
