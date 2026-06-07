@@ -80,13 +80,16 @@ def load_done_counts(path):
     return counts
 
 
-def load_candidates(tsv_path, min_freq, max_freq):
+def load_candidates(tsv_path, min_freq, max_freq, skip_locators=False, locators_only=False):
     """
-    Return list of (freq, basis, qid) from tsv_path, vetted=Y, valid QID,
-    within [min_freq, max_freq], deduplicated by basis (highest freq wins),
-    sorted descending by freq.
+    Return list of (freq, basis, qid, loc, loc_type) from tsv_path, vetted=Y,
+    valid QID, within [min_freq, max_freq], deduplicated by basis (highest freq
+    wins), sorted descending by freq.
+
+    --skip-locators: exclude rows where loc is non-empty.
+    --locators-only: include only rows where loc is non-empty.
     """
-    seen = {}  # basis -> (freq, qid)
+    seen = {}  # basis -> (freq, qid, loc, loc_type)
     with open(tsv_path, newline='', encoding='utf-8') as f:
         for row in csv.DictReader(f, delimiter='\t'):
             if row.get('vetted', '').strip() not in ('Y', 'y'):
@@ -105,9 +108,16 @@ def load_candidates(tsv_path, min_freq, max_freq):
                 continue
             if max_freq is not None and freq > max_freq:
                 continue
+            loc      = row.get('loc', '').strip()
+            loc_type = row.get('loc_type', '').strip()
+            if skip_locators and loc:
+                continue
+            if locators_only and not loc:
+                continue
             if basis not in seen or freq > seen[basis][0]:
-                seen[basis] = (freq, qid)
-    rows = [(freq, basis, qid) for basis, (freq, qid) in seen.items()]
+                seen[basis] = (freq, qid, loc, loc_type)
+    rows = [(freq, basis, qid, loc, loc_type)
+            for basis, (freq, qid, loc, loc_type) in seen.items()]
     rows.sort(key=lambda r: r[0], reverse=True)
     return rows
 
@@ -147,12 +157,18 @@ def main():
                     help=f'Seconds to sleep after a failure before retrying (default: {DEFAULT_MAINT_WAIT})')
     ap.add_argument('--maint-retries', type=int, default=DEFAULT_MAINT_RETRY, metavar='N',
                     help=f'Times to retry a failed basis after sleeping (default: {DEFAULT_MAINT_RETRY}, 0=disable)')
+    ap.add_argument('--skip-locators', action='store_true',
+                    help='Skip bases that have a non-empty loc field (run no-locator bases only)')
+    ap.add_argument('--locators-only', action='store_true',
+                    help='Run only bases that have a non-empty loc field')
     ap.add_argument('--tsv', default=CANDIDATES_TSV, metavar='PATH')
     ap.add_argument('--progress-log', default=PROGRESS_LOG, metavar='PATH')
     ap.add_argument('--batch-log', default=BATCH_LOG, metavar='PATH')
     args = ap.parse_args()
 
-    candidates = load_candidates(args.tsv, args.min_freq, args.max_freq)
+    candidates = load_candidates(args.tsv, args.min_freq, args.max_freq,
+                                 skip_locators=args.skip_locators,
+                                 locators_only=args.locators_only)
     if args.limit:
         candidates = candidates[:args.limit]
 
@@ -167,18 +183,22 @@ def main():
         log.info('  min_freq   : %d', args.min_freq)
     if args.max_freq:
         log.info('  max_freq   : %d', args.max_freq)
+    if args.skip_locators:
+        log.info('  locators   : skipped')
+    if args.locators_only:
+        log.info('  locators   : only')
     if args.limit:
         log.info('  limit      : %d', args.limit)
     log.info('  mode       : %s', 'DRY RUN' if args.dry_run else 'EXECUTE')
     log.info('  delay      : %.1fs', args.delay)
-    total_freq = sum(f for f, _, _ in candidates)
+    total_freq = sum(f for f, _, _, _, _ in candidates)
     log.info('  total freq : %d statements', total_freq)
 
     total_converted = 0
     total_errors = 0
     n_skipped_done = 0
 
-    for i, (freq, basis, qid) in enumerate(candidates, 1):
+    for i, (freq, basis, qid, loc, loc_type) in enumerate(candidates, 1):
         done = done_counts.get(basis, 0)
         prefix = f'[{i}/{len(candidates)}] freq={freq:,} {basis!r}'
 
