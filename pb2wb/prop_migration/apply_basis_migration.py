@@ -441,9 +441,14 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     except Exception as e:
         err_str = str(e)
         if 'external client site' in err_str and 'did not provide page information' in err_str:
-            # Stale sitelink on the item — FactGrid can't verify it. Permanent, not a
-            # maintenance window. Skip silently so it doesn't trigger the sleep logic.
+            # Stale sitelink on the item — permanent, not a maintenance window.
             log.warning('%s: skipping — permanent sitelink error (stale external link): %s',
+                        item_id, e)
+            return [], n_skip, 0
+        if 'no longer logged in' in err_str or 'anonymous token' in err_str:
+            # Session expired — transient auth failure, not a maintenance window.
+            # Item will be retried on next process restart (which re-authenticates).
+            log.warning('%s: skipping — auth session expired, will retry on restart: %s',
                         item_id, e)
             return [], n_skip, 0
         log.error('%s: Phase 1 write (add refs) failed: %s', item_id, e)
