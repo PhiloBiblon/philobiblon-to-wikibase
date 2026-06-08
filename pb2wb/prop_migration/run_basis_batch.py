@@ -178,7 +178,13 @@ def main():
 
     done_counts = load_done_counts(args.progress_log)
 
-    log.info('Batch plan: %d bases', len(candidates))
+    candidates_todo = [(f, b, q, l, lt) for f, b, q, l, lt in candidates
+                       if done_counts.get(b, 0) < f]
+    n_already_done = len(candidates) - len(candidates_todo)
+    candidates = candidates_todo
+
+    log.info('Batch plan: %d bases (%d already done, skipped)',
+             len(candidates), n_already_done)
     if args.min_freq:
         log.info('  min_freq   : %d', args.min_freq)
     if args.max_freq:
@@ -269,7 +275,7 @@ def main():
     log.info('')
     log.info('=== Batch complete ===')
     log.info('Bases run      : %d', len(candidates) - n_skipped_done)
-    log.info('Already done   : %d', n_skipped_done)
+    log.info('Already done   : %d', n_already_done + n_skipped_done)
     log.info('Converted      : %d', total_converted)
     log.info('Errors         : %d', total_errors)
 
