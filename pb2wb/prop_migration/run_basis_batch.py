@@ -135,6 +135,35 @@ def append_batch_log(path, basis, freq, returncode, converted, elapsed_s):
         f.write(json.dumps(rec, ensure_ascii=False) + '\n')
 
 
+def load_fg_empty(batch_log_path, elapsed_threshold=10.0):
+    """Return set of bases confirmed empty in FactGrid.
+
+    A basis is 'FG-confirmed empty' if its most recent batch_run_log entry has
+    returncode=0, converted=0, and elapsed_s < elapsed_threshold. The elapsed
+    threshold distinguishes fast empty-SPARQL runs (~2-3s) from slow auth-expired
+    runs where items were skipped without converting (which would take much longer).
+    """
+    if not os.path.exists(batch_log_path):
+        return set()
+    last_run = {}
+    with open(batch_log_path, encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+                last_run[rec['basis']] = rec
+            except (json.JSONDecodeError, KeyError):
+                pass
+    return {
+        basis for basis, rec in last_run.items()
+        if rec.get('returncode') == 0
+        and rec.get('converted', 0) == 0
+        and rec.get('elapsed_s', 999) < elapsed_threshold
+    }
+
+
 def main():
     ap = argparse.ArgumentParser(
         description='Batch runner for apply_basis_migration.py.',
@@ -178,8 +207,9 @@ def main():
 
     done_counts = load_done_counts(args.progress_log)
 
+    fg_empty = load_fg_empty(args.batch_log)
     candidates_todo = [(f, b, q, l, lt) for f, b, q, l, lt in candidates
-                       if done_counts.get(b, 0) < f]
+                       if done_counts.get(b, 0) < f and b not in fg_empty]
     n_already_done = len(candidates) - len(candidates_todo)
     candidates = candidates_todo
 
