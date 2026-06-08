@@ -40,6 +40,19 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from wikibaseintegrator.datatypes import Item as WBItem, String as WBString
 from wikibaseintegrator.models import Reference
+import wikibaseintegrator.wbi_helpers as _wbi_helpers
+
+# Reduce wbi's internal connection-error retry delay from 60s → 10s.
+# The default 60s sleep fires on every RemoteDisconnected/ConnectionReset before
+# wbi retries internally, adding 60s overhead per occurrence. 10s is enough for
+# transient resets while keeping per-error cost manageable.
+_d = list(_wbi_helpers.mediawiki_api_call.__defaults__)
+_d[-1] = 10
+_wbi_helpers.mediawiki_api_call.__defaults__ = tuple(_d)
+_d = list(_wbi_helpers.mediawiki_api_call_helper.__defaults__)
+_d[5] = 10
+_wbi_helpers.mediawiki_api_call_helper.__defaults__ = tuple(_d)
+
 from common.settings import TEMP_DICT
 TEMP_DICT['TEMP_WB'] = 'FACTGRID'
 from common.wb_manager import WBManager
@@ -200,11 +213,14 @@ class _CallTimeout(Exception):
     pass
 
 
-def _call_with_retry(fn):
+def _call_with_retry(fn, wbi=None):
     """
     Call fn() with a per-call timeout (CALL_TIMEOUT seconds). On timeout or
     requests.RequestException, retry with exponential backoff. Other exceptions
     propagate immediately.
+
+    Pass wbi= to have the requests session closed on error, forcing a fresh
+    TCP connection on retry instead of reusing a potentially stale pooled one.
     """
     def _handler(signum, frame):
         raise _CallTimeout(f'wbi API call exceeded {CALL_TIMEOUT}s')
@@ -220,6 +236,11 @@ def _call_with_retry(fn):
                 signal.alarm(0)  # cancel alarm whether call succeeded or not
             return result
         except (_CallTimeout, requests.RequestException) as e:
+            if wbi is not None:
+                try:
+                    wbi.session.close()
+                except Exception:
+                    pass
             if attempt < MAX_RETRIES - 1:
                 log.warning(
                     'Call failed/timed out — retrying in %ds (attempt %d/%d): %s',
@@ -401,7 +422,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
 
     # ---- Fetch item ----
     try:
-        item = _call_with_retry(lambda: wbi.item.get(item_id))
+        item = _call_with_retry(lambda: wbi.item.get(item_id), wbi=wbi)
     except Exception as e:
         log.error('%s: fetch failed: %s', item_id, e)
         return [], 0, 1
@@ -451,7 +472,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
 
     try:
         time.sleep(delay)
-        _call_with_retry(lambda: item.write())
+        _call_with_retry(lambda: item.write(), wbi=wbi)
         log.info('%s: Phase 1 done — added P129 ref to %d statement(s)', item_id, len(to_add))
     except Exception as e:
         err_str = str(e)
@@ -474,7 +495,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     all_guids = [guid for guid, _ in to_add] + [guid for guid, _ in already]
 
     try:
-        item = _call_with_retry(lambda: wbi.item.get(item_id))
+        item = _call_with_retry(lambda: wbi.item.get(item_id), wbi=wbi)
     except Exception as e:
         log.error('%s: Phase 2 fetch failed (refs WERE added): %s', item_id, e)
         return [], n_skip, len(all_guids)
@@ -495,7 +516,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
 
     try:
         time.sleep(delay)
-        _call_with_retry(lambda: item.write())
+        _call_with_retry(lambda: item.write(), wbi=wbi)
         log.info('%s: Phase 2 done — removed P721 qual from %d statement(s)',
                  item_id, len(removed))
     except Exception as e:
