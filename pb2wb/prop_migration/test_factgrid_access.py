@@ -12,6 +12,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import common.factgrid_access as fa
 
 
+@pytest.fixture(autouse=True)
+def _tmp_reputation_log(tmp_path, monkeypatch):
+    monkeypatch.setattr(fa, 'REPUTATION_LOG', str(tmp_path / 'reputation.jsonl'))
+    monkeypatch.setattr(fa, '_network', 'test-net')
+
+
 def _resp(rep=None, url='https://database.factgrid.de/w/api.php', location=None):
     r = requests.Response()
     r.status_code = 200
@@ -66,6 +72,16 @@ def test_good_reputation_no_pause():
 def test_low_reputation_pauses_once():
     _, sleeps, _ = _run([_resp('WARN (-190.00)')])
     assert sleeps == 1
+
+
+def test_reputation_logged():
+    import json
+    _run([_resp('OK (-21.03)')])
+    _run([_resp('WARN (-190.00)')])
+    lines = [json.loads(l) for l in open(fa.REPUTATION_LOG)]
+    assert [(l['reputation'], l['event'], l['network']) for l in lines] == [
+        (-21.03, 'ok', 'test-net'), (-190.0, 'low', 'test-net')]
+    assert lines[0]['path'] == '/w/api.php'
 
 
 def test_challenge_pauses_and_retries():

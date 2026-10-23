@@ -12,9 +12,14 @@ call (ours and WikibaseIntegrator's) obeys the rule: pause when the reputation i
 low, and pause-and-retry when a request is bounced to the challenge page.
 """
 
+import json
 import logging
+import os
 import re
+import subprocess
 import time
+from datetime import datetime, timezone
+from urllib.parse import urlparse
 
 import requests
 
@@ -24,6 +29,13 @@ FACTGRID_HOST = 'factgrid.de'
 REPUTATION_PAUSE_AT = -150   # "close to -200"
 PAUSE_SECONDS = 150          # "at least 2 minutes"
 MAX_CHALLENGE_RETRIES = 5
+
+# Every FactGrid response's reputation is appended here, tagged with a local network
+# fingerprint (the default gateway's MAC address — no external lookup), so scores can
+# be compared across home / library / coffee shop. Name fingerprints in NETWORKS_TSV.
+REPUTATION_LOG = os.environ.get('FACTGRID_REPUTATION_LOG',
+                                'prop_migration/run_logs/reputation.jsonl')
+NETWORKS_TSV = 'prop_migration/run_logs/networks.tsv'   # fingerprint<TAB>name
 
 _REP_RE = re.compile(r'\((-?\d+(?:\.\d+)?)\)')
 log = logging.getLogger(__name__)
@@ -40,6 +52,54 @@ def challenged(response):
     if 'rep-pow-challenge' in response.url:
         return True
     return 'rep-pow-challenge' in response.headers.get('Location', '')
+
+
+_network = None
+
+
+def network_fingerprint():
+    """MAC address of the default gateway, e.g. 'a4:2b:b0:12:34:56' (cached)."""
+    global _network
+    if _network is None:
+        try:
+            route = subprocess.run(['route', '-n', 'get', 'default'], capture_output=True,
+                                   text=True, timeout=5).stdout
+            gw = re.search(r'gateway:\s*(\S+)', route).group(1)
+            arp = subprocess.run(['arp', '-n', gw], capture_output=True,
+                                 text=True, timeout=5).stdout
+            _network = re.search(r' at ([0-9a-f:]+)', arp).group(1)
+        except Exception:
+            _network = 'unknown'
+    return _network
+
+
+def network_names():
+    names = {}
+    if os.path.exists(NETWORKS_TSV):
+        with open(NETWORKS_TSV, encoding='utf-8') as f:
+            for line in f:
+                parts = line.rstrip('\n').split('\t')
+                if len(parts) >= 2 and not line.startswith('#'):
+                    names[parts[0]] = parts[1]
+    return names
+
+
+def _log_reputation(method, url, response, rep, event):
+    try:
+        os.makedirs(os.path.dirname(REPUTATION_LOG) or '.', exist_ok=True)
+        with open(REPUTATION_LOG, 'a', encoding='utf-8') as f:
+            f.write(json.dumps({
+                'ts': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                'network': network_fingerprint(),
+                'method': method,
+                'path': urlparse(str(url)).path,
+                'status': response.status_code,
+                'reputation': rep,
+                'raw': response.headers.get('X-Reputation', ''),
+                'event': event,
+            }) + '\n')
+    except OSError:
+        pass   # logging must never break a run
 
 
 def _pause(reason):
@@ -60,6 +120,9 @@ def _guarded_request(self, method, url, *args, **kwargs):
     for attempt in range(MAX_CHALLENGE_RETRIES + 1):
         response = _orig_request(self, method, url, *args, **kwargs)
         rep = reputation(response)
+        event = ('challenge' if challenged(response)
+                 else 'low' if rep is not None and rep <= REPUTATION_PAUSE_AT else 'ok')
+        _log_reputation(method, url, response, rep, event)
         if challenged(response):
             if attempt == MAX_CHALLENGE_RETRIES:
                 raise RuntimeError(f'FactGrid bot challenge persists after {attempt} retries '
