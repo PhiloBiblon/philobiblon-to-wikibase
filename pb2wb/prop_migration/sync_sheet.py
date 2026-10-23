@@ -246,6 +246,50 @@ def cmd_seed(args, cfg):
     print(f'Done: {n} data rows written to {tab!r}')
 
 
+def cmd_status(args, cfg):
+    """Write the read-only FG status columns (to the right of Charles's) — p721 only."""
+    if args.pipeline != 'p721':
+        sys.exit('status is only implemented for --pipeline p721')
+    from prop_migration.sheet_status import STATUS_COLUMNS, build
+
+    status, live_path = build(cfg['pull_tsv'], args.live)
+    print(f'Computed from:    {cfg["pull_tsv"]} (pull first for Charles\'s latest QIDs)')
+    print(f'Live export:      {live_path or "(none — remaining counts blank)"}')
+    counts = {}
+    for row in status.values():
+        key = row[STATUS_COLUMNS[0]].split(' (')[0].split(':')[0] or '(no usage)'
+        counts[key] = counts.get(key, 0) + 1
+    for k, n in sorted(counts.items(), key=lambda kv: -kv[1]):
+        print(f'  {k:45} {n:6}')
+
+    tmp_path = 'prop_migration/.status_tmp.tsv'
+    with open(tmp_path, 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f, delimiter='\t')
+        w.writerow(['basis'] + STATUS_COLUMNS)
+        for basis, row in status.items():
+            w.writerow([basis] + [row[c] for c in STATUS_COLUMNS])
+    if args.local:
+        print(f'Local only: wrote {tmp_path}')
+        return
+
+    sync, sheet_id = _sync(cfg)
+    tab = args.worksheet or cfg['worksheet']
+    print(f'Updating sheet:   tab={tab!r}  sheet_id={sheet_id}')
+    stats = sync.push(
+        worksheet_name=tab,
+        local_tsv_path=tmp_path,
+        key_cols=['basis'],
+        write_cols=STATUS_COLUMNS,
+        skip_col=None,
+        dry_run=args.dry_run,
+    )
+    os.unlink(tmp_path)
+    prefix = '[dry-run] ' if args.dry_run else ''
+    print(f'{prefix}updated: {stats["updated"]}  not found in sheet: {stats["missing"]}')
+    if stats.get('new_cols'):
+        print(f'{prefix}new columns: {stats["new_cols"]}')
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Sync prop_migration Google Sheets')
@@ -278,10 +322,21 @@ def main():
     done_p.add_argument('--dry-run', action='store_true',
                         help='Show what would change without writing')
 
+    status_p = sub.add_parser('status',
+                              help='Write read-only FG status columns (p721); local data only')
+    status_p.add_argument('--worksheet', default=None,
+                          help='Tab name (overrides pipeline default)')
+    status_p.add_argument('--live', default=None, metavar='PATH',
+                          help='Live P721 export (default: newest prop_migration/P721-live*.tsv)')
+    status_p.add_argument('--local', action='store_true',
+                          help='Write the status TSV locally only (no sheet access)')
+    status_p.add_argument('--dry-run', action='store_true',
+                          help='Show what would change without writing')
+
     args = parser.parse_args()
     cfg = _PIPELINES[args.pipeline]
     {'pull': cmd_pull, 'push': cmd_push, 'seed': cmd_seed,
-     'mark-done': cmd_mark_done}[args.command](args, cfg)
+     'mark-done': cmd_mark_done, 'status': cmd_status}[args.command](args, cfg)
 
 
 if __name__ == '__main__':
