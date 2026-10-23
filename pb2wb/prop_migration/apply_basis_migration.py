@@ -249,6 +249,30 @@ def _call_with_retry(fn, wbi=None):
                 raise
 
 
+# Set by main() to WBManager.relogin, so writes can recover from an expired session.
+_relogin = None
+
+
+def _is_auth_error(e):
+    s = str(e)
+    return 'no longer logged in' in s or 'anonymous token' in s
+
+
+def _write_item(item, wbi):
+    """
+    item.write() with network retries; if the bot session has expired, log in
+    again and retry the write once instead of skipping the item.
+    """
+    try:
+        return _call_with_retry(lambda: item.write(), wbi=wbi)
+    except Exception as e:
+        if not _is_auth_error(e) or _relogin is None:
+            raise
+        log.warning('Auth session expired — logging in again and retrying: %s', e)
+        login = _relogin()
+        return _call_with_retry(lambda: item.write(login=login), wbi=wbi)
+
+
 # ---------------------------------------------------------------------------
 # SPARQL
 # ---------------------------------------------------------------------------
@@ -469,7 +493,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
 
     try:
         time.sleep(delay)
-        _call_with_retry(lambda: item.write(), wbi=wbi)
+        _write_item(item, wbi)
         log.info('%s: Phase 1 done — added P129 ref to %d statement(s)', item_id, len(to_add))
     except Exception as e:
         err_str = str(e)
@@ -478,9 +502,9 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
             log.warning('%s: skipping — permanent sitelink error (stale external link): %s',
                         item_id, e)
             return [], n_skip, 0
-        if 'no longer logged in' in err_str or 'anonymous token' in err_str:
-            # Session expired — transient auth failure, not a maintenance window.
-            # Item will be retried on next process restart (which re-authenticates).
+        if _is_auth_error(e):
+            # Session expired and re-login didn't help — transient auth failure, not a
+            # maintenance window. The P721 is still there, so the next run picks it up.
             log.warning('%s: skipping — auth session expired, will retry on restart: %s',
                         item_id, e)
             return [], n_skip, 0
@@ -513,7 +537,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
 
     try:
         time.sleep(delay)
-        _call_with_retry(lambda: item.write(), wbi=wbi)
+        _write_item(item, wbi)
         log.info('%s: Phase 2 done — removed P721 qual from %d statement(s)',
                  item_id, len(removed))
     except Exception as e:
@@ -611,6 +635,8 @@ def main():
     try:
         wbm = WBManager()
         wbi = wbm.get_wbi()
+        global _relogin
+        _relogin = wbm.relogin
     except Exception as e:
         if args.dry_run:
             log.info('WBManager unavailable (%s).', e)

@@ -54,11 +54,18 @@ class WBManager():
     password = os.environ.get('FACTGRID_WB_PASSWORD', password)
     print(f'Using user: {user}')
     self.prefix = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_PREFIX']
+    self._user, self._password = user, password
     login_instance = wbi_login.Login(user, password)
     self.wbi = WikibaseIntegrator(login=login_instance)
 
   def get_wbi(self):
     return self.wbi
+
+  def relogin(self):
+    """Log in again (bot sessions expire after a few hours); returns the new login."""
+    login_instance = wbi_login.Login(self._user, self._password)
+    self.wbi.login = login_instance
+    return login_instance
 
   # create new wikibase property
   def create_wb_p(self, label, lang='en', type='string'):
