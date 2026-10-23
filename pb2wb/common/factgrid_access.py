@@ -6,10 +6,13 @@ bot filter (mod_repudiator).
   FactGrid must send exactly this string.
 * Every response carries an X-Reputation header, e.g. "OK (-21.03)". René: if the
   value gets close to -200, stop for at least 2 minutes.
+* ThULB is wary of bots making rapid reads, so every request (read or write, API or
+  SPARQL) is spaced at least MIN_INTERVAL seconds after the previous one — across
+  processes too, via a shared timestamp file.
 
 Importing this module patches requests.Session.request so that every FactGrid
-call (ours and WikibaseIntegrator's) obeys the rule: pause when the reputation is
-low, and pause-and-retry when a request is bounced to the challenge page.
+call (ours and WikibaseIntegrator's) obeys the rules: throttle, pause when the
+reputation is low, and pause-and-retry when bounced to the challenge page.
 """
 
 import json
@@ -29,6 +32,8 @@ FACTGRID_HOST = 'factgrid.de'
 REPUTATION_PAUSE_AT = -150   # "close to -200"
 PAUSE_SECONDS = 150          # "at least 2 minutes"
 MAX_CHALLENGE_RETRIES = 5
+MIN_INTERVAL = float(os.environ.get('FACTGRID_MIN_INTERVAL', '1.0'))   # seconds
+LAST_REQUEST_FILE = 'prop_migration/run_logs/.factgrid_last_request'
 
 # Every FactGrid response's reputation is appended here, tagged with a local network
 # fingerprint (the default gateway's MAC address — no external lookup), so scores can
@@ -102,6 +107,26 @@ def _log_reputation(method, url, response, rep, event):
         pass   # logging must never break a run
 
 
+def _throttle():
+    """Sleep until MIN_INTERVAL has passed since the last FactGrid request (any process)."""
+    if MIN_INTERVAL <= 0:
+        return
+    try:
+        with open(LAST_REQUEST_FILE) as f:
+            last = float(f.read().strip() or 0)
+    except (OSError, ValueError):
+        last = 0.0
+    wait = last + MIN_INTERVAL - time.time()
+    if wait > 0:
+        time.sleep(min(wait, MIN_INTERVAL))
+    try:
+        os.makedirs(os.path.dirname(LAST_REQUEST_FILE) or '.', exist_ok=True)
+        with open(LAST_REQUEST_FILE, 'w') as f:
+            f.write(f'{time.time():.3f}')
+    except OSError:
+        pass
+
+
 def _pause(reason):
     log.warning('FactGrid %s — pausing %ds', reason, PAUSE_SECONDS)
     print(f'FactGrid {reason} — pausing {PAUSE_SECONDS}s', flush=True)
@@ -118,6 +143,7 @@ def _guarded_request(self, method, url, *args, **kwargs):
     if headers.get('User-Agent') != USER_AGENT:
         kwargs['headers'] = {**headers, 'User-Agent': USER_AGENT}
     for attempt in range(MAX_CHALLENGE_RETRIES + 1):
+        _throttle()
         response = _orig_request(self, method, url, *args, **kwargs)
         rep = reputation(response)
         event = ('challenge' if challenged(response)

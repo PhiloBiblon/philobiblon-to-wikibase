@@ -16,6 +16,8 @@ import common.factgrid_access as fa
 def _tmp_reputation_log(tmp_path, monkeypatch):
     monkeypatch.setattr(fa, 'REPUTATION_LOG', str(tmp_path / 'reputation.jsonl'))
     monkeypatch.setattr(fa, '_network', 'test-net')
+    monkeypatch.setattr(fa, 'LAST_REQUEST_FILE', str(tmp_path / 'last'))
+    monkeypatch.setattr(fa, 'MIN_INTERVAL', 0)   # throttle tests turn it back on
 
 
 def _resp(rep=None, url='https://database.factgrid.de/w/api.php', location=None):
@@ -138,3 +140,26 @@ def test_row_freq_missing_or_bad():
     assert freq_column(['basis', 'qid']) is None
     assert row_freq({'basis': 'x'}) == 0
     assert row_freq({'F': 'n/a'}, default='?') == '?'
+
+
+# ---- throttle ----
+
+def test_throttle_waits_out_the_interval(monkeypatch):
+    clock = {'t': 1000.0}
+    sleeps = []
+    monkeypatch.setattr(fa, 'MIN_INTERVAL', 1.0)
+    monkeypatch.setattr(fa.time, 'time', lambda: clock['t'])
+    monkeypatch.setattr(fa.time, 'sleep', lambda s: sleeps.append(round(s, 3)))
+    fa._throttle()                      # first request: no previous one
+    clock['t'] += 0.25
+    fa._throttle()                      # 0.25s later: wait the remaining 0.75s
+    clock['t'] += 5
+    fa._throttle()                      # long gap: no wait
+    assert sleeps == [0.75]
+
+
+def test_throttle_disabled(monkeypatch):
+    monkeypatch.setattr(fa, 'MIN_INTERVAL', 0)
+    monkeypatch.setattr(fa.time, 'sleep', lambda s: pytest.fail('should not sleep'))
+    fa._throttle()
+    fa._throttle()
