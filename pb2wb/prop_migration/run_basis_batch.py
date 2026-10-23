@@ -19,8 +19,19 @@ Usage (from pb2wb/):
   # First N bases only (for testing)
   python prop_migration/run_basis_batch.py --min-freq 332 --limit 3
 
+  # Plan from live FactGrid counts (recommended): export first, then run
+  python prop_migration/fetch_basis_values.py --out prop_migration/P721-live.tsv
+  python prop_migration/run_basis_batch.py --live-counts prop_migration/P721-live.tsv --dry-run
+
 A per-run summary is appended to batch_run_log.jsonl after each basis.
-Bases where done_guids >= tsv_freq are skipped without a SPARQL call.
+
+Without --live-counts, the plan uses the sheet's frequency column (a June
+snapshot): bases where done_guids >= sheet freq are skipped without a SPARQL
+call, which can miss usages added since the snapshot.
+With --live-counts, the plan uses how many P721 usages are actually still in
+FactGrid per basis: bases absent from the export are done, and every other
+vetted basis runs, however many GUIDs the progress log already records.
+--min-freq / --max-freq then filter on the live remaining count.
 Restart-safe: re-reads the progress log on each iteration.
 
 On failure, the runner sleeps --maint-wait seconds (default 50 min) and
@@ -37,9 +48,12 @@ import re as _re
 import subprocess
 import sys
 import time
-from common.sheet_fields import is_vetted, row_freq
 from collections import Counter
 from datetime import datetime, timezone
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+from common.sheet_fields import is_vetted, row_freq
+from prop_migration.locators import LOC_PROP
 
 _HTML_TAG_RE = _re.compile(r'<[^>]+>')
 
@@ -120,6 +134,43 @@ def load_candidates(tsv_path, min_freq, max_freq, skip_locators=False, locators_
     return rows
 
 
+def load_live_counts(path):
+    """
+    Return Counter of basis -> P721 usages still in FactGrid, from a
+    fetch_basis_values.py export (value, freq; .tsv or .csv).
+
+    HTML variants ('<i>IGM</i>', 'IGM') are summed under the stripped form,
+    matching the basis column of the sheet.
+    """
+    delim = ',' if path.endswith('.csv') else '\t'
+    counts = Counter()
+    with open(path, newline='', encoding='utf-8-sig') as f:
+        for row in csv.DictReader(f, delimiter=delim):
+            basis = _HTML_TAG_RE.sub('', row.get('value', '')).strip()
+            if basis:
+                counts[basis] += row_freq(row)
+    return counts
+
+
+def apply_live_counts(candidates, live, min_freq=None, max_freq=None):
+    """
+    Replace each candidate's sheet freq with its live remaining count; drop
+    bases with nothing left and apply the freq filters to the live count.
+    """
+    rows = []
+    for _, basis, qid, loc, loc_type in candidates:
+        n = live.get(basis, 0)
+        if n == 0:
+            continue
+        if min_freq is not None and n < min_freq:
+            continue
+        if max_freq is not None and n > max_freq:
+            continue
+        rows.append((n, basis, qid, loc, loc_type))
+    rows.sort(key=lambda r: r[0], reverse=True)
+    return rows
+
+
 def append_batch_log(path, basis, freq, returncode, converted, elapsed_s):
     rec = {
         'basis':      basis,
@@ -188,14 +239,49 @@ def main():
                     help='Skip bases that have a non-empty loc field (run no-locator bases only)')
     ap.add_argument('--locators-only', action='store_true',
                     help='Run only bases that have a non-empty loc field')
+    ap.add_argument('--live-counts', metavar='PATH',
+                    help='fetch_basis_values.py export of current P721 counts; plan from '
+                         'what is still in FactGrid instead of the sheet freq')
     ap.add_argument('--tsv', default=CANDIDATES_TSV, metavar='PATH')
     ap.add_argument('--progress-log', default=PROGRESS_LOG, metavar='PATH')
     ap.add_argument('--batch-log', default=BATCH_LOG, metavar='PATH')
     args = ap.parse_args()
 
-    candidates = load_candidates(args.tsv, args.min_freq, args.max_freq,
+    live = None
+    if args.live_counts:
+        live = load_live_counts(args.live_counts)
+        age_h = (time.time() - os.path.getmtime(args.live_counts)) / 3600
+        log.info('Live counts: %s (%d bases, %d usages, %.1fh old)',
+                 args.live_counts, len(live), sum(live.values()), age_h)
+        if age_h > 24:
+            log.warning('Live counts are more than a day old — consider re-exporting')
+
+    candidates = load_candidates(args.tsv,
+                                 None if live else args.min_freq,
+                                 None if live else args.max_freq,
                                  skip_locators=args.skip_locators,
                                  locators_only=args.locators_only)
+    n_vetted = len(candidates)
+    done_counts = load_done_counts(args.progress_log)
+
+    if live is not None:
+        candidates = apply_live_counts(candidates, live, args.min_freq, args.max_freq)
+        n_already_done = n_vetted - len(candidates)
+    else:
+        fg_empty = load_fg_empty(args.batch_log)
+        candidates_todo = [(f, b, q, l, lt) for f, b, q, l, lt in candidates
+                           if done_counts.get(b, 0) < f and b not in fg_empty]
+        n_already_done = len(candidates) - len(candidates_todo)
+        candidates = candidates_todo
+    # A locator type with no property makes apply_basis_migration exit non-zero,
+    # which would trigger the maintenance-window sleep. Leave those bases out.
+    unmapped = Counter(lt or '(blank)' for _, _, _, l, lt in candidates
+                       if l and lt not in LOC_PROP)
+    if unmapped:
+        candidates = [c for c in candidates if not c[3] or c[4] in LOC_PROP]
+        log.warning('Skipping %d bases whose locator type has no property: %s',
+                    sum(unmapped.values()),
+                    ', '.join(f'{t} ×{n}' for t, n in unmapped.most_common()))
     if args.limit:
         candidates = candidates[:args.limit]
 
@@ -203,16 +289,9 @@ def main():
         log.info('No candidates match the given filters — nothing to do.')
         return
 
-    done_counts = load_done_counts(args.progress_log)
-
-    fg_empty = load_fg_empty(args.batch_log)
-    candidates_todo = [(f, b, q, l, lt) for f, b, q, l, lt in candidates
-                       if done_counts.get(b, 0) < f and b not in fg_empty]
-    n_already_done = len(candidates) - len(candidates_todo)
-    candidates = candidates_todo
-
-    log.info('Batch plan: %d bases (%d already done, skipped)',
+    log.info('Batch plan: %d bases (%d already done or filtered out)',
              len(candidates), n_already_done)
+    log.info('  plan from  : %s', 'live FactGrid counts' if live is not None else 'sheet freq')
     if args.min_freq:
         log.info('  min_freq   : %d', args.min_freq)
     if args.max_freq:
@@ -226,7 +305,8 @@ def main():
     log.info('  mode       : %s', 'DRY RUN' if args.dry_run else 'EXECUTE')
     log.info('  delay      : %.1fs', args.delay)
     total_freq = sum(f for f, _, _, _, _ in candidates)
-    log.info('  total freq : %d statements', total_freq)
+    log.info('  total freq : %d %s', total_freq,
+             'usages remaining' if live is not None else 'statements')
 
     total_converted = 0
     total_errors = 0
@@ -236,18 +316,22 @@ def main():
         done = done_counts.get(basis, 0)
         prefix = f'[{i}/{len(candidates)}] freq={freq:,} {basis!r}'
 
-        if done >= freq:
+        if live is None and done >= freq:
             log.info('%s — already done, skipping', prefix)
             n_skipped_done += 1
             continue
 
-        remaining = freq - done
+        remaining = freq if live is not None else freq - done
         if args.dry_run:
             log.info('[dry-run] %s → P129=%s  (%d remaining)', prefix, qid, remaining)
             continue
 
-        log.info('%s → P129=%s  (%d/%d done, %d remaining)',
-                 prefix, qid, done, freq, remaining)
+        if live is not None:
+            log.info('%s → P129=%s  (%d remaining in FactGrid, %d converted earlier)',
+                     prefix, qid, remaining, done)
+        else:
+            log.info('%s → P129=%s  (%d/%d done, %d remaining)',
+                     prefix, qid, done, freq, remaining)
         log.info('─' * 60)
 
         cmd = [

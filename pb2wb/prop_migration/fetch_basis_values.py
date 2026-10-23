@@ -30,7 +30,7 @@ _SESSION.headers.update({'User-Agent': USER_AGENT})
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
 
-OUT_TSV = 'prop_migration/P721-raw-values.tsv'
+OUT_TSV = 'prop_migration/P721-live.tsv'   # not P721-raw-values.tsv: that is the June snapshot
 
 
 def build_query(limit=None):
