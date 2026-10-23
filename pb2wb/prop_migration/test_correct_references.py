@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from wikibaseintegrator.models import Claim
 
 from prop_migration.correct_references import (_p129_values, build_plan, correct_claim,
-                                               sheet_target)
+                                               sheet_target, should_verify, verify_claim)
 
 
 def _item_snak(prop, qid):
@@ -99,3 +99,16 @@ def test_build_plan_kinds_and_skips():
         ('g1', 'existing_item'), ('g3', 'locator'), ('g2', 'new_item')]
     assert plan[0]['old_label'] == 'Old'
     assert skipped == {'unvetted': 1, 'locator type has no property': 1}
+
+
+def test_verify_claim():
+    c = _claim([[_item_snak('P129', 'Q10')]])
+    assert not verify_claim(c, 'Q10', 'Q20', '', '')
+    correct_claim(c, 'Q10', 'Q20', 'vii', 'page')
+    assert verify_claim(c, 'Q10', 'Q20', 'vii', 'page')
+    assert not verify_claim(c, 'Q10', 'Q20', 'viii', 'page')
+
+
+def test_should_verify():
+    assert [n for n in range(1, 31) if should_verify(n, 10)] == [1, 2, 3, 10, 20, 30]
+    assert [n for n in range(1, 31) if should_verify(n, 0)] == [1, 2, 3]

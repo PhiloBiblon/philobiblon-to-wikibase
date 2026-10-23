@@ -201,6 +201,26 @@ def correct_claim(claim, old_qid, new_qid, loc, loc_type):
     return 'corrected'
 
 
+def verify_claim(claim, old_qid, new_qid, loc, loc_type):
+    """True if claim has a reference with P129=new_qid (+ locator) and none with old_qid."""
+    if old_qid != new_qid and any(old_qid in _p129_values(r) for r in claim.references):
+        return False
+    want = set(locator_snaks(loc, loc_type))
+    for r in claim.references:
+        if new_qid in _p129_values(r):
+            have = {(sn.property_number, sn.datavalue.get('value'))
+                    for sn in r.snaks
+                    if isinstance(sn.datavalue, dict) and isinstance(sn.datavalue.get('value'), str)}
+            if want <= have:
+                return True
+    return False
+
+
+def should_verify(n, every, first=3):
+    """Read back the first few written items, then every Nth."""
+    return n <= first or (every > 0 and n % every == 0)
+
+
 def load_corrected(path):
     done = set()
     if os.path.exists(path):
@@ -288,6 +308,23 @@ def cmd_apply(args):
                     break
             else:
                 consecutive_failures = 0
+                n_written = totals['items_written'] = totals['items_written'] + 1
+                if should_verify(n_written, args.verify_every):
+                    try:
+                        check = abm._call_with_retry(lambda: wbi.item.get(item_id), wbi=wbi)
+                    except Exception as e:
+                        log.warning('%s: read-back failed: %s', item_id, e)
+                    else:
+                        claims = {c.id: c for c in check.claims}
+                        for r, s in outcomes:
+                            if s != 'corrected':
+                                continue
+                            ok = (r['guid'] in claims and verify_claim(
+                                claims[r['guid']], r['old_qid'], r['new_qid'], r['loc'], r['loc_type']))
+                            totals['verified_ok' if ok else 'verified_FAILED'] += 1
+                            if not ok:
+                                log.error('%s  %s: READ-BACK FAILED', item_id, r['guid'])
+                        log.info('%s: read-back checked', item_id)
         for r, s in outcomes:
             log_correction(args.corrections_log, r, s, args.dry_run)
             totals[s] += 1
@@ -295,6 +332,9 @@ def cmd_apply(args):
     log.info('=== %s ===', 'Dry run complete' if args.dry_run else 'Done')
     for k in ('corrected', 'already', 'missing', 'error'):
         log.info('  %-10s %d', k, totals[k])
+    if not args.dry_run:
+        log.info('  read-back: %d statements OK, %d FAILED (sampled items)',
+                 totals['verified_ok'], totals['verified_FAILED'])
     if totals['missing']:
         log.info('  (missing = old reference not found; see %s)', args.corrections_log)
 
@@ -314,6 +354,8 @@ def main():
     a.add_argument('--limit-items', type=int, default=None, metavar='N')
     a.add_argument('--delay', type=float, default=1.0, metavar='SECS',
                    help='seconds before each item write (default 1.0)')
+    a.add_argument('--verify-every', type=int, default=10, metavar='N',
+                   help='read back the first 3 written items, then every Nth (default 10; 0 = first 3 only)')
     a.add_argument('--corrections-log', default=CORRECTIONS_LOG)
     args = ap.parse_args()
     if args.cmd == 'plan':
