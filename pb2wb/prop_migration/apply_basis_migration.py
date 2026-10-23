@@ -54,6 +54,7 @@ _d[5] = 10
 _wbi_helpers.mediawiki_api_call_helper.__defaults__ = tuple(_d)
 
 from common.settings import TEMP_DICT
+from common.sheet_fields import is_vetted
 from common.factgrid_access import USER_AGENT
 TEMP_DICT['TEMP_WB'] = 'FACTGRID'
 from common.wb_manager import WBManager
@@ -195,7 +196,7 @@ def load_candidate(basis_str, tsv_path):
             row_basis = row.get('basis', '').strip()
             if row_basis != basis_str and row_basis != stripped:
                 continue
-            if row.get('vetted', '').strip() not in ('Y', 'y'):
+            if not is_vetted(row.get('vetted')):
                 continue
             qid = row.get('qid', '').strip()
             if not qid or not qid.startswith('Q'):

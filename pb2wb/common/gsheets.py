@@ -30,6 +30,8 @@ from collections import defaultdict
 import gspread
 from tqdm import tqdm
 
+from common.sheet_fields import is_vetted, is_freq_column, freq_column
+
 # Max ranges per batch_update call (well within Sheets API quota).
 _BATCH_SIZE = 200
 
@@ -162,14 +164,20 @@ class SheetSync:
         sheet_header = list(sheet_rows[0])
 
         # ---- Ensure all write_cols exist in sheet header ----
+        # A frequency write col maps onto whatever the sheet calls it (F, Freqency, ...)
+        sheet_freq = freq_column(sheet_header)
         new_cols = []
         for col in write_cols:
+            if is_freq_column(col) and sheet_freq:
+                continue
             if col not in sheet_header:
                 sheet_header.append(col)
                 new_cols.append(col)
 
         # ---- Column-name → 0-based index ----
         def idx(name):
+            if name not in sheet_header and is_freq_column(name) and sheet_freq:
+                name = sheet_freq
             try:
                 return sheet_header.index(name)
             except ValueError:
@@ -183,7 +191,7 @@ class SheetSync:
         skip_values   = (frozenset(skip_value) if isinstance(skip_value, (list, tuple, set))
                          else frozenset([skip_value]) if skip_value else frozenset())
         # Canonical forms: if sheet has a non-canonical skip value, normalize it
-        # on push (e.g. 'y' → 'Y') while still protecting the row from overwrite.
+        # on push (e.g. 'y', 'YY' → 'Y') while still protecting the row from overwrite.
         _normalize    = {'y': 'Y'}
 
         # ---- key → list of (1-based row number, padded row data) ----
@@ -234,12 +242,12 @@ class SheetSync:
             if skip_idx is not None:
                 current = (first_row_data[skip_idx]
                            if skip_idx < len(first_row_data) else '')
-                if current in skip_values:
-                    if current in _normalize:
+                if current in skip_values or ('Y' in skip_values and is_vetted(current)):
+                    if current in _normalize or (is_vetted(current) and current != 'Y'):
                         cell_ref = f'{_col_letter(skip_idx + 1)}{first_row_num}'
                         cell_updates.append({
                             'range': cell_ref,
-                            'values': [[_normalize[current]]],
+                            'values': [[_normalize.get(current, 'Y')]],
                         })
                     skipped += len(local_group)
                     continue

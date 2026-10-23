@@ -95,3 +95,30 @@ def test_other_hosts_untouched():
         fa._guarded_request(requests.Session(), 'GET', 'https://example.org/')
     assert sleep.call_count == 0
     assert seen == [None]
+
+
+# ---- common/sheet_fields.py ----
+
+from common.sheet_fields import is_vetted, freq_column, row_freq
+
+
+@pytest.mark.parametrize('value', ['Y', 'y', 'YY', 'yy', 'Yy', ' Y ', 'YYY'])
+def test_is_vetted_true(value):
+    assert is_vetted(value)
+
+
+@pytest.mark.parametrize('value', ['', None, 'N', 'auto', 'vetted', 'Y"', 'yes', 'check'])
+def test_is_vetted_false(value):
+    assert not is_vetted(value)
+
+
+@pytest.mark.parametrize('header', ['F', 'freq', 'Freqency', 'Frequency', 'frquency', ' FREQ '])
+def test_freq_column_aliases(header):
+    assert freq_column(['basis', header, 'qid']) == header
+    assert row_freq({'basis': 'x', header: ' 42 '}) == 42
+
+
+def test_row_freq_missing_or_bad():
+    assert freq_column(['basis', 'qid']) is None
+    assert row_freq({'basis': 'x'}) == 0
+    assert row_freq({'F': 'n/a'}, default='?') == '?'

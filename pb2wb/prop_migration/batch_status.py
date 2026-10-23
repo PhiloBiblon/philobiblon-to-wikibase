@@ -13,6 +13,9 @@ import re
 import subprocess
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+from common.sheet_fields import row_freq
+
 BATCH_LOG     = 'prop_migration/batch.log'
 PROGRESS_LOG  = 'prop_migration/basis_migration_progress.jsonl'
 BATCH_SCRIPT  = 'prop_migration/run_basis_batch.py'
@@ -107,7 +110,7 @@ def main():
               f'GUIDs for this basis so far: {qid_count:,}  ts={last["ts"][:19]}')
         row = lookup_tsv_row(basis)
         if row:
-            freq   = row.get('F', '?')
+            freq   = row_freq(row, '?')
             label  = row.get('label', '?')
             vetted = row.get('vetted', '?')
             loc    = row.get('loc', '')

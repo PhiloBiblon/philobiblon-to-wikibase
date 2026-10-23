@@ -35,6 +35,7 @@ from collections import Counter, defaultdict
 dir_path = os.path.dirname(os.path.realpath(__file__))
 parent_dir_path = os.path.dirname(dir_path)
 sys.path.append(parent_dir_path)
+from common.sheet_fields import is_vetted
 
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill
@@ -87,7 +88,7 @@ def load_mapping(path):
       by_key:   norm(key)   -> (qid, label) from vetted rows with valid QID
     """
     def rank(r):
-        vetted = r['vetted'].strip().upper() == 'Y'
+        vetted = is_vetted(r['vetted'])
         return (vetted and bool(r['_qid']), vetted, bool(r['_qid']))
 
     by_basis, by_key = {}, {}
@@ -99,7 +100,7 @@ def load_mapping(path):
             b = norm(strip_html(r['basis']))
             if b not in by_basis or rank(r) > rank(by_basis[b]):
                 by_basis[b] = r
-            if r['vetted'].strip().upper() == 'Y' and r['_qid'] and not r.get('loc', '').strip():
+            if is_vetted(r['vetted']) and r['_qid'] and not r.get('loc', '').strip():
                 by_key.setdefault(norm(r['key']), (r['_qid'], r.get('label', '')))
     return by_basis, by_key
 
@@ -139,7 +140,7 @@ def classify(value, freq, june, by_basis, by_key, done):
         status = 'excluded'
     elif pp['preproc_type'] == 'compound':
         status = 'compound'
-    elif m and m['vetted'].strip().upper() == 'Y':
+    elif m and is_vetted(m['vetted']):
         if not m['_qid'] or m['_qid'] != m['_raw_qid']:
             status = 'vetted_bad_qid'
             row['comment'] = (row['comment'] + f' [QID cell: {m["_raw_qid"]!r}]').strip()

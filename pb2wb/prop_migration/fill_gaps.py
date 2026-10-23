@@ -89,6 +89,7 @@ sys.path.append(parent_dir_path)
 import requests
 from tqdm import tqdm
 from common.settings import BASE_IMPORT_OBJECTS
+from common.sheet_fields import is_vetted
 from common.factgrid_access import USER_AGENT
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
@@ -302,7 +303,7 @@ def load_sheet(path):
             if not q or s in seeded:
                 continue
             if has_vetted:
-                if row.get('vetted', '').strip() in ('Y', 'auto'):
+                if is_vetted(row.get('vetted')) or row.get('vetted', '').strip() == 'auto':
                     seeded[s] = q
             else:
                 seeded[s] = q

@@ -37,6 +37,7 @@ import re as _re
 import subprocess
 import sys
 import time
+from common.sheet_fields import is_vetted, row_freq
 from collections import Counter
 from datetime import datetime, timezone
 
@@ -92,7 +93,7 @@ def load_candidates(tsv_path, min_freq, max_freq, skip_locators=False, locators_
     seen = {}  # basis -> (freq, qid, loc, loc_type)
     with open(tsv_path, newline='', encoding='utf-8') as f:
         for row in csv.DictReader(f, delimiter='\t'):
-            if row.get('vetted', '').strip() not in ('Y', 'y'):
+            if not is_vetted(row.get('vetted')):
                 continue
             qid = row.get('qid', '').strip()
             if not qid or not qid.startswith('Q'):
@@ -100,10 +101,7 @@ def load_candidates(tsv_path, min_freq, max_freq, skip_locators=False, locators_
             basis = row.get('basis', '').strip()
             if not basis:
                 continue
-            try:
-                freq = int(row.get('F', '0') or 0)
-            except ValueError:
-                continue
+            freq = row_freq(row)
             if min_freq is not None and freq < min_freq:
                 continue
             if max_freq is not None and freq > max_freq:
