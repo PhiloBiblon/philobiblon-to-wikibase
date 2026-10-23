@@ -89,6 +89,7 @@ sys.path.append(parent_dir_path)
 import requests
 from tqdm import tqdm
 from common.settings import BASE_IMPORT_OBJECTS
+from common.factgrid_access import USER_AGENT
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
 
@@ -314,7 +315,7 @@ def load_sheet(path):
 # ---------------------------------------------------------------------------
 
 _SESSION = requests.Session()
-_SESSION.headers.update({'User-Agent': 'pb2wb-fill-gaps/1.0'})
+_SESSION.headers.update({'User-Agent': USER_AGENT})
 
 _RETRY_ADAPTER = requests.adapters.HTTPAdapter(
     max_retries=requests.packages.urllib3.util.retry.Retry(

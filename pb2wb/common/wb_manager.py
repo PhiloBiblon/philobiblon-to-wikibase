@@ -3,6 +3,7 @@ import time
 
 from wikibaseintegrator import WikibaseIntegrator, wbi_login
 from wikibaseintegrator.wbi_config import config as wbi_config
+from common.factgrid_access import USER_AGENT
 from wikibaseintegrator import wbi_helpers
 from wikibaseintegrator.datatypes import Item as WBItem
 from wikibaseintegrator.models import Claim
@@ -46,6 +47,7 @@ class WBManager():
     wb = TEMP_DICT['TEMP_WB']
     wbi_config['MEDIAWIKI_API_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['MEDIAWIKI_API_URL']
     wbi_config['SPARQL_ENDPOINT_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_ENDPOINT_URL']
+    wbi_config['USER_AGENT'] = USER_AGENT
     user = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
     user = os.environ.get('FACTGRID_WB_USER', user)
     password = BASE_IMPORT_OBJECTS[f'{wb}']['WB_PASSWORD']

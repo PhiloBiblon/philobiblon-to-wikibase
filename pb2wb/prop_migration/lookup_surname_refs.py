@@ -23,6 +23,7 @@ import time
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, os.path.dirname(dir_path))
+from common.factgrid_access import USER_AGENT
 
 import requests
 
@@ -31,7 +32,7 @@ KNOWN_QIDS  = 'prop_migration/known_qids.tsv'
 OUT_DEFAULT = 'prop_migration/surname_candidates.tsv'
 
 _SPARQL_URL = 'https://database.factgrid.de/sparql'
-_HEADERS    = {'User-Agent': 'pb2wb/1.0', 'Accept': 'application/json'}
+_HEADERS    = {'User-Agent': USER_AGENT, 'Accept': 'application/json'}
 _SURNAME_RE = re.compile(r'^[A-ZÁÉÍÓÚ][a-záéíóúü\-]+$')
 
 

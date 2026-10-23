@@ -23,9 +23,10 @@ sys.path.append(parent_dir_path)
 import requests
 
 from common.settings import BASE_IMPORT_OBJECTS
+from common.factgrid_access import USER_AGENT
 
 _SESSION = requests.Session()
-_SESSION.headers.update({'User-Agent': 'pb2wb-fetch-basis/1.0'})
+_SESSION.headers.update({'User-Agent': USER_AGENT})
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
 

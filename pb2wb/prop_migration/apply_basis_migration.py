@@ -54,6 +54,7 @@ _d[5] = 10
 _wbi_helpers.mediawiki_api_call_helper.__defaults__ = tuple(_d)
 
 from common.settings import TEMP_DICT
+from common.factgrid_access import USER_AGENT
 TEMP_DICT['TEMP_WB'] = 'FACTGRID'
 from common.wb_manager import WBManager
 
@@ -102,8 +103,30 @@ LOC_PROP = {
     'page':     'P54',
     'folio':    'P100',
     'number':   'P90',
-    'footnote': 'P90',
+    'footnote': 'P54',   # Charles 2026-10-20: footnotes are recorded as pages ("26n")
+    'volume':   'P105',
 }
+
+# "I:286", "II: 335", "3:45-50", "V.12" → volume + page
+_VOL_PAGE_SPLIT_RE = _re.compile(r'^\s*([IVXLCDM]+|\d+)\s*[:.]\s*(.+?)\s*$')
+
+
+def locator_snaks(loc, loc_type):
+    """
+    Return [(prop, value), ...] for a locator.
+
+    Volume locators that carry a page are split into P105 (volume) + P54 (page);
+    a bare volume or an unparseable string goes under P105 whole.
+    """
+    loc = (loc or '').strip()
+    prop = LOC_PROP.get(loc_type)
+    if not loc or not prop:
+        return []
+    if loc_type == 'volume':
+        m = _VOL_PAGE_SPLIT_RE.match(loc)
+        if m:
+            return [(LOC_PROP['volume'], m.group(1)), (LOC_PROP['page'], m.group(2))]
+    return [(prop, loc)]
 
 logging.basicConfig(
     level=logging.INFO,
@@ -274,7 +297,7 @@ SELECT DISTINCT ?item WHERE {{
             r = requests.post(
                 SPARQL_ENDPOINT,
                 data={'query': q, 'format': 'json'},
-                headers={'User-Agent': 'PB apply_basis_migration/2'},
+                headers={'User-Agent': USER_AGENT},
                 timeout=60,
             )
             r.raise_for_status()
@@ -311,7 +334,7 @@ def api_spot_check(guids, basis_str, ref_qid):
             r = requests.get(
                 API_ENDPOINT,
                 params={'action': 'wbgetclaims', 'entity': item_id, 'format': 'json'},
-                headers={'User-Agent': 'PB apply_basis_migration/2'},
+                headers={'User-Agent': USER_AGENT},
                 timeout=30,
             )
             claims = r.json().get('claims', {})
@@ -417,8 +440,8 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
 
     Returns (converted, skipped, errors).
     """
-    loc_prop = LOC_PROP.get(loc_type) if loc_type else None
-    loc_desc = (f'  loc={loc!r} ({loc_type} → {loc_prop})') if loc else ''
+    loc_desc = (f'  loc={loc!r} ({loc_type} → '
+                + ' + '.join(f'{p}={v!r}' for p, v in locator_snaks(loc, loc_type)) + ')') if loc else ''
 
     # ---- Fetch item ----
     try:
@@ -466,8 +489,8 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     for guid, claim in to_add:
         ref = Reference()
         ref.add(WBItem(value=ref_qid, prop_nr=P129))
-        if loc and loc_prop:
-            ref.add(WBString(value=loc, prop_nr=loc_prop))
+        for snak_prop, snak_value in locator_snaks(loc, loc_type):
+            ref.add(WBString(value=snak_value, prop_nr=snak_prop))
         claim.references.add(ref)
 
     try:
