@@ -155,6 +155,22 @@ def load_live_counts(path):
     return counts
 
 
+def conversions_since(progress_path, since_iso):
+    """Counter of basis -> statements logged as converted after since_iso (UTC ISO)."""
+    out = Counter()
+    if not os.path.exists(progress_path):
+        return out
+    with open(progress_path, encoding='utf-8') as f:
+        for line in f:
+            try:
+                rec = json.loads(line)
+            except ValueError:
+                continue
+            if rec.get('ts', '') > since_iso:
+                out[_HTML_TAG_RE.sub('', rec.get('basis', '')).strip()] += 1
+    return out
+
+
 def apply_live_counts(candidates, live, min_freq=None, max_freq=None):
     """
     Replace each candidate's sheet freq with its live remaining count; drop
@@ -268,9 +284,17 @@ def main():
     live = None
     if args.live_counts:
         live = load_live_counts(args.live_counts)
-        age_h = (time.time() - os.path.getmtime(args.live_counts)) / 3600
+        mtime = os.path.getmtime(args.live_counts)
+        age_h = (time.time() - mtime) / 3600
         log.info('Live counts: %s (%d bases, %d usages, %.1fh old)',
                  args.live_counts, len(live), sum(live.values()), age_h)
+        # Conversions logged after the export are no longer in FactGrid.
+        since = conversions_since(args.progress_log,
+                                  datetime.fromtimestamp(mtime, timezone.utc).isoformat())
+        if since:
+            live.subtract(since)
+            live = Counter({b: n for b, n in live.items() if n > 0})
+            log.info('  minus %d statements converted since the export', sum(since.values()))
         if age_h > 24:
             log.warning('Live counts are more than a day old — consider re-exporting')
 

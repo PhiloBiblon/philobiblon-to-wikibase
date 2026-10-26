@@ -1,5 +1,6 @@
 """Unit tests for run_basis_batch planning and prop_migration/locators.py (no network)."""
 
+import json
 import os
 import sys
 
@@ -164,3 +165,13 @@ def test_runner_dry_run_never_connects(tmp_path, monkeypatch):
         '--progress-log', str(tmp_path / 'progress.jsonl'),
         '--batch-log', str(tmp_path / 'batch.jsonl')])
     rbb.main()
+
+
+def test_conversions_since(tmp_path):
+    p = tmp_path / 'progress.jsonl'
+    p.write_text('\n'.join(json.dumps(r) for r in [
+        {'basis': 'A', 'ts': '2026-10-26T17:00:00+00:00'},
+        {'basis': '<i>A</i>', 'ts': '2026-10-26T18:30:00+00:00'},
+        {'basis': 'B', 'ts': '2026-10-26T18:40:00+00:00'},
+    ]) + '\n', encoding='utf-8')
+    assert rbb.conversions_since(str(p), '2026-10-26T18:01:00+00:00') == {'A': 1, 'B': 1}
