@@ -19,7 +19,9 @@ import json
 import logging
 import os
 import re
+import socket
 import subprocess
+import sys
 import time
 from datetime import datetime, timezone
 from urllib.parse import urlparse
@@ -63,18 +65,25 @@ _network = None
 
 
 def network_fingerprint():
-    """MAC address of the default gateway, e.g. 'a4:2b:b0:12:34:56' (cached)."""
+    """
+    Where requests come from (cached). On macOS (a laptop that moves between
+    networks): the default gateway's MAC address, e.g. 'a4:2b:b0:12:34:56'.
+    Elsewhere (a server): 'host:<hostname>'.
+    """
     global _network
     if _network is None:
-        try:
-            route = subprocess.run(['route', '-n', 'get', 'default'], capture_output=True,
-                                   text=True, timeout=5).stdout
-            gw = re.search(r'gateway:\s*(\S+)', route).group(1)
-            arp = subprocess.run(['arp', '-n', gw], capture_output=True,
-                                 text=True, timeout=5).stdout
-            _network = re.search(r' at ([0-9a-f:]+)', arp).group(1)
-        except Exception:
-            _network = 'unknown'
+        if sys.platform == 'darwin':
+            try:
+                route = subprocess.run(['route', '-n', 'get', 'default'], capture_output=True,
+                                       text=True, timeout=5).stdout
+                gw = re.search(r'gateway:\s*(\S+)', route).group(1)
+                arp = subprocess.run(['arp', '-n', gw], capture_output=True,
+                                     text=True, timeout=5).stdout
+                _network = re.search(r' at ([0-9a-f:]+)', arp).group(1)
+            except Exception:
+                _network = 'unknown'
+        else:
+            _network = f'host:{socket.gethostname()}'
     return _network
 
 

@@ -163,3 +163,10 @@ def test_throttle_disabled(monkeypatch):
     monkeypatch.setattr(fa.time, 'sleep', lambda s: pytest.fail('should not sleep'))
     fa._throttle()
     fa._throttle()
+
+
+def test_network_fingerprint_on_server(monkeypatch):
+    monkeypatch.setattr(fa, '_network', None)
+    monkeypatch.setattr(fa.sys, 'platform', 'linux')
+    monkeypatch.setattr(fa.socket, 'gethostname', lambda: 'ip-172-26-3-152')
+    assert fa.network_fingerprint() == 'host:ip-172-26-3-152'
