@@ -309,7 +309,7 @@ SELECT DISTINCT ?item WHERE {{
                 raise
 
 
-SPOT_CHECK_LIMIT = 20   # check all GUIDs if ≤ this many, else sample
+SPOT_CHECK_LIMIT = 3    # per basis: check all GUIDs if ≤ this many, else sample (each is a FactGrid read)
 
 
 def api_spot_check(guids, basis_str, ref_qid):
