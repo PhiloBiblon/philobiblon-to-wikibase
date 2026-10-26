@@ -3,8 +3,13 @@
 run_basis_batch.py — Batch runner for apply_basis_migration.py
 
 Reads P721-P129.tsv, selects vetted=Y rows sorted by descending frequency,
-and calls apply_basis_migration.py for each basis in turn. Output from each
-run streams live to the terminal. Progress is inferred from the JSONL log.
+and converts each basis in turn with apply_basis_migration.run_basis(), in
+this process: one FactGrid login (and one API ping) for the whole run, not
+one per basis. Progress is inferred from the JSONL log.
+
+  # Restrict to / leave out a list of bases (one per line, # comments allowed)
+  python prop_migration/run_basis_batch.py --live-counts ... --include prop_migration/include_a1.txt
+  python prop_migration/run_basis_batch.py --live-counts ... --exclude prop_migration/held_bases.tsv
 
 Usage (from pb2wb/):
   # Preview what would run
@@ -45,7 +50,6 @@ import json
 import logging
 import os
 import re as _re
-import subprocess
 import sys
 import time
 from collections import Counter
@@ -59,7 +63,6 @@ _HTML_TAG_RE = _re.compile(r'<[^>]+>')
 
 CANDIDATES_TSV       = 'prop_migration/P721-P129.tsv'
 PROGRESS_LOG         = 'prop_migration/basis_migration_progress.jsonl'
-APPLY_SCRIPT         = 'prop_migration/apply_basis_migration.py'
 BATCH_LOG            = 'prop_migration/batch_run_log.jsonl'
 DEFAULT_DELAY        = 2.0
 DEFAULT_MAINT_WAIT   = 3000   # 50 min — covers the ~45 min FG daily window (7pm ET)
@@ -171,6 +174,17 @@ def apply_live_counts(candidates, live, min_freq=None, max_freq=None):
     return rows
 
 
+def load_basis_list(path):
+    """Bases from a file: one per line (first tab-separated field), # comments ignored."""
+    bases = set()
+    with open(path, encoding='utf-8') as f:
+        for line in f:
+            b = line.rstrip('\n').split('\t')[0].strip()
+            if b and not b.startswith('#'):
+                bases.add(b)
+    return bases
+
+
 def append_batch_log(path, basis, freq, returncode, converted, elapsed_s):
     rec = {
         'basis':      basis,
@@ -242,6 +256,10 @@ def main():
     ap.add_argument('--live-counts', metavar='PATH',
                     help='fetch_basis_values.py export of current P721 counts; plan from '
                          'what is still in FactGrid instead of the sheet freq')
+    ap.add_argument('--include', metavar='FILE',
+                    help='only run bases listed in FILE (one per line)')
+    ap.add_argument('--exclude', metavar='FILE',
+                    help='never run bases listed in FILE (one per line; tab-separated reason ok)')
     ap.add_argument('--tsv', default=CANDIDATES_TSV, metavar='PATH')
     ap.add_argument('--progress-log', default=PROGRESS_LOG, metavar='PATH')
     ap.add_argument('--batch-log', default=BATCH_LOG, metavar='PATH')
@@ -273,8 +291,21 @@ def main():
                            if done_counts.get(b, 0) < f and b not in fg_empty]
         n_already_done = len(candidates) - len(candidates_todo)
         candidates = candidates_todo
-    # A locator type with no property makes apply_basis_migration exit non-zero,
-    # which would trigger the maintenance-window sleep. Leave those bases out.
+    if args.include:
+        keep = load_basis_list(args.include)
+        n_before = len(candidates)
+        candidates = [c for c in candidates if c[1] in keep]
+        log.info('Include list %s: %d bases listed, %d of %d candidates kept',
+                 args.include, len(keep), len(candidates), n_before)
+    if args.exclude:
+        drop = load_basis_list(args.exclude)
+        n_before = len(candidates)
+        candidates = [c for c in candidates if c[1] not in drop]
+        log.info('Exclude list %s: %d candidates left out', args.exclude,
+                 n_before - len(candidates))
+
+    # A locator type with no property can't be written without losing the
+    # locator, so leave those bases out.
     unmapped = Counter(lt or '(blank)' for _, _, _, l, lt in candidates
                        if l and lt not in LOC_PROP)
     if unmapped:
@@ -312,6 +343,15 @@ def main():
     total_errors = 0
     n_skipped_done = 0
 
+    wbi = None
+    if not args.dry_run:
+        import prop_migration.apply_basis_migration as abm   # sets TEMP_WB=FACTGRID
+        log.info('Pinging FactGrid API...')
+        if not abm.ping_api():
+            log.error('FactGrid API is not reachable — check for a maintenance window.')
+            return
+        wbi = abm.connect()      # one login for the whole run; re-login on expiry
+
     for i, (freq, basis, qid, loc, loc_type) in enumerate(candidates, 1):
         done = done_counts.get(basis, 0)
         prefix = f'[{i}/{len(candidates)}] freq={freq:,} {basis!r}'
@@ -334,16 +374,6 @@ def main():
                      prefix, qid, done, freq, remaining)
         log.info('─' * 60)
 
-        cmd = [
-            sys.executable, APPLY_SCRIPT,
-            '--basis', basis,
-            '--delay', str(args.delay),
-            '--progress-log', args.progress_log,
-            '--tsv', args.tsv,
-        ]
-        if args.max_statements:
-            cmd += ['--max-statements', str(args.max_statements)]
-
         basis_failed = False
         for attempt in range(args.maint_retries + 1):
             if attempt > 0:
@@ -356,7 +386,20 @@ def main():
                 log.info('%s — retrying...', prefix)
 
             t0 = time.monotonic()
-            result = subprocess.run(cmd)
+            returncode = 0
+            try:
+                # Item-level errors are retried and reported inside run_basis (as the
+                # old subprocess did with exit code 0); only an exception fails the basis.
+                abm.run_basis(basis, wbi, max_statements=args.max_statements,
+                              delay=args.delay, progress_log=args.progress_log, tsv=args.tsv)
+            except abm.BasisConfigError as e:
+                log.error('%s — not runnable: %s', prefix, e)
+                append_batch_log(args.batch_log, basis, freq, 2, 0, time.monotonic() - t0)
+                basis_failed = True
+                break                       # a config problem won't fix itself by waiting
+            except Exception as e:
+                log.error('%s — unexpected error: %s', prefix, e)
+                returncode = 1
             elapsed = time.monotonic() - t0
 
             new_done_counts = load_done_counts(args.progress_log)
@@ -364,17 +407,17 @@ def main():
             done_counts = new_done_counts
 
             append_batch_log(
-                args.batch_log, basis, freq, result.returncode, converted_this, elapsed,
+                args.batch_log, basis, freq, returncode, converted_this, elapsed,
             )
 
-            if result.returncode == 0:
+            if returncode == 0:
                 log.info('%s — done in %.1fs, +%d converted', prefix, elapsed, converted_this)
                 total_converted += converted_this
                 basis_failed = False
                 break
             else:
-                log.error('%s — FAILED (rc=%d, attempt %d/%d)',
-                          prefix, result.returncode, attempt + 1, args.maint_retries + 1)
+                log.error('%s — FAILED (attempt %d/%d)',
+                          prefix, attempt + 1, args.maint_retries + 1)
                 total_converted += converted_this
                 basis_failed = True
 

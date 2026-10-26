@@ -562,6 +562,162 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
 # Main
 # ---------------------------------------------------------------------------
 
+class BasisConfigError(Exception):
+    """A basis can't be run as configured (not vetted, no QID, unmapped locator)."""
+
+
+def connect():
+    """Log in once; return a WikibaseIntegrator ready for run_basis()."""
+    global _relogin
+    wbm = WBManager()
+    _relogin = wbm.relogin
+    return wbm.get_wbi()
+
+
+def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
+              delay=DEFAULT_DELAY, maint_wait=3000, maint_threshold=3,
+              progress_log=PROGRESS_LOG, tsv=CANDIDATES_TSV):
+    """
+    Convert every P721=basis qualifier to a P129 reference, using an existing
+    login (wbi). Returns dict(converted, skipped, errors). Raises
+    BasisConfigError if the basis isn't runnable.
+    """
+    case = load_candidate(basis, tsv)
+    if case is None:
+        raise BasisConfigError(
+            f"'{basis}' not found in {tsv} with vetted=Y and a valid QID. "
+            f"Check: row exists, vetted='Y', qid starts with 'Q'.")
+    ref_qid  = case['qid']
+    loc      = case['loc']
+    loc_type = case['loc_type']
+    if loc and loc_type and loc_type not in LOC_PROP:
+        raise BasisConfigError(
+            f"loc_type={loc_type!r} has no mapped property in LOC_PROP. "
+            f"Add a property mapping before running this basis to avoid losing locator data.")
+
+    log.info('Basis    : %r  →  P129=%s', basis, ref_qid)
+    if loc:
+        log.info('Locator  : %r  (%s  →  %s)', loc, loc_type,
+                 ' + '.join(f'{p}={v!r}' for p, v in locator_snaks(loc, loc_type)))
+    log.info('Mode     : %s', 'DRY RUN' if dry_run else 'EXECUTE')
+    if item:
+        log.info('Item     : %s  (single-item pilot)', item)
+    if max_statements:
+        log.info('Cap      : %d statements max', max_statements)
+
+    done_guids = load_done_guids(progress_log)
+    log.info('Progress : %d GUIDs already done', len(done_guids))
+
+    total_converted = total_skipped = total_errors = 0
+    converted_guid_variant = {}   # guid -> basis_variant (for spot-check)
+
+    def _process_list(item_list, basis_variant):
+        """Process a list of items for one basis variant; return failed item_ids."""
+        nonlocal total_converted, total_skipped, total_errors
+        failed = []
+        consecutive = 0
+
+        for item_id in item_list:
+            if max_statements is not None and total_converted >= max_statements:
+                log.info('Reached --max-statements %d — stopping early.', max_statements)
+                break
+
+            log.info('--- %s ---', item_id)
+            try:
+                guids, skipped, errors = process_item(
+                    wbi, item_id, basis_variant, ref_qid, loc, loc_type,
+                    done_guids, dry_run, delay, progress_log,
+                    canonical_basis=basis,
+                )
+            except Exception as e:
+                log.error('%s: unexpected error (retry exhaustion?): %s', item_id, e)
+                guids, skipped, errors = [], 0, 1
+            total_converted += len(guids)
+            total_skipped   += skipped
+            total_errors    += errors
+
+            if guids:
+                for g in guids:
+                    converted_guid_variant[g] = basis_variant
+                done_guids.update(guids)
+
+            if errors and not guids:
+                consecutive += 1
+                failed.append(item_id)
+                if maint_wait > 0 and maint_threshold > 0 and consecutive >= maint_threshold:
+                    log.warning(
+                        '%d consecutive item failures — possible FactGrid maintenance '
+                        'window. Sleeping %ds before continuing.', consecutive, maint_wait)
+                    time.sleep(maint_wait)
+                    log.info('Resuming after sleep.')
+                    consecutive = 0
+            else:
+                consecutive = 0
+
+        return failed
+
+    # ---- Discover HTML variants and process each ----
+    variants = find_raw_variants(basis)
+    if len(variants) > 1:
+        extras = [v for v in variants if v != basis]
+        log.info('HTML variants: %s', ', '.join(repr(v) for v in extras))
+
+    variant_retries = {}   # variant -> [item_ids]
+    for variant in variants:
+        v_items = find_items(variant, item)
+        if not v_items:
+            if variant != basis:
+                log.info('Variant %r: 0 items, skipping', variant)
+            continue
+        if variant != basis:
+            log.info('Variant %r: %d item(s)', variant, len(v_items))
+        failed = _process_list(v_items, variant)
+        if failed:
+            variant_retries[variant] = failed
+
+    # ---- Retry failed items ----
+    if variant_retries and not dry_run:
+        total_retry = sum(len(v) for v in variant_retries.values())
+        log.info('')
+        log.info('Retrying %d item(s)...', total_retry)
+        done_guids = load_done_guids(progress_log)
+        for variant, retry_items in variant_retries.items():
+            still_failed = _process_list(retry_items, variant)
+            if still_failed:
+                log.warning('%d item(s) still failing for %r: %s',
+                            len(still_failed), variant, ', '.join(still_failed))
+
+    # ---- Summary ----
+    log.info('')
+    log.info('=== Run complete ===')
+    log.info('Converted : %d statement(s)', total_converted)
+    log.info('Skipped   : %d (already done)', total_skipped)
+    log.info('Errors    : %d', total_errors)
+    if total_errors:
+        log.warning('There were errors — review the log above before continuing.')
+
+    # ---- Spot-check ----
+    if not dry_run and converted_guid_variant:
+        all_guids = list(converted_guid_variant)
+        sample = (all_guids if len(all_guids) <= SPOT_CHECK_LIMIT
+                  else random.sample(all_guids, SPOT_CHECK_LIMIT))
+        log.info('')
+        log.info('API spot-check on %d/%d GUID(s)...', len(sample), len(all_guids))
+        # Group sample by variant so each api_spot_check call uses the right P721 string.
+        by_variant = {}
+        for guid in sample:
+            by_variant.setdefault(converted_guid_variant[guid], []).append(guid)
+        ok = fail = errs = 0
+        for variant, guids in by_variant.items():
+            o, f, e = api_spot_check(guids, variant, ref_qid)
+            ok += o; fail += f; errs += e
+        log.info('Spot-check: %d OK, %d FAILED, %d errors', ok, fail, errs)
+        if fail or errs:
+            log.warning('Spot-check failures — investigate before running further batches.')
+
+    return {'converted': total_converted, 'skipped': total_skipped, 'errors': total_errors}
+
+
 def main():
     ap = argparse.ArgumentParser(
         description='Convert P721 string qualifiers to P129 item references.',
@@ -589,178 +745,35 @@ def main():
                     help=f'Candidates TSV (default: {CANDIDATES_TSV})')
     args = ap.parse_args()
 
-    # ---- Look up case ----
-    case = load_candidate(args.basis, args.tsv)
-    if case is None:
-        sys.exit(
-            f"ERROR: '{args.basis}' not found in {args.tsv} with vetted=Y "
-            f"and a valid QID.\n"
-            f"Check: row exists, vetted='Y', qid starts with 'Q'."
-        )
-    ref_qid  = case['qid']
-    loc      = case['loc']
-    loc_type = case['loc_type']
+    # Validate the basis before contacting FactGrid.
+    if load_candidate(args.basis, args.tsv) is None:
+        sys.exit(f"ERROR: '{args.basis}' not found in {args.tsv} with vetted=Y and a valid QID.")
 
-    if loc and loc_type and loc_type not in LOC_PROP:
-        sys.exit(
-            f"ERROR: loc_type={loc_type!r} has no mapped property in LOC_PROP. "
-            f"Add a property mapping before running this basis to avoid losing locator data."
-        )
-
-    log.info('Basis    : %r  →  P129=%s', args.basis, ref_qid)
-    if loc:
-        log.info('Locator  : %r  (%s  →  %s)',
-                 loc, loc_type, LOC_PROP.get(loc_type, 'unknown prop'))
-    log.info('Mode     : %s', 'DRY RUN' if args.dry_run else 'EXECUTE')
-    if args.item:
-        log.info('Item     : %s  (single-item pilot)', args.item)
-    if args.max_statements:
-        log.info('Cap      : %d statements max', args.max_statements)
-
-    # ---- Ping API ----
     if not args.dry_run:
         log.info('Pinging FactGrid API...')
         if not ping_api():
-            sys.exit(
-                'ERROR: FactGrid API is not reachable. '
-                'Aborting — check for a maintenance window and retry later.'
-            )
+            sys.exit('ERROR: FactGrid API is not reachable. '
+                     'Aborting — check for a maintenance window and retry later.')
         log.info('  reachable.')
 
-    # ---- Load progress ----
-    done_guids = load_done_guids(args.progress_log)
-    log.info('Progress : %d GUIDs already done', len(done_guids))
-
-    # ---- Connect ----
     try:
-        wbm = WBManager()
-        wbi = wbm.get_wbi()
-        global _relogin
-        _relogin = wbm.relogin
+        wbi = connect()
     except Exception as e:
         if args.dry_run:
             log.info('WBManager unavailable (%s).', e)
             log.info('Shallow dry-run (no credentials) — SPARQL item counts only.')
             for v in find_raw_variants(args.basis):
-                v_items = find_items(v, args.item)
-                log.info('  %r: %d item(s)', v, len(v_items))
+                log.info('  %r: %d item(s)', v, len(find_items(v, args.item)))
             return
         sys.exit(f'ERROR: Cannot connect to FactGrid: {e}')
 
-    # ---- Process items ----
-    total_converted = total_skipped = total_errors = 0
-    converted_guid_variant = {}   # guid -> basis_variant (for spot-check)
-
-    def _process_list(item_list, basis_variant):
-        """Process a list of items for one basis variant; return failed item_ids."""
-        nonlocal total_converted, total_skipped, total_errors, converted_guid_variant
-        failed = []
-        consecutive = 0
-
-        for item_id in item_list:
-            if args.max_statements is not None and total_converted >= args.max_statements:
-                log.info('Reached --max-statements %d — stopping early.', args.max_statements)
-                break
-
-            log.info('--- %s ---', item_id)
-            try:
-                guids, skipped, errors = process_item(
-                    wbi, item_id, basis_variant, ref_qid, loc, loc_type,
-                    done_guids, args.dry_run, args.delay, args.progress_log,
-                    canonical_basis=args.basis,
-                )
-            except Exception as e:
-                log.error('%s: unexpected error (retry exhaustion?): %s', item_id, e)
-                guids, skipped, errors = [], 0, 1
-            total_converted += len(guids)
-            total_skipped   += skipped
-            total_errors    += errors
-
-            if guids:
-                for g in guids:
-                    converted_guid_variant[g] = basis_variant
-                done_guids.update(guids)
-
-            if errors and not guids:
-                consecutive += 1
-                failed.append(item_id)
-                if (args.maint_wait > 0
-                        and args.maint_threshold > 0
-                        and consecutive >= args.maint_threshold):
-                    log.warning(
-                        '%d consecutive item failures — possible FactGrid maintenance '
-                        'window. Sleeping %ds before continuing.',
-                        consecutive, args.maint_wait,
-                    )
-                    time.sleep(args.maint_wait)
-                    log.info('Resuming after sleep.')
-                    consecutive = 0
-            else:
-                consecutive = 0
-
-        return failed
-
-    # ---- Discover HTML variants and process each ----
-    variants = find_raw_variants(args.basis)
-    if len(variants) > 1:
-        extras = [v for v in variants if v != args.basis]
-        log.info('HTML variants: %s', ', '.join(repr(v) for v in extras))
-
-    variant_retries = {}   # variant -> [item_ids]
-    for variant in variants:
-        v_items = find_items(variant, args.item)
-        if not v_items:
-            if variant != args.basis:
-                log.info('Variant %r: 0 items, skipping', variant)
-            continue
-        if variant != args.basis:
-            log.info('Variant %r: %d item(s)', variant, len(v_items))
-        failed = _process_list(v_items, variant)
-        if failed:
-            variant_retries[variant] = failed
-
-    # ---- Retry failed items ----
-    if variant_retries and not args.dry_run:
-        total_retry = sum(len(v) for v in variant_retries.values())
-        log.info('')
-        log.info('Retrying %d item(s)...', total_retry)
-        done_guids = load_done_guids(args.progress_log)
-        for variant, retry_items in variant_retries.items():
-            still_failed = _process_list(retry_items, variant)
-            if still_failed:
-                log.warning('%d item(s) still failing for %r: %s',
-                            len(still_failed), variant, ', '.join(still_failed))
-
-    # ---- Summary ----
-    log.info('')
-    log.info('=== Run complete ===')
-    log.info('Converted : %d statement(s)', total_converted)
-    log.info('Skipped   : %d (already done)', total_skipped)
-    log.info('Errors    : %d', total_errors)
-    if total_errors:
-        log.warning('There were errors — review the log above before continuing.')
-
-    # ---- Spot-check ----
-    if not args.dry_run and converted_guid_variant:
-        all_guids = list(converted_guid_variant)
-        sample = (all_guids if len(all_guids) <= SPOT_CHECK_LIMIT
-                  else random.sample(all_guids, SPOT_CHECK_LIMIT))
-        log.info('')
-        log.info('API spot-check on %d/%d GUID(s)...', len(sample), len(all_guids))
-        # Group sample by variant so each api_spot_check call uses the right P721 string.
-        by_variant = {}
-        for guid in sample:
-            v = converted_guid_variant[guid]
-            by_variant.setdefault(v, []).append(guid)
-        ok = fail = errs = 0
-        for variant, guids in by_variant.items():
-            o, f, e = api_spot_check(guids, variant, ref_qid)
-            ok += o; fail += f; errs += e
-        log.info('Spot-check: %d OK, %d FAILED, %d errors', ok, fail, errs)
-        if fail or errs:
-            log.warning(
-                'Spot-check failures — investigate before running further batches.'
-            )
+    try:
+        run_basis(args.basis, wbi, item=args.item, max_statements=args.max_statements,
+                  dry_run=args.dry_run, delay=args.delay, maint_wait=args.maint_wait,
+                  maint_threshold=args.maint_threshold, progress_log=args.progress_log,
+                  tsv=args.tsv)
+    except BasisConfigError as e:
+        sys.exit(f'ERROR: {e}')
 
 
 if __name__ == '__main__':

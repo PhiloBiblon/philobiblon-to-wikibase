@@ -99,3 +99,68 @@ def test_write_item_gives_up_after_one_relogin(monkeypatch):
     item = _FakeItem([Exception('anonymous token'), Exception('anonymous token')])
     with pytest.raises(Exception, match='anonymous token'):
         abm._write_item(item, None)
+
+
+# ---- runner: include/exclude lists, one login per run ----
+
+from prop_migration import run_basis_batch as rbb
+
+
+def test_load_basis_list(tmp_path):
+    p = tmp_path / 'list.tsv'
+    p.write_text('# held\nFaulhaber 2006\nfichero\tmodeling question\n\n', encoding='utf-8')
+    assert rbb.load_basis_list(str(p)) == {'Faulhaber 2006', 'fichero'}
+
+
+def _setup(tmp_path):
+    sheet = tmp_path / 'sheet.tsv'
+    sheet.write_text('Freqency\tbasis\tkey\tmatch_type\tqid\tlabel\tvetted\tloc_type\tloc\n'
+                     '9\tAlpha\tAlpha\tvetted\tQ1\tA\tY\t\t\n'
+                     '8\tBeta\tBeta\tvetted\tQ2\tB\tYY\t\t\n'
+                     '7\tGamma\tGamma\tvetted\tQ3\tG\tY\t\t\n', encoding='utf-8')
+    live = tmp_path / 'live.tsv'
+    live.write_text('value\tfreq\nAlpha\t5\nBeta\t4\nGamma\t3\n', encoding='utf-8')
+    include = tmp_path / 'include.txt'
+    include.write_text('Alpha\nBeta\nGamma\n', encoding='utf-8')
+    exclude = tmp_path / 'exclude.tsv'
+    exclude.write_text('Gamma\tworks vs people\n', encoding='utf-8')
+    return sheet, live, include, exclude
+
+
+def test_runner_logs_in_once_and_skips_bad_config(tmp_path, monkeypatch):
+    sheet, live, include, exclude = _setup(tmp_path)
+    calls = {'connect': 0, 'run': [], 'sleep': 0}
+
+    monkeypatch.setattr(abm, 'ping_api', lambda: True)
+    monkeypatch.setattr(abm, 'connect', lambda: calls.__setitem__('connect', calls['connect'] + 1) or 'WBI')
+
+    def fake_run(basis, wbi, **kw):
+        calls['run'].append((basis, wbi))
+        if basis == 'Beta':
+            raise abm.BasisConfigError('no property for loc_type')
+        return {'converted': 1, 'skipped': 0, 'errors': 0}
+
+    monkeypatch.setattr(abm, 'run_basis', fake_run)
+    monkeypatch.setattr(rbb.time, 'sleep', lambda s: calls.__setitem__('sleep', calls['sleep'] + 1))
+    monkeypatch.setattr(sys, 'argv', [
+        'run_basis_batch.py', '--tsv', str(sheet), '--live-counts', str(live),
+        '--include', str(include), '--exclude', str(exclude),
+        '--progress-log', str(tmp_path / 'progress.jsonl'),
+        '--batch-log', str(tmp_path / 'batch.jsonl')])
+    rbb.main()
+
+    assert calls['connect'] == 1                                  # one login for the run
+    assert calls['run'] == [('Alpha', 'WBI'), ('Beta', 'WBI')]    # Gamma excluded
+    assert calls['sleep'] == 0                                    # config error: no maintenance wait
+
+
+def test_runner_dry_run_never_connects(tmp_path, monkeypatch):
+    sheet, live, include, _ = _setup(tmp_path)
+    monkeypatch.setattr(abm, 'connect', lambda: pytest.fail('dry run must not log in'))
+    monkeypatch.setattr(abm, 'ping_api', lambda: pytest.fail('dry run must not ping'))
+    monkeypatch.setattr(sys, 'argv', [
+        'run_basis_batch.py', '--tsv', str(sheet), '--live-counts', str(live),
+        '--include', str(include), '--dry-run',
+        '--progress-log', str(tmp_path / 'progress.jsonl'),
+        '--batch-log', str(tmp_path / 'batch.jsonl')])
+    rbb.main()
