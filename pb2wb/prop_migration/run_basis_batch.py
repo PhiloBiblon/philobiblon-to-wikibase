@@ -11,6 +11,9 @@ one per basis. Progress is inferred from the JSONL log.
   python prop_migration/run_basis_batch.py --live-counts ... --include prop_migration/include_a1.txt
   python prop_migration/run_basis_batch.py --live-counts ... --exclude prop_migration/held_bases.tsv
 
+  # Physical evidence (colophon, title page, ...): reference P702 "Based on" instead of P129
+  python prop_migration/run_basis_batch.py --live-counts ... --include prop_migration/run_evidence.txt --ref-prop P702
+
 Usage (from pb2wb/):
   # Preview what would run
   python prop_migration/run_basis_batch.py --min-freq 332 --dry-run
@@ -279,6 +282,8 @@ def main():
     ap.add_argument('--tsv', default=CANDIDATES_TSV, metavar='PATH')
     ap.add_argument('--progress-log', default=PROGRESS_LOG, metavar='PATH')
     ap.add_argument('--batch-log', default=BATCH_LOG, metavar='PATH')
+    ap.add_argument('--ref-prop', default='P129', choices=('P129', 'P702'),
+                    help='reference property: P129 According to (default) or P702 Based on')
     args = ap.parse_args()
 
     live = None
@@ -358,6 +363,7 @@ def main():
     if args.limit:
         log.info('  limit      : %d', args.limit)
     log.info('  mode       : %s', 'DRY RUN' if args.dry_run else 'EXECUTE')
+    log.info('  reference  : %s', args.ref_prop)
     log.info('  delay      : %.1fs', args.delay)
     total_freq = sum(f for f, _, _, _, _ in candidates)
     log.info('  total freq : %d %s', total_freq,
@@ -387,15 +393,15 @@ def main():
 
         remaining = freq if live is not None else freq - done
         if args.dry_run:
-            log.info('[dry-run] %s → P129=%s  (%d remaining)', prefix, qid, remaining)
+            log.info('[dry-run] %s → %s=%s  (%d remaining)', prefix, args.ref_prop, qid, remaining)
             continue
 
         if live is not None:
-            log.info('%s → P129=%s  (%d remaining in FactGrid, %d converted earlier)',
-                     prefix, qid, remaining, done)
+            log.info('%s → %s=%s  (%d remaining in FactGrid, %d converted earlier)',
+                     prefix, args.ref_prop, qid, remaining, done)
         else:
-            log.info('%s → P129=%s  (%d/%d done, %d remaining)',
-                     prefix, qid, done, freq, remaining)
+            log.info('%s → %s=%s  (%d/%d done, %d remaining)',
+                     prefix, args.ref_prop, qid, done, freq, remaining)
         log.info('─' * 60)
 
         basis_failed = False
@@ -415,7 +421,8 @@ def main():
                 # Item-level errors are retried and reported inside run_basis (as the
                 # old subprocess did with exit code 0); only an exception fails the basis.
                 abm.run_basis(basis, wbi, max_statements=args.max_statements,
-                              delay=args.delay, progress_log=args.progress_log, tsv=args.tsv)
+                              delay=args.delay, progress_log=args.progress_log, tsv=args.tsv,
+                              ref_prop=args.ref_prop)
             except abm.BasisConfigError as e:
                 log.error('%s — not runnable: %s', prefix, e)
                 append_batch_log(args.batch_log, basis, freq, 2, 0, time.monotonic() - t0)

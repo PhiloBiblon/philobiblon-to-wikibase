@@ -175,3 +175,72 @@ def test_conversions_since(tmp_path):
         {'basis': 'B', 'ts': '2026-10-26T18:40:00+00:00'},
     ]) + '\n', encoding='utf-8')
     assert rbb.conversions_since(str(p), '2026-10-26T18:01:00+00:00') == {'A': 1, 'B': 1}
+
+
+# ---- reference property: P702 "Based on" for physical evidence ----
+
+def test_runner_passes_ref_prop(tmp_path, monkeypatch):
+    sheet, live, include, exclude = _setup(tmp_path)
+    seen = []
+    monkeypatch.setattr(abm, 'ping_api', lambda: True)
+    monkeypatch.setattr(abm, 'connect', lambda: 'WBI')
+    monkeypatch.setattr(abm, 'run_basis',
+                        lambda basis, wbi, **kw: seen.append(kw['ref_prop']) or {'converted': 1})
+    monkeypatch.setattr(sys, 'argv', [
+        'run_basis_batch.py', '--tsv', str(sheet), '--live-counts', str(live),
+        '--include', str(include), '--exclude', str(exclude), '--ref-prop', 'P702',
+        '--progress-log', str(tmp_path / 'progress.jsonl'),
+        '--batch-log', str(tmp_path / 'batch.jsonl')])
+    rbb.main()
+    assert seen == ['P702', 'P702']
+
+
+def _p721_claim(basis):
+    from wikibaseintegrator.models import Claim
+    s = lambda p, v: {'snaktype': 'value', 'property': p, 'datatype': 'string',
+                      'datavalue': {'type': 'string', 'value': v}}
+    return Claim().from_json({
+        'mainsnak': s('P5', 'x'), 'type': 'statement', 'rank': 'normal', 'id': 'Q1$G1',
+        'qualifiers': {'P721': [s('P721', basis)]}, 'qualifiers-order': ['P721'],
+        'references': []})
+
+
+class _FakeWbiItem:
+    def __init__(self, claims):
+        self.claims = claims
+        self.writes = 0
+
+    def write(self, login=None):
+        self.writes += 1
+
+
+def test_process_item_writes_p702_reference(tmp_path, monkeypatch):
+    claim = _p721_claim('colofón')
+    item = _FakeWbiItem([claim])
+    wbi = type('W', (), {'item': type('I', (), {'get': staticmethod(lambda qid: item)})(),
+                         'session': None})()
+    log_path = tmp_path / 'progress.jsonl'
+    guids, skipped, errors = abm.process_item(
+        wbi, 'Q1', 'colofón', 'Q393553', 'f. 113', 'folio', set(), False, 0, str(log_path),
+        ref_prop='P702')
+    assert (guids, skipped, errors) == (['Q1$G1'], 0, 0)
+    assert item.writes == 2
+    ref = claim.references.references[0]
+    assert [sn.property_number for sn in ref.snaks] == ['P702', 'P100']
+    assert not claim.qualifiers.get('P721')
+    rec = json.loads(log_path.read_text())
+    assert rec['ref_prop'] == 'P702' and rec['qid'] == 'Q393553'
+    # already present as P702 → not added again
+    assert abm._ref_present(claim, 'Q393553', 'P702')
+    assert not abm._ref_present(claim, 'Q393553')
+
+
+def test_log_progress_omits_default_ref_prop(tmp_path):
+    p = tmp_path / 'progress.jsonl'
+    abm.log_progress(str(p), 'g', 'Q1', 'b', 'Q2', '', '')
+    assert 'ref_prop' not in json.loads(p.read_text())
+
+
+def test_run_basis_rejects_other_ref_props():
+    with pytest.raises(abm.BasisConfigError, match='ref_prop'):
+        abm.run_basis('x', None, ref_prop='P73')

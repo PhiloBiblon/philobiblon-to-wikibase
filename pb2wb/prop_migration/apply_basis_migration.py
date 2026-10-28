@@ -6,6 +6,9 @@ Reads vetted rows from P721-P129.tsv. For each targeted basis string, finds all
 FactGrid statements carrying pq:P721=<basis>, adds a P129=<qid> reference (with
 optional locator), then removes the P721 qualifier.
 
+--ref-prop P702 writes the reference as P702 "Based on" = <qid> instead of P129,
+for physical evidence in the book (colophon, title page, seal stamp, ...).
+
 Progress is logged per statement GUID in basis_migration_progress.jsonl — every
 run is fully resumable and idempotent.
 
@@ -21,6 +24,9 @@ Usage (from pb2wb/):
 
   # Full run
   python prop_migration/apply_basis_migration.py --basis "Faulhaber"
+
+  # Physical evidence: reference P702 "Based on" instead of P129
+  python prop_migration/apply_basis_migration.py --basis "colofón" --ref-prop P702 --dry-run
 """
 
 import argparse
@@ -67,6 +73,8 @@ SPARQL_ENDPOINT = 'https://database.factgrid.de/sparql'
 API_ENDPOINT    = 'https://database.factgrid.de/w/api.php'
 P721            = 'P721'
 P129            = 'P129'
+P702            = 'P702'          # Based on (physical evidence in the book)
+REF_PROPS       = (P129, P702)
 PROGRESS_LOG    = 'prop_migration/basis_migration_progress.jsonl'
 CANDIDATES_TSV  = 'prop_migration/P721-P129.tsv'
 RAW_VALUES_TSV  = 'prop_migration/P721-raw-values.tsv'
@@ -131,8 +139,9 @@ def load_done_guids(path):
     return done
 
 
-def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_value=''):
-    """Append one converted-statement record to the progress log."""
+def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_value='',
+                 ref_prop=P129):
+    """Append one converted-statement record to the progress log (ref_prop only if not P129)."""
     rec = {
         'guid':       guid,
         'item':       item_id,
@@ -144,6 +153,8 @@ def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_v
         'loc_type':   loc_type,
         'ts':         datetime.now(timezone.utc).isoformat(),
     }
+    if ref_prop != P129:
+        rec['ref_prop'] = ref_prop
     with open(path, 'a', encoding='utf-8') as f:
         f.write(json.dumps(rec, ensure_ascii=False) + '\n')
 
@@ -185,7 +196,7 @@ def load_candidate(basis_str, tsv_path):
     if len(matches) > 1:
         log.warning(
             '%r has %d vetted rows (compound basis?). '
-            'Using first: qid=%s. Only one P129 reference will be added.',
+            'Using first: qid=%s. Only one reference will be added.',
             basis_str, len(matches), matches[0]['qid'],
         )
     return matches[0]
@@ -312,14 +323,14 @@ SELECT DISTINCT ?item WHERE {{
 SPOT_CHECK_LIMIT = 3    # per basis: check all GUIDs if ≤ this many, else sample (each is a FactGrid read)
 
 
-def api_spot_check(guids, basis_str, ref_qid):
+def api_spot_check(guids, basis_str, ref_qid, ref_prop=P129):
     """
     API-based GUID-level spot-check (no SPARQL propagation lag).
 
     Checks all GUIDs when ≤ SPOT_CHECK_LIMIT converted this run, otherwise
     samples SPOT_CHECK_LIMIT at random. For each GUID, fetches the statement
     via wbgetclaims and verifies:
-      - pr:P129 = ref_qid is present in references
+      - pr:<ref_prop> = ref_qid is present in references
       - pq:P721 = basis_str is absent from qualifiers
 
     Returns (ok, fail, errors).
@@ -350,24 +361,24 @@ def api_spot_check(guids, basis_str, ref_qid):
                 fail += 1
                 continue
 
-            has_p129 = any(
+            has_ref = any(
                 isinstance(snak.get('datavalue', {}).get('value'), dict)
                 and snak['datavalue']['value'].get('id') == ref_qid
                 for ref in stmt.get('references', [])
-                for snak in ref.get('snaks', {}).get(P129, [])
+                for snak in ref.get('snaks', {}).get(ref_prop, [])
             )
             has_p721 = any(
                 snak.get('datavalue', {}).get('value') == basis_str
                 for snak in stmt.get('qualifiers', {}).get(P721, [])
             )
 
-            if has_p129 and not has_p721:
+            if has_ref and not has_p721:
                 ok += 1
                 log.info('  spot-check %s: OK', guid)
             else:
                 reasons = []
-                if not has_p129:
-                    reasons.append('P129 missing')
+                if not has_ref:
+                    reasons.append(f'{ref_prop} missing')
                 if has_p721:
                     reasons.append('P721 still present')
                 fail += 1
@@ -410,10 +421,10 @@ def _find_p721_snak(claim, basis_str):
     return None
 
 
-def _ref_present(claim, ref_qid):
-    """True if any reference on claim already contains P129=ref_qid."""
+def _ref_present(claim, ref_qid, ref_prop=P129):
+    """True if any reference on claim already contains ref_prop=ref_qid."""
     for ref in claim.references:
-        for snak in ref.snaks.get(P129) or []:
+        for snak in ref.snaks.get(ref_prop) or []:
             dv  = snak.datavalue
             val = dv.get('value', {}) if isinstance(dv, dict) else {}
             if isinstance(val, dict) and val.get('id') == ref_qid:
@@ -427,12 +438,12 @@ def _ref_present(claim, ref_qid):
 
 def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
                  done_guids, dry_run, delay, progress_path,
-                 canonical_basis=None):
+                 canonical_basis=None, ref_prop=P129):
     """
-    Convert all P721=basis_str qualifiers on item_id to P129=ref_qid references.
+    Convert all P721=basis_str qualifiers on item_id to ref_prop=ref_qid references.
 
     Two-phase write:
-      Phase 1 — add P129 references (one item write)
+      Phase 1 — add references (one item write)
       Phase 2 — remove P721 qualifiers (one item write)
     If Phase 1 fails, Phase 2 is not attempted.
 
@@ -464,7 +475,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
             n_skip += 1
             log.info('%s  %-36s prop=%-5s  already done — skipping', item_id, guid, prop)
             continue
-        if _ref_present(claim, ref_qid):
+        if _ref_present(claim, ref_qid, ref_prop):
             already.append((guid, claim))
             log.info('%s  %-36s prop=%-5s  ref exists, qual may still be present',
                      item_id, guid, prop)
@@ -479,14 +490,14 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     if dry_run:
         for guid, claim in to_add:
             prop = getattr(getattr(claim, 'mainsnak', None), 'property_number', '?')
-            log.info('[dry-run] %s  %-36s prop=%-5s  → P129=%s%s',
-                     item_id, guid, prop, ref_qid, loc_desc)
+            log.info('[dry-run] %s  %-36s prop=%-5s  → %s=%s%s',
+                     item_id, guid, prop, ref_prop, ref_qid, loc_desc)
         return [guid for guid, _ in to_add], n_skip, 0
 
-    # ---- Phase 1: add P129 references ----
+    # ---- Phase 1: add references ----
     for guid, claim in to_add:
         ref = Reference()
-        ref.add(WBItem(value=ref_qid, prop_nr=P129))
+        ref.add(WBItem(value=ref_qid, prop_nr=ref_prop))
         for snak_prop, snak_value in locator_snaks(loc, loc_type):
             ref.add(WBString(value=snak_value, prop_nr=snak_prop))
         claim.references.add(ref)
@@ -494,7 +505,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     try:
         time.sleep(delay)
         _write_item(item, wbi)
-        log.info('%s: Phase 1 done — added P129 ref to %d statement(s)', item_id, len(to_add))
+        log.info('%s: Phase 1 done — added %s ref to %d statement(s)', item_id, ref_prop, len(to_add))
     except Exception as e:
         err_str = str(e)
         if 'external client site' in err_str and 'did not provide page information' in err_str:
@@ -551,7 +562,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     for guid in removed:
         prop, main_value = guid_meta.get(guid, ('', ''))
         log_progress(progress_path, guid, item_id, log_basis, ref_qid, loc, loc_type,
-                     prop=prop, main_value=main_value)
+                     prop=prop, main_value=main_value, ref_prop=ref_prop)
         log.info('CONVERTED  %s  %s%s', item_id, guid, loc_desc)
         converted_guids.append(guid)
 
@@ -576,12 +587,14 @@ def connect():
 
 def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
               delay=DEFAULT_DELAY, maint_wait=3000, maint_threshold=3,
-              progress_log=PROGRESS_LOG, tsv=CANDIDATES_TSV):
+              progress_log=PROGRESS_LOG, tsv=CANDIDATES_TSV, ref_prop=P129):
     """
-    Convert every P721=basis qualifier to a P129 reference, using an existing
+    Convert every P721=basis qualifier to a ref_prop (P129 or P702) reference, using an existing
     login (wbi). Returns dict(converted, skipped, errors). Raises
     BasisConfigError if the basis isn't runnable.
     """
+    if ref_prop not in REF_PROPS:
+        raise BasisConfigError(f'ref_prop must be one of {REF_PROPS}, not {ref_prop!r}')
     case = load_candidate(basis, tsv)
     if case is None:
         raise BasisConfigError(
@@ -595,7 +608,7 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
             f"loc_type={loc_type!r} has no mapped property in LOC_PROP. "
             f"Add a property mapping before running this basis to avoid losing locator data.")
 
-    log.info('Basis    : %r  →  P129=%s', basis, ref_qid)
+    log.info('Basis    : %r  →  %s=%s', basis, ref_prop, ref_qid)
     if loc:
         log.info('Locator  : %r  (%s  →  %s)', loc, loc_type,
                  ' + '.join(f'{p}={v!r}' for p, v in locator_snaks(loc, loc_type)))
@@ -627,7 +640,7 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
                 guids, skipped, errors = process_item(
                     wbi, item_id, basis_variant, ref_qid, loc, loc_type,
                     done_guids, dry_run, delay, progress_log,
-                    canonical_basis=basis,
+                    canonical_basis=basis, ref_prop=ref_prop,
                 )
             except Exception as e:
                 log.error('%s: unexpected error (retry exhaustion?): %s', item_id, e)
@@ -709,7 +722,7 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
             by_variant.setdefault(converted_guid_variant[guid], []).append(guid)
         ok = fail = errs = 0
         for variant, guids in by_variant.items():
-            o, f, e = api_spot_check(guids, variant, ref_qid)
+            o, f, e = api_spot_check(guids, variant, ref_qid, ref_prop)
             ok += o; fail += f; errs += e
         log.info('Spot-check: %d OK, %d FAILED, %d errors', ok, fail, errs)
         if fail or errs:
@@ -743,6 +756,8 @@ def main():
                     help=f'JSONL progress file (default: {PROGRESS_LOG})')
     ap.add_argument('--tsv', default=CANDIDATES_TSV, metavar='PATH',
                     help=f'Candidates TSV (default: {CANDIDATES_TSV})')
+    ap.add_argument('--ref-prop', default=P129, choices=REF_PROPS,
+                    help='reference property: P129 According to (default) or P702 Based on')
     args = ap.parse_args()
 
     # Validate the basis before contacting FactGrid.
@@ -771,7 +786,7 @@ def main():
         run_basis(args.basis, wbi, item=args.item, max_statements=args.max_statements,
                   dry_run=args.dry_run, delay=args.delay, maint_wait=args.maint_wait,
                   maint_threshold=args.maint_threshold, progress_log=args.progress_log,
-                  tsv=args.tsv)
+                  tsv=args.tsv, ref_prop=args.ref_prop)
     except BasisConfigError as e:
         sys.exit(f'ERROR: {e}')
 

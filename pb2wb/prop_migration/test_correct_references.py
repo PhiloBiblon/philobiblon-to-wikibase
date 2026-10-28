@@ -7,8 +7,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from wikibaseintegrator.models import Claim
 
-from prop_migration.correct_references import (_p129_values, build_plan, correct_claim,
-                                               sheet_target, should_verify, verify_claim)
+from prop_migration.correct_references import (_p129_values, build_move_plan, build_plan,
+                                               correct_claim, load_corrected, sheet_target,
+                                               should_verify, verify_claim)
 
 
 def _item_snak(prop, qid):
@@ -112,3 +113,55 @@ def test_verify_claim():
 def test_should_verify():
     assert [n for n in range(1, 31) if should_verify(n, 10)] == [1, 2, 3, 10, 20, 30]
     assert [n for n in range(1, 31) if should_verify(n, 0)] == [1, 2, 3]
+
+
+# ---- move P129 → P702 (physical evidence) ----
+
+def test_move_to_p702_keeps_locator_and_other_snaks():
+    c = _claim([[_item_snak('P129', 'Q393553'), _string_snak('P100', '113'),
+                 _string_snak('P73', 'note')]])
+    assert correct_claim(c, 'Q393553', 'Q393553', '113', 'folio', 'P129', 'P702') == 'corrected'
+    assert _refs(c) == [{'P702': 'Q393553', 'P100': '113', 'P73': 'note'}]
+    assert verify_claim(c, 'Q393553', 'Q393553', '113', 'folio', 'P129', 'P702')
+    # a second pass finds it already moved
+    assert correct_claim(c, 'Q393553', 'Q393553', '113', 'folio', 'P129', 'P702') == 'already'
+
+
+def test_move_verify_fails_while_p129_remains():
+    c = _claim([[_item_snak('P129', 'Q393553')], [_item_snak('P702', 'Q393553')]])
+    assert not verify_claim(c, 'Q393553', 'Q393553', '', '', 'P129', 'P702')
+
+
+def test_build_move_plan_uses_corrections_and_skips_moved():
+    progress = [
+        {'guid': 'g1', 'item': 'Q1', 'prop': 'P5', 'basis': 'colofón', 'qid': 'Q393553', 'loc': ''},
+        {'guid': 'g2', 'item': 'Q2', 'prop': 'P5', 'basis': 'Faulhaber', 'qid': 'Q10', 'loc': ''},
+        {'guid': 'g3', 'item': 'Q3', 'prop': 'P5', 'basis': 'portada', 'qid': 'Q99', 'loc': ''},
+        {'guid': 'g4', 'item': 'Q4', 'prop': 'P5', 'basis': '<i>sello</i>', 'qid': 'Q512065',
+         'loc': '6r', 'loc_type': 'folio'},
+        {'guid': 'g5', 'item': 'Q5', 'prop': 'P5', 'basis': 'guarda', 'qid': 'Q358912',
+         'loc': '', 'ref_prop': 'P702'},                         # converted as P702 already
+    ]
+    corrections = [
+        {'guid': 'g3', 'new_qid': 'Q229508', 'loc': '', 'loc_type': '', 'status': 'corrected'},
+        {'guid': 'g1', 'new_qid': 'Q393553', 'loc': '', 'loc_type': '', 'status': 'missing'},
+    ]
+    plan = build_move_plan(progress, corrections, {'Q393553', 'Q229508', 'Q512065', 'Q358912'},
+                           'P702', {'Q393553': 'Colophon'})
+    assert [(r['guid'], r['old_qid'], r['old_prop'], r['new_prop'], r['loc']) for r in plan] == [
+        ('g3', 'Q229508', 'P129', 'P702', ''),
+        ('g1', 'Q393553', 'P129', 'P702', ''),
+        ('g4', 'Q512065', 'P129', 'P702', '6r')]
+    assert plan[1]['old_label'] == 'Colophon'
+    assert plan[2]['basis'] == 'sello'
+
+
+def test_load_corrected_keys_on_new_prop(tmp_path):
+    import json
+    p = tmp_path / 'c.jsonl'
+    p.write_text('\n'.join(json.dumps(r) for r in [
+        {'guid': 'g1', 'status': 'corrected'},                       # old record: P129
+        {'guid': 'g2', 'status': 'corrected', 'new_prop': 'P702'},
+        {'guid': 'g3', 'status': 'missing', 'new_prop': 'P702'},
+    ]))
+    assert load_corrected(str(p)) == {('g1', 'P129'), ('g2', 'P702')}
