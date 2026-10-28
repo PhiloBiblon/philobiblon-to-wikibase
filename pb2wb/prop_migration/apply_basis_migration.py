@@ -108,7 +108,7 @@ def find_raw_variants(basis_str, raw_values_path=RAW_VALUES_TSV):
         variants.add(f'<i>{basis_str}</i>')
     return sorted(variants)
 
-from prop_migration.locators import LOC_PROP, locator_snaks
+from prop_migration.locators import LOC_PROP, locator_snaks, repair_loc
 
 logging.basicConfig(
     level=logging.INFO,
@@ -187,7 +187,7 @@ def load_candidate(basis_str, tsv_path):
                 continue
             matches.append({
                 'qid':      qid,
-                'loc':      row.get('loc', '').strip(),
+                'loc':      repair_loc(row_basis, row.get('loc', '')),
                 'loc_type': row.get('loc_type', '').strip(),
             })
 

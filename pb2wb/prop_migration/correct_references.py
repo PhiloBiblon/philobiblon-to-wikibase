@@ -44,7 +44,7 @@ from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from common.sheet_fields import is_vetted
-from prop_migration.locators import LOC_PROP, locator_snaks
+from prop_migration.locators import LOC_PROP, locator_snaks, repair_loc
 
 SHEET_TSV       = 'prop_migration/P721-P129.tsv'
 PROGRESS_LOG    = 'prop_migration/basis_migration_progress.jsonl'
@@ -96,7 +96,7 @@ def sheet_target(rows):
     vetted = [r for r in rows if is_vetted(r.get('vetted'))]
     if not vetted:
         return 'unvetted', '', '', '', ''
-    targets = {((r.get('qid') or '').strip(), (r.get('loc') or '').strip(),
+    targets = {((r.get('qid') or '').strip(), repair_loc(r.get('basis', ''), r.get('loc')),
                 (r.get('loc_type') or '').strip()) for r in vetted}
     if len(targets) > 1:
         return 'conflict', '', '', '', ''

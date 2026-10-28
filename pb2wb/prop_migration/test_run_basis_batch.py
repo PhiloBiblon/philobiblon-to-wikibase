@@ -244,3 +244,34 @@ def test_log_progress_omits_default_ref_prop(tmp_path):
 def test_run_basis_rejects_other_ref_props():
     with pytest.raises(abm.BasisConfigError, match='ref_prop'):
         abm.run_basis('x', None, ref_prop='P73')
+
+
+# ---- locators garbled into times by Google Sheets ----
+
+from prop_migration.locators import repair_loc
+
+
+@pytest.mark.parametrize('basis,loc,expected', [
+    ('Arteaga 1:227', '4:47', '1:227'),
+    ('Arteaga 1:301', '6:01', '1:301'),
+    ('IGM 2:131', '4:11:00', '2:131'),
+    ('Moita (2017), O Livro hebraico português…, vol. 2, p. 62', '3:02', '2:62'),
+    ('Godinho (2011), vol. 1, p. 206', '4:26', '1:206'),
+    ('Moreno (1987), Exiliados portugueses…, 1: 73', '2:13', '1:73'),
+    ('Arteaga I:286', 'I:286', 'I:286'),        # Roman volume: never mangled
+    ('Arteaga 1:91, 102', '1:91, 102', '1:91, 102'),
+    ('Zarco 4:47', '4:47', '4:47'),              # time-shaped but genuine
+    ('Beltrán 1997:60', '60', '60'),
+    ('Foo 3:45', '9:99', '9:99'),                # no matching basis pair: left alone
+    ('X', '', ''),
+])
+def test_repair_loc(basis, loc, expected):
+    assert repair_loc(basis, loc) == expected
+
+
+def test_load_candidates_repairs_time_locators(tmp_path):
+    sheet = tmp_path / 'sheet.tsv'
+    sheet.write_text('Freqency\tbasis\tkey\tmatch_type\tqid\tlabel\tvetted\tloc_type\tloc\n'
+                     '4\tArteaga 1:227\tArteaga\tvetted\tQ1\tA\tY\tvolume\t4:47\n', encoding='utf-8')
+    assert rbb.load_candidates(str(sheet), None, None) == [(4, 'Arteaga 1:227', 'Q1', '1:227', 'volume')]
+    assert abm.load_candidate('Arteaga 1:227', str(sheet))['loc'] == '1:227'

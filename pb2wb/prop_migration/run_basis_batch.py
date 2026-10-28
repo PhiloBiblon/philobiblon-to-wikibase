@@ -60,7 +60,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from common.sheet_fields import is_vetted, row_freq
-from prop_migration.locators import LOC_PROP
+from prop_migration.locators import LOC_PROP, repair_loc
 
 _HTML_TAG_RE = _re.compile(r'<[^>]+>')
 
@@ -126,7 +126,7 @@ def load_candidates(tsv_path, min_freq, max_freq, skip_locators=False, locators_
                 continue
             if max_freq is not None and freq > max_freq:
                 continue
-            loc      = row.get('loc', '').strip()
+            loc      = repair_loc(basis, row.get('loc', ''))
             loc_type = row.get('loc_type', '').strip()
             if skip_locators and loc:
                 continue
