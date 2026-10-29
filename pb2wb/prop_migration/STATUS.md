@@ -9,19 +9,19 @@ requests). Last edited: 2026-10-29.
 <!-- usage-table -->
 | Group | | Usages left | % of original | Cumulative done |
 |---|---|---:|---:|---:|
-| *Done* | | 107,866 | 81.6% | 81.6% |
-| A8 | Foliation → P1243 | 0 | 0.0% | 81.6% |
-| A8b | Physical descriptions → P1243 | 2 | 0.0% | 81.6% |
-| A8c | Physical notes with a colon → P1243 | 401 | 0.3% | 81.9% |
-| A6 | Pipeline-approved, awaiting Charles | 1,123 | 0.8% | 82.7% |
-| A3 | Catalogue + evidence combos | 658 | 0.5% | 83.2% |
+| *Done* | | 108,643 | 82.1% | 82.1% |
+| A8 | Foliation → P1243 | 0 | 0.0% | 82.1% |
+| A8b | Physical descriptions → P1243 | 2 | 0.0% | 82.1% |
+| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 82.1% |
+| A6 | Pipeline-approved, awaiting Charles | 745 | 0.6% | 82.7% |
+| A3 | Catalogue + evidence combos | 655 | 0.5% | 83.2% |
 | A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 83.2% |
 | held | Held bases (B2 works-vs-people, …) | 1,003 | 0.8% | 84.0% |
 | A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 84.3% |
 | A9 | Compounds (X / Y) | 241 | 0.2% | 84.5% |
-| A7 | Long tail, no match | 20,558 | 15.5% | 100.0% |
+| A7 | Long tail, no match | 20,559 | 15.5% | 100.0% |
 
-_Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-27.tsv` (taken 2026-10-27T12:29 UTC) minus conversions logged since. Groups are assigned by list membership and keywords, so small-group boundaries are approximate._
+_Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken 2026-10-29T14:20 UTC) minus conversions logged since. Groups are assigned by list membership and keywords, so small-group boundaries are approximate._
 <!-- /usage-table -->
 
 ## A. Forward conversion (P721 still in FactGrid)
@@ -30,7 +30,7 @@ _Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-27.tsv` (taken
 |---|---|---|---|
 | A6 | Pipeline-approved (Arteaga ~730, Dutton 77, Cronología 47, small ones) | Max decided 10-29: BNE Cat. & Faulhaber (as person) → P129 + P702 evidence; Martz, Wikidata → convert. Running on the box (`plan_pipeline_exec_20261029.tsv`, 31 bases, ~245 usages). Rest goes to Charles (`email_to_charles_batch_20261029.txt`, `charles_questions_20261029.xlsx`). 3 targets point to places. | Charles: Arteaga, Dutton, Cronología, the rest |
 | A7 | Long tail, no match | PhiloBiblon + P73 note proposal drafted (`email_long_tail_draft.txt`), not sent. Do after A6. | Max: send to Olaf/Charles |
-| A3 | Catalogue + evidence combos ("BNE Cat.: sello", "IBIS: ex-libris") | Model decided: P129 catalogue + P702 evidence item. Needs a word → evidence-item mapping and a small tool change. Includes references set aside from A8b (`a8b_excluded.tsv`). | Claude: build mapping |
+| A3 | Catalogue + evidence combos | Kind 3 done as A8c. Kinds 1+2 running on the box 10-29 (`plan_a3_20261029.tsv`, 262 bases, 438 usages: P129 catalogue + P702 evidence, description → P1243). Left: 137 usages under 90 catalogue prefixes with no trusted QID (BNB Cat., BU Valladolid, Kašpar, BnF, SUDOC…); 42 usages of physical notes (A8c-style); 29 references (kind 4). | Claude: catalogue QID search (ask Max first) |
 | A2 | Vetted, with a locator — held remainder | 28 locator mismatches (`exclude_locator_mismatch.tsv`), 6 "DHEE I:nnn" volume-style bases. | Charles |
 | A4 | Shelfmark locators and typos | Which property to use. | Max/Olaf |
 | A5 | Vetted, but QID blank or malformed | | Charles |
@@ -46,7 +46,8 @@ _Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-27.tsv` (taken
 | A8 | fichero; ?/[?] → P155 | 550; 157 (10-27/28). |
 | A8 | Foliation → P1243 (`a8_foliation.tsv`) | 3,321 swapped 2026-10-28, language per item: 3,319 ca, 2 es. |
 | A8b | Physical descriptions → P1243 (`a8b_physical.tsv`) | 1,108 swapped 2026-10-29: 1,025 ca, 77 es, 6 pt. |
-| A8c | Physical notes misfiled under A3 → P1243 (`a8c_physical.tsv`, 380 strings, 401 usages) | Running on the box since 2026-10-29 9:08 am ET. |
+| A8c | Physical notes misfiled under A3 → P1243 (`a8c_physical.tsv`) | 397 swapped 2026-10-29: 377 ca, 19 es. |
+| A6 (part) | Pipeline-approved: BNE Cat., Faulhaber, Martz, Wikidata, ex-libris ms., Dutton, Cronología, small catalogues | 379 converted 2026-10-29 (pipeline_exec, exlibris_ms, pipeline_exec2). |
 
 ## B. Fixes to references already written
 
@@ -54,7 +55,7 @@ _Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-27.tsv` (taken
 |---|---|---|---|
 | B5 | princeps (~560 statements) | List for Charles built (`princeps_statements.xlsx`). 3 wrong Illuminati targets fixed 10-28; vetting sheet still has Q99745 on those 3 rows. | Max: send list; Charles: modelling |
 | B2 | Re-pointed to new items, often persons (192 statements) | Draft question exists. | Charles: works vs people |
-| B8 | Items blocked by broken sitelinks (10) | Someone with rights must clean them. | Max: email Olaf |
+| B8 | Items blocked by broken sitelinks (11) | Every write fails while the item has a stale wikidatawiki sitelink. Added 10-29: Q1079353 (sitelink Q108451548, now a redirect to Q16573599 on Wikidata). | Max: email Olaf |
 | B3 | QIDs cleared by Charles | Replace or remove? | Charles |
 | B4 | Wrong-kind targets not yet flagged | | Charles |
 | B6 | Compounds converted with only the first source | | Charles |
