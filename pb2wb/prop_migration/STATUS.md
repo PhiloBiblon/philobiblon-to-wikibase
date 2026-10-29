@@ -9,12 +9,12 @@ requests). Last edited: 2026-10-29.
 <!-- usage-table -->
 | Group | | Usages left | % of original | Cumulative done |
 |---|---|---:|---:|---:|
-| *Done* | | 109,078 | 82.5% | 82.5% |
+| *Done* | | 109,160 | 82.5% | 82.5% |
 | A8 | Foliation → P1243 | 0 | 0.0% | 82.5% |
 | A8b | Physical descriptions → P1243 | 2 | 0.0% | 82.5% |
 | A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 82.5% |
-| A6 | Pipeline-approved, awaiting Charles | 745 | 0.6% | 83.0% |
-| A3 | Catalogue + evidence combos | 220 | 0.2% | 83.2% |
+| A6 | Pipeline-approved, awaiting Charles | 745 | 0.6% | 83.1% |
+| A3 | Catalogue + evidence combos | 138 | 0.1% | 83.2% |
 | A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 83.2% |
 | held | Held bases (B2 works-vs-people, …) | 1,003 | 0.8% | 84.0% |
 | A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 84.3% |
@@ -30,7 +30,7 @@ _Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken
 |---|---|---|---|
 | A6 | Pipeline-approved (Arteaga ~730, Dutton 77, Cronología 47, small ones) | Max decided 10-29: BNE Cat. & Faulhaber (as person) → P129 + P702 evidence; Martz, Wikidata → convert. Running on the box (`plan_pipeline_exec_20261029.tsv`, 31 bases, ~245 usages). Rest goes to Charles (`email_to_charles_batch_20261029.txt`, `charles_questions_20261029.xlsx`). 3 targets point to places. | Charles: Arteaga, Dutton, Cronología, the rest |
 | A7 | Long tail, no match | PhiloBiblon + P73 note proposal drafted (`email_long_tail_draft.txt`), not sent. Do after A6. | Max: send to Olaf/Charles |
-| A3 | Catalogue + evidence combos | Kind 3 done as A8c; kinds 1+2 done 10-29 (see Done). Left: 137 usages under 90 catalogue prefixes with no trusted QID (BNB Cat., BU Valladolid, Kašpar, BnF, SUDOC…); 42 usages of physical notes (A8c-style); 29 references (kind 4). | Claude: catalogue QID search (ask Max first) |
+| A3 | Catalogue + evidence combos | Kind 3 done as A8c; kinds 1+2 and A3b done 10-29 (see Done). Left: catalogue picks needing a call (28 usages, `a3_catalogue_picks.tsv` status=check) and no-hit prefixes (22, status=hold; Charles item 6); ~20 author-year references; 42 usages of physical notes (A8c-style); 29 references (kind 4). | Max: the 'check' picks; Charles: item 6 |
 | A2 | Vetted, with a locator — held remainder | 28 locator mismatches (`exclude_locator_mismatch.tsv`), 6 "DHEE I:nnn" volume-style bases. | Charles |
 | A4 | Shelfmark locators and typos | Which property to use. | Max/Olaf |
 | A5 | Vetted, but QID blank or malformed | | Charles |
@@ -48,6 +48,7 @@ _Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken
 | A8b | Physical descriptions → P1243 (`a8b_physical.tsv`) | 1,108 swapped 2026-10-29: 1,025 ca, 77 es, 6 pt. |
 | A8c | Physical notes misfiled under A3 → P1243 (`a8c_physical.tsv`) | 397 swapped 2026-10-29: 377 ca, 19 es. |
 | A3 (kinds 1+2) | Catalogue + evidence (`plan_a3_20261029.tsv`) | 436 converted 2026-10-29: P129 catalogue + P702 evidence, description → P1243. 0 errors, 357 spot-checks OK. |
+| A3b | Catalogue QID search picks (`plan_a3b_20261029.tsv`) | 82 converted 2026-10-29 (68 bases), 0 errors, 77 spot-checks OK. |
 | A6 (part) | Pipeline-approved: BNE Cat., Faulhaber, Martz, Wikidata, ex-libris ms., Dutton, Cronología, small catalogues | 379 converted 2026-10-29 (pipeline_exec, exlibris_ms, pipeline_exec2). |
 
 ## B. Fixes to references already written
