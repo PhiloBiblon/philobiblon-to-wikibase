@@ -1,6 +1,6 @@
 # Source-Citation Mapping (P721→P129) — Notes for Charles
 
-I have updated ["Reference sources"](https://docs.google.com/spreadsheets/d/1Nm5js5zSK5dlLz9aMeFK03s1WnfH8T-zq3sOWEn_HEw/edit?gid=467222215#gid=467222215) sheet I sent you in June
+I have updated ["Reference sources"](https://docs.google.com/spreadsheets/d/1jTWcac6SMr-pnBMqDMgyoix4FJOz9gmwghoSFEvwTG0/edit?gid=1830898912#gid=1830898912) sheet I sent you in June
 2025. I've incorporated your earlier work and rebuilt the sheet with a richer
 structure. The core columns you already know (`freq`, `basis`, `key`, `loc`)
 are still there with the same meaning, and there are several new columns
