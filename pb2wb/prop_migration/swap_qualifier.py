@@ -18,9 +18,15 @@ Usage (from pb2wb/):
         --qualifier P155 --item-value Q160240 --dry-run
     python prop_migration/swap_qualifier.py --basis 'fol. mod.' \\
         --qualifier P1243 --text-from-basis --lang es --limit-items 5
+    python prop_migration/swap_qualifier.py --bases-file prop_migration/a8_foliation.tsv \\
+        --qualifier P1243 --text-from-basis --dry-run
+A bases file is a TSV with a 'basis' column and optional 'lang' (per-basis language
+for monolingual text; --lang is the fallback) and 'text' (value to write instead of
+the basis, with --text-from-basis) columns.
 """
 
 import argparse
+import csv
 import json
 import logging
 import os
@@ -93,6 +99,28 @@ def verify_claim(claim, basis_variant, spec, canonical_basis, p721_snak_finder):
     return any(_snak_value(s) == want for s in claim.qualifiers.get(spec['prop']) or [])
 
 
+# PhiloBiblon database → language of its cataloguing (from the item's "BETA manid 123"-style alias)
+DB_LANG = {'BETA': 'es', 'BITECA': 'ca', 'BITAGAP': 'pt'}
+
+
+def item_lang(aliases, default):
+    """Language for an item from its PhiloBiblon alias (wbgetentities 'aliases' JSON), else default."""
+    dbs = {a.get('value', '').split(' ')[0].upper()
+           for vals in (aliases or {}).values() for a in vals}
+    found = [DB_LANG[d] for d in DB_LANG if d in dbs]
+    return found[0] if len(found) == 1 else default
+
+
+def load_bases(path, default_lang):
+    """
+    [(basis, lang, text)] from a TSV with a 'basis' column and optional 'lang' and
+    'text' columns. text, when given, replaces the basis as the new qualifier's value.
+    """
+    with open(path, encoding='utf-8', newline='') as f:
+        return [(r['basis'], (r.get('lang') or '').strip() or default_lang, (r.get('text') or '').strip())
+                for r in csv.DictReader(f, delimiter='\t') if (r.get('basis') or '').strip()]
+
+
 def should_verify(n, every, first=3):
     return n <= first or (every > 0 and n % every == 0)
 
@@ -114,7 +142,7 @@ def log_swap(path, guid, item, prop, basis, spec, dry_run):
 # FactGrid run
 # ---------------------------------------------------------------------------
 
-def run(args, spec):
+def run(args, base_spec, bases):
     import prop_migration.apply_basis_migration as abm   # sets TEMP_WB=FACTGRID, logging
 
     if not args.dry_run:
@@ -128,7 +156,10 @@ def run(args, spec):
     n_written = 0
     n_items = 0
     consecutive_failures = 0
-    for basis in args.basis:
+    for basis, lang, text in bases:
+        spec = dict(base_spec, lang=lang)
+        if text and spec['text_from_basis']:
+            spec.update(text_from_basis=False, text=text)
         for variant in abm.find_raw_variants(basis):
             items = abm.find_items(variant)
             log.info('Basis %r%s: %d item(s)', basis,
@@ -149,6 +180,9 @@ def run(args, spec):
                         return 1
                     continue
 
+                if args.lang_from_db:
+                    spec = dict(spec, lang=item_lang(item.get_json().get('aliases'), lang))
+                    totals[f"lang_{spec['lang']}"] += 1
                 swapped = []
                 for claim in item.claims:
                     if swap_on_claim(claim, variant, spec, basis, abm._find_p721_snak) == 'swapped':
@@ -202,6 +236,8 @@ def run(args, spec):
     for k in ('would_swap', 'swapped', 'error', 'verified_ok', 'verified_FAILED'):
         if totals[k]:
             log.info('  %-16s %d', k, totals[k])
+    for k in sorted(k for k in totals if k.startswith('lang_')):
+        log.info('  %-16s %d item(s)', k, totals[k])
     return 0
 
 
@@ -209,8 +245,11 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[1],
                                  formatter_class=argparse.RawDescriptionHelpFormatter,
                                  epilog=__doc__)
-    ap.add_argument('--basis', action='append', required=True,
-                    help='P721 string to swap (repeatable); HTML variants are found automatically')
+    src = ap.add_mutually_exclusive_group(required=True)
+    src.add_argument('--basis', action='append',
+                     help='P721 string to swap (repeatable); HTML variants are found automatically')
+    src.add_argument('--bases-file', metavar='TSV',
+                     help="TSV with a 'basis' column and an optional per-basis 'lang' column")
     ap.add_argument('--qualifier', required=True, metavar='PID', help='new qualifier property')
     val = ap.add_mutually_exclusive_group(required=True)
     val.add_argument('--item-value', metavar='QID', help='item value for the new qualifier')
@@ -218,6 +257,9 @@ def main():
     val.add_argument('--text-from-basis', action='store_true',
                      help='use the P721 string itself as the monolingual-text value')
     ap.add_argument('--lang', default='es', help='language for monolingual text (default es)')
+    ap.add_argument('--lang-from-db', action='store_true',
+                    help="per item, take the language from its PhiloBiblon alias "
+                         "(BETA=es, BITECA=ca, BITAGAP=pt); the basis/--lang language is the fallback")
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--limit-items', type=int, default=None, metavar='N')
     ap.add_argument('--delay', type=float, default=1.0, metavar='SECS',
@@ -228,9 +270,11 @@ def main():
     args = ap.parse_args()
     spec = {'prop': args.qualifier, 'item': args.item_value, 'text': args.text_value,
             'text_from_basis': args.text_from_basis, 'lang': args.lang}
+    bases = (load_bases(args.bases_file, args.lang) if args.bases_file
+             else [(b, args.lang, '') for b in args.basis])
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s',
                         datefmt='%H:%M:%S')
-    sys.exit(run(args, spec))
+    sys.exit(run(args, spec, bases))
 
 
 if __name__ == '__main__':

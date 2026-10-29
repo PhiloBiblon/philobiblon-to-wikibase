@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from wikibaseintegrator.models import Claim
 
-from prop_migration.swap_qualifier import (_snak_value, should_verify, swap_on_claim,
+from prop_migration.swap_qualifier import (_snak_value, item_lang, load_bases, should_verify, swap_on_claim,
                                            verify_claim)
 
 
@@ -87,3 +87,22 @@ def test_html_variant_uses_canonical_text():
 
 def test_should_verify():
     assert [n for n in range(1, 21) if should_verify(n, 10)] == [1, 2, 3, 10, 20]
+
+
+def test_load_bases_per_basis_lang(tmp_path):
+    p = tmp_path / 'bases.tsv'
+    p.write_text('basis\tfreq\tlang\ttext\nfol. mod.\t1070\tca\t\nfol. ant.\t766\t\t\n'
+                 'mod.\t170\tca\tfol. mod.\n\t3\tca\t\n', encoding='utf-8')
+    assert load_bases(str(p), 'es') == [('fol. mod.', 'ca', ''), ('fol. ant.', 'es', ''),
+                                         ('mod.', 'ca', 'fol. mod.')]
+
+
+def test_item_lang_from_philobiblon_alias():
+    beta = {'es': [{'language': 'es', 'value': 'BETA manid 1234'}], 'en': [{'value': 'Otro nombre'}]}
+    biteca = {'ca': [{'value': 'BITECA manid 45'}]}
+    both = {'es': [{'value': 'BETA manid 1'}, {'value': 'BITECA manid 2'}]}
+    assert item_lang(beta, 'ca') == 'es'
+    assert item_lang(biteca, 'es') == 'ca'
+    assert item_lang({'pt': [{'value': 'BITAGAP manid 9'}]}, 'ca') == 'pt'
+    assert item_lang(both, 'ca') == 'ca'      # ambiguous → fallback
+    assert item_lang({}, 'ca') == 'ca'
