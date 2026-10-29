@@ -1,0 +1,263 @@
+freq	basis	qid	vetted	loc_type	loc	evidence	description
+18	IBIS: ex-libris	Q1071217	Y			Q418813	
+14	Cisne: ex-libris ms.	Q1072166	Y			Q418813	
+11	Cisne: sello	Q1072166	Y			Q512065	
+9	Cisne: ex-libris	Q1072166	Y			Q418813	
+9	CCPBE: ex-libris	Q1070769	Y			Q418813	
+8	CCPBE: sello	Q1070769	Y			Q512065	
+7	Faulhaber: ex-libris ms.	Q164508	Y			Q418813	
+6	Gómez Moreno: sello	Q418533	Y			Q512065	
+6	CCPBE: ex-libris y sello	Q1070769	Y			Q418813,Q512065	
+6	IBIS: sello	Q1071217	Y			Q512065	
+6	CCPBE: ex-libris ms.	Q1070769	Y			Q418813	
+6	Penney 1954: ex-libris	Q1069658	Y			Q418813	
+6	Faulhaber: guarda	Q164508	Y			Q358912	
+5	IGM: ex-libris ms.	Q395978	Y			Q418813	
+4	IBIS: ex-libris ms.	Q1071217	Y			Q418813	
+4	CCPBE: Sello de la Librería de Gabriel Sánchez de Madrid	Q1070769	Y			Q512065	Sello de la Librería de Gabriel Sánchez de Madrid
+4	BNE: ex-libris	Q396047	Y			Q418813	
+4	B Catalunya: ex-libris	Q1071883	Y			Q418813	
+3	RAH Cat.: ex-libris	Q1073066	Y			Q418813	
+3	IBIS: ex-libris de la época	Q1071217	Y			Q418813	ex-libris de la época
+3	BNE Cat.: sello “Pascual de Gayangos”	Q396047	Y			Q512065	sello “Pascual de Gayangos”
+3	Gómez Moreno: ex-libris	Q418533	Y			Q418813	
+3	BNE Cat.: Sello de Luís de Usoz 1873	Q396047	Y			Q512065	Sello de Luís de Usoz 1873
+3	CCPBE: Ex-libris	Q1070769	Y			Q418813	
+3	BNE Cat.: sello “BR”	Q396047	Y			Q512065	sello “BR”
+3	CCPBE: ex-libris ms	Q1070769	Y			Q418813	
+3	BNE: sello	Q396047	Y			Q512065	
+3	CCPBE: Ex-libris ms.: “En la Libreria de S. Pablo de Cordoba”	Q1070769	Y			Q418813	Ex-libris ms.: “En la Libreria de S. Pablo de Cordoba”
+3	BNE: ex-libris MS	Q396047	Y			Q418813	
+3	Faulhaber: sello en la portada	Q164508	Y			Q512065	sello en la portada
+3	BNE Cat.: ex-libris ms.	Q396047	Y			Q418813	
+2	UCM Cisne: sello	Q1072166	Y			Q512065	
+2	CCPBE: Ex-libris ms. del Colegio de Santa Catalina, Universidad de Osma	Q1070769	Y			Q418813	Ex-libris ms. del Colegio de Santa Catalina, Universidad de Osma
+2	CCPBE: Ex-libris de Marqués de San Juan de Piedras Albas	Q1070769	Y			Q418813	Ex-libris de Marqués de San Juan de Piedras Albas
+2	CCPBE: Ex-libris ms. “Del Colegio de la Compañia de Jesus en Valladolid de la libreria”	Q1070769	Y			Q418813	Ex-libris ms. “Del Colegio de la Compañia de Jesus en Valladolid de la libreria”
+2	CCPBE: Ex-libris ms. en front.	Q1070769	Y			Q418813	Ex-libris ms. en front.
+2	CCPBE: ex-libris MS	Q1070769	Y			Q418813	
+2	BNE Cat: ex-libris MS	Q396047	Y			Q418813	
+2	Huntington: ex-libris	Q1072154	Y			Q418813	
+2	IBIS: ex-libris real de la época	Q1071217	Y			Q418813	ex-libris real de la época
+2	Cisne: ex-libris, sello	Q1072166	Y			Q418813,Q512065	
+2	Lilly Cat.: ex-libris	Q1073178	Y			Q418813	
+2	Cisne: ex-libris y sello	Q1072166	Y			Q418813,Q512065	
+2	Cisne: ex-libris MS	Q1072166	Y			Q418813	
+2	IBIS: ex-libris MS en verso de portada	Q1071217	Y			Q418813	ex-libris MS en verso de portada
+2	Bibl. de Catalunya: ex-libris	Q1071883	Y			Q418813	
+2	BNE Cat.: “Sello: ‘Librería de D. Luis de Usoz 1873’ ”	Q396047	Y			Q512065	“Sello: ‘Librería de D. Luis de Usoz 1873’ ”
+2	BNE Cat.: “Sello de la Librería de Usoz”	Q396047	Y			Q512065	“Sello de la Librería de Usoz”
+2	RAH Cat.: “Ex-libris y sello de la Biblioteca E.F. San Román”	Q1073066	Y			Q418813,Q512065	“Ex-libris y sello de la Biblioteca E.F. San Román”
+2	RAH Cat.: ex-libris y sello	Q1073066	Y			Q418813,Q512065	
+2	UCM Cisne: ex-libris ms	Q1072166	Y			Q418813	
+2	BNE Cat,: Exlibris heráldico, en verso de cubierta	Q396047	Y			Q418813	Exlibris heráldico, en verso de cubierta
+2	BNE Cat: sello	Q396047	Y			Q512065	
+2	RAH Cat.: sello y ex-libris	Q1073066	Y			Q418813,Q512065	
+2	Faulhaber: ex-libris ms. f. 1r	Q164508	Y			Q418813	ex-libris ms. f. 1r
+2	Faulhaber: signatura	Q164508	Y				signatura
+2	IBIS: sello: “S.D.S.Y.D.A.’’ (Soy Del Señor Ynfante Don Antonio)	Q1071217	Y			Q512065	sello: “S.D.S.Y.D.A.’’ (Soy Del Señor Ynfante Don Antonio)
+2	BNE Cat.: ex-libris marqués de Eliche	Q396047	Y			Q418813	ex-libris marqués de Eliche
+2	BNE Cat.: ex-libris contratapa anterior: Del S.or Conde de|Miranda	Q396047	Y			Q418813	ex-libris contratapa anterior: Del S.or Conde de|Miranda
+2	IGM: ex-libris	Q395978	Y			Q418813	
+2	RB IBIS: ex-libris	Q1071217	Y			Q418813	
+2	BNE Cat.: ex-libris impreso	Q396047	Y			Q418813	
+2	IBIS: ex-libris real de la época de Carlos IV-Fernando VII	Q1071217	Y			Q418813	ex-libris real de la época de Carlos IV-Fernando VII
+2	BNE Cat.: “Nota ms. de Gayangos en h. de respeto.. Sello: ‘Pascual de Gayangos’.”	Q396047	Y			Q512065	“Nota ms. de Gayangos en h. de respeto.. Sello: ‘Pascual de Gayangos’.”
+2	BNE Cat.: ex-libris armorial	Q396047	Y			Q418813	ex-libris armorial
+2	Faulhaber: ex-libris impreso	Q164508	Y			Q418813	
+1	Faulhaber: ex-libris ms. f. 168v	Q164508	Y			Q418813	ex-libris ms. f. 168v
+1	Cisne: ex-libris ms “es del collo de Ua Ga”	Q1072166	Y			Q418813	ex-libris ms “es del collo de Ua Ga”
+1	Cisne: ex-libris Biblioteca Complutense Ildefonsina	Q1072166	Y			Q418813	ex-libris Biblioteca Complutense Ildefonsina
+1	Huntington: sello en portada “Casa de Azevedo”	Q1072154	Y			Q512065	sello en portada “Casa de Azevedo”
+1	Cisne: ex-libris impreso con nn. mss	Q1072166	Y			Q418813	ex-libris impreso con nn. mss
+1	Huntington: guarda “ Bellamano[?] de Pluma[?] …”	Q1072154	Y			Q358912	guarda “ Bellamano[?] de Pluma[?] …”
+1	Faulhaber: sello f. a ij	Q164508	Y			Q512065	sello f. a ij
+1	OskiCat: ex-libris “Semper idem todo por Aragon y para Aragon”	Q1874921	Y			Q418813	ex-libris “Semper idem todo por Aragon y para Aragon”
+1	BU Salamanca: ex-libris ms. en portada	Q946079	Y			Q418813	ex-libris ms. en portada
+1	BNE: ex-libris ms.	Q396047	Y			Q418813	
+1	Cisne: Sello	Q1072166	Y			Q512065	
+1	Cisne: sellos	Q1072166	Y			Q512065	
+1	Faulhaber: sello h. O3v (colofón)	Q164508	Y			Q512065,Q393553	sello h. O3v (colofón)
+1	Faulhaber: sello; donativo de 1934	Q164508	Y			Q512065	sello; donativo de 1934
+1	BNE Cat.: rúbr. y ex-libris ms.	Q396047	Y			Q418813	rúbr. y ex-libris ms.
+1	CCPBE: Sello en h. de guarda anterior de la Librería de Gabriel Sánchez de Madrid '800'	Q1070769	Y			Q512065	Sello en h. de guarda anterior de la Librería de Gabriel Sánchez de Madrid '800'
+1	CCPBE: -- Ex-libris ms. en port. “Del Collegio de la Compañia de Jess en Valladolid, de la libreria”	Q1070769	Y			Q418813	-- Ex-libris ms. en port. “Del Collegio de la Compañia de Jess en Valladolid, de la libreria”
+1	CCPBE: Sello de la Biblioteca del Infante Don Carlos	Q1070769	Y			Q512065	Sello de la Biblioteca del Infante Don Carlos
+1	CCPBE: -- Sello de la Librería de Gabriel Sánchez de Madrid	Q1070769	Y			Q512065	-- Sello de la Librería de Gabriel Sánchez de Madrid
+1	CCPBE: -- Ex-libris ms.: “Libreria de N.P.S. Fran[cis]co de Avila”	Q1070769	Y			Q418813	-- Ex-libris ms.: “Libreria de N.P.S. Fran[cis]co de Avila”
+1	CCPBE: -- Sello de la Biblioteca del Infante Don Carlos	Q1070769	Y			Q512065	-- Sello de la Biblioteca del Infante Don Carlos
+1	CCPBE: -- Ex-libris ms. en front. de Fr. Marcos de Villalba	Q1070769	Y			Q418813	-- Ex-libris ms. en front. de Fr. Marcos de Villalba
+1	CCPBE: Ex-libris ms. del colegio de Santa Catalina, Universidad de Osma	Q1070769	Y			Q418813	Ex-libris ms. del colegio de Santa Catalina, Universidad de Osma
+1	CCPBE: Ex-libris ms. de Fr. Marcos de Villalba	Q1070769	Y			Q418813	Ex-libris ms. de Fr. Marcos de Villalba
+1	CCPBE: Ex-libris ms. del Monasterio de Fitero	Q1070769	Y			Q418813	Ex-libris ms. del Monasterio de Fitero
+1	CCPBE: Ex-libris ms.: “Libreria de N.S.A. Fran[cis]co de Avila”	Q1070769	Y			Q418813	Ex-libris ms.: “Libreria de N.S.A. Fran[cis]co de Avila”
+1	BNE Cat.: sello “Biblioteca del Ministerio de Fomento’	Q396047	Y			Q512065	sello “Biblioteca del Ministerio de Fomento’
+1	BNE Cat.: ex-libris del Baron de Castiel	Q396047	Y			Q418813	ex-libris del Baron de Castiel
+1	Faulhaber: ex-libris MS dd8v marg. inf.	Q164508	Y			Q418813	ex-libris MS dd8v marg. inf.
+1	BNE Cat.: ex-libris MS borrado en la portada	Q396047	Y			Q418813	ex-libris MS borrado en la portada
+1	BNE Cat.: sello “Juan Sedó	Q396047	Y			Q512065	sello “Juan Sedó
+1	CCPBE: sello de Pascual de Gayangos	Q1070769	Y			Q512065	sello de Pascual de Gayangos
+1	BNE Cat.: An. ms. en v. de la h. de guarda: “Argote Cabriñana”	Q396047	Y				An. ms. en v. de la h. de guarda: “Argote Cabriñana”
+1	BNE Cat.: Sello: “Librería del Exmo. S. D. Ag. Durán, adquirida por el Gobierno en 1863, B.N.”	Q396047	Y			Q512065	Sello: “Librería del Exmo. S. D. Ag. Durán, adquirida por el Gobierno en 1863, B.N.”
+1	CCPBE: ex-libris ms. en la portada	Q1070769	Y			Q418813	ex-libris ms. en la portada
+1	Cat. BCatalunya: sello	Q1071883	Y			Q512065	
+1	Cat BCatalunya: sello	Q1071883	Y			Q512065	
+1	BNE Cat.: Sello “BR”	Q396047	Y			Q512065	Sello “BR”
+1	CCPBE: sello y etiqueta	Q1070769	Y			Q512065	sello y etiqueta
+1	Huntington: ex-libris 'SEMPER IDEM …”; etiqueta en guard fija final “Biblioteca de Juan M. Sanchez”	Q1072154	Y			Q418813	ex-libris 'SEMPER IDEM …”; etiqueta en guard fija final “Biblioteca de Juan M. Sanchez”
+1	Huntington: ex-libris armorial	Q1072154	Y			Q418813	ex-libris armorial
+1	CCPBE: Ex-libris ms. en a2	Q1070769	Y			Q418813	Ex-libris ms. en a2
+1	Faulhaber: ex-libris ms. “liber floriani Camponsis” en portada	Q164508	Y			Q418813	ex-libris ms. “liber floriani Camponsis” en portada
+1	Cisne: ex-libris armorial	Q1072166	Y			Q418813	ex-libris armorial
+1	Huntington: sello 2r: “Coll. Soc. Iesu Salm. ex dono Regum.”	Q1072154	Y			Q512065	sello 2r: “Coll. Soc. Iesu Salm. ex dono Regum.”
+1	BNE Cat.: Sellos de la Biblioteca Real	Q396047	Y			Q512065	Sellos de la Biblioteca Real
+1	Huntington Cat.: ex-libris	Q1072154	Y			Q418813	
+1	Faulhaber: ex-libris MS f. D4v	Q164508	Y			Q418813	ex-libris MS f. D4v
+1	Faulhaber: ex-libris MS f. D4r	Q164508	Y			Q418813	ex-libris MS f. D4r
+1	Huntington: ex-libris ms en la portada	Q1072154	Y			Q418813	ex-libris ms en la portada
+1	Lilly Cat.: con sus anotaciones mss en la guarda final	Q1073178	Y				con sus anotaciones mss en la guarda final
+1	Faulhaber: ex-libris MS f. 326v	Q164508	Y			Q418813	ex-libris MS f. 326v
+1	Bibl. de Catalunya: sello “Ex bibliotheca Capuccinorum Patientiae Xpi Matrit.”	Q1071883	Y			Q512065	sello “Ex bibliotheca Capuccinorum Patientiae Xpi Matrit.”
+1	Huntington: ex-libris con monograma “H R” (¿es el ex-libris de Heredia?)	Q1072154	Y			Q418813	ex-libris con monograma “H R” (¿es el ex-libris de Heredia?)
+1	Huntington: etiqueta en guarda libre inicial	Q1072154	Y				etiqueta en guarda libre inicial
+1	Faulhaber: ex-libris armorial; sello “LEGADO M. SALTILLO” en la portada	Q164508	Y			Q418813,Q512065	ex-libris armorial; sello “LEGADO M. SALTILLO” en la portada
+1	Faulhaber: ex-libris armorial y sello	Q164508	Y			Q418813,Q512065	ex-libris armorial y sello
+1	Cisne: ex-libris ms	Q1072166	Y			Q418813	
+1	IBIS: ex-libris de su época	Q1071217	Y			Q418813	ex-libris de su época
+1	BCatalunya: ex-libris	Q1071883	Y			Q418813	
+1	IBIS: ex-libris MS en portada	Q1071217	Y			Q418813	ex-libris MS en portada
+1	IBIS: ex-libris real	Q1071217	Y			Q418813	ex-libris real
+1	IBIS: sello “S.D.S.Y.D.A.”	Q1071217	Y			Q512065	sello “S.D.S.Y.D.A.”
+1	HOLLIS: ex-libris MS	Q1070866	Y			Q418813	
+1	Huntington: ex-libris “JS' (guarda fija)	Q1072154	Y			Q418813	ex-libris “JS' (guarda fija)
+1	Huntington Cat.: ex-libris en guarda fija	Q1072154	Y			Q418813	ex-libris en guarda fija
+1	NLS: sello en varias hh, “Dr de[?] Ygnacio Alonso Abogado S[an]to Domingo de la Calzada”	Q219417	Y			Q512065	sello en varias hh, “Dr de[?] Ygnacio Alonso Abogado S[an]to Domingo de la Calzada”
+1	Cisne: ex-libris ms. y sello	Q1072166	Y			Q418813,Q512065	
+1	Huntington: ex-libris “E.D. Church”	Q1072154	Y			Q418813	ex-libris “E.D. Church”
+1	BC Cat.: sello en la portada	Q1071883	Y			Q512065	sello en la portada
+1	BNE Cat.: Sello en tinta azul en portada: “Librería de D. Luis de Usoz. 1873”	Q396047	Y			Q512065	Sello en tinta azul en portada: “Librería de D. Luis de Usoz. 1873”
+1	Cisne: ex-libris ms. en portada	Q1072166	Y			Q418813	ex-libris ms. en portada
+1	Faulhaber: ex-libris ms.. Cisne lee la fecha como 1693”	Q164508	Y			Q418813	ex-libris ms.. Cisne lee la fecha como 1693”
+1	Faulhaber: ex-libris “EST.XXIX TABLA 3 N.o 2” en etiqueta impresa “BIBLIOT. UNIV. JARDIN BOTÁNICO”	Q164508	Y			Q418813	ex-libris “EST.XXIX TABLA 3 N.o 2” en etiqueta impresa “BIBLIOT. UNIV. JARDIN BOTÁNICO”
+1	Cisne: Ex libris, sello	Q1072166	Y			Q418813,Q512065	
+1	BNE Cat.: “. Sello: “BR” (Biblioteca Real)”	Q396047	Y			Q512065	“. Sello: “BR” (Biblioteca Real)”
+1	BNE Cat.: ex-libris ms en la portada	Q396047	Y			Q418813	ex-libris ms en la portada
+1	BNE Cat.: Sello: “Librería del Exmo. S. D. Ag. Durán, adquirida por el Gobierno en 1863, B. N.”	Q396047	Y			Q512065	Sello: “Librería del Exmo. S. D. Ag. Durán, adquirida por el Gobierno en 1863, B. N.”
+1	BNE Cat.: Sello en contra cubierta anterior: “Libreria del Licenciado D. Cayetano Alberto de la Barrera”	Q396047	Y			Q512065	Sello en contra cubierta anterior: “Libreria del Licenciado D. Cayetano Alberto de la Barrera”
+1	BNE Cat.: . Sello: “Pascual de Gayangos”	Q396047	Y			Q512065	. Sello: “Pascual de Gayangos”
+1	CCPBE: Ex-libris ms. en portada: “Da livraria de Sta. Cruz de Coimbra;;	Q1070769	Y			Q418813	Ex-libris ms. en portada: “Da livraria de Sta. Cruz de Coimbra;;
+1	IBIS: ex-libris ms	Q1071217	Y			Q418813	
+1	B Catalunya: ex-libris y supra-libros	Q1071883	Y			Q418813	ex-libris y supra-libros
+1	UB Erfurt: ex-libris, firma	Q175118	Y			Q418813	ex-libris, firma
+1	Faulhaber: ex-libris MS en la portada	Q164508	Y			Q418813	ex-libris MS en la portada
+1	Faulhaber: ex-libris MS en la portada: “del conuento de ucles”	Q164508	Y			Q418813	ex-libris MS en la portada: “del conuento de ucles”
+1	CCPBE: Sello de la Biblioteca del Legado de Cárdenas	Q1070769	Y			Q512065	Sello de la Biblioteca del Legado de Cárdenas
+1	BU Salamanca: sello “Coll. Soc. Iesu Salm. ex dono Regum	Q946079	Y			Q512065	sello “Coll. Soc. Iesu Salm. ex dono Regum
+1	Cisne: ex-libris MS guarda	Q1072166	Y			Q418813	
+1	Cat. B Catalunya: sello	Q1071883	Y			Q512065	
+1	Trobes: ex-libris MS	Q1072161	Y			Q418813	
+1	BNE Cat.: ex-libris y anotación ms. en h. de guarda	Q396047	Y			Q418813	ex-libris y anotación ms. en h. de guarda
+1	B Catalunya: sello	Q1071883	Y			Q512065	
+1	BNE Cat.: ex-libris 'Animus non res”	Q396047	Y			Q418813	ex-libris 'Animus non res”
+1	CCPBE: Ex-libris ms.	Q1070769	Y			Q418813	
+1	BNE: sello “BR”	Q396047	Y			Q512065	sello “BR”
+1	Penney 1954: firmado en la última guarda	Q1069658	Y				firmado en la última guarda
+1	UCM Cisne: ex-libris MS (guarda)	Q1072166	Y			Q418813	ex-libris MS (guarda)
+1	IBIS: ex-libris MS	Q1071217	Y			Q418813	
+1	BNE Cat.: Ex-libris ms.	Q396047	Y			Q418813	
+1	BNE Cat.: Sello: “BR”	Q396047	Y			Q512065	Sello: “BR”
+1	Trobes: ex-libris impreso	Q1072161	Y			Q418813	
+1	BNE Cat.: Exlibris: “Ex Biblca. D. Ferdin. Josephi á Velasco, In Aula Criminalis Supmi. Castellae enatus, Fiscalis”	Q396047	Y			Q418813	Exlibris: “Ex Biblca. D. Ferdin. Josephi á Velasco, In Aula Criminalis Supmi. Castellae enatus, Fiscalis”
+1	BNE Cat.: ex-libris p. V: “es de la Libreria del Coleg. maior de Cuenca”	Q396047	Y			Q418813	ex-libris p. V: “es de la Libreria del Coleg. maior de Cuenca”
+1	BNE Cat.: Sello en tinta azul: “Libreria del exmo. S. D. AG. Duran. BN.”	Q396047	Y			Q512065	Sello en tinta azul: “Libreria del exmo. S. D. AG. Duran. BN.”
+1	CCPBE: sello de la Bibl. del Legado Cárdenas	Q1070769	Y			Q512065	sello de la Bibl. del Legado Cárdenas
+1	CCPBE: ex-libris impreso; ms.: “M.Pidal Arq.to 1945”	Q1070769	Y			Q418813	ex-libris impreso; ms.: “M.Pidal Arq.to 1945”
+1	Faulhaber: inscr. guarda final	Q164508	Y				inscr. guarda final
+1	CCPBE: ex-libris MS:	Q1070769	Y			Q418813	ex-libris MS:
+1	IBIS: sello: “S.D.S.Y.D.A.”	Q1071217	Y			Q512065	sello: “S.D.S.Y.D.A.”
+1	Huntington: sello h. a1v	Q1072154	Y			Q512065	sello h. a1v
+1	CCPBE: ex-libris MS y sello	Q1070769	Y			Q418813,Q512065	
+1	UCM Cisne: ex-libris MS	Q1072166	Y			Q418813	
+1	Faulhaber: ex-libris ms. en la portada	Q164508	Y			Q418813	ex-libris ms. en la portada
+1	BNE Cat,: Sello	Q396047	Y			Q512065	
+1	BNE Cat.: Sello rectangular en tinta roja: “Pascual de Gayangos”. Trozo de h. pegada al v. de tapa con an. ms. de Gayangos: “Primera edicion de este notabilisimo libro comprado al … cuidad de Londres …”	Q396047	Y			Q512065	Sello rectangular en tinta roja: “Pascual de Gayangos”. Trozo de h. pegada al v. de tapa con an. ms. de Gayangos: “Primera edicion de este notabilisimo libro comprado al … cuidad de Londres …”
+1	CCPBE: sello f. CXCIIIIv	Q1070769	Y			Q512065	sello f. CXCIIIIv
+1	IGM: ex-libris impreso	Q395978	Y			Q418813	
+1	Faulhaber: ex-libris ms f. 169r	Q164508	Y			Q418813	ex-libris ms f. 169r
+1	Faulhaber: ex-libris ms. contratapa: “Del S.or Conde de Miranda”	Q164508	Y			Q418813	ex-libris ms. contratapa: “Del S.or Conde de Miranda”
+1	Faulhaber: ex-libris ms.: “del L.do Molina”	Q164508	Y			Q418813	ex-libris ms.: “del L.do Molina”
+1	Faulhaber: inscrip guarda ¿s. XVII?	Q164508	Y				inscrip guarda ¿s. XVII?
+1	BNE Cat.: sellos y ex-libris	Q396047	Y			Q418813,Q512065	
+1	IGM: ex-libris armorial guarda final	Q395978	Y			Q418813	ex-libris armorial guarda final
+1	Gómez Moreno: ex-libris impreso f. cviij verso	Q418533	Y			Q418813	ex-libris impreso f. cviij verso
+1	BNE Cat.: ex-libris: Biblioteca del Conde de Toreno	Q396047	Y			Q418813	ex-libris: Biblioteca del Conde de Toreno
+1	Capdevila 2017: ex-libris MS f. 84r	Q1121551	Y			Q418813	ex-libris MS f. 84r
+1	Faulhaber: sello en portada	Q164508	Y			Q512065	sello en portada
+1	Faulhaber: ex-libris ms. en la guarda	Q164508	Y			Q418813	ex-libris ms. en la guarda
+1	HEHL Cat.: ex-libris	Q1072154	Y			Q418813	
+1	Faulhaber: sello en la guarda	Q164508	Y			Q512065	sello en la guarda
+1	IBIS: ex-libris de Fernando VII con olim: IV-C-2	Q1071217	Y			Q418813	ex-libris de Fernando VII con olim: IV-C-2
+1	IGM:ex-libris MS guarda	Q395978	Y			Q418813	
+1	García 2014: ex-libris atribuido a la época de Carlos IV: escudo de España sobre manto de armiño. Inscr: “Biblioteca del Rey N. señor”	Q1073781	Y			Q418813,Q960940	ex-libris atribuido a la época de Carlos IV: escudo de España sobre manto de armiño. Inscr: “Biblioteca del Rey N. señor”
+1	IGM: ex-libris armorial	Q395978	Y			Q418813	ex-libris armorial
+1	Conde 1999: sello	Q1070976	Y			Q512065	
+1	Conde 1999: ex-libris MS	Q1070976	Y			Q418813	
+1	RAH Cat.: ex-libris ms.	Q1073066	Y			Q418813	
+1	IGM: ex-libris ms. f. 578r	Q395978	Y			Q418813	ex-libris ms. f. 578r
+1	BL Cat.: ex-libris	Q1072124	Y			Q418813	
+1	Pérez Llamazares: ex-libris ms.	Q1068124	Y			Q418813	
+1	Faulhaber 2015: ex-libris f. 130v	Q1073440	Y			Q418813	ex-libris f. 130v
+1	IGM: ex-libris ms. f. Ir	Q395978	Y			Q418813	ex-libris ms. f. Ir
+1	Morel-Fatio: ex-libris f. 1r: “Este libro es del Dor D. Antonio Graña Nieto, mi señor”	Q1068128	Y			Q418813	ex-libris f. 1r: “Este libro es del Dor D. Antonio Graña Nieto, mi señor”
+1	IGM: ex-libris en la contratapa	Q395978	Y			Q418813	ex-libris en la contratapa
+1	Soriano 2014: ex-libris f. 2r: “Aut (…) et quidem excusum salve Generosus Baro Johan Ernestus Fugger L.B.C.”	Q1121397	Y			Q418813	ex-libris f. 2r: “Aut (…) et quidem excusum salve Generosus Baro Johan Ernestus Fugger L.B.C.”
+1	Faulhaber: ex-libris ms. f. 234v	Q164508	Y			Q418813	ex-libris ms. f. 234v
+1	Faulhaber: ex-libris contratapa posterior	Q164508	Y			Q418813	ex-libris contratapa posterior
+1	BNE Cat.: sello: 'Libreria de D. Luis de Usoz ·1873·	Q396047	Y			Q512065	sello: 'Libreria de D. Luis de Usoz ·1873·
+1	BNE Cat.: ex-libris con anagrama en relieve de color amarillo, azul, rojo y oro	Q396047	Y			Q418813	ex-libris con anagrama en relieve de color amarillo, azul, rojo y oro
+1	Faulhaber: ex-libris impreso s. XVII (guarda)	Q164508	Y			Q418813	ex-libris impreso s. XVII (guarda)
+1	Faulhaber: ex-libris ms. s. XVI	Q164508	Y			Q418813	ex-libris ms. s. XVI
+1	Faulhaber: formato de la signatura en la guarda	Q164508	Y				formato de la signatura en la guarda
+1	IBIS: ex-libris en tinta roja	Q1071217	Y			Q418813	ex-libris en tinta roja
+1	IGM: “es de Pero Mexia” (guarda y f. 386v)	Q395978	Y				“es de Pero Mexia” (guarda y f. 386v)
+1	Yeves 1998: ex-libris “COLECCION A. PARAMO”	Q1070767	Y			Q418813	ex-libris “COLECCION A. PARAMO”
+1	BNE Cat.: sello: “BR”	Q396047	Y			Q512065	sello: “BR”
+1	Faulhaber: ex-libris [?] ms. en la portada	Q164508	Y			Q418813	ex-libris [?] ms. en la portada
+1	BNE Cat.: sello en portada de la Librería de D. Ag. Durán-1863	Q396047	Y			Q512065	sello en portada de la Librería de D. Ag. Durán-1863
+1	Moldenhauer 1933: ex-libris	Q1073267	Y			Q418813	
+1	Avenoza 2014: ex-libris “scti philipi. | Fr. Antonius De Azevedo”	Q1073155	Y			Q418813	ex-libris “scti philipi. | Fr. Antonius De Azevedo”
+1	BNE Cat.: ex-libris ms en portada: “De la Librería del Mo de la Compa de Jesús de Madrid”	Q396047	Y			Q418813	ex-libris ms en portada: “De la Librería del Mo de la Compa de Jesús de Madrid”
+1	BNE Cat.: sello en portada	Q396047	Y			Q512065	sello en portada
+1	Faulhaber: ex-libris impreso, a pluma y a lápiz	Q164508	Y			Q418813	ex-libris impreso, a pluma y a lápiz
+1	BNE Cat.: ex-libris MS f. IVv	Q396047	Y			Q418813	ex-libris MS f. IVv
+1	Faulhaber: ex-libris ms. f. a2r	Q164508	Y			Q418813	ex-libris ms. f. a2r
+1	Yeves 1998: ex-libris	Q1070767	Y			Q418813	
+1	BNE Cat: ex-libris	Q396047	Y			Q418813	
+1	Faulhaber: ex-libris en la portada “es de marcos perez”	Q164508	Y			Q418813	ex-libris en la portada “es de marcos perez”
+1	BNE Cat.: nota en la guarda	Q396047	Y				nota en la guarda
+1	BNE Cat.: ex-libris ms.: “Es de julian de fuensalida | [firma] julian de|Fuensalida”	Q396047	Y			Q418813	ex-libris ms.: “Es de julian de fuensalida | [firma] julian de|Fuensalida”
+1	B. Catalunya: ex-libris	Q1071883	Y			Q418813	
+1	Faulhaber: ex-libris mss. 177v. 181r, 182r	Q164508	Y			Q418813	ex-libris mss. 177v. 181r, 182r
+1	Faulhaber: ex-libris mss ff. 182v, 183v	Q164508	Y			Q418813	ex-libris mss ff. 182v, 183v
+1	Faulhaber: ex-libris “Bibliotheca Broxbourniana	Q164508	Y			Q418813	ex-libris “Bibliotheca Broxbourniana
+1	BNE Cat.: Sello en tinta azul: “Librería de D. Luis de Usoz. 1873”	Q396047	Y			Q512065	Sello en tinta azul: “Librería de D. Luis de Usoz. 1873”
+1	Griffin: ex-libris ms. en la portada	Q1073929	Y			Q418813	ex-libris ms. en la portada
+1	Penney 1954: sello rojo con corona en la portada	Q1069658	Y			Q512065	sello rojo con corona en la portada
+1	B Catalunya: ex-libris gofrat i daurat: EX MVSAEO HVTHII	Q1071883	Y			Q418813	ex-libris gofrat i daurat: EX MVSAEO HVTHII
+1	BU Salamanca: Sello: “Coll. Soc. Iesu Salm. ex dono Regum”	Q946079	Y			Q512065	Sello: “Coll. Soc. Iesu Salm. ex dono Regum”
+1	Sáez 2002: “Sello de pertenencia a la Col. Carece de número de registro y de nota de compra.”	Q1071249	Y			Q512065	“Sello de pertenencia a la Col. Carece de número de registro y de nota de compra.”
+1	BNE Cat,: sello	Q396047	Y			Q512065	
+1	Faulhaber: ex-libris ms f. h8v	Q164508	Y			Q418813	ex-libris ms f. h8v
+1	RB IBIS: ex-libris ms.	Q1071217	Y			Q418813	
+1	BNE Cat.: ex-libris impreso pegado en el margen inferior de la h. con signatura A?: Ex Bibliotheca D. Emmanuelis Vicentii à Murguitio	Q396047	Y			Q418813	ex-libris impreso pegado en el margen inferior de la h. con signatura A?: Ex Bibliotheca D. Emmanuelis Vicentii à Murguitio
+1	Conde 1999: ex-libris MS “Soy de Don Joseph Calderon año de 1702”	Q1070976	Y			Q418813	ex-libris MS “Soy de Don Joseph Calderon año de 1702”
+1	IGM: ex-libris ms. f. 1r	Q395978	Y			Q418813	ex-libris ms. f. 1r
+1	Faulhaber: ex-libris ms. Iv	Q164508	Y			Q418813	ex-libris ms. Iv
+1	Ortiz Hernández: ex-libris	Q1074738	Y			Q418813	
+1	BNE Cat.: ex-libris f. 1r	Q396047	Y			Q418813	ex-libris f. 1r
+1	Faulhaber 2017: sello en la guarda	Q1073921	Y			Q512065	sello en la guarda
+1	Lacarra 2015: sello: “S.D.S.Y.D.A.” (Soy Del Señor Ynfante Don Antonio)	Q1073537	Y			Q512065	sello: “S.D.S.Y.D.A.” (Soy Del Señor Ynfante Don Antonio)
+1	Faulhaber 2024: ex-libris MS	Q1075647	Y			Q418813	
+1	Faulhaber: firma f. Ir y sello f. 1r	Q164508	Y			Q512065	firma f. Ir y sello f. 1r
+1	RB IBIS: Sello	Q1071217	Y			Q512065	
+1	Faulhaber: ex-libris f. 76r: “Del Sacro Monte de Granada|nº 101”	Q164508	Y			Q418813	ex-libris f. 76r: “Del Sacro Monte de Granada|nº 101”

@@ -254,6 +254,25 @@ def test_process_item_writes_catalogue_plus_evidence(tmp_path):
     assert abm._ref_present(claim, 'Q396047')
 
 
+def test_process_item_adds_description_qualifier(tmp_path):
+    claim = _p721_claim('CCPBE: Sello de la Librería de Gabriel Sánchez')
+    item = _FakeWbiItem([claim])
+    item.get_json = lambda: {'aliases': {'es': [{'value': 'BETA manid 77'}]}}
+    wbi = type('W', (), {'item': type('I', (), {'get': staticmethod(lambda qid: item)})(),
+                         'session': None})()
+    log_path = tmp_path / 'progress.jsonl'
+    guids, _, errors = abm.process_item(
+        wbi, 'Q1', 'CCPBE: Sello de la Librería de Gabriel Sánchez', 'Q1070769', '', '', set(),
+        False, 0, str(log_path), evidence=('Q512065',),
+        description='Sello de la Librería de Gabriel Sánchez')
+    assert (guids, errors) == (['Q1$G1'], 0)
+    q = claim.qualifiers.get('P1243')[0].datavalue['value']
+    assert q == {'text': 'Sello de la Librería de Gabriel Sánchez', 'language': 'es'}
+    assert not claim.qualifiers.get('P721')
+    assert json.loads(log_path.read_text())['description'].startswith('Sello de la')
+    assert not abm.add_description(claim, 'Sello de la Librería de Gabriel Sánchez', 'es')
+
+
 @pytest.mark.parametrize('cell,expected', [
     ('', ()), ('Q512065', ('Q512065',)), ('Q418813, Q512065', ('Q418813', 'Q512065'))])
 def test_parse_evidence(cell, expected):
@@ -270,7 +289,8 @@ def test_load_candidate_reads_evidence(tmp_path):
     tsv.write_text('basis\tqid\tvetted\tloc\tloc_type\tevidence\n'
                    'Faulhaber: ex-libris f. 1r\tQ164508\tY\t1r\tfolio\tQ418813\n', encoding='utf-8')
     case = abm.load_candidate('Faulhaber: ex-libris f. 1r', str(tsv))
-    assert case == {'qid': 'Q164508', 'loc': '1r', 'loc_type': 'folio', 'evidence': ('Q418813',)}
+    assert case == {'qid': 'Q164508', 'loc': '1r', 'loc_type': 'folio', 'evidence': ('Q418813',),
+                    'description': ''}
 
 
 def test_log_progress_omits_default_ref_prop(tmp_path):

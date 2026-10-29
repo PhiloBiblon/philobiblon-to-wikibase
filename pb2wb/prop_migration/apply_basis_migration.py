@@ -45,7 +45,7 @@ import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
-from wikibaseintegrator.datatypes import Item as WBItem, String as WBString
+from wikibaseintegrator.datatypes import Item as WBItem, MonolingualText, String as WBString
 from wikibaseintegrator.models import Reference
 import wikibaseintegrator.wbi_helpers as _wbi_helpers
 
@@ -75,6 +75,7 @@ API_ENDPOINT    = 'https://database.factgrid.de/w/api.php'
 P721            = 'P721'
 P129            = 'P129'
 P702            = 'P702'          # Based on (physical evidence in the book)
+P1243           = 'P1243'         # Physical description (monolingual-text qualifier)
 REF_PROPS       = (P129, P702)
 PROGRESS_LOG    = 'prop_migration/basis_migration_progress.jsonl'
 CANDIDATES_TSV  = 'prop_migration/P721-P129.tsv'
@@ -141,9 +142,9 @@ def load_done_guids(path):
 
 
 def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_value='',
-                 ref_prop=P129, evidence=()):
+                 ref_prop=P129, evidence=(), description=''):
     """Append one converted-statement record to the progress log (ref_prop only if not
-    P129, evidence only if any)."""
+    P129, evidence and description only if any)."""
     rec = {
         'guid':       guid,
         'item':       item_id,
@@ -159,6 +160,8 @@ def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_v
         rec['ref_prop'] = ref_prop
     if evidence:
         rec['evidence'] = list(evidence)
+    if description:
+        rec['description'] = description
     with open(path, 'a', encoding='utf-8') as f:
         f.write(json.dumps(rec, ensure_ascii=False) + '\n')
 
@@ -179,9 +182,10 @@ def parse_evidence(cell):
 def load_candidate(basis_str, tsv_path):
     """
     Return the first vetted=Y row for basis_str from the candidates TSV,
-    as dict {qid, loc, loc_type, evidence}. Returns None if not found or not vetted.
+    as dict {qid, loc, loc_type, evidence, description}. Returns None if not found or not vetted.
     evidence: QIDs from an optional 'evidence' column (comma-separated), written as
-    P702 "Based on" in the same reference block.
+    P702 "Based on" in the same reference block. description: optional 'description'
+    column, added to the statement as a P1243 "Physical description" qualifier.
     Warns if multiple vetted rows exist (compound basis — only first is used).
     """
     if not os.path.exists(tsv_path):
@@ -205,6 +209,7 @@ def load_candidate(basis_str, tsv_path):
                 'loc':      repair_loc(row_basis, row.get('loc', '')),
                 'loc_type': row.get('loc_type', '').strip(),
                 'evidence': parse_evidence(row.get('evidence', '')),
+                'description': (row.get('description') or '').strip(),
             })
 
     if not matches:
@@ -437,6 +442,29 @@ def _find_p721_snak(claim, basis_str):
     return None
 
 
+# PhiloBiblon database → language of its cataloguing (from the item's "BETA manid 123"-style alias)
+DB_LANG = {'BETA': 'es', 'BITECA': 'ca', 'BITAGAP': 'pt'}
+
+
+def item_lang(aliases, default):
+    """Language for an item from its PhiloBiblon alias (wbgetentities 'aliases' JSON), else default."""
+    dbs = {a.get('value', '').split(' ')[0].upper()
+           for vals in (aliases or {}).values() for a in vals}
+    found = [DB_LANG[d] for d in DB_LANG if d in dbs]
+    return found[0] if len(found) == 1 else default
+
+
+def add_description(claim, text, lang):
+    """Add P1243=text@lang as a qualifier on claim unless that text is already there."""
+    for snak in claim.qualifiers.get(P1243) or []:
+        dv = snak.datavalue
+        val = dv.get('value', {}) if isinstance(dv, dict) else {}
+        if isinstance(val, dict) and val.get('text') == text:
+            return False
+    claim.qualifiers.add(MonolingualText(text=text, language=lang, prop_nr=P1243))
+    return True
+
+
 def _ref_item_ids(ref, prop):
     ids = set()
     for snak in ref.snaks.get(prop) or []:
@@ -462,10 +490,12 @@ def _ref_present(claim, ref_qid, ref_prop=P129, evidence=()):
 
 def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
                  done_guids, dry_run, delay, progress_path,
-                 canonical_basis=None, ref_prop=P129, evidence=()):
+                 canonical_basis=None, ref_prop=P129, evidence=(), description=''):
     """
     Convert all P721=basis_str qualifiers on item_id to ref_prop=ref_qid references
-    (plus P702=<each evidence QID> in the same reference block).
+    (plus P702=<each evidence QID> in the same reference block). A description is added
+    to each statement as a P1243 qualifier in the language of the item's PhiloBiblon
+    database (BETA es, BITECA ca, BITAGAP pt; es if unknown), unless already there.
 
     Two-phase write:
       Phase 1 — add references (one item write)
@@ -478,6 +508,8 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
                 + ' + '.join(f'{p}={v!r}' for p, v in locator_snaks(loc, loc_type)) + ')') if loc else ''
     if evidence:
         loc_desc += '  ' + ' + '.join(f'{P702}={q}' for q in evidence)
+    if description:
+        loc_desc += f'  {P1243}={description!r}'
 
     # ---- Fetch item ----
     try:
@@ -530,6 +562,8 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
         for ev_qid in evidence:
             ref.add(WBItem(value=ev_qid, prop_nr=P702))
         claim.references.add(ref)
+        if description:
+            add_description(claim, description, item_lang(item.get_json().get('aliases'), 'es'))
 
     try:
         time.sleep(delay)
@@ -591,7 +625,8 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     for guid in removed:
         prop, main_value = guid_meta.get(guid, ('', ''))
         log_progress(progress_path, guid, item_id, log_basis, ref_qid, loc, loc_type,
-                     prop=prop, main_value=main_value, ref_prop=ref_prop, evidence=evidence)
+                     prop=prop, main_value=main_value, ref_prop=ref_prop, evidence=evidence,
+                     description=description)
         log.info('CONVERTED  %s  %s%s', item_id, guid, loc_desc)
         converted_guids.append(guid)
 
@@ -633,6 +668,7 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
     loc      = case['loc']
     loc_type = case['loc_type']
     evidence = case.get('evidence', ())
+    description = case.get('description', '')
     if evidence and ref_prop != P129:
         raise BasisConfigError('evidence (P702) can only accompany a P129 reference')
     if loc and loc_type and loc_type not in LOC_PROP:
@@ -646,6 +682,8 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
                  ' + '.join(f'{p}={v!r}' for p, v in locator_snaks(loc, loc_type)))
     if evidence:
         log.info('Evidence : %s', ' + '.join(f'{P702}={q}' for q in evidence))
+    if description:
+        log.info('Descr.   : %s=%r', P1243, description)
     log.info('Mode     : %s', 'DRY RUN' if dry_run else 'EXECUTE')
     if item:
         log.info('Item     : %s  (single-item pilot)', item)
@@ -675,6 +713,7 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
                     wbi, item_id, basis_variant, ref_qid, loc, loc_type,
                     done_guids, dry_run, delay, progress_log,
                     canonical_basis=basis, ref_prop=ref_prop, evidence=evidence,
+                    description=description,
                 )
             except Exception as e:
                 log.error('%s: unexpected error (retry exhaustion?): %s', item_id, e)
