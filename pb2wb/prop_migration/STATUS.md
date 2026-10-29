@@ -9,11 +9,11 @@ requests). Last edited: 2026-10-29.
 <!-- usage-table -->
 | Group | | Usages left | % of original | Cumulative done |
 |---|---|---:|---:|---:|
-| *Done* | | 107,863 | 81.6% | 81.6% |
+| *Done* | | 107,866 | 81.6% | 81.6% |
 | A8 | Foliation → P1243 | 0 | 0.0% | 81.6% |
 | A8b | Physical descriptions → P1243 | 2 | 0.0% | 81.6% |
 | A8c | Physical notes with a colon → P1243 | 401 | 0.3% | 81.9% |
-| A6 | Pipeline-approved, awaiting Charles | 1,126 | 0.9% | 82.7% |
+| A6 | Pipeline-approved, awaiting Charles | 1,123 | 0.8% | 82.7% |
 | A3 | Catalogue + evidence combos | 658 | 0.5% | 83.2% |
 | A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 83.2% |
 | held | Held bases (B2 works-vs-people, …) | 1,003 | 0.8% | 84.0% |
@@ -28,7 +28,7 @@ _Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-27.tsv` (taken
 
 | # | Group | Status | Waiting on |
 |---|---|---|---|
-| A6 | Pipeline-approved (263 bases; Arteaga 754 usages) | Ready to run once approved. 4 wrong-kind targets (Dominica, Santa Cruz, Vila, Villalba) need fixing. | Charles: Arteaga = Q1069178? approve the rest |
+| A6 | Pipeline-approved (Arteaga ~730, Dutton 77, Cronología 47, small ones) | Max decided 10-29: BNE Cat. & Faulhaber (as person) → P129 + P702 evidence; Martz, Wikidata → convert. Running on the box (`plan_pipeline_exec_20261029.tsv`, 31 bases, ~245 usages). Rest goes to Charles (`email_to_charles_batch_20261029.txt`, `charles_questions_20261029.xlsx`). 3 targets point to places. | Charles: Arteaga, Dutton, Cronología, the rest |
 | A7 | Long tail, no match | PhiloBiblon + P73 note proposal drafted (`email_long_tail_draft.txt`), not sent. Do after A6. | Max: send to Olaf/Charles |
 | A3 | Catalogue + evidence combos ("BNE Cat.: sello", "IBIS: ex-libris") | Model decided: P129 catalogue + P702 evidence item. Needs a word → evidence-item mapping and a small tool change. Includes references set aside from A8b (`a8b_excluded.tsv`). | Claude: build mapping |
 | A2 | Vetted, with a locator — held remainder | 28 locator mismatches (`exclude_locator_mismatch.tsv`), 6 "DHEE I:nnn" volume-style bases. | Charles |
