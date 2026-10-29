@@ -1,0 +1,50 @@
+status	search_term	usages	prefixes	qid	label	note
+ok	Biblioteca Nacional do Brasil	10	BNB Cat.	Q876434	Biblioteca Nacional do Brasil, Rio de Janeiro	institution; no catalogue item
+check	Universidad de Valladolid	8	BU Valladolid	Q1072232	Almena | Universidad de Valladolid. Biblioteca General [OPAC]	Almena = UVa catalogue, but Charles cleared Almena (B3)
+ok	Kašpar	13	Kašpar | Kašpar 1983 | Oldřich | Oldřich 1983 | Oldřrich ex-libris	Q1073561	Kašpar (1983), Soupis španělských a portugalských tisku bývalé zámecké knihovny v Roudnici nad Labem nyní deponovaných v Státni knihovně ČR v Prase [= Registro de los impresos españoles de la antigua biblioteca del Castillo de Roudnice nad Labem actu	Kašpar (1983) Soupis…
+check	Gabriel Sánchez	4	G. Sánchez	Q398919	Gabriel Sánchez, Madrid	two items for the bookseller: Q398919 / Q1077158
+check	Massó Torrents	3	Massó, p. 601, basant-se en l’escut	Q1115729	Massó Torrents (1932), Repertori de l’antiga literatura catalana, I. La Poesia	which Massó work has p. 601? guess Repertori (1932)
+ok	Bibliothèque nationale de France	4	BnF | BnF Archives et MSS	Q165001	BnF | Biblioteca Nacional de Francia, París	
+hold	Högberg	2	Högberg			3 Högberg works, no year in the data
+check	Kraus	3	Kraus | Kraus (filigranas)	Q1061806	H.P. Kraus	H.P. Kraus (dealer), from known_qids; not in search hits
+hold	Cronos	2	Cronos			only hit is the Titan
+hold	Franklin	6	Franklin | Franklin cat. | Franklin Cat.			no library/catalogue hit
+ok	Moldenhauer	2	Moldenhauer 1933 ex-libris	Q1073267	Moldenhauer (1933), “Aus der handschriftensammlung Foulché-Delbosc”, Revue Hispanique	Moldenhauer (1933)
+check	Ochoa	2	Ochoa	Q1068240	Ochoa (1844), Catálogo razonado de los manuscritos españoles existentes en la Biblioteca Real de París, seguido de un suplemento que contiene los de las otras tres bibliotecas públicas (del Arsenal, de Sant Genoveva y Mazarina)	Ochoa (1844) Catálogo razonado de los MSS españoles
+hold	SUDOC	2	SUDOC			0 hits
+hold	Mannin-Turner Papers	2	Mannin-Turner Papers			0 hits
+hold	Penington Family Papers	1	Penington Family Papers			0 hits
+hold	Médiathèque Albi	1	Albi Médiathèque cat.			0 hits
+hold	Registrum B	1	Registrum B 4161 y 4162			0 hits
+hold	Ferreira da Silva	3	Ferreira da Silva			0 hits
+ok	Universidad Complutense	2	UCM	Q394191	Universidad Complutense de Madrid	
+ok	Morgan Library	3	PML Cat. | Morgan Cat.	Q398979	Pierpont Morgan Library, New York (PML)	
+ok	Princeton University Library	3	Princeton Cat. | Princeton	Q1074146	Princeton University Library Main Catalog [OPAC]	Main Catalog [OPAC]
+check	British Museum	2	BM Cat.	Q1068130	British Museum (1908-2007), Catalogue of Books Printed in the XVᵀᴴ Century Now in the British Museum	BM Catalogue of Books Printed… vs museum Q102010
+ok	British Library	1	ex-libris (B.L. Cat.)	Q1072124	British Library, Main Catalogue [OPAC]	BL Main Catalogue [OPAC]
+ok	Universidad de Oviedo	2	BU Oviedo	Q1517877	Universidad de Oviedo	
+check	National Library of Medicine	2	Cat. NLM	Q1073858	National Library of Medicine (1995-), LocatorPlus	two near-duplicate LocatorPlus items (also Q1073139)
+ok	Guardiola	2	Guardiola | Guardiola 1591	Q1075205	Guardiola (1591), Tratado de nobleza, y de los titulos y ditados que oy dia tienen los varones claros y grandes de España	Guardiola (1591) Tratado de nobleza
+check	Biblioteca de Castilla-La Mancha	3	Red de Bibl. Castilla - La Mancha | Cat. Castilla-La Mancha | Red Bibl. Castilla - La Mancha	Q1072147	Biblioteca de Castilla-La Mancha (2011-08-06 ad quem), Red de Bibliotecas Públicas [OPAC]	catalogue (2011); also Q1074001 (2017), library Q1061285
+ok	Lázaro Galdiano	1	Cat. Lázaro Galdiano	Q1072163	Lázaro Galdiano. Biblioteca, Catálogo [OPAC]	Catálogo [OPAC]
+ok	Leeds University Library	1	Leeds UL Cat	Q1072382	Leeds University Library (2012 ad quem), Catalogue [OPAC]	Catalogue [OPAC]
+ok	Harvard	3	HOLLIS Cat. | Harvard HOLLIS | Harvard Cat.	Q219423	Harvard University, Cambridge, MA	no HOLLIS item; the university
+ok	Musée Condé	1	Cat. Chantilly	Q1061467	Musée Condé, Chantilly	
+ok	University of Miami	1	BU Miami Cat.	Q1073063	University of Miami Libraries (2012 ad quem), Catalog [OPAC]	Libraries catalog
+ok	Brumario	1	Cat/ Brumario	Q1072148	Brumario. Catálogo General de la U. de Salamanca (OPAC)	Salamanca OPAC
+ok	Cambridge University Library	1	Cambridge UL	Q219415	University Library, Cambridge	
+hold	Nepomuceno	1	Venta Nepomuceno			sale; no hit
+ok	Biblioteca Virtual del Patrimonio Bibliográfico	1	BVPB	Q1072487	Biblioteca Virtual del Patrimonio Bibliográfico [BVPB]	
+ok	Uppsala	2	Uppsala BU Cat. | Uppsla BU Cat	Q1073646	Uppsala universitetsbibliotek (2015 ad quem), Bibliotekskataloger	UUB catalogue
+ok	Christie's	1	ex-libris (Christie’s)	Q899028	Christie’s, Londres	
+ok	Universitat de Barcelona	2	BU Barcelona Cat. | BU Barcelona	Q448534	Universidad de Barcelona	
+ok	New York Public Library	1	NYPL	Q245733	NYPL | New York Public Library USA	
+hold	Iacobus	1	Cat. Iacobus			bookseller catalogue; no hit
+ok	Biblioteca Valenciana	1	at. B. Valenciana	Q1073101	Biblioteca Valenciana (2014 ad quem), Catàleg general	Catàleg general
+ok	Library of Congress	1	LC Cat.	Q1072155	Library of Congress, Online Catalog [OPAC]	Online Catalog [OPAC]
+ok	Universidad de Granada	1	Granada BU cat. Granatensis	Q1071237	Universidad de Granada. Biblioteca Universitaria (2005 ad quem), Catálogo General Granatensis	Biblioteca Universitaria
+check	Real Biblioteca	1	Patrimonio Real	Q747450	Madrid: Biblioteca Real  (RB)	"Real Biblioteca; or IBIS Q1071217 as used for ""RB IBIS"""
+ok	El Remate	1	Cat. El Remate	Q901069	Subastas El Remate, Madrid	
+ok	Universidad de Zaragoza	1	BU Zaragoaz	Q1517094	Universidad de Zaragoza	
+ok	University of North Carolina	1	UNC Cat.	Q1072181	University of North Carolina Library (2011-08-12 ad quem), Catalog	UNC Library catalogue
+ok	Bibliothèque de Toulouse	1	ex-libris (Toulouse Cat.)	Q1072384	Bibliothèque de Toulouse (2012 ad quem), Catalogues [OPAC]	Catalogues [OPAC]
