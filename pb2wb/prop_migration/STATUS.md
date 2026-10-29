@@ -12,8 +12,9 @@ requests). Last edited: 2026-10-29.
 | *Done* | | 107,863 | 81.6% | 81.6% |
 | A8 | Foliation → P1243 | 0 | 0.0% | 81.6% |
 | A8b | Physical descriptions → P1243 | 2 | 0.0% | 81.6% |
-| A6 | Pipeline-approved, awaiting Charles | 1,126 | 0.9% | 82.4% |
-| A3 | Catalogue + evidence combos | 1,059 | 0.8% | 83.2% |
+| A8c | Physical notes with a colon → P1243 | 401 | 0.3% | 81.9% |
+| A6 | Pipeline-approved, awaiting Charles | 1,126 | 0.9% | 82.7% |
+| A3 | Catalogue + evidence combos | 658 | 0.5% | 83.2% |
 | A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 83.2% |
 | held | Held bases (B2 works-vs-people, …) | 1,003 | 0.8% | 84.0% |
 | A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 84.3% |
@@ -45,6 +46,7 @@ _Generated 2026-10-29 by `task_status.py` from `P721-live.2026-10-27.tsv` (taken
 | A8 | fichero; ?/[?] → P155 | 550; 157 (10-27/28). |
 | A8 | Foliation → P1243 (`a8_foliation.tsv`) | 3,321 swapped 2026-10-28, language per item: 3,319 ca, 2 es. |
 | A8b | Physical descriptions → P1243 (`a8b_physical.tsv`) | 1,108 swapped 2026-10-29: 1,025 ca, 77 es, 6 pt. |
+| A8c | Physical notes misfiled under A3 → P1243 (`a8c_physical.tsv`, 380 strings, 401 usages) | Running on the box since 2026-10-29 9:08 am ET. |
 
 ## B. Fixes to references already written
 

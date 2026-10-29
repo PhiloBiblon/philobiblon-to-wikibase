@@ -29,6 +29,7 @@ START, END = '<!-- usage-table -->', '<!-- /usage-table -->'
 GROUPS = [
     ('A8', 'Foliation → P1243'),
     ('A8b', 'Physical descriptions → P1243'),
+    ('A8c', 'Physical notes with a colon → P1243'),
     ('A6', 'Pipeline-approved, awaiting Charles'),
     ('A3', 'Catalogue + evidence combos'),
     ('A2', 'Held: locator mismatch, DHEE vol.'),
@@ -123,6 +124,7 @@ def load_group_lists():
     return {
         'A8': _tsv_bases(P + 'a8_foliation.tsv'),
         'A8b': _tsv_bases(P + 'a8b_physical.tsv'),
+        'A8c': _tsv_bases(P + 'a8c_physical.tsv'),
         'A3x': _tsv_bases(P + 'a8b_excluded.tsv'),
         'A6': _column(P + 'pipeline_vetted_bases.tsv'),
         'A2': _column(P + 'exclude_locator_mismatch.tsv'),
@@ -137,6 +139,8 @@ def classify(raw, lists):
         return 'A8'
     if s in lists['A8b']:
         return 'A8b'
+    if s in lists['A8c']:
+        return 'A8c'
     if ' / ' in s:
         return 'A9'
     if s in lists['A6']:
