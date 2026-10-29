@@ -35,6 +35,7 @@ import json
 import logging
 import os
 import random
+import re
 import signal
 import sys
 import time
@@ -140,8 +141,9 @@ def load_done_guids(path):
 
 
 def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_value='',
-                 ref_prop=P129):
-    """Append one converted-statement record to the progress log (ref_prop only if not P129)."""
+                 ref_prop=P129, evidence=()):
+    """Append one converted-statement record to the progress log (ref_prop only if not
+    P129, evidence only if any)."""
     rec = {
         'guid':       guid,
         'item':       item_id,
@@ -155,6 +157,8 @@ def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_v
     }
     if ref_prop != P129:
         rec['ref_prop'] = ref_prop
+    if evidence:
+        rec['evidence'] = list(evidence)
     with open(path, 'a', encoding='utf-8') as f:
         f.write(json.dumps(rec, ensure_ascii=False) + '\n')
 
@@ -163,10 +167,21 @@ def log_progress(path, guid, item_id, basis, qid, loc, loc_type, prop='', main_v
 # Candidate lookup
 # ---------------------------------------------------------------------------
 
+def parse_evidence(cell):
+    """'Q418813, Q512065' → ('Q418813', 'Q512065'). Raises ValueError on anything else."""
+    qids = tuple(q.strip() for q in (cell or '').split(',') if q.strip())
+    bad = [q for q in qids if not re.fullmatch(r'Q\d+', q)]
+    if bad:
+        raise ValueError(f'evidence must be comma-separated QIDs, got {bad}')
+    return qids
+
+
 def load_candidate(basis_str, tsv_path):
     """
     Return the first vetted=Y row for basis_str from the candidates TSV,
-    as dict {qid, loc, loc_type}. Returns None if not found or not vetted.
+    as dict {qid, loc, loc_type, evidence}. Returns None if not found or not vetted.
+    evidence: QIDs from an optional 'evidence' column (comma-separated), written as
+    P702 "Based on" in the same reference block.
     Warns if multiple vetted rows exist (compound basis — only first is used).
     """
     if not os.path.exists(tsv_path):
@@ -189,6 +204,7 @@ def load_candidate(basis_str, tsv_path):
                 'qid':      qid,
                 'loc':      repair_loc(row_basis, row.get('loc', '')),
                 'loc_type': row.get('loc_type', '').strip(),
+                'evidence': parse_evidence(row.get('evidence', '')),
             })
 
     if not matches:
@@ -421,14 +437,22 @@ def _find_p721_snak(claim, basis_str):
     return None
 
 
-def _ref_present(claim, ref_qid, ref_prop=P129):
-    """True if any reference on claim already contains ref_prop=ref_qid."""
+def _ref_item_ids(ref, prop):
+    ids = set()
+    for snak in ref.snaks.get(prop) or []:
+        dv  = snak.datavalue
+        val = dv.get('value', {}) if isinstance(dv, dict) else {}
+        if isinstance(val, dict) and val.get('id'):
+            ids.add(val['id'])
+    return ids
+
+
+def _ref_present(claim, ref_qid, ref_prop=P129, evidence=()):
+    """True if a reference on claim already contains ref_prop=ref_qid (and, when evidence
+    is given, P702 for every evidence QID in that same reference)."""
     for ref in claim.references:
-        for snak in ref.snaks.get(ref_prop) or []:
-            dv  = snak.datavalue
-            val = dv.get('value', {}) if isinstance(dv, dict) else {}
-            if isinstance(val, dict) and val.get('id') == ref_qid:
-                return True
+        if ref_qid in _ref_item_ids(ref, ref_prop) and set(evidence) <= _ref_item_ids(ref, P702):
+            return True
     return False
 
 
@@ -438,9 +462,10 @@ def _ref_present(claim, ref_qid, ref_prop=P129):
 
 def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
                  done_guids, dry_run, delay, progress_path,
-                 canonical_basis=None, ref_prop=P129):
+                 canonical_basis=None, ref_prop=P129, evidence=()):
     """
-    Convert all P721=basis_str qualifiers on item_id to ref_prop=ref_qid references.
+    Convert all P721=basis_str qualifiers on item_id to ref_prop=ref_qid references
+    (plus P702=<each evidence QID> in the same reference block).
 
     Two-phase write:
       Phase 1 — add references (one item write)
@@ -451,6 +476,8 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     """
     loc_desc = (f'  loc={loc!r} ({loc_type} → '
                 + ' + '.join(f'{p}={v!r}' for p, v in locator_snaks(loc, loc_type)) + ')') if loc else ''
+    if evidence:
+        loc_desc += '  ' + ' + '.join(f'{P702}={q}' for q in evidence)
 
     # ---- Fetch item ----
     try:
@@ -475,7 +502,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
             n_skip += 1
             log.info('%s  %-36s prop=%-5s  already done — skipping', item_id, guid, prop)
             continue
-        if _ref_present(claim, ref_qid, ref_prop):
+        if _ref_present(claim, ref_qid, ref_prop, evidence):
             already.append((guid, claim))
             log.info('%s  %-36s prop=%-5s  ref exists, qual may still be present',
                      item_id, guid, prop)
@@ -500,6 +527,8 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
         ref.add(WBItem(value=ref_qid, prop_nr=ref_prop))
         for snak_prop, snak_value in locator_snaks(loc, loc_type):
             ref.add(WBString(value=snak_value, prop_nr=snak_prop))
+        for ev_qid in evidence:
+            ref.add(WBItem(value=ev_qid, prop_nr=P702))
         claim.references.add(ref)
 
     try:
@@ -562,7 +591,7 @@ def process_item(wbi, item_id, basis_str, ref_qid, loc, loc_type,
     for guid in removed:
         prop, main_value = guid_meta.get(guid, ('', ''))
         log_progress(progress_path, guid, item_id, log_basis, ref_qid, loc, loc_type,
-                     prop=prop, main_value=main_value, ref_prop=ref_prop)
+                     prop=prop, main_value=main_value, ref_prop=ref_prop, evidence=evidence)
         log.info('CONVERTED  %s  %s%s', item_id, guid, loc_desc)
         converted_guids.append(guid)
 
@@ -603,6 +632,9 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
     ref_qid  = case['qid']
     loc      = case['loc']
     loc_type = case['loc_type']
+    evidence = case.get('evidence', ())
+    if evidence and ref_prop != P129:
+        raise BasisConfigError('evidence (P702) can only accompany a P129 reference')
     if loc and loc_type and loc_type not in LOC_PROP:
         raise BasisConfigError(
             f"loc_type={loc_type!r} has no mapped property in LOC_PROP. "
@@ -612,6 +644,8 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
     if loc:
         log.info('Locator  : %r  (%s  →  %s)', loc, loc_type,
                  ' + '.join(f'{p}={v!r}' for p, v in locator_snaks(loc, loc_type)))
+    if evidence:
+        log.info('Evidence : %s', ' + '.join(f'{P702}={q}' for q in evidence))
     log.info('Mode     : %s', 'DRY RUN' if dry_run else 'EXECUTE')
     if item:
         log.info('Item     : %s  (single-item pilot)', item)
@@ -640,7 +674,7 @@ def run_basis(basis, wbi, *, item=None, max_statements=None, dry_run=False,
                 guids, skipped, errors = process_item(
                     wbi, item_id, basis_variant, ref_qid, loc, loc_type,
                     done_guids, dry_run, delay, progress_log,
-                    canonical_basis=basis, ref_prop=ref_prop,
+                    canonical_basis=basis, ref_prop=ref_prop, evidence=evidence,
                 )
             except Exception as e:
                 log.error('%s: unexpected error (retry exhaustion?): %s', item_id, e)

@@ -235,6 +235,44 @@ def test_process_item_writes_p702_reference(tmp_path, monkeypatch):
     assert not abm._ref_present(claim, 'Q393553')
 
 
+def test_process_item_writes_catalogue_plus_evidence(tmp_path):
+    claim = _p721_claim('BNE Cat.: sello')
+    item = _FakeWbiItem([claim])
+    wbi = type('W', (), {'item': type('I', (), {'get': staticmethod(lambda qid: item)})(),
+                         'session': None})()
+    log_path = tmp_path / 'progress.jsonl'
+    guids, _, errors = abm.process_item(
+        wbi, 'Q1', 'BNE Cat.: sello', 'Q396047', '', '', set(), False, 0, str(log_path),
+        evidence=('Q512065',))
+    assert (guids, errors) == (['Q1$G1'], 0)
+    ref = claim.references.references[0]
+    assert [sn.property_number for sn in ref.snaks] == ['P129', 'P702']
+    rec = json.loads(log_path.read_text())
+    assert rec['evidence'] == ['Q512065'] and 'ref_prop' not in rec
+    assert abm._ref_present(claim, 'Q396047', 'P129', ('Q512065',))
+    assert not abm._ref_present(claim, 'Q396047', 'P129', ('Q418813',))   # other evidence
+    assert abm._ref_present(claim, 'Q396047')
+
+
+@pytest.mark.parametrize('cell,expected', [
+    ('', ()), ('Q512065', ('Q512065',)), ('Q418813, Q512065', ('Q418813', 'Q512065'))])
+def test_parse_evidence(cell, expected):
+    assert abm.parse_evidence(cell) == expected
+
+
+def test_parse_evidence_rejects_non_qids():
+    with pytest.raises(ValueError):
+        abm.parse_evidence('Bookplate')
+
+
+def test_load_candidate_reads_evidence(tmp_path):
+    tsv = tmp_path / 'plan.tsv'
+    tsv.write_text('basis\tqid\tvetted\tloc\tloc_type\tevidence\n'
+                   'Faulhaber: ex-libris f. 1r\tQ164508\tY\t1r\tfolio\tQ418813\n', encoding='utf-8')
+    case = abm.load_candidate('Faulhaber: ex-libris f. 1r', str(tsv))
+    assert case == {'qid': 'Q164508', 'loc': '1r', 'loc_type': 'folio', 'evidence': ('Q418813',)}
+
+
 def test_log_progress_omits_default_ref_prop(tmp_path):
     p = tmp_path / 'progress.jsonl'
     abm.log_progress(str(p), 'g', 'Q1', 'b', 'Q2', '', '')

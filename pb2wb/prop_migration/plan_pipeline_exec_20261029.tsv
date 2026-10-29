@@ -1,0 +1,29 @@
+freq	basis	qid	label	vetted	loc_type	loc	evidence
+106	BNE Cat.: sello	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q512065
+26	BNE Cat.: ex-libris	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q418813
+12	Wikidata	Q370382	Wikidata	Y			
+11	Faulhaber: sello	Q164508	Faulhaber	Y			Q512065
+10	BNE Cat.: sellos	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q512065
+9	Faulhaber: ex-libris	Q164508	Faulhaber	Y			Q418813
+6	Martz 38	Q1074561	Martz (2001), A Network of Converso Families in Early Modern Toledo: Assimilating a Minority	Y	page	38	
+4	Martz 39	Q1074561	Martz (2001), A Network of Converso Families in Early Modern Toledo: Assimilating a Minority	Y	page	39	
+3	BNE Cat.: Sello	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q512065
+2	Faulhaber: nota f. 1v	Q164508	Faulhaber	Y	folio	1v	
+2	Martz 40	Q1074561	Martz (2001), A Network of Converso Families in Early Modern Toledo: Assimilating a Minority	Y	page	40	
+2	Martz 41	Q1074561	Martz (2001), A Network of Converso Families in Early Modern Toledo: Assimilating a Minority	Y	page	41	
+1	BNE Cat.: Ex libris	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q418813
+1	BNE Cat.: Ex-libris	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q418813
+1	BNE Cat.: ex libris	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q418813
+1	BNE Cat.: n. IIIr	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y	folio	IIIr	
+1	Fauhaber: sello	Q164508	Faulhaber	Y			Q512065
+1	Faulhaber: Sello	Q164508	Faulhaber	Y			Q512065
+1	Faulhaber: ex-libris f. 142v	Q164508	Faulhaber	Y	folio	142v	Q418813
+1	Faulhaber: ex-libris f. 1r	Q164508	Faulhaber	Y	folio	1r	Q418813
+1	Faulhaber: ex-libris impreso, f. Ir	Q164508	Faulhaber	Y	folio	Ir	Q418813
+1	Faulhaber: inscr. f. 63v	Q164508	Faulhaber	Y	folio	63v	
+1	Faulhaber: inscrip. 1bis verso	Q164508	Faulhaber	Y	folio	1bis verso	
+1	Faulhaber: nota f. 1r	Q164508	Faulhaber	Y	folio	1r	
+1	Faulhaber: sellos	Q164508	Faulhaber	Y			Q512065
+1	Faulhaber: “es este libro de dõ franco|mexia hijo de pero mexia” (f. 385v)	Q164508	Faulhaber	Y	folio	385v	
+1	Faulhaber:sello	Q164508	Faulhaber	Y			Q512065
+1	Martz 41-41	Q1074561	Martz (2001), A Network of Converso Families in Early Modern Toledo: Assimilating a Minority	Y	page	41-41	
