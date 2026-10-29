@@ -27,3 +27,6 @@ freq	basis	qid	label	vetted	loc_type	loc	evidence
 1	Faulhaber: “es este libro de dõ franco|mexia hijo de pero mexia” (f. 385v)	Q164508	Faulhaber	Y	folio	385v	
 1	Faulhaber:sello	Q164508	Faulhaber	Y			Q512065
 1	Martz 41-41	Q1074561	Martz (2001), A Network of Converso Families in Early Modern Toledo: Assimilating a Minority	Y	page	41-41	
+30	BNE Cat.: ex-libris MS	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q418813
+4	Faulhaber: ex-libris MS	Q164508	Faulhaber	Y			Q418813
+2	BNE Cat.: ex-libris ms	Q396047	Biblioteca Nacional de España, Catálogo [OPAC]	Y			Q418813
