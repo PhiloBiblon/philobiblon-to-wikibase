@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from wikibaseintegrator.models import Claim
 
 from prop_migration.correct_references import (_p129_values, build_move_plan, build_plan,
-                                               correct_claim, load_corrected, sheet_target,
+                                               correct_claim, done_key, load_corrected, sheet_target,
                                                should_verify, verify_claim)
 
 
@@ -165,3 +165,25 @@ def test_load_corrected_keys_on_new_prop(tmp_path):
         {'guid': 'g3', 'status': 'missing', 'new_prop': 'P702'},
     ]))
     assert load_corrected(str(p)) == {('g1', 'P129'), ('g2', 'P702')}
+
+
+def test_add_reference_alongside_existing():
+    c = _claim([[_item_snak('P129', 'Q10')]])
+    assert correct_claim(c, '', 'Q20', '12', 'page') == 'added'
+    assert _refs(c) == [{'P129': 'Q10'}, {'P129': 'Q20', 'P54': '12'}]
+    assert correct_claim(c, '', 'Q20', '12', 'page') == 'present'
+    assert len(_refs(c)) == 2
+    assert verify_claim(c, '', 'Q20', '12', 'page')
+
+
+def test_done_key_for_added_references(tmp_path):
+    import json
+    add1 = {'guid': 'g1', 'old_qid': '', 'new_qid': 'Q20', 'new_prop': 'P129'}
+    add2 = dict(add1, new_qid='Q30')
+    fix = {'guid': 'g1', 'old_qid': 'Q5', 'new_qid': 'Q6', 'new_prop': 'P129'}
+    assert len({done_key(add1), done_key(add2), done_key(fix)}) == 3
+    p = tmp_path / 'c.jsonl'
+    p.write_text('\n'.join(json.dumps(dict(r, status=s)) for r, s in
+                           [(add1, 'added'), (fix, 'corrected')]))
+    done = load_corrected(str(p))
+    assert done_key(add1) in done and done_key(fix) in done and done_key(add2) not in done

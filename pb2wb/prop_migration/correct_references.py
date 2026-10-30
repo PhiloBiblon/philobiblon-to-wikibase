@@ -247,16 +247,30 @@ def _p129_values(ref):
     return _ref_values(ref, P129)
 
 
+WRITTEN = ('corrected', 'added')     # outcomes that change the claim
+
+
 def correct_claim(claim, old_qid, new_qid, loc, loc_type, old_prop=P129, new_prop=P129):
     """
     Replace the reference on claim whose old_prop is old_qid with one whose new_prop
     is new_qid (plus locator). Returns one of 'corrected', 'already', 'missing'.
+    With no old_qid (B6: the other sources of a compound basis), add the reference
+    alongside the existing ones instead: 'added', or 'present' if it is there already.
     Mutates claim in place.
     """
     from wikibaseintegrator.datatypes import Item as WBItem, String as WBString
     from wikibaseintegrator.models import Reference
 
     refs = claim.references.references
+    if not old_qid:
+        if any(new_qid in _ref_values(r, new_prop) for r in refs):
+            return 'present'
+        new_ref = Reference()
+        new_ref.add(WBItem(value=new_qid, prop_nr=new_prop))
+        for prop, value in locator_snaks(loc, loc_type):
+            new_ref.add(WBString(value=value, prop_nr=prop))
+        claim.references.add(new_ref)
+        return 'added'
     old_idx = next((i for i, r in enumerate(refs) if old_qid in _ref_values(r, old_prop)), None)
     if old_idx is None:
         new_present = any(new_qid in _ref_values(r, new_prop) for r in refs)
@@ -301,8 +315,15 @@ def _props(row):
     return row.get('old_prop') or P129, row.get('new_prop') or P129
 
 
+def done_key(row):
+    """Key a plan row is skipped by once done; an added reference is keyed by its QID too,
+    since one statement can get several (and may also have had a B1 fix)."""
+    key = (row['guid'], row.get('new_prop') or P129)
+    return key + (row['new_qid'],) if row.get('old_qid') == '' else key
+
+
 def load_corrected(path):
-    """(guid, new_prop) pairs already corrected, so a P702 move isn't skipped after a B1 fix."""
+    """done_key()s already applied, so a P702 move isn't skipped after a B1 fix."""
     done = set()
     if os.path.exists(path):
         with open(path, encoding='utf-8') as f:
@@ -311,8 +332,8 @@ def load_corrected(path):
                     r = json.loads(line)
                 except ValueError:
                     continue
-                if r.get('status') in ('corrected', 'already'):
-                    done.add((r['guid'], r.get('new_prop', P129)))
+                if r.get('status') in ('corrected', 'already', 'added', 'present'):
+                    done.add(done_key(r))
     return done
 
 
@@ -338,14 +359,14 @@ def cmd_apply(args):
     done = load_corrected(args.corrections_log)
     by_item = OrderedDict()
     for r in plan:
-        if (r['guid'], _props(r)[1]) not in done:
+        if done_key(r) not in done:
             by_item.setdefault(r['item'], []).append(r)
     items = list(by_item.items())
     if args.limit_items:
         items = items[:args.limit_items]
     log.info('Plan: %d statements on %d items (%d already corrected, skipped)%s',
              sum(len(v) for _, v in items), len(items),
-             len(done & {(r['guid'], _props(r)[1]) for r in plan}),
+             len(done & {done_key(r) for r in plan}),
              '  [DRY RUN]' if args.dry_run else '')
     if not items:
         return
@@ -378,13 +399,13 @@ def cmd_apply(args):
             log.info('[%d/%d] %s  %s  %s=%s → %s=%s%s  %s', n, len(items), item_id, r['guid'],
                      old_prop, r['old_qid'], new_prop, r['new_qid'],
                      f" ({r['loc_type']}: {r['loc']})" if r['loc'] else '', status)
-        if any(s == 'corrected' for _, s in outcomes) and not args.dry_run:
+        if any(s in WRITTEN for _, s in outcomes) and not args.dry_run:
             try:
                 time.sleep(args.delay)
                 abm._write_item(item, wbi)
             except Exception as e:
                 log.error('%s: write failed: %s', item_id, e)
-                outcomes = [(r, 'error' if s == 'corrected' else s) for r, s in outcomes]
+                outcomes = [(r, 'error' if s in WRITTEN else s) for r, s in outcomes]
                 consecutive_failures += 1
                 if consecutive_failures >= 3:
                     for r, s in outcomes:
@@ -402,7 +423,7 @@ def cmd_apply(args):
                     else:
                         claims = {c.id: c for c in check.claims}
                         for r, s in outcomes:
-                            if s != 'corrected':
+                            if s not in WRITTEN:
                                 continue
                             ok = (r['guid'] in claims and verify_claim(
                                 claims[r['guid']], r['old_qid'], r['new_qid'], r['loc'], r['loc_type'],
@@ -416,7 +437,7 @@ def cmd_apply(args):
             totals[s] += 1
 
     log.info('=== %s ===', 'Dry run complete' if args.dry_run else 'Done')
-    for k in ('corrected', 'already', 'missing', 'error'):
+    for k in ('corrected', 'already', 'added', 'present', 'missing', 'error'):
         log.info('  %-10s %d', k, totals[k])
     if not args.dry_run:
         log.info('  read-back: %d statements OK, %d FAILED (sampled items)',
