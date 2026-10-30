@@ -9,17 +9,17 @@ requests). Last edited: 2026-10-30.
 <!-- usage-table -->
 | Group | | Usages left | % of original | Cumulative done |
 |---|---|---:|---:|---:|
-| *Done* | | 110,892 | 83.8% | 83.8% |
-| A8 | Foliation → P1243 | 0 | 0.0% | 83.8% |
-| A8b | Physical descriptions → P1243 | 2 | 0.0% | 83.8% |
-| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 83.8% |
-| A6 | Pipeline-approved, awaiting Charles | 17 | 0.0% | 83.9% |
-| A3 | Catalogue + evidence combos | 94 | 0.1% | 83.9% |
-| A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 84.0% |
-| held | Held bases (B2 works-vs-people, …) | 44 | 0.0% | 84.0% |
-| A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 84.3% |
-| A9 | Compounds (X / Y) | 241 | 0.2% | 84.5% |
-| A7 | Long tail, no match | 20,558 | 15.5% | 100.0% |
+| *Done* | | 111,396 | 84.2% | 84.2% |
+| A8 | Foliation → P1243 | 0 | 0.0% | 84.2% |
+| A8b | Physical descriptions → P1243 | 2 | 0.0% | 84.2% |
+| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 84.2% |
+| A6 | Pipeline-approved, awaiting Charles | 17 | 0.0% | 84.2% |
+| A3 | Catalogue + evidence combos | 94 | 0.1% | 84.3% |
+| A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 84.3% |
+| held | Held bases (B2 works-vs-people, …) | 44 | 0.0% | 84.4% |
+| A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 84.7% |
+| A9 | Compounds (X / Y) | 241 | 0.2% | 84.8% |
+| A7 | Long tail, no match | 20,054 | 15.2% | 100.0% |
 
 _Generated 2026-10-30 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken 2026-10-29T14:20 UTC) minus conversions logged since. Groups are assigned by list membership and keywords, so small-group boundaries are approximate._
 <!-- /usage-table -->
@@ -73,6 +73,7 @@ _Generated 2026-10-30 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken
 | B5 | princeps (563 statements) | Kept as P129 = First publication (Q196098). Charles 10-27: princeps = "information taken from the first edition"; 10-29 "Exactly right" on the statement list. |
 | B6 | Compounds: add references for the other sources (`correction_plan.b6_add.tsv`) | 316 added 2026-10-30 on 311 statements; 6 missing (statements gone); read-back 36 OK. |
 | B4 (part) | "MS"/"MSS" → P702 Based on: Manuscript (`move_plan_ms_p702.tsv`) | 22 moved 2026-10-30. |
+| A7 (part) | Top strings with a settled or single-match QID (`plan_a7_ready_20261030.tsv`) | 504 converted 2026-10-30 (34 bases), 0 errors, 102 spot-checks OK. Rest of the top 285: `a7_top_picks.tsv` (check 117 / none 103) → Charles sheet or long tail. |
 | A6 Arteaga | vol./page per Charles (`plan_arteaga_20261030.tsv`) | 728 converted 2026-10-30. |
 | B7 | Missing locators | DHEE pages added to 87 statements 2026-10-28; rest overlaps A3. |
 
