@@ -9,17 +9,17 @@ requests). Last edited: 2026-10-30.
 <!-- usage-table -->
 | Group | | Usages left | % of original | Cumulative done |
 |---|---|---:|---:|---:|
-| *Done* | | 110,569 | 83.6% | 83.6% |
-| A8 | Foliation → P1243 | 0 | 0.0% | 83.6% |
-| A8b | Physical descriptions → P1243 | 2 | 0.0% | 83.6% |
-| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 83.6% |
-| A6 | Pipeline-approved, awaiting Charles | 339 | 0.3% | 83.9% |
+| *Done* | | 110,892 | 83.8% | 83.8% |
+| A8 | Foliation → P1243 | 0 | 0.0% | 83.8% |
+| A8b | Physical descriptions → P1243 | 2 | 0.0% | 83.8% |
+| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 83.8% |
+| A6 | Pipeline-approved, awaiting Charles | 17 | 0.0% | 83.9% |
 | A3 | Catalogue + evidence combos | 94 | 0.1% | 83.9% |
 | A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 84.0% |
 | held | Held bases (B2 works-vs-people, …) | 44 | 0.0% | 84.0% |
 | A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 84.3% |
 | A9 | Compounds (X / Y) | 241 | 0.2% | 84.5% |
-| A7 | Long tail, no match | 20,559 | 15.5% | 100.0% |
+| A7 | Long tail, no match | 20,558 | 15.5% | 100.0% |
 
 _Generated 2026-10-30 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken 2026-10-29T14:20 UTC) minus conversions logged since. Groups are assigned by list membership and keywords, so small-group boundaries are approximate._
 <!-- /usage-table -->
@@ -28,7 +28,7 @@ _Generated 2026-10-30 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken
 
 | # | Group | Status | Waiting on |
 |---|---|---|---|
-| A6 | Pipeline-approved (Arteaga ~730 — Charles 10-29: vol./page, running 10-30 as `a6_arteaga`, `plan_arteaga_20261030.tsv`, 728 usages; small ones left) | Max decided 10-29: BNE Cat. & Faulhaber (as person) → P129 + P702 evidence; Martz, Wikidata → convert. Running on the box (`plan_pipeline_exec_20261029.tsv`, 31 bases, ~245 usages). Rest goes to Charles (`email_to_charles_batch_20261029.txt`, `charles_questions_20261029.xlsx`). 3 targets point to places. | Charles: small items (email item 1) |
+| A6 | Pipeline-approved (Arteaga ~730 — Charles 10-29: vol./page, done 10-30, `plan_arteaga_20261030.tsv`, 728 usages; small ones left) | Max decided 10-29: BNE Cat. & Faulhaber (as person) → P129 + P702 evidence; Martz, Wikidata → convert. Running on the box (`plan_pipeline_exec_20261029.tsv`, 31 bases, ~245 usages). Rest goes to Charles (`email_to_charles_batch_20261029.txt`, `charles_questions_20261029.xlsx`). 3 targets point to places. | Charles: small items (email item 1) |
 | A7 | Long tail, no match | PhiloBiblon + P73 note proposal drafted (`email_long_tail_draft.txt`), not sent. Do after A6. | Max: send to Olaf/Charles |
 | A3 | Catalogue + evidence combos | Kind 3 done as A8c; kinds 1+2 and A3b done 10-29 (see Done). Left: catalogue picks needing a call (28 usages, `a3_catalogue_picks.tsv` status=check), no-hit prefixes (22, status=hold; Charles item 3), 28 author-year references, 9 skipped, 7 long physical notes (`a8d_excluded.tsv`). | Max: the 'check' picks; Charles: email item 3 |
 | A2 | Vetted, with a locator — held remainder | 28 locator mismatches (`exclude_locator_mismatch.tsv`), 6 "DHEE I:nnn" volume-style bases. | Charles |
@@ -60,7 +60,7 @@ _Generated 2026-10-30 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken
 | B8 | Items blocked by broken sitelinks (11) | Every write fails while the item has a stale wikidatawiki sitelink. Added 10-29: Q1079353 (sitelink Q108451548, now a redirect to Q16573599 on Wikidata). | Max: email Olaf |
 | B3 | QIDs cleared by Charles | Replace or remove? | Charles |
 | B4 | Wrong-kind targets not yet flagged | | Charles |
-| B6 | Compounds converted with only the first source | | Charles |
+| B6 | Compounds converted with only one of their sources — parts with no QID (77) | Long tail. | — |
 | B9 | Malformed QIDs in the sheet (460 rows) | Not started. | Claude |
 
 ### Done
@@ -71,6 +71,9 @@ _Generated 2026-10-30 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken
 | B2a | Re-pointed by Charles to new items (`correction_plan.b2_new_item.tsv`) | 186 corrected 2026-10-29; 1 already; 5 missing (Q1077042 ×2 fixed by Charles to Boynton (2011) in June; 3 statements gone). |
 | B5 | Evidence words P129 → P702 (Bookplate, Colophon, …) | 375 moved 2026-10-28. 5 not found: changed by hand on FactGrid (3 → Real Biblioteca bindings DB Q1072164, 2 statements deleted). |
 | B5 | princeps (563 statements) | Kept as P129 = First publication (Q196098). Charles 10-27: princeps = "information taken from the first edition"; 10-29 "Exactly right" on the statement list. |
+| B6 | Compounds: add references for the other sources (`correction_plan.b6_add.tsv`) | 316 added 2026-10-30 on 311 statements; 6 missing (statements gone); read-back 36 OK. |
+| B4 (part) | "MS"/"MSS" → P702 Based on: Manuscript (`move_plan_ms_p702.tsv`) | 22 moved 2026-10-30. |
+| A6 Arteaga | vol./page per Charles (`plan_arteaga_20261030.tsv`) | 728 converted 2026-10-30. |
 | B7 | Missing locators | DHEE pages added to 87 statements 2026-10-28; rest overlaps A3. |
 
 ## C. Infrastructure
