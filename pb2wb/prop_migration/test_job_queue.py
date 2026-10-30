@@ -23,12 +23,20 @@ def test_eastern_now(utc, et):
     assert jq.eastern_now(now).strftime('%H:%M') == et
 
 
-def test_in_maintenance():
-    d = datetime(2026, 10, 27)
-    assert not jq.in_maintenance(d.replace(hour=18, minute=49))
-    assert jq.in_maintenance(d.replace(hour=18, minute=50))
-    assert jq.in_maintenance(d.replace(hour=19, minute=49))
-    assert not jq.in_maintenance(d.replace(hour=19, minute=50))
+@pytest.mark.parametrize('utc,inside', [
+    ('2026-06-08T22:49:00', False),   # summer (CEST): window is 22:50-23:50 UTC
+    ('2026-06-08T22:50:00', True),
+    ('2026-06-08T23:05:00', True),    # seen down 7:05 pm EDT
+    ('2026-06-08T23:50:00', False),
+    ('2026-10-29T22:51:00', False),   # 6:51 pm EDT: EU on CET already, so not yet
+    ('2026-10-29T23:50:00', True),    # 7:50 pm EDT
+    ('2026-10-30T00:01:00', True),    # seen 504s 8:01 pm EDT
+    ('2026-10-30T00:50:00', False),
+    ('2026-12-01T23:55:00', True),    # winter: 6:55 pm EST
+])
+def test_in_maintenance(utc, inside):
+    now = datetime.fromisoformat(utc).replace(tzinfo=timezone.utc)
+    assert jq.in_maintenance(now) is inside
 
 
 def test_log_problems():

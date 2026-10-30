@@ -13,7 +13,8 @@ after each job checks that it went well:
 
 If any check fails the job goes to failed/ and the worker stops. It also stops when
 the queue is empty or a STOP file exists (finishing the current job first), and it
-does not start a job during FactGrid's nightly maintenance (6:50-7:50 pm ET).
+does not start a job during FactGrid's nightly maintenance (00:50-01:50 Berlin time;
+7:50-8:50 pm ET for the week between the EU and US clock changes, else 6:50-7:50 pm ET).
 
 Usage (from pb2wb/):
     python prop_migration/job_queue.py add NAME -- python prop_migration/... args
@@ -32,6 +33,7 @@ import subprocess
 import sys
 import time
 from datetime import datetime, timezone, timedelta
+from zoneinfo import ZoneInfo
 
 JOBS_DIR       = 'prop_migration/jobs'
 LOG_DIR        = 'prop_migration/run_logs'
@@ -39,9 +41,12 @@ REPUTATION_LOG = 'prop_migration/run_logs/reputation.jsonl'
 STOP_FILE      = os.path.join(JOBS_DIR, 'STOP')
 STATES         = ('queue', 'running', 'done', 'failed')
 
-# FactGrid's nightly maintenance is ~7 pm ET; don't start jobs from 6:50 to 7:50 pm ET.
-MAINT_START = (18, 50)
-MAINT_END   = (19, 50)
+# FactGrid's nightly maintenance is ~1:00-1:45 am Berlin time (writes time out with 504;
+# reads keep working). Seen 2026-06-08 7:00 pm EDT and 2026-10-29 8:01 pm EDT (EU clocks had
+# changed, US clocks not yet). Don't start jobs from 00:50 to 01:50 Berlin time.
+MAINT_TZ    = ZoneInfo('Europe/Berlin')
+MAINT_START = (0, 50)
+MAINT_END   = (1, 50)
 
 
 
@@ -62,9 +67,10 @@ def eastern_now(now_utc=None):
     return (now + timedelta(hours=offset)).replace(tzinfo=None)
 
 
-def in_maintenance(et):
-    hm = (et.hour, et.minute)
-    return MAINT_START <= hm < MAINT_END
+def in_maintenance(now_utc=None):
+    """True during FactGrid's nightly maintenance window (defined in Berlin time)."""
+    local = (now_utc or datetime.now(timezone.utc)).astimezone(MAINT_TZ)
+    return MAINT_START <= (local.hour, local.minute) < MAINT_END
 
 
 def log_problems(text):
@@ -183,7 +189,7 @@ def cmd_work(args):
             print(f'{_now_iso()} queue empty — worker stopping')
             return
         et = eastern_now()
-        if in_maintenance(et):
+        if in_maintenance():
             print(f'{_now_iso()} FactGrid maintenance window ({et:%H:%M} ET) — waiting')
             time.sleep(300)
             continue
