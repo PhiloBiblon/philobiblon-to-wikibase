@@ -9,15 +9,15 @@ requests). Last edited: 2026-11-01.
 <!-- usage-table -->
 | Group | | Usages left | % of original | Cumulative done |
 |---|---|---:|---:|---:|
-| *Done* | | 111,870 | 84.6% | 84.6% |
-| A8 | Foliation → P1243 | 0 | 0.0% | 84.6% |
-| A8b | Physical descriptions → P1243 | 2 | 0.0% | 84.6% |
-| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 84.6% |
-| A6 | Pipeline-approved, awaiting Charles | 17 | 0.0% | 84.6% |
-| A3 | Catalogue + evidence combos | 94 | 0.1% | 84.7% |
-| A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 84.7% |
-| held | Held bases (B2 works-vs-people, …) | 44 | 0.0% | 84.7% |
-| A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 85.0% |
+| *Done* | | 112,094 | 84.8% | 84.8% |
+| A8 | Foliation → P1243 | 0 | 0.0% | 84.8% |
+| A8b | Physical descriptions → P1243 | 2 | 0.0% | 84.8% |
+| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 84.8% |
+| A6 | Pipeline-approved, awaiting Charles | 17 | 0.0% | 84.8% |
+| A3 | Catalogue + evidence combos | 94 | 0.1% | 84.8% |
+| A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 84.9% |
+| held | Held bases (B2 works-vs-people, …) | 44 | 0.0% | 84.9% |
+| A4/A5/A10 | Vetted, other blockers | 140 | 0.1% | 85.0% |
 | A9 | Compounds (X / Y) | 150 | 0.1% | 85.1% |
 | A7 | Long tail, no match | 19,671 | 14.9% | 100.0% |
 
@@ -56,9 +56,9 @@ a string is identified later, the correction script swaps PhiloBiblon for the re
 | A6 | Pipeline-approved, small items (17) | Places (DMA, Santa Cruz, Vila), "renunció: DHEE" ×4, Castro ×2, BNM 11439 y 12580, Andrés xxvi, DHEE 311, 557. | Charles (email item 1) |
 | A3 | Catalogue + evidence leftovers (94) | 28 'check' picks (`a3_catalogue_picks.tsv`), 22 no hit, 28 author-year references, 9 skipped, 7 long notes (`a8d_excluded.tsv`). Punted (<100). | Charles sheet / long tail |
 | A9 | Compounds (X / Y) — parts with no QID (~150) | Waits for the long-tail plan (the note would keep the whole string). | — |
-| A4 | Shelfmark locators and typos | Which property to use. | Max/Olaf |
+| A4 | Shelfmark locators (~53: Colombina, B Catalunya, Ajuda…) | Which property to use. Punted (<100). | Max/Olaf |
 | A2 | Vetted, with a locator — held remainder (43) | 28 locator mismatches (`exclude_locator_mismatch.tsv`), 6 "DHEE I:nnn" volume-style bases. Punted. | Charles |
-| A5 | Vetted, but QID blank or malformed | | Charles |
+| A5 | Vetted, but QID blank or malformed (~60) | Y with no QID (Blüher 142, Leitura nova 61, Colón Abecedarium…), "vetted" as QID (Hobson 1976, Díez Garretas 1997), Brown/Princeton URLs. Punted. | Charles |
 | A10 | New strings since June | Triage not started. | Claude |
 | A8 | "* Qualifier" = "?" (a different property) → P155 | Needs a count. | Claude: count query (ask Max first) |
 
@@ -74,6 +74,7 @@ a string is identified later, the correction script swaps PhiloBiblon for the re
 | A7 (part) | Top strings with a settled or single-match QID (`plan_a7_ready_20261030.tsv`) | 504 converted 2026-10-30 (34 bases), 0 errors, 102 spot-checks OK. |
 | A7 (part) | Folio references and folio-led notes → P1243 (`a7_folio_notes.tsv`) | 383 swapped 2026-10-30 (232 bases): 178 es, 98 ca, 10 pt items. 4 naming a source left in A7. |
 | A9 (part) | Compounds whose parts all have QIDs (`plan_a9_20261101.tsv`, then `correction_plan.a9_add.tsv`) | 91 converted 2026-11-01 with the first part's reference (69 bases; 85 spot-checks OK). Second parts: 91 references added 2026-11-01 (read-back 12 OK). Left out: "Zarco / Cuenca 2017" (bad match), "Catalogus 1682 / Högberg 1919" (year given as page). |
+| A4/A5 (part) | Pathfinder → OskiCat Q1071201 (Berkeley's catalogue; statements are "Berkeley holds a copy"), BNE MSS/2420 without its redundant locator, annotation notes → P1243 (`plan_a4_ready_20261101.tsv`) | 224 converted 2026-11-01 (46 bases). |
 | A8 | fichero; ?/[?] → P155 | 550; 157 (10-27/28). |
 | A8 | Foliation → P1243 (`a8_foliation.tsv`) | 3,321 swapped 2026-10-28, language per item: 3,319 ca, 2 es. |
 | A8b | Physical descriptions → P1243 (`a8b_physical.tsv`) | 1,108 swapped 2026-10-29: 1,025 ca, 77 es, 6 pt. |
@@ -101,6 +102,7 @@ a string is identified later, the correction script swaps PhiloBiblon for the re
 | B5 | Evidence words P129 → P702 (Bookplate, Colophon, …) | 375 moved 2026-10-28. 5 not found: changed by hand on FactGrid (3 → Real Biblioteca bindings DB Q1072164, 2 statements deleted). |
 | B5 | princeps (563 statements) | Kept as P129 = First publication (Q196098). Charles 10-27: princeps = "information taken from the first edition"; 10-29 "Exactly right" on the statement list. |
 | B6 | Compounds: add references for the other sources (`correction_plan.b6_add.tsv`) | 316 added 2026-10-30 on 311 statements; 6 missing (statements gone); read-back 36 OK. |
+| B5 fix | Evidence items: Guarda the town (Q358912) → Guarda / fly leaf (Q395036); Escudo the currency (Q960940) → Escudo de armas (Q11233) (`correction_plan.evidence_swap.tsv`) | 44 corrected 2026-11-01 (14, then 30 after fixing the skip key). Charles had the right items in the sheet; dismissed by mistake in the 10-30 B1 leftover check. Types of all 54 targets chosen since 10-23 checked (`new_target_types.tsv`): fine. |
 | B7 | Missing locators | DHEE pages added to 87 statements 2026-10-28; rest overlaps A3. |
 
 ## C. Infrastructure
