@@ -30,6 +30,8 @@ from collections import defaultdict
 import gspread
 from tqdm import tqdm
 
+from common.sheet_fields import is_vetted, is_freq_column, freq_column
+
 # Max ranges per batch_update call (well within Sheets API quota).
 _BATCH_SIZE = 200
 
@@ -144,7 +146,8 @@ class SheetSync:
         write_cols : column names to update.  Missing columns are appended
                      to the sheet header automatically.
         skip_col   : column in the SHEET to check before writing.
-        skip_value : rows where skip_col already equals this are left alone.
+        skip_value : rows where skip_col already equals one of these values
+                     are left alone.  May be a single string or a list/set.
         dry_run    : print a summary without writing anything.
 
         Returns
@@ -161,14 +164,20 @@ class SheetSync:
         sheet_header = list(sheet_rows[0])
 
         # ---- Ensure all write_cols exist in sheet header ----
+        # A frequency write col maps onto whatever the sheet calls it (F, Freqency, ...)
+        sheet_freq = freq_column(sheet_header)
         new_cols = []
         for col in write_cols:
+            if is_freq_column(col) and sheet_freq:
+                continue
             if col not in sheet_header:
                 sheet_header.append(col)
                 new_cols.append(col)
 
         # ---- Column-name → 0-based index ----
         def idx(name):
+            if name not in sheet_header and is_freq_column(name) and sheet_freq:
+                name = sheet_freq
             try:
                 return sheet_header.index(name)
             except ValueError:
@@ -179,6 +188,11 @@ class SheetSync:
         key_indices   = [idx(c) for c in key_cols]
         write_indices = [idx(c) for c in write_cols]
         skip_idx      = idx(skip_col) if skip_col else None
+        skip_values   = (frozenset(skip_value) if isinstance(skip_value, (list, tuple, set))
+                         else frozenset([skip_value]) if skip_value else frozenset())
+        # Canonical forms: if sheet has a non-canonical skip value, normalize it
+        # on push (e.g. 'y', 'YY' → 'Y') while still protecting the row from overwrite.
+        _normalize    = {'y': 'Y'}
 
         # ---- key → list of (1-based row number, padded row data) ----
         # A key may appear multiple times when a previous push already inserted
@@ -228,7 +242,13 @@ class SheetSync:
             if skip_idx is not None:
                 current = (first_row_data[skip_idx]
                            if skip_idx < len(first_row_data) else '')
-                if current == skip_value:
+                if current in skip_values or ('Y' in skip_values and is_vetted(current)):
+                    if current in _normalize or (is_vetted(current) and current != 'Y'):
+                        cell_ref = f'{_col_letter(skip_idx + 1)}{first_row_num}'
+                        cell_updates.append({
+                            'range': cell_ref,
+                            'values': [[_normalize.get(current, 'Y')]],
+                        })
                     skipped += len(local_group)
                     continue
 
@@ -258,7 +278,7 @@ class SheetSync:
                   f'({sum(len(lg) for _, lg in compound_groups)} parts, '
                   f'{n_to_insert} rows to insert, '
                   f'{sum(len(lg) for _, lg in compound_groups) - n_to_insert} already in sheet)')
-            print(f'[dry-run] skipped (vetted=Y): {skipped}  not found: {missing}')
+            print(f'[dry-run] skipped (locked): {skipped}  not found: {missing}')
             if new_cols:
                 print(f'[dry-run] new columns: {new_cols}')
             return {

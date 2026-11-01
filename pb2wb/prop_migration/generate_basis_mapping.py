@@ -62,6 +62,8 @@ sys.path.append(parent_dir_path)
 import requests
 from tqdm import tqdm
 from common.settings import BASE_IMPORT_OBJECTS
+from common.sheet_fields import is_vetted
+from common.factgrid_access import USER_AGENT
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
 
@@ -386,7 +388,7 @@ def load_sheet(path, refresh=False):
             match_type = row.get('match_type', '').strip() if has_match_type else ''
             qid        = extract_qid(row.get('qid', ''))
 
-            if vetted == 'Y' and qid:
+            if is_vetted(vetted) and qid:
                 vetted_rows.append(dict(row))
             elif match_type and match_type not in ('llm_pending', 'compound', 'legacy'):
                 if refresh and match_type == 'none':
@@ -405,7 +407,7 @@ def load_sheet(path, refresh=False):
 # ---------------------------------------------------------------------------
 
 _SESSION = requests.Session()
-_SESSION.headers.update({'User-Agent': 'pb2wb-generate-basis/1.0'})
+_SESSION.headers.update({'User-Agent': USER_AGENT})
 
 _RETRY_ADAPTER = requests.adapters.HTTPAdapter(
     max_retries=requests.packages.urllib3.util.retry.Retry(

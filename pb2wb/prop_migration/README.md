@@ -133,7 +133,7 @@ python prop_migration/merge_candidates.py [options]
 
 ### Vetting protocol
 
-See [`vetting.md`](vetting.md) for the instructions given to Charles.
+See [`vetting_p1141.md`](vetting_p1141.md) for the instructions given to Charles.
 
 **How iteration works:**
 
@@ -374,29 +374,31 @@ For each targeted `(basis_string, p129_qid)` pair the script:
 
 ### Usage
 
-Edit the `CASES` dict at the top of `apply_basis_migration.py` to add the
-basis strings you want to migrate:
-
-```python
-CASES = {
-    'Faulhaber':        {'qid': 'Q164508'},
-    'Perea 2004':       {'qid': 'Q1071227'},
-    '<i>DHEE</i> 2400': {'qid': 'Q426064', 'loc': '2400', 'loc_type': 'page'},
-}
-```
-
-Then:
-
 ```bash
-# Dry run (default) — shows what would change, writes nothing
-python prop_migration/apply_basis_migration.py --basis "Faulhaber" --item Q1086703
+# Dry run — shows what would change, writes nothing
+python prop_migration/apply_basis_migration.py --basis "Faulhaber" --dry-run
 
-# Restrict to one item for a pilot
-python prop_migration/apply_basis_migration.py --basis "Perea 2004" --item Q425307 --execute
+# Single-item pilot
+python prop_migration/apply_basis_migration.py --basis "Perea 2004" --item Q425307
 
-# Run across all items with that basis value
-python prop_migration/apply_basis_migration.py --basis "Faulhaber" --execute
+# Full run across all items with that basis value
+python prop_migration/apply_basis_migration.py --basis "Faulhaber"
 ```
 
 The `--item` flag is recommended for initial testing. Omit it only once you
 are confident in the QID mapping.
+
+### Progress log
+
+Each converted statement is appended to `basis_migration_progress.jsonl`.
+To inspect the most recent entry in a human-readable form:
+
+```bash
+tail -1 prop_migration/basis_migration_progress.jsonl | jq .
+```
+
+To see just the fields useful for checking a change (item as a URL):
+
+```bash
+tail -1 prop_migration/basis_migration_progress.jsonl | jq '{item: ("https://database.factgrid.de/wiki/" + .item), prop, main_value, basis, qid}'
+```

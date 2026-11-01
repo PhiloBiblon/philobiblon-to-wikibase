@@ -37,9 +37,10 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, os.path.dirname(dir_path))
 
 from common.settings import BASE_IMPORT_OBJECTS
+from common.factgrid_access import USER_AGENT
 
 FG          = BASE_IMPORT_OBJECTS['FACTGRID']
-_HEADERS    = {'User-Agent': 'pb2wb/1.0', 'Accept': 'application/json'}
+_HEADERS    = {'User-Agent': USER_AGENT, 'Accept': 'application/json'}
 CANDIDATES  = 'prop_migration/basis_candidates.tsv'
 KNOWN_QIDS  = 'prop_migration/bne_shelfmark_candidates.tsv'
 BATCH_SIZE  = 5    # shelfmarks per SPARQL query

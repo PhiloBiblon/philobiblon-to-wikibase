@@ -1,0 +1,262 @@
+IBIS: ex-libris
+Cisne: ex-libris ms.
+Cisne: sello
+Cisne: ex-libris
+CCPBE: ex-libris
+CCPBE: sello
+Faulhaber: ex-libris ms.
+Gómez Moreno: sello
+CCPBE: ex-libris y sello
+IBIS: sello
+CCPBE: ex-libris ms.
+Penney 1954: ex-libris
+Faulhaber: guarda
+IGM: ex-libris ms.
+IBIS: ex-libris ms.
+CCPBE: Sello de la Librería de Gabriel Sánchez de Madrid
+BNE: ex-libris
+B Catalunya: ex-libris
+RAH Cat.: ex-libris
+IBIS: ex-libris de la época
+BNE Cat.: sello “Pascual de Gayangos”
+Gómez Moreno: ex-libris
+BNE Cat.: Sello de Luís de Usoz 1873
+CCPBE: Ex-libris
+BNE Cat.: sello “BR”
+CCPBE: ex-libris ms
+BNE: sello
+CCPBE: Ex-libris ms.: “En la Libreria de S. Pablo de Cordoba”
+BNE: ex-libris MS
+Faulhaber: sello en la portada
+BNE Cat.: ex-libris ms.
+UCM Cisne: sello
+CCPBE: Ex-libris ms. del Colegio de Santa Catalina, Universidad de Osma
+CCPBE: Ex-libris de Marqués de San Juan de Piedras Albas
+CCPBE: Ex-libris ms. “Del Colegio de la Compañia de Jesus en Valladolid de la libreria”
+CCPBE: Ex-libris ms. en front.
+CCPBE: ex-libris MS
+BNE Cat: ex-libris MS
+Huntington: ex-libris
+IBIS: ex-libris real de la época
+Cisne: ex-libris, sello
+Lilly Cat.: ex-libris
+Cisne: ex-libris y sello
+Cisne: ex-libris MS
+IBIS: ex-libris MS en verso de portada
+Bibl. de Catalunya: ex-libris
+BNE Cat.: “Sello: ‘Librería de D. Luis de Usoz 1873’ ”
+BNE Cat.: “Sello de la Librería de Usoz”
+RAH Cat.: “Ex-libris y sello de la Biblioteca E.F. San Román”
+RAH Cat.: ex-libris y sello
+UCM Cisne: ex-libris ms
+BNE Cat,: Exlibris heráldico, en verso de cubierta
+BNE Cat: sello
+RAH Cat.: sello y ex-libris
+Faulhaber: ex-libris ms. f. 1r
+Faulhaber: signatura
+IBIS: sello: “S.D.S.Y.D.A.’’ (Soy Del Señor Ynfante Don Antonio)
+BNE Cat.: ex-libris marqués de Eliche
+BNE Cat.: ex-libris contratapa anterior: Del S.or Conde de|Miranda
+IGM: ex-libris
+RB IBIS: ex-libris
+BNE Cat.: ex-libris impreso
+IBIS: ex-libris real de la época de Carlos IV-Fernando VII
+BNE Cat.: “Nota ms. de Gayangos en h. de respeto.. Sello: ‘Pascual de Gayangos’.”
+BNE Cat.: ex-libris armorial
+Faulhaber: ex-libris impreso
+Faulhaber: ex-libris ms. f. 168v
+Cisne: ex-libris ms “es del collo de Ua Ga”
+Cisne: ex-libris Biblioteca Complutense Ildefonsina
+Huntington: sello en portada “Casa de Azevedo”
+Cisne: ex-libris impreso con nn. mss
+Huntington: guarda “ Bellamano[?] de Pluma[?] …”
+Faulhaber: sello f. a ij
+OskiCat: ex-libris “Semper idem todo por Aragon y para Aragon”
+BU Salamanca: ex-libris ms. en portada
+BNE: ex-libris ms.
+Cisne: Sello
+Cisne: sellos
+Faulhaber: sello h. O3v (colofón)
+Faulhaber: sello; donativo de 1934
+BNE Cat.: rúbr. y ex-libris ms.
+CCPBE: Sello en h. de guarda anterior de la Librería de Gabriel Sánchez de Madrid '800'
+CCPBE: -- Ex-libris ms. en port. “Del Collegio de la Compañia de Jess en Valladolid, de la libreria”
+CCPBE: Sello de la Biblioteca del Infante Don Carlos
+CCPBE: -- Sello de la Librería de Gabriel Sánchez de Madrid
+CCPBE: -- Ex-libris ms.: “Libreria de N.P.S. Fran[cis]co de Avila”
+CCPBE: -- Sello de la Biblioteca del Infante Don Carlos
+CCPBE: -- Ex-libris ms. en front. de Fr. Marcos de Villalba
+CCPBE: Ex-libris ms. del colegio de Santa Catalina, Universidad de Osma
+CCPBE: Ex-libris ms. de Fr. Marcos de Villalba
+CCPBE: Ex-libris ms. del Monasterio de Fitero
+CCPBE: Ex-libris ms.: “Libreria de N.S.A. Fran[cis]co de Avila”
+BNE Cat.: sello “Biblioteca del Ministerio de Fomento’
+BNE Cat.: ex-libris del Baron de Castiel
+Faulhaber: ex-libris MS dd8v marg. inf.
+BNE Cat.: ex-libris MS borrado en la portada
+BNE Cat.: sello “Juan Sedó
+CCPBE: sello de Pascual de Gayangos
+BNE Cat.: An. ms. en v. de la h. de guarda: “Argote Cabriñana”
+BNE Cat.: Sello: “Librería del Exmo. S. D. Ag. Durán, adquirida por el Gobierno en 1863, B.N.”
+CCPBE: ex-libris ms. en la portada
+Cat. BCatalunya: sello
+Cat BCatalunya: sello
+BNE Cat.: Sello “BR”
+CCPBE: sello y etiqueta
+Huntington: ex-libris 'SEMPER IDEM …”; etiqueta en guard fija final “Biblioteca de Juan M. Sanchez”
+Huntington: ex-libris armorial
+CCPBE: Ex-libris ms. en a2
+Faulhaber: ex-libris ms. “liber floriani Camponsis” en portada
+Cisne: ex-libris armorial
+Huntington: sello 2r: “Coll. Soc. Iesu Salm. ex dono Regum.”
+BNE Cat.: Sellos de la Biblioteca Real
+Huntington Cat.: ex-libris
+Faulhaber: ex-libris MS f. D4v
+Faulhaber: ex-libris MS f. D4r
+Huntington: ex-libris ms en la portada
+Lilly Cat.: con sus anotaciones mss en la guarda final
+Faulhaber: ex-libris MS f. 326v
+Bibl. de Catalunya: sello “Ex bibliotheca Capuccinorum Patientiae Xpi Matrit.”
+Huntington: ex-libris con monograma “H R” (¿es el ex-libris de Heredia?)
+Huntington: etiqueta en guarda libre inicial
+Faulhaber: ex-libris armorial; sello “LEGADO M. SALTILLO” en la portada
+Faulhaber: ex-libris armorial y sello
+Cisne: ex-libris ms
+IBIS: ex-libris de su época
+BCatalunya: ex-libris
+IBIS: ex-libris MS en portada
+IBIS: ex-libris real
+IBIS: sello “S.D.S.Y.D.A.”
+HOLLIS: ex-libris MS
+Huntington: ex-libris “JS' (guarda fija)
+Huntington Cat.: ex-libris en guarda fija
+NLS: sello en varias hh, “Dr de[?] Ygnacio Alonso Abogado S[an]to Domingo de la Calzada”
+Cisne: ex-libris ms. y sello
+Huntington: ex-libris “E.D. Church”
+BC Cat.: sello en la portada
+BNE Cat.: Sello en tinta azul en portada: “Librería de D. Luis de Usoz. 1873”
+Cisne: ex-libris ms. en portada
+Faulhaber: ex-libris ms.. Cisne lee la fecha como 1693”
+Faulhaber: ex-libris “EST.XXIX TABLA 3 N.o 2” en etiqueta impresa “BIBLIOT. UNIV. JARDIN BOTÁNICO”
+Cisne: Ex libris, sello
+BNE Cat.: “. Sello: “BR” (Biblioteca Real)”
+BNE Cat.: ex-libris ms en la portada
+BNE Cat.: Sello: “Librería del Exmo. S. D. Ag. Durán, adquirida por el Gobierno en 1863, B. N.”
+BNE Cat.: Sello en contra cubierta anterior: “Libreria del Licenciado D. Cayetano Alberto de la Barrera”
+BNE Cat.: . Sello: “Pascual de Gayangos”
+CCPBE: Ex-libris ms. en portada: “Da livraria de Sta. Cruz de Coimbra;;
+IBIS: ex-libris ms
+B Catalunya: ex-libris y supra-libros
+UB Erfurt: ex-libris, firma
+Faulhaber: ex-libris MS en la portada
+Faulhaber: ex-libris MS en la portada: “del conuento de ucles”
+CCPBE: Sello de la Biblioteca del Legado de Cárdenas
+BU Salamanca: sello “Coll. Soc. Iesu Salm. ex dono Regum
+Cisne: ex-libris MS guarda
+Cat. B Catalunya: sello
+Trobes: ex-libris MS
+BNE Cat.: ex-libris y anotación ms. en h. de guarda
+B Catalunya: sello
+BNE Cat.: ex-libris 'Animus non res”
+CCPBE: Ex-libris ms.
+BNE: sello “BR”
+Penney 1954: firmado en la última guarda
+UCM Cisne: ex-libris MS (guarda)
+IBIS: ex-libris MS
+BNE Cat.: Ex-libris ms.
+BNE Cat.: Sello: “BR”
+Trobes: ex-libris impreso
+BNE Cat.: Exlibris: “Ex Biblca. D. Ferdin. Josephi á Velasco, In Aula Criminalis Supmi. Castellae enatus, Fiscalis”
+BNE Cat.: ex-libris p. V: “es de la Libreria del Coleg. maior de Cuenca”
+BNE Cat.: Sello en tinta azul: “Libreria del exmo. S. D. AG. Duran. BN.”
+CCPBE: sello de la Bibl. del Legado Cárdenas
+CCPBE: ex-libris impreso; ms.: “M.Pidal Arq.to 1945”
+Faulhaber: inscr. guarda final
+CCPBE: ex-libris MS:
+IBIS: sello: “S.D.S.Y.D.A.”
+Huntington: sello h. a1v
+CCPBE: ex-libris MS y sello
+UCM Cisne: ex-libris MS
+Faulhaber: ex-libris ms. en la portada
+BNE Cat,: Sello
+BNE Cat.: Sello rectangular en tinta roja: “Pascual de Gayangos”. Trozo de h. pegada al v. de tapa con an. ms. de Gayangos: “Primera edicion de este notabilisimo libro comprado al … cuidad de Londres …”
+CCPBE: sello f. CXCIIIIv
+IGM: ex-libris impreso
+Faulhaber: ex-libris ms f. 169r
+Faulhaber: ex-libris ms. contratapa: “Del S.or Conde de Miranda”
+Faulhaber: ex-libris ms.: “del L.do Molina”
+Faulhaber: inscrip guarda ¿s. XVII?
+BNE Cat.: sellos y ex-libris
+IGM: ex-libris armorial guarda final
+Gómez Moreno: ex-libris impreso f. cviij verso
+BNE Cat.: ex-libris: Biblioteca del Conde de Toreno
+Capdevila 2017: ex-libris MS f. 84r
+Faulhaber: sello en portada
+Faulhaber: ex-libris ms. en la guarda
+HEHL Cat.: ex-libris
+Faulhaber: sello en la guarda
+IBIS: ex-libris de Fernando VII con olim: IV-C-2
+IGM:ex-libris MS guarda
+García 2014: ex-libris atribuido a la época de Carlos IV: escudo de España sobre manto de armiño. Inscr: “Biblioteca del Rey N. señor”
+IGM: ex-libris armorial
+Conde 1999: sello
+Conde 1999: ex-libris MS
+RAH Cat.: ex-libris ms.
+IGM: ex-libris ms. f. 578r
+BL Cat.: ex-libris
+Pérez Llamazares: ex-libris ms.
+Faulhaber 2015: ex-libris f. 130v
+IGM: ex-libris ms. f. Ir
+Morel-Fatio: ex-libris f. 1r: “Este libro es del Dor D. Antonio Graña Nieto, mi señor”
+IGM: ex-libris en la contratapa
+Soriano 2014: ex-libris f. 2r: “Aut (…) et quidem excusum salve Generosus Baro Johan Ernestus Fugger L.B.C.”
+Faulhaber: ex-libris ms. f. 234v
+Faulhaber: ex-libris contratapa posterior
+BNE Cat.: sello: 'Libreria de D. Luis de Usoz ·1873·
+BNE Cat.: ex-libris con anagrama en relieve de color amarillo, azul, rojo y oro
+Faulhaber: ex-libris impreso s. XVII (guarda)
+Faulhaber: ex-libris ms. s. XVI
+Faulhaber: formato de la signatura en la guarda
+IBIS: ex-libris en tinta roja
+IGM: “es de Pero Mexia” (guarda y f. 386v)
+Yeves 1998: ex-libris “COLECCION A. PARAMO”
+BNE Cat.: sello: “BR”
+Faulhaber: ex-libris [?] ms. en la portada
+BNE Cat.: sello en portada de la Librería de D. Ag. Durán-1863
+Moldenhauer 1933: ex-libris
+Avenoza 2014: ex-libris “scti philipi. | Fr. Antonius De Azevedo”
+BNE Cat.: ex-libris ms en portada: “De la Librería del Mo de la Compa de Jesús de Madrid”
+BNE Cat.: sello en portada
+Faulhaber: ex-libris impreso, a pluma y a lápiz
+BNE Cat.: ex-libris MS f. IVv
+Faulhaber: ex-libris ms. f. a2r
+Yeves 1998: ex-libris
+BNE Cat: ex-libris
+Faulhaber: ex-libris en la portada “es de marcos perez”
+BNE Cat.: nota en la guarda
+BNE Cat.: ex-libris ms.: “Es de julian de fuensalida | [firma] julian de|Fuensalida”
+B. Catalunya: ex-libris
+Faulhaber: ex-libris mss. 177v. 181r, 182r
+Faulhaber: ex-libris mss ff. 182v, 183v
+Faulhaber: ex-libris “Bibliotheca Broxbourniana
+BNE Cat.: Sello en tinta azul: “Librería de D. Luis de Usoz. 1873”
+Griffin: ex-libris ms. en la portada
+Penney 1954: sello rojo con corona en la portada
+B Catalunya: ex-libris gofrat i daurat: EX MVSAEO HVTHII
+BU Salamanca: Sello: “Coll. Soc. Iesu Salm. ex dono Regum”
+Sáez 2002: “Sello de pertenencia a la Col. Carece de número de registro y de nota de compra.”
+BNE Cat,: sello
+Faulhaber: ex-libris ms f. h8v
+RB IBIS: ex-libris ms.
+BNE Cat.: ex-libris impreso pegado en el margen inferior de la h. con signatura A?: Ex Bibliotheca D. Emmanuelis Vicentii à Murguitio
+Conde 1999: ex-libris MS “Soy de Don Joseph Calderon año de 1702”
+IGM: ex-libris ms. f. 1r
+Faulhaber: ex-libris ms. Iv
+Ortiz Hernández: ex-libris
+BNE Cat.: ex-libris f. 1r
+Faulhaber 2017: sello en la guarda
+Lacarra 2015: sello: “S.D.S.Y.D.A.” (Soy Del Señor Ynfante Don Antonio)
+Faulhaber 2024: ex-libris MS
+Faulhaber: firma f. Ir y sello f. 1r
+RB IBIS: Sello
+Faulhaber: ex-libris f. 76r: “Del Sacro Monte de Granada|nº 101”

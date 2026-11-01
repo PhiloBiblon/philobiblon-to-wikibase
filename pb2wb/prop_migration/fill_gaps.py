@@ -89,6 +89,8 @@ sys.path.append(parent_dir_path)
 import requests
 from tqdm import tqdm
 from common.settings import BASE_IMPORT_OBJECTS
+from common.sheet_fields import is_vetted
+from common.factgrid_access import USER_AGENT
 
 FG = BASE_IMPORT_OBJECTS['FACTGRID']
 
@@ -301,7 +303,7 @@ def load_sheet(path):
             if not q or s in seeded:
                 continue
             if has_vetted:
-                if row.get('vetted', '').strip() in ('Y', 'auto'):
+                if is_vetted(row.get('vetted')) or row.get('vetted', '').strip() == 'auto':
                     seeded[s] = q
             else:
                 seeded[s] = q
@@ -314,7 +316,7 @@ def load_sheet(path):
 # ---------------------------------------------------------------------------
 
 _SESSION = requests.Session()
-_SESSION.headers.update({'User-Agent': 'pb2wb-fill-gaps/1.0'})
+_SESSION.headers.update({'User-Agent': USER_AGENT})
 
 _RETRY_ADAPTER = requests.adapters.HTTPAdapter(
     max_retries=requests.packages.urllib3.util.retry.Retry(

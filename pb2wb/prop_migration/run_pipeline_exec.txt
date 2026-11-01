@@ -1,0 +1,28 @@
+BNE Cat.: sello
+BNE Cat.: ex-libris
+Wikidata
+Faulhaber: sello
+BNE Cat.: sellos
+Faulhaber: ex-libris
+Martz 38
+Martz 39
+BNE Cat.: Sello
+Faulhaber: nota f. 1v
+Martz 40
+Martz 41
+BNE Cat.: Ex libris
+BNE Cat.: Ex-libris
+BNE Cat.: ex libris
+BNE Cat.: n. IIIr
+Fauhaber: sello
+Faulhaber: Sello
+Faulhaber: ex-libris f. 142v
+Faulhaber: ex-libris f. 1r
+Faulhaber: ex-libris impreso, f. Ir
+Faulhaber: inscr. f. 63v
+Faulhaber: inscrip. 1bis verso
+Faulhaber: nota f. 1r
+Faulhaber: sellos
+Faulhaber: “es este libro de dõ franco|mexia hijo de pero mexia” (f. 385v)
+Faulhaber:sello
+Martz 41-41

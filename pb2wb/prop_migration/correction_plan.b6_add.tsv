@@ -1,0 +1,324 @@
+kind	basis	item	guid	prop	old_qid	old_label	new_qid	new_label	old_loc	loc_type	loc	old_prop	new_prop	part
+add	(IGM) / Faulhaber	Q1039997	Q1039997$D5AF4E9A-27D8-4717-9B24-E7016D01D5B4	P769			Q395978						P129	(IGM)
+add	Artigas / Faulhaber	Q1039269	Q1039269$2A0AED65-25CE-4952-829F-F1E613813AC5	P801			Q1068074	Artigas et al. (1957), Catálogos de la Biblioteca de Menéndez Pelayo. I. Manuscritos					P129	Artigas
+add	Azáceta / Faulhaber	Q1038948	Q1038948$28CE27F8-8684-423C-9DDA-AEB2A0BF3BDD	P769			Q1068491	Azáceta (1956), Cancionero de Juan Fernández de Ixar					P129	Azáceta
+add	Azáceta / Faulhaber	Q1038948	Q1038948$FDE0FA55-56CB-4B0A-AC5E-4D3E712BFE15	P1243			Q1068491	Azáceta (1956), Cancionero de Juan Fernández de Ixar					P129	Azáceta
+add	Azáceta / Faulhaber	Q1042377	Q1042377$B9228507-5457-4433-8D13-9E6EA615E605	P1243			Q1068491	Azáceta (1956), Cancionero de Juan Fernández de Ixar					P129	Azáceta
+add	B. Catalunya Res 1522-12 / BNE MSS/7131	Q1081710	Q1081710$B08D954D-33AB-4A34-88D6-B42AE79846FB	P165			Q1071883	BC					P129	B. Catalunya Res 1522-12
+add	BL C.63.i.2 / BNE MSS/7673 / BNE MSS/7811	Q1082091	Q1082091$DFF4DAC8-37E6-48E8-81BC-60342075FD63	P165			Q1040966	MS: Madrid: Nacional (BNE), MSS/7811					P129	BNE MSS/7811
+add	BNE / Faulhaber	Q1041943	Q1041943$C98E1F2C-F753-4E0C-B8D3-F64236F7516C	P800			Q396047	Q1285034					P129	BNE
+add	BNE Cat / Faulhaber	Q1040487	Q1040487$06C328F2-70D6-4AD8-AC30-866DC43B6A41	P800			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat
+add	BNE Cat / Faulhaber	Q1041791	Q1041791$4102F3E6-FEE5-43C6-B7AA-EFA92169002A	P800			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat
+add	BNE Cat, / Faulhaber	Q1040854	Q1040854$7E1585DD-4B09-401F-8637-2E021E8AEF05	P800			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat,
+add	BNE Cat, / Faulhaber	Q1043283	Q1043283$F5921634-D36A-4514-B753-4B7A5A46EA9E	P801			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat,
+add	BNE Cat. / Alvar & Lucía	Q1043258	Q1043258$61A09B16-0533-47CF-888E-4AFCD56B1CCE	P769			Q1071171	Diccionario filológico					P129	Alvar & Lucía
+add	BNE Cat. / Alvar & Lucía	Q1043261	Q1043261$21F8DF8D-F425-4505-9703-62803E683C34	P769			Q1071171	Diccionario filológico					P129	Alvar & Lucía
+add	BNE Cat. / Blanco Jiménez	Q1040965	Q1040965$61959156-98B5-48F8-8CD5-CED9E318D122	P769			Q1072098	Blanco Jiménez (1977), “Il manoscritto escurialense del Decameron”, Miscellanea Storica della Valdelsa					P129	Blanco Jiménez
+add	BNE Cat. / CCPBE	Q1043191	Q1043191$C4C57DB6-CFBE-42C8-8496-9C994441FEEE	P800			Q1070769	Catálogo Colectivo del Patrimonio Bibliográfico Español (OPAC)					P129	CCPBE
+add	BNE Cat. / Faulhaber	Q1038802	Q1038802$ADBA9BEA-31AA-447A-8D64-0322118A4E23	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039114	Q1039114$7E82F263-77F8-4425-81BF-D89F507061C3	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039134	Q1039134$D5A75277-3EE2-4FFE-8E18-772868C8C100	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039376	Q1039376$D5433EA0-B536-4823-8F1D-411D57231574	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039431	Q1039431$6A580D28-1E20-4D3D-A638-416E349DB151	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039453	Q1039453$885CBC73-FD86-4B2F-97B2-560682647626	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039647	Q1039647$635549A8-8005-43DD-8A5F-559F38572352	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039652	Q1039652$4C99F785-1551-4FDC-8730-C8F090D0F1A8	P801			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039685	Q1039685$01D4967F-5C2E-4F06-8A32-2DBB423B98DB	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1039788	Q1039788$09FC546D-6FA5-4652-B12C-FD1351111475	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040005	Q1040005$C4AD49A0-9505-4BF5-9B0F-BFAF8C3E55E9	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040251	Q1040251$E6D3593A-9B2F-4B4F-8E57-8FD223C0BC47	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040251	Q1040251$F221DC55-484F-475F-8FE4-EFEAD6EA3A04	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040253	Q1040253$663481CF-7F5B-4D2F-8FEB-193D4D263FD1	P778			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040433	Q1040433$D7CC268F-01AB-4FB8-A671-2216136D2F3B	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040514	Q1040514$22FDD52F-B4BC-48F7-9D16-030ACFB37231	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040597	Q1040597$E59E5F48-15C4-47F7-A0A4-BD323D4C7A5B	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040758	Q1040758$2F4F5B38-0DEB-4139-8E05-BA16828B087D	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040764	Q1040764$6F618FCE-49DB-4D99-BB41-39178E25E510	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040770	Q1040770$4FA1A8E9-BDB6-42A6-93B5-128D6AD6C8E7	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040775	Q1040775$B52970CE-FCA1-4B2B-A81E-0EF6EEE3C2C9	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040777	Q1040777$BC2F409E-835F-44F4-B8EC-7C2A87BB2858	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040812	Q1040812$5A5DAFBA-E884-4791-AE2F-2A33852CF407	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040819	Q1040819$F5C5D375-5592-4D99-BBFB-7E81FA9E1F0B	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040820	Q1040820$4FC48654-0766-4C20-8B2E-61254510A693	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040820	Q1040820$FAFBCAA5-5976-42FC-802B-08368AE94A41	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040850	Q1040850$717C6D80-A847-4797-B47B-F53177678CC7	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040963	Q1040963$A0B3B634-260E-4A2C-8DAE-DDFFE8D994B3	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1040987	Q1040987$E3CFC6B6-F0BA-476B-947E-4AB3AEF37447	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1041053	Q1041053$F42EB4D8-5E2F-4961-BED5-217F1D1D278F	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1041099	Q1041099$EFB96950-6CC3-465B-80B7-682780CC9B5E	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1041101	Q1041101$708CCA4D-911B-4F67-A820-789E284CFF68	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1041278	Q1041278$30402150-D1BF-48F0-989B-A92BCCB8BADC	P801			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1041320	Q1041320$18EC69C6-8524-417C-9329-BB8B58FAD580	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1041816	Q1041816$15EDA467-180D-42A4-B78F-5B13357E11DD	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1042221	Q1042221$D5783624-B962-4847-A905-D8E89D8367DA	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1042252	Q1042252$55AD65D2-B90C-4B88-8B6A-BFACF25A0AB2	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1042307	Q1042307$F461C3A7-2CB7-4D05-A62E-CE655E8AAAB5	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1042634	Q1042634$658C82AF-5AB7-47A1-BD06-B48C4932C27B	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1042730	Q1042730$57D67404-747E-4F6C-9C39-3EE15184555F	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043033	Q1043033$1F4572D3-46D5-459F-8C7F-4D98AAD2A023	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043033	Q1043033$B44A7907-E3FB-4F09-8C74-16D6991C4851	P1243			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043046	Q1043046$2226584F-EF07-4D44-BD54-E8DB8809138F	P1243			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043046	Q1043046$419CDF98-4E4E-41FA-98D7-B2B20BC90CC8	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043266	Q1043266$937DC1E5-A874-4E4D-9E85-76DB2F56D537	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043268	Q1043268$7506FCC6-26B3-49B3-86CD-19FB1E410B5F	P1243			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043374	Q1043374$481DEEFB-7BBB-4ADD-8419-4318EDDBF368	P801			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043387	Q1043387$6A09FD66-6656-4C38-BBA9-C12B1317DDF7	P1243			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043612	Q1043612$9FFB579C-F8E2-4792-B97A-D3DFDF1BCF6B	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043663	Q1043663$9519D9C6-5B91-4396-BD6A-5CC2D2EF6C98	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043866	Q1043866$E880A504-0E56-41A9-85D2-A453A9BBDB21	P1243			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043882	Q1043882$882441D0-6B50-4318-BFDC-31C71C1D4E78	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043882	Q1043882$B9FFE1E7-3497-4CE9-9B93-543617CDED02	P1243			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043886	Q1043886$8E886914-E9CC-4441-9947-52A0CD5F8BF7	P1243			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1043887	Q1043887$3F5E246A-CFE3-46F2-9563-81271A6B2847	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1063741	Q1063741$219F70D5-7244-4928-8B01-C57A715E9214	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1063760	Q1063760$2600F774-694C-42EB-B3F8-7EFF0DFE28DE	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1063775	Q1063775$989776FF-1AA7-47A3-80D7-9140025C1C44	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1065496	Q1065496$84B65AF7-BDAE-4D40-B0D2-590CAE74FE43	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber	Q1065612	Q1065612$EDD07E1A-C079-4B70-B744-44DBE58E229A	P800			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber / Alvary & Lucía	Q1043257	Q1043257$0BBEBD8C-F47D-4E54-B46F-52C893C6EA85	P769			Q164508	Faulhaber					P129	Faulhaber
+add	BNE Cat. / Faulhaber 2015	Q1039004	Q1039004$62430CA3-74F5-49FA-89EC-FFF09F99758A	P1243			Q1073440	Faulhaber (2015), Personal inspection					P129	Faulhaber 2015
+add	BNE Cat. / Faulhaber 2016	Q1043233	Q1043233$56652571-5B92-4990-BD9A-94A2E6580061	P1243			Q1073664	Faulhaber (2016), Inspección personal					P129	Faulhaber 2016
+add	BNE Cat. / Faulhaber 2017	Q1043493	Q1043493$21676BD4-45F7-4FD2-8025-E4C5DCC81D76	P800			Q1073921	Faulhaber (2017), Inspección personal					P129	Faulhaber 2017
+add	BNE Cat. / Faulhaber 2017	Q1043494	Q1043494$9C5B10D1-56AB-42CD-BCE7-F5F8481F31C7	P800			Q1073921	Faulhaber (2017), Inspección personal					P129	Faulhaber 2017
+add	BNE Cat. / Faulhaber 2017	Q1043497	Q1043497$42E49DB1-0C46-489F-9F0A-D5CEC4865E72	P800			Q1073921	Faulhaber (2017), Inspección personal					P129	Faulhaber 2017
+add	BNE Cat. / Faulhaber 2017	Q1043497	Q1043497$F308CB40-47D6-478C-8F4F-DA6645B87C65	P769			Q1073921	Faulhaber (2017), Inspección personal					P129	Faulhaber 2017
+add	BNE Cat. / Fernández Valladares / Norton	Q1043159	Q1043159$93746BAE-F95D-4792-B8E8-20C7955B6915	P801			Q1068254	Norton (1978), A Descriptive Catalogue of Printing in Spain and Portugal 1501-1520					P129	Norton
+add	BNE Cat. / Gómez Moreno	Q1041228	Q1041228$841DCE71-2F45-4670-8B73-CC5F3D293A7E	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	BNE Cat. / IGM	Q1043259	Q1043259$5868466B-4113-4F81-933E-391598686DB2	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	BNE Cat. / Martín Abad 2001	Q1066429	Q1066429$F4A14E01-8C42-4C5E-974F-A87DEE8F44F0	P769			Q1072085	Martín Abad (2001), Post-Incunables Ibéricos					P129	Martín Abad 2001
+add	BNE Cat. / Martín Abad 2016	Q1041814	Q1041814$73697CF0-42B4-484C-B982-6873479BD390	P137			Q1073792	Martín Abad (2016), Post-incunables ibéricos. (2.ᵃ Adenda)					P129	Martín Abad 2016
+add	BNE Cat. / Penney	Q1078553	Q1078553$D680165F-0A48-4855-9DE2-FC41C8475296	P165			Q1068131	Penney (1965), Printed Books 1468-1700 in the Hispanic Society of America					P129	Penney
+add	BNE MSS/12929/30 / BNE MSS/12932/40	Q1080563	Q1080563$2FEFD92E-1884-4DDD-A61E-3699A4030786	P290			Q1042717	MS: Madrid: Nacional (BNE), MSS/12932/40. Burgos: Juan Díaz, 1307-09-03. Fernando IV, rey de Castilla y León, [Carta a J					P129	BNE MSS/12932/40
+add	BNE MSS/7673 / DB~e	Q1080261	Q1080261$D29D4303-D619-4C6F-A0AA-A3BB6669345F	P165			Q550714	Diccionario Biográfico Español, Real Academia de la Historia (2018-) (DB~e)					P129	DB~e
+add	BNE MSS/7673 / Martín Postigo	Q1082132	Q1082132$85FE7E81-637C-4B68-B03C-5A70AFFB9485	P165			Q1075436	Martín Postigo & Arribas Arranz (1959), “La cancillería castellana de los Reyes Católicos”,					P129	Martín Postigo
+add	BNE MSS/7674 / Vindel	Q1078972	Q1078972$9223E51B-FD69-4F53-A2D7-4FA0C4EB06A4	P296			Q743355	Vindel (1954-49) El arte tipográfico					P129	Vindel
+add	BNE MSS/7674 / ed. Sevilla, 1520	Q1078972	Q1078972$5465EBD9-E123-4668-B716-ABF43046F759	P296			Q1043510	Pragmáticas Sevilla 1520					P129	ed. Sevilla, 1520
+add	BNE MSS/7674 / ed. Sevilla, 1520	Q1078973	Q1078973$0DFFA39F-E6D5-4017-9A52-EC36CDF8E3FF	P296			Q1043510	Pragmáticas Sevilla 1520					P129	ed. Sevilla, 1520
+add	BNE MSS/9975 / Wikipedia	Q1077076	Q1077076$3F3BF95F-4BC2-4ED5-A266-6CE3F0D43FED	P34			Q629842	Wikipedia					P129	Wikipedia
+add	Beaujouan / Faulhaber	Q1054710	Q1054710$9A642891-55C9-45A7-BA60-650EB2294931	P8			Q2028416	Beaujouan					P129	Beaujouan
+add	Beceiro Pita & Franco Silva 1985:292 / Wikipedia	Q1076542	Q1076542$68764B87-25AF-405F-B8B1-977D8C6BCB7F	P173			Q1070857	Beceiro 		page	292		P129	Beceiro Pita & Franco Silva 1985:292
+add	Beceiro Pita & Franco Silva 1985:292 / Wikipedia	Q1076542	Q1076542$8FF16E94-6602-4452-983C-3166A1F2A4E0	P173			Q1070857	Beceiro 		page	292		P129	Beceiro Pita & Franco Silva 1985:292
+add	CCPBE / BNE Cat.	Q1066014	Q1066014$08A8A552-43BF-4D0C-B43F-E52970A162CF	P769			Q1070769	Catálogo Colectivo del Patrimonio Bibliográfico Español (OPAC)					P129	CCPBE
+add	Carriazo 1943 / Faulhaber	Q1043256	Q1043256$295FC760-B8E6-41B3-B863-512A4E5F1485	P800			Q1068893	Mata Carriazo					P129	Carriazo 1943
+add	Carriazo 1943 / Faulhaber	Q1043256	Q1043256$A48951E7-8749-4F15-B9E9-6E647AF91FC7	P1243			Q1068893	Mata Carriazo					P129	Carriazo 1943
+add	Castro / Faulhaber	Q1040261	Q1040261$F9ABCC43-3257-466D-B16E-3EE3AB252884	P800			Q1068175	"Castro (1973), Manuscritos franciscanos de la Biblioteca Nacional de Madrid (Q1068175)
+"					P129	Castro
+add	Catalán 1966 / Faulhaber	Q1055940	Q1055940$1770816B-470C-4878-B8C4-1E8BA1F826A0	P8			Q1068071	Catalán (1966), “El Toledano romanzado y las Estorias del fecho de los Godos”, Estudios dedicados a James Homer Herriott					P129	Catalán 1966
+add	Catálogo Cisne / Faulhaber	Q1062914	Q1062914$D1D93198-5E23-49A3-A937-848ABF8EE870	P800			Q1072166						P129	Catálogo Cisne
+add	Cisne / BNE Cat.	Q1043195	Q1043195$8E9112B4-6217-4664-958E-0AC20543F408	P1243			Q1072166	Cisne. Catálogo de la UCM					P129	Cisne
+add	Cisne / Faulhaber	Q1064498	Q1064498$70DB10D5-BD00-452A-9633-EBE82FE74BFC	P800			Q1072166	Cisne. Catálogo de la UCM					P129	Cisne
+add	Cisne / Faulhaber	Q1065274	Q1065274$C3C858F8-D95F-498E-9FC0-70A7377111AE	P800			Q1072166	Cisne. Catálogo de la UCM					P129	Cisne
+add	Crespo 1991 / Faulhaber	Q1039369	Q1039369$56D178B2-D6F5-4BAD-BF83-8A9AF96C6EA9	P800			Q1070355	Real Academia Española et al. (1991), Catálogo de manuscritos de la Real Academia Española					P129	Crespo 1991
+add	DB~e / BNE MSS/7673	Q1080261	Q1080261$7307CE63-01C2-42C5-BA24-665EA781B59C	P703			Q550714	Diccionario Biográfico Español, Real Academia de la Historia (2018-) (DB~e)					P129	DB~e
+add	DB~e / BNE MSS/7673	Q1080261	Q1080261$C4ACCE1D-0B08-406E-B059-46454F7F87F8	P703			Q550714	Diccionario Biográfico Español, Real Academia de la Historia (2018-) (DB~e)					P129	DB~e
+add	DHEE 1294 / Wikipedia	Q1079533	Q1079533$194842B3-2A3A-4708-8BE7-13FC55E613E1	P173			Q426064	Diccionario de historia eclesiástica de España, comp. Aldea Vaquero et al. (1972-75) (DHEE)		page	1294		P129	DHEE 1294
+add	DHEE 1870 / Wikidata	Q1079698	Q1079698$7A432B39-0B8B-46BE-9484-AE8589FD8E7A	P703			Q426064	Diccionario de historia eclesiástica de España, comp. Aldea Vaquero et al. (1972-75) (DHEE)		page	1870		P129	DHEE 1870
+add	DHEE 1870 / Wikidata	Q436233	Q436233$CF713DF5-7486-4872-A844-B6E1E37917AF	P703			Q426064	Diccionario de historia eclesiástica de España, comp. Aldea Vaquero et al. (1972-75) (DHEE)		page	1870		P129	DHEE 1870
+add	Dictionary / Wikidata	Q1075955	Q1075955$F719FD4E-51FD-44CC-9A9F-F5658B5483E7	P82			Q1068828	Dictionary					P129	Dictionary
+add	Dutton / Beltrán	Q1087366	Q1087366$265E24BA-F956-4C0B-8CCE-58CD632475E8	P21			Q1070186	Dutton, El Cancionero del Siglo XV (complete)					P129	Dutton
+add	Dutton / Beltrán	Q1087366	Q1087366$265E24BA-F956-4C0B-8CCE-58CD632475E8	P21			Q447466	Vicenç Beltran					P129	Beltrán
+add	Dutton / Labrador	Q1050701	Q1050701$9B8215E7-6EF4-4415-9CB1-23563975178D	P8			Q1070186	Dutton, El Cancionero del Siglo XV (complete)					P129	Dutton
+add	Dutton / Labrador	Q1050701	Q1050701$9B8215E7-6EF4-4415-9CB1-23563975178D	P8			Q1207358	José Labrador					P129	Labrador
+add	Dutton / Labrador	Q1050731	Q1050731$5C7F4E2E-4FFF-4B85-954F-19C99D40FE69	P8			Q1070186	Dutton, El Cancionero del Siglo XV (complete)					P129	Dutton
+add	Dutton / Labrador	Q1050731	Q1050731$5C7F4E2E-4FFF-4B85-954F-19C99D40FE69	P8			Q1207358	José Labrador					P129	Labrador
+add	Dutton / Mangas 2020 “Transmisión	Q1058613	Q1058613$1782FEB9-B44F-42A4-AC09-A44CCA5ED8F5	P8			Q1070186	Dutton, El Cancionero del Siglo XV (complete)					P129	Dutton
+add	Dutton / Mangas 2020 “Transmisión”	Q1058614	Q1058614$B26F34C6-924B-45E1-988B-BCC2381E280D	P8			Q1070186	Dutton, El Cancionero del Siglo XV (complete)					P129	Dutton
+add	Dutton / Mangas 2020 “Transmisión”	Q1058614	Q1058614$B26F34C6-924B-45E1-988B-BCC2381E280D	P8			Q1075183	Gracia Dei					P129	Mangas 2020 “Transmisión”
+add	Dutton 1990-91 / Kerkhof 2009	Q1046168	Q1046168$7D19AF3B-EAEE-4818-8A15-4868D8832ACF	P8			Q1074716	Kerkhof (2009), “Ms. 18630 de la Biblioteca Nacional de España. Un nuevo manuscrito de la ‘Coronación’ (poesía y comentario en prosa) de Juan de Mena, y su lugar en el ‘stemma codicum”, Revista de Literatura Medieval					P129	Kerkhof 2009
+add	Faulhaber / Accorsi 2009	Q1039921	Q1039921$782165CC-7954-4873-A212-23883EBFEBA4	P749			Q1074213	Accorsi (2009), “Los manuscritos de la Defensa de virtuosas mujeres de Diego de Valera”, Revista de Literatura Medieval					P129	Accorsi 2009
+add	Faulhaber / Accorsi 2009	Q1039921	Q1039921$F902F252-F59B-4574-97C2-5AFB1AFD9028	P769			Q1074213	Accorsi (2009), “Los manuscritos de la Defensa de virtuosas mujeres de Diego de Valera”, Revista de Literatura Medieval					P129	Accorsi 2009
+add	Faulhaber / Accorsi 2011	Q1039909	Q1039909$0F5EDCC0-A0E2-4CE6-8767-FF385B3714AA	P747			Q1073464	Valera (2011), “Estudio del Espejo de verdadera nobleza de Diego de Valera, con edición crítica de la obra” (ed. Accorsi) (Q1073464)					P129	Accorsi 2011
+add	Faulhaber / Accorsi 2011	Q1039909	Q1039909$300F428B-D6C0-478E-A631-4BB876D4D811	P747			Q1073464	Valera (2011), “Estudio del Espejo de verdadera nobleza de Diego de Valera, con edición crítica de la obra” (ed. Accorsi) (Q1073464)					P129	Accorsi 2011
+add	Faulhaber / Accorsi 2011	Q1039909	Q1039909$63B829E3-4471-411A-9252-6B146BE5F77E	P749			Q1073464	Valera (2011), “Estudio del Espejo de verdadera nobleza de Diego de Valera, con edición crítica de la obra” (ed. Accorsi) (Q1073464)					P129	Accorsi 2011
+add	Faulhaber / Accorsi 2011	Q1043585	Q1043585$893C8307-2E3B-4B44-A250-6ED75FAC17F9	P749			Q1073464	Valera (2011), “Estudio del Espejo de verdadera nobleza de Diego de Valera, con edición crítica de la obra” (ed. Accorsi) (Q1073464)					P129	Accorsi 2011
+add	Faulhaber / Alvar & Lucía	Q1040820	Q1040820$92C23F3C-0E01-403D-BB57-C2E15A82B8E8	P747			Q1071171	Diccionario filológico					P129	Alvar & Lucía
+add	Faulhaber / Alvar & Lucía	Q1041278	Q1041278$81A42591-D4E8-4461-8338-707FE6CCEA6E	P769			Q1071171	Diccionario filológico					P129	Alvar & Lucía
+add	Faulhaber / BColombina	Q1050281	Q1050281$A431ED47-45A7-42D5-B44B-1D2488825E66	P5			Q1068104	Biblioteca Colombina					P129	BColombina
+add	Faulhaber / BNE Cat.	Q1039862	Q1039862$D7844ED5-49B4-4F83-96F7-FE28AE865475	P800			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat.
+add	Faulhaber / BNE Cat.	Q1040826	Q1040826$7CAA9275-3363-4510-880B-B4A20D73E344	P769			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat.
+add	Faulhaber / BNE Cat.	Q1041063	Q1041063$89266730-36B6-430F-BB25-AF852064ADEE	P800			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat.
+add	Faulhaber / BNE Cat.	Q1041079	Q1041079$D241356D-7AC2-4349-B3B9-BD6B4EADD77E	P769			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat.
+add	Faulhaber / BNE Cat.	Q1041168	Q1041168$A158DDA3-ABB2-4B31-A3E8-6C4211DB3CD6	P769			Q396047	Biblioteca Nacional de España, Catálogo [OPAC]					P129	BNE Cat.
+add	Faulhaber / Bautista 2017	Q1043660	Q1043660$2EAF67B9-AA9D-4ECC-BD06-FE60B851A008	P769			Q1290203	Bautista (2017), “Alfonso X, Bernardo de Brihuega y la General estoria”, Atalaya					P129	Bautista 2017
+add	Faulhaber / Beaujouan	Q1045977	Q1045977$193F18A6-C1B2-4C8C-B353-F9F39CFA8165	P8			Q2028416	Beaujouan					P129	Beaujouan
+add	Faulhaber / Cisne	Q1063456	Q1063456$4CC372DB-AB31-4FBE-A7FA-FA0839FAAEBF	P769			Q1072166	Cisne. Catálogo de la UCM					P129	Cisne
+add	Faulhaber / Fernández-Ordóñez 2000 “Transmisión”	Q1038748	Q1038748$5EDB09E3-BCC8-4352-8B67-A495DE99CFBE	P769			Q1073616	Fernández-Ordóñez 2000 “Transmisión”					P129	Fernández-Ordóñez 2000 “Transmisión”
+add	Faulhaber / ISTC	Q1062813	Q1062813$8C784CA1-C398-43C7-B50F-C98FED38BFE7	P769			Q390669	ISTC | Incunable Short Title Catalog					P129	ISTC
+add	Faulhaber / ISTC	Q1062814	Q1062814$50BA9268-7703-43A0-B451-5E369730DB87	P769			Q390669	ISTC | Incunable Short Title Catalog					P129	ISTC
+add	Faulhaber / Kristeller	Q1039557	Q1039557$36B319B2-F16B-47AA-8205-24390BD2DF05	P136			Q225897	Kristeller					P129	Kristeller
+add	Faulhaber / Mangas 2020 “Transmisión”	Q1054978	Q1054978$34D5BD09-76B7-47BC-8740-F9342FA88AF6	P8			Q1075183	Gracia Dei					P129	Mangas 2020 “Transmisión”
+add	Faulhaber / OCLC	Q1063011	Q1063011$58AA520E-A532-4A9A-9325-17434D582395	P769			Q1070689	OCLC | WorldCat					P129	OCLC
+add	Faulhaber / Sánchez Parra	Q1040900	Q1040900$E85B18CB-0951-4DCE-8BE9-ADF26B4B6703	P749			Q1071003	Sánchez-Parra (1991), Crónica anónima de Enrique IV de Castilla 1454-1474 (Crónica castellana)					P129	Sánchez Parra
+add	Faulhaber / Villacorta 2005	Q1041697	Q1041697$4E559A6C-4B8E-420D-B60D-10B103E7F235	P769			Q1071489	ed. García de Salazar					P129	Villacorta 2005
+add	Faulhaber 2016 / BNE Cat.	Q1038744	Q1038744$26951CE6-20FC-4AC4-958E-E37F118B4C73	P800			Q1073664	Faulhaber (2016), Inspección personal					P129	Faulhaber 2016
+add	Faulhaber 2019 / BNE Cat.	Q1041375	Q1041375$F63B93A0-71CF-478F-BFDD-F45B21CA48FE	P769			Q1074575	Faulhaber (2019), Inspección personal					P129	Faulhaber 2019
+add	Fradejas / Norton	Q1051763	Q1051763$D0F84408-1394-4787-80EE-0ABFB8852785	P8			Q1070396	Fradejas Rueda (1991), Bibliotheca cinegetica hispana: bibliografía crítica de los libros de cetrería y montería hispano-portugueses anteriores a 1799					P129	Fradejas
+add	GW / BNE Cat.	Q1040032	Q1040032$934491CD-334F-4C69-BAC6-8AB197F3F63D	P769			Q369903	Gesamtkatalog					P129	GW
+add	Garcia 1998 / BNE MSS/7811	Q1078010	Q1078010$5A4C2D70-FD21-4EE5-9A8F-3EC68CB52995	P703			Q1070736	Garcia (1998), “Les remontrances au roi (1413) d’après une version castillane contemporaine”, Atalaya. Revue Française d’Études Médievales					P129	Garcia 1998
+add	Garcia 1998 / BNE MSS/7811	Q1079064	Q1079064$4D4FAF42-EB33-4CE2-A5C7-7925FFE6C049	P703			Q1070736	Garcia (1998), “Les remontrances au roi (1413) d’après une version castillane contemporaine”, Atalaya. Revue Française d’Études Médievales					P129	Garcia 1998
+add	Garcia 1998 / BNE MSS/7811	Q1079064	Q1079064$63E6E778-E661-4BA3-AD2E-28A6A70F9C8A	P703			Q1070736	Garcia (1998), “Les remontrances au roi (1413) d’après une version castillane contemporaine”, Atalaya. Revue Française d’Études Médievales					P129	Garcia 1998
+add	Garcia 1998 / BNE MSS/7811	Q1079064	Q1079064$F35FE799-9A2B-4E73-9857-24D1B3914133	P165			Q1070736	Garcia (1998), “Les remontrances au roi (1413) d’après une version castillane contemporaine”, Atalaya. Revue Française d’Études Médievales					P129	Garcia 1998
+add	Gómez Moreno / BNE Cat.	Q1039547	Q1039547$CF9937B7-61BE-48D8-89F5-1BCE75B12753	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1039650	Q1039650$FB7A4F2B-991D-4E36-8D80-A52F0509EF11	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1039700	Q1039700$D48E8F62-81BD-4B6B-AA9B-8536661E6A6C	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1041469	Q1041469$C25048A5-5B71-4E74-ACBA-32B77EF75710	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063755	Q1063755$7523AA59-CC7E-4161-BC40-D2BAF5A2B54E	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063769	Q1063769$068D6C26-C780-47BD-B507-137E371AAC60	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063770	Q1063770$86B3A1C2-51E1-4C43-834B-32CDA4B69D62	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063772	Q1063772$273F87F7-7765-4895-8AEC-BEA623534F2D	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063773	Q1063773$3FF4A981-C551-4EA5-ACFC-3C0C74A1157A	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063774	Q1063774$9A2D28AB-9B0B-42F9-9B45-CA1754F6EEEA	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063775	Q1063775$557E7DFE-9095-439D-9402-B3BEF71F7C49	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063779	Q1063779$8D2C52EF-449B-4134-97C1-AF4140B77FB6	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063799	Q1063799$AF90CA91-F655-4500-A7AB-EEC7BD327D84	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063826	Q1063826$0370DC2F-869F-4072-A726-581996C5A26E	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063827	Q1063827$8778D6E7-77DD-4CEC-800F-C4F42DC7DA8B	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / BNE Cat.	Q1063860	Q1063860$E1BB600C-8629-432F-8B72-0E8A838B9FBB	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1039025	Q1039025$9B9FC320-B6EF-4732-A12C-09136843E7BF	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1039289	Q1039289$201532CA-30F6-493D-B09F-E59F1EDFFC78	P1243			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1039789	Q1039789$02053DA3-933E-4186-9756-23F3761280A0	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1039789	Q1039789$3F820D9F-F3BD-4699-8CED-4FB394985567	P1243			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1040319	Q1040319$8F785253-1E8F-47AE-80D0-7F065CFF3346	P747			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1040319	Q1040319$E5DAF08B-E8DC-4764-A63E-D3B3B05CEF7D	P800			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1040319	Q1040319$E8A25B92-098A-45A8-983D-E47CA11FEC81	P747			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1040594	Q1040594$FB14274D-259C-4DD3-96FD-A271E7227560	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1040958	Q1040958$4A81CD8E-98CA-4832-B1A6-8A82E54D92D1	P800			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1040966	Q1040966$82D47C80-CD19-4C0D-9AD5-BAF5E0811A5A	P800			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1040986	Q1040986$69E32563-1629-4B2A-87A0-199DA83EFCF2	P800			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1041214	Q1041214$6C547B4E-D573-4822-8E4B-A8EFE1535C11	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / Faulhaber	Q1043604	Q1043604$B918A82F-D91E-428B-9E6B-C06EB9F4D3FC	P1243			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno / IBIS / Kerkhof 1999	Q1040927	Q1040927$17748060-D44F-4207-818C-319EE46DABF4	P769			Q1071217	IBIS					P129	IBIS
+add	Gómez Moreno / IBIS / Kerkhof 1999	Q1040927	Q1040927$17748060-D44F-4207-818C-319EE46DABF4	P769			Q418533	Ángel Gómez Moreno					P129	Gómez Moreno
+add	Gómez Moreno 1985 / Faulhaber	Q1040987	Q1040987$6801A72E-A78B-485C-B8DC-488A558C5110	P1243			Q418533	Gómez Moreno					P129	Gómez Moreno 1985
+add	Haebler / GW	Q1039900	Q1039900$B829CE47-2615-42C6-944F-B3CF46D15596	P241			Q369903	Gesamtkatalog					P129	GW
+add	IBIS / Accorsi 2011	Q1039830	Q1039830$79A6433C-14FD-4AB0-AE83-094454559245	P747			Q1073464	Valera (2011), “Estudio del Espejo de verdadera nobleza de Diego de Valera, con edición crítica de la obra” (ed. Accorsi) (Q1073464)					P129	Accorsi 2011
+add	IBIS / Blanco Jiménez	Q1040922	Q1040922$7EE62BAE-EDE1-4E13-AAF2-73E69C5E55E4	P769			Q1071217	IBIS					P129	IBIS
+add	IBIS / Blanco Jiménez	Q1040922	Q1040922$7EE62BAE-EDE1-4E13-AAF2-73E69C5E55E4	P769			Q1072098	Blanco Jiménez (1977), “Il manoscritto escurialense del Decameron”, Miscellanea Storica della Valdelsa					P129	Blanco Jiménez
+add	IBIS / Faulhaber	Q1039677	Q1039677$33CCCE94-94C6-4013-9EB4-175279E71B34	P769			Q1071217	IBIS					P129	IBIS
+add	IBIS / Faulhaber	Q1039677	Q1039677$33CCCE94-94C6-4013-9EB4-175279E71B34	P769			Q164508	Faulhaber					P129	Faulhaber
+add	IBIS / ISTC	Q1062760	Q1062760$9FF6002B-FB12-4645-AA8D-5556463F85F0	P769			Q1071217	IBIS					P129	IBIS
+add	IBIS / ISTC	Q1062760	Q1062760$9FF6002B-FB12-4645-AA8D-5556463F85F0	P769			Q390669	ISTC | Incunable Short Title Catalog					P129	ISTC
+add	IBIS / mANGAS 2020	Q1043849	Q1043849$78472C89-1E33-4276-AE32-AED5A11C5BAA	P769			Q1071217	IBIS					P129	IBIS
+add	IGM / BNE Cat.	Q1039011	Q1039011$A9608356-4AAD-475F-A5B9-E4618B6F4E45	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1039126	Q1039126$FAEF4E57-BC60-4FEB-BF57-AAFB3604E79D	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1040013	Q1040013$361B3391-D672-41BA-B62C-BCF2938AF921	P1243			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1040135	Q1040135$6238C5CB-73F2-4442-9D78-01460520D24B	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1040491	Q1040491$0A0E9618-E4EA-4E5C-93A5-2B0FD738310A	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1040783	Q1040783$184E2847-DEF6-4B3C-BDE4-D61677C3F685	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1042630	Q1042630$CCB91556-50D6-47D9-8474-07AD1FECE91F	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1043165	Q1043165$3AE26E05-2434-4931-B856-DF1D63734FBE	P1243			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1043165	Q1043165$598BE395-9379-49D9-B2BC-AA7D4EE68EC9	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat.	Q1043826	Q1043826$2A1A4B61-82DA-402E-80AD-90847B60D17A	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat. / Faulhaber	Q1039619	Q1039619$933789FA-119E-4E2D-AF9B-3D0CA3E20149	P769			Q164508	Faulhaber					P129	Faulhaber
+add	IGM / BNE Cat. / Faulhaber	Q1039619	Q1039619$933789FA-119E-4E2D-AF9B-3D0CA3E20149	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / BNE Cat. / Faulhaber	Q1041371	Q1041371$31FE7BA2-C1F6-43DA-BA7A-4545DF4E411F	P769			Q164508	Faulhaber					P129	Faulhaber
+add	IGM / BNE Cat. / Faulhaber	Q1041371	Q1041371$31FE7BA2-C1F6-43DA-BA7A-4545DF4E411F	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039005	Q1039005$B39F7871-43C5-4D1F-900F-4BCE374B00B8	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039040	Q1039040$1F7E3A5D-FA0D-4A68-8108-4305EF739C15	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039040	Q1039040$2A8DB158-9F1C-4BBA-96BC-56B2926F8DAB	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039071	Q1039071$8BA5EE99-4513-42F5-B53F-556881E512DE	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039102	Q1039102$458FC950-334B-4107-A820-AB1061E3CA61	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039104	Q1039104$38BFF3A1-2345-4354-96E7-7ED6418B0AAE	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039162	Q1039162$45C58FE5-9DFA-469B-9E96-32A22EDF0483	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039206	Q1039206$98816C94-4C0E-436C-8C5A-EDCDA6D9405F	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039257	Q1039257$E0593A65-1D09-4CB4-A020-4600A1D8A39A	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039271	Q1039271$1B9CA486-C0A7-4393-A1D3-88D9D4642B00	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039289	Q1039289$E9615090-1B52-4CBF-BCC4-C6732A840F01	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039430	Q1039430$67DC6405-72B4-4C46-8FC6-6DC386993883	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039441	Q1039441$85DABB27-8FE7-4F22-BC5A-B86E8362F9D3	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039489	Q1039489$43B4C962-D257-4D72-8540-C689360562E9	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039501	Q1039501$5F2E0044-5CA1-4817-BA55-F0EC35C9BD2F	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039510	Q1039510$B4B9A867-5E5E-4CD5-BA65-86D60544FC2C	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039529	Q1039529$2A602A5B-6A05-4803-A155-B1D680F36029	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039529	Q1039529$930BC1F5-9B5C-48A4-A54D-C6FD440A09BA	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039585	Q1039585$1311DA16-DBAE-43B9-B99F-27D86BBEE62C	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039591	Q1039591$471DBB21-E61C-4282-925E-970752AB56BF	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039591	Q1039591$938C8F2D-CEA1-4987-8C6F-60F7A588782F	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039621	Q1039621$093765CB-DE75-4A85-8A8C-26F1C203924E	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039623	Q1039623$C0D3781A-7C57-49C4-9CA5-AE50B71BCBB2	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039652	Q1039652$0048358E-6AAE-4AA6-870B-8D4ABD6EE034	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039708	Q1039708$DD7A9884-5C1E-4BB9-BA7C-C8A0B10D1A82	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039751	Q1039751$66EFEC65-F3C1-40A8-AC6B-C7E82E5A1B23	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039822	Q1039822$0B4854B6-E54A-4A49-9E55-BC8F2CDEB264	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1039854	Q1039854$4A03E7D3-BE64-402A-BE78-6F0D0AFF9839	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040012	Q1040012$167217A5-747C-424B-8D8F-4C711E315B81	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040012	Q1040012$4801A799-4500-4556-B9EC-8C80FF322B03	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040013	Q1040013$F8E443D1-631C-4E35-BE75-63576E29225E	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040141	Q1040141$AB76E319-E340-47F4-8745-98E76E8CD7D3	P1243			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040248	Q1040248$61449537-BAC8-4A10-98A8-A30ADBA22F05	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040253	Q1040253$03B3FAD4-0076-4686-A4D6-4340AF2E9ACD	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040476	Q1040476$88E72982-1E8F-4A20-864C-DBF1D56C06BF	P1243			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040496	Q1040496$CC331505-71F4-493E-A220-A72CF4FA42B8	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040608	Q1040608$2A6166D1-0354-4EE8-B4AC-AF8C505A1CE2	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040798	Q1040798$9CF70853-5632-4110-B8BA-4AE24C894641	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040804	Q1040804$63EC10A8-CD48-4CB8-8A77-9C9FFDBF4E42	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040822	Q1040822$F5D1B7DD-EE73-4CF4-8E00-327943ED51D8	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040828	Q1040828$67A2B430-3BA1-47F4-A215-21F4ABCF32F8	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040828	Q1040828$BAEA9F97-6987-444A-AD4E-03F7ED337A90	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040830	Q1040830$30D9D35E-2426-488C-8EF2-E54DF2CAB839	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1040842	Q1040842$648DA2E4-2C81-4CE5-8B95-85546C1D2794	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041023	Q1041023$3745F509-3C8E-470F-94F9-D86EF1F4CCA5	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041023	Q1041023$70F13115-721C-4957-A975-26BFE61B705F	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041023	Q1041023$DBDEC9EF-6AAC-4256-BB7E-4F4E5369A4BA	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041092	Q1041092$BB6160CB-7414-447B-B212-9D424D0A76C0	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041260	Q1041260$03F11FEC-9222-4B27-A4F3-AC3385D0E9EE	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041260	Q1041260$52F61641-5F88-4152-B99E-41F5188385CF	P1243			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041278	Q1041278$0BDE09FF-AB44-4F8E-9EC3-1CA479596AF2	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041314	Q1041314$D5E7BBB8-4FE2-4E03-9D03-8D373AC36C13	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041316	Q1041316$CAEEC418-EEC0-4139-AB34-B74355FCC03B	P1243			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1041319	Q1041319$4ADD6525-2E08-4F03-92FA-C2902A342772	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1042221	Q1042221$01459C1C-61F5-4425-8D31-5DD6AF9B5ADB	P801			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1042334	Q1042334$9E723CCA-8D64-4B20-B522-6C82418AB45C	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1042335	Q1042335$4D64713C-AF1C-43CC-A115-0A5DF6E70D69	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1042356	Q1042356$9FA190E9-C9B8-49C7-A0FB-D6C69CD9987E	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1042473	Q1042473$F29DB9C1-DDB1-4240-A874-31A36ACBFF06	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1042547	Q1042547$795B98AA-401C-43D0-A8BF-F05C54911B43	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1042554	Q1042554$033EBB23-38F4-4A08-AB4E-348F76EBE311	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1042655	Q1042655$BE565F55-F47E-4B93-862F-5B2E4B74590C	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1043265	Q1043265$7BEF48D1-028D-41B1-9B83-1B5C4E01876B	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber	Q1043740	Q1043740$DFFB2764-4512-475F-A3A0-EFAE5226BCE4	P800			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	IGM / Faulhaber / Saracino	Q1043173	Q1043173$99BF581F-4687-4CCD-BD66-F34969BF892D	P769			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	Kasten / Faulhaber	Q1038802	Q1038802$85885C89-DE2A-4A0C-8FAA-BFFC3C874132	P1243			Q2067393	Kasten					P129	Kasten
+add	Lilao et al / Faulhaber	Q1045978	Q1045978$5D3B0FD8-23E3-4B50-B3B7-773703F28F79	P8			Q946079	BU Salamanca					P129	Lilao et al
+add	Lilao et al. / Faulhaber	Q1039235	Q1039235$55AC202C-08D3-4888-9F5D-8936668E6297	P1243			Q1070610	Catálogo de manuscritos de la Biblioteca Universitaria de Salamanca (1997-2002)					P129	Lilao et al.
+add	Lilao et al. / Faulhaber	Q1045980	Q1045980$B439BB12-EAA2-4573-A820-A3DB7672087F	P8			Q1070610	Catálogo de manuscritos de la Biblioteca Universitaria de Salamanca (1997-2002)					P129	Lilao et al.
+add	Martín Postigo / BNE MSS/7673	Q1078970	Q1078970$8B7671C9-C812-48DC-B631-DAEF342DBCC6	P165			Q1075436	Martín Postigo & Arribas Arranz (1959), “La cancillería castellana de los Reyes Católicos”,					P129	Martín Postigo
+add	Miguel 2014 / BNE Cat.	Q1039652	Q1039652$0BAA8B49-9D70-4150-AA5F-6D420C3F2938	P769			Q1073436	ed. Miguel Briongas					P129	Miguel 2014
+add	Norton / Bibl. de Catalunya	Q1039117	Q1039117$27CC3901-5641-4F15-A006-477B65BC35E0	P769			Q1071883	BC Cat.					P129	Bibl. de Catalunya
+add	Norton / CCPBE	Q1065084	Q1065084$24B3F83F-0CF9-4B3B-BB1D-5DD19439A509	P769			Q1070769	Catálogo Colectivo del Patrimonio Bibliográfico Español (OPAC)					P129	CCPBE
+add	Norton / Conde 1999	Q1042027	Q1042027$4A1CF25B-66C1-4E92-A8BC-71AE9ED8F302	P769			Q1070976	Conde (1999), La creación de un discurso historiográfico en el cuatrocientos castellano: “Las siete edades del mundo” de Pablo de Santa María (estudio y edición crítica)					P129	Conde 1999
+add	Norton / Faulhaber	Q1041821	Q1041821$704036DB-3154-4F86-AD0A-49D62860A67A	P778			Q164508	Faulhaber					P129	Faulhaber
+add	Norton / Lilly Cat.	Q1064437	Q1064437$771260B3-4CD1-486C-A304-900585319932	P769			Q1073178	IUCAT					P129	Lilly Cat.
+add	Norton / Martín Abad 2001	Q1042032	Q1042032$B00B8D19-EB10-489E-A79F-E6C99CDA11F2	P770			Q1072085	Martín Abad (2001), Post-Incunables Ibéricos					P129	Martín Abad 2001
+add	Norton 1978 / Faulhaber	Q1042591	Q1042591$AA65E839-CA61-4CF6-86BA-D9FAED7E138C	P748			Q1068254	Norton (1978), A Descriptive Catalogue of Printing in Spain and Portugal 1501-1520					P129	Norton 1978
+add	Orduna 2002 / BNE Cat.	Q1039628	Q1039628$4E6B2630-086B-4A4E-B5CB-32A2E9992BC4	P769			Q1071348	Orduna (2002), “Pero López de Ayala”, Diccionario filológico de literatura medieval española. Textos y documentos					P129	Orduna 2002
+add	Penney / Faulhaber	Q1065464	Q1065464$2849D091-8BEE-4225-9304-D8D15D4B39F1	P136			Q164508	Faulhaber					P129	Faulhaber
+add	Perea / Faulhaber	Q1040424	Q1040424$1950690A-3399-45F5-AC54-0E8A6C99F3B9	P1243			Q257011	Óscar Perea Rodríguez					P129	Perea
+add	Perea / Faulhaber	Q1040424	Q1040424$8826623B-486C-46EB-B512-47732ECE2FE0	P800			Q257011	Óscar Perea Rodríguez					P129	Perea
+add	Perea / Faulhaber	Q1042401	Q1042401$944FDE36-FB39-4698-94B8-9A8A572BDFD6	P800			Q257011	Óscar Perea Rodríguez					P129	Perea
+add	Perea / Wikidata	Q1077387	Q1077387$94D9B641-F5E8-4584-AE39-E09C71286C81	P173			Q257011	Óscar Perea Rodríguez					P129	Perea
+add	RAE Cat. / Faulhaber	Q1042832	Q1042832$A8C21B1A-4BA1-4990-A8B9-B8B10DB60345	P769			Q1070355	Crespo					P129	RAE Cat.
+add	Rodgers 1984 / Faulhaber	Q1039007	Q1039007$E46EC0BE-43E9-46D4-B37B-917735FC81AF	P800			Q1073017	Rodgers (1984), “Prolegomena to a Critical Edition of the Crónica de Alfonso X”,					P129	Rodgers 1984
+add	Schiff / Faulhaber	Q1039565	Q1039565$2DA86DD8-F6F2-4611-A06D-EC943B23F490	P769			Q1068078	Schiff. Bibl. de Santillana					P129	Schiff
+add	Schiff / Faulhaber	Q1040012	Q1040012$2C9967A2-E606-4212-9EDC-E3E2B7E8D169	P481			Q1068078	Schiff. Bibl. de Santillana					P129	Schiff
+add	Schiff / Faulhaber	Q1040508	Q1040508$F456D87D-382B-417A-812F-59129E13F073	P769			Q1068078	Schiff. Bibl. de Santillana					P129	Schiff
+add	Schiff / IGM / Faulhaber	Q1039505	Q1039505$29443B39-2B30-441D-A099-A150591EF611	P1243			Q1068078	Schiff. Bibl. de Santillana					P129	Schiff
+add	Schiff / IGM / Faulhaber	Q1039505	Q1039505$29443B39-2B30-441D-A099-A150591EF611	P1243			Q395978	IGM | Biblioteca Nacional de España (1953-2006), Inventario general de manuscritos de la Biblioteca Nacional [IGM]					P129	IGM
+add	Simón Díaz / Faulhaber	Q1038774	Q1038774$E34EDDE6-6A73-4F35-94FC-BEBEBB480B92	P1243			Q1877829	José Simón Díaz					P129	Simón Díaz
+add	UCM Cisne / Faulhaber	Q1065254	Q1065254$6F7FA023-3EF8-4B8E-81DF-6B1F2BEEB005	P770			Q1072166	Cisne					P129	UCM Cisne
+add	Villacorta 2015 / Faulhaber	Q1043798	Q1043798$DD0885A4-AA8B-435B-A7FC-273ED007E110	P800			Q1074196	Villacorta Macho (2015), Libro de las buenas andanças e fortunas que fizo Lope García de Salazar					P129	Villacorta 2015
+add	Villacorta 2015 / Faulhaber	Q1043799	Q1043799$2ECC7F39-FF89-407A-9E17-C795B7511AC2	P800			Q1074196	Villacorta Macho (2015), Libro de las buenas andanças e fortunas que fizo Lope García de Salazar					P129	Villacorta 2015
+add	Vindel / BNE MSS/7674	Q1078973	Q1078973$1860014D-11FC-4ED1-8FA2-BA982AC0FB85	P296			Q743355	Vindel (1954-49) El arte tipográfico					P129	Vindel
+add	Wikidata / DHEE 160	Q1078900	Q1078900$582FFF2D-D057-4D0A-BA95-DF1EE0FB947E	P168			Q370382	Wikidata					P129	Wikidata
+add	Wikidata / DHEE 160	Q1078900	Q1078900$AE63774B-421D-4E9A-B36A-915E89867D4B	P38			Q370382	Wikidata					P129	Wikidata
+add	Wikidata / DHEE 2457	Q1079215	Q1079215$42B05274-F089-4D17-A66E-28B7EC9E5D84	P38			Q370382	Wikidata					P129	Wikidata
+add	Wikidata / DHEE 2457	Q1079215	Q1079215$F0248345-6890-4965-91B9-68736FCDC089	P168			Q370382	Wikidata					P129	Wikidata
+add	Wikipedia / BNE MSS/7809	Q1082351	Q1082351$8796178D-F93B-47F2-80E4-8C25460285FC	P173			Q629842	Wikipedia					P129	Wikipedia
+add	Wikipedia / DB~e	Q1076619	Q1076619$5AB6CD77-7927-4B94-B3F3-08469135072F	P173			Q550714	Diccionario Biográfico Español, Real Academia de la Historia (2018-) (DB~e)					P129	DB~e
+add	Wikipedia / DB~e	Q1076619	Q1076619$D2732F91-1726-4793-8183-A762491DCE01	P173			Q550714	Diccionario Biográfico Español, Real Academia de la Historia (2018-) (DB~e)					P129	DB~e
+add	Wikipedia / DB~e	Q425334	Q425334$1DE0E166-677A-427E-B04D-DF39D75CE526	P77			Q550714	Diccionario Biográfico Español, Real Academia de la Historia (2018-) (DB~e)					P129	DB~e
+add	Wikipedia / DB~e	Q425334	Q425334$485F6672-4448-451F-A7D1-8015ED4B1F70	P82			Q550714	Diccionario Biográfico Español, Real Academia de la Historia (2018-) (DB~e)					P129	DB~e
+add	Wikipedia / Fundación Medinaceli	Q1078541	Q1078541$1EBC46E9-CDDD-4756-9DC1-68E96E0B98CF	P173			Q1071866	Fundación Casa Ducal de Medinaceli					P129	Fundación Medinaceli
+add	ed. Sevilla, 1520 / BNE MSS/7674	Q1082091	Q1082091$01162AF7-6941-4A44-979B-A283D2F7937C	P296			Q1043510	Pragmáticas Sevilla 1520					P129	ed. Sevilla, 1520
+add	von Euw & Plotzek / Faulhaber	Q1040645	Q1040645$7409367A-704F-4363-8252-AD99C0F8C2A5	P800			Q1070696	von Euw & Plotzek					P129	von Euw & Plotzek
+add	Álvarez & Crespí / BNE Cat.	Q1041916	Q1041916$31189EFC-9EAA-4964-AE32-8423885B0DB6	P136			Q1061427	libreria					P129	Álvarez & Crespí

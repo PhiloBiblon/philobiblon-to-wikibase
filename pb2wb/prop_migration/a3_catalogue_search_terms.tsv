@@ -1,0 +1,58 @@
+action	search_term_or_qid	usages	prefixes	note
+search	Biblioteca Nacional do Brasil	10	BNB Cat.	"""Da Real Bibliotheca"" seals → Brazil"
+search	Universidad de Valladolid	8	BU Valladolid	
+search	Kašpar	13	Kašpar | Kašpar 1983 | Oldřich | Oldřich 1983 | Oldřrich ex-libris	Oldřich Kašpar, Czech catalogue 1983 → want the work
+search	Gabriel Sánchez	4	G. Sánchez	bookseller/collector
+search	Massó Torrents	3	Massó, p. 601, basant-se en l’escut	reference, p. 601
+search	Bibliothèque nationale de France	4	BnF | BnF Archives et MSS	
+search	Ferreira da Silva	3	Ferreira da Silva	Charles cleared a Ferreira QID (B3)
+search	Högberg	2	Högberg	
+search	Kraus	3	Kraus | Kraus (filigranas)	local guess H.P. Kraus Q1061806
+search	Cronos	2	Cronos	local guess Cronus is wrong
+search	Franklin	6	Franklin | Franklin cat. | Franklin Cat.	unclear which Franklin
+search	Moldenhauer	2	Moldenhauer 1933 ex-libris	
+search	Ochoa	2	Ochoa	ambiguous name
+search	SUDOC	2	SUDOC	
+search	Mannin-Turner Papers	2	Mannin-Turner Papers	archival collection
+search	Penington Family Papers	1	Penington Family Papers	archival collection
+search	Universidad Complutense	2	UCM	
+search	Morgan Library	3	PML Cat. | Morgan Cat.	
+search	Princeton University Library	3	Princeton Cat. | Princeton	
+search	British Museum	2	BM Cat.	
+search	British Library	1	ex-libris (B.L. Cat.)	
+search	Universidad de Oviedo	2	BU Oviedo	
+search	National Library of Medicine	2	Cat. NLM	
+search	Guardiola	2	Guardiola | Guardiola 1591	a 1591 work?
+search	Biblioteca de Castilla-La Mancha	3	Red de Bibl. Castilla - La Mancha | Cat. Castilla-La Mancha | Red Bibl. Castilla - La Mancha	
+search	Lázaro Galdiano	1	Cat. Lázaro Galdiano	
+search	Leeds University Library	1	Leeds UL Cat	
+search	Harvard	3	HOLLIS Cat. | Harvard HOLLIS | Harvard Cat.	
+search	Musée Condé	1	Cat. Chantilly	Chantilly
+search	University of Miami	1	BU Miami Cat.	
+search	Brumario	1	Cat/ Brumario	bookseller
+search	Cambridge University Library	1	Cambridge UL	
+search	Nepomuceno	1	Venta Nepomuceno	sale
+search	Biblioteca Virtual del Patrimonio Bibliográfico	1	BVPB	
+search	Uppsala	2	Uppsala BU Cat. | Uppsla BU Cat	
+search	Christie's	1	ex-libris (Christie’s)	auction house
+search	Universitat de Barcelona	2	BU Barcelona Cat. | BU Barcelona	
+search	New York Public Library	1	NYPL	
+search	Iacobus	1	Cat. Iacobus	
+search	Biblioteca Valenciana	1	at. B. Valenciana	
+search	Library of Congress	1	LC Cat.	
+search	Médiathèque Albi	1	Albi Médiathèque cat.	
+search	Universidad de Granada	1	Granada BU cat. Granatensis	
+search	Real Biblioteca	1	Patrimonio Real	Patrimonio Nacional / Real Biblioteca
+search	El Remate	1	Cat. El Remate	auction house
+search	Universidad de Zaragoza	1	BU Zaragoaz	
+search	University of North Carolina	1	UNC Cat.	
+search	Registrum B	1	Registrum B 4161 y 4162	Colón’s Registrum
+search	Bibliothèque de Toulouse	1	ex-libris (Toulouse Cat.)	
+known	Q1070769	4	ex-libris [CCPBE] | ex-libris (CCPBE) | Ex-libris y sello de su biblioteca (CCPBE) | Ex-libris y sello de la Biblioteca E. F. San Román (CCPBE)	CCPBE
+known	Q1072154	3	Huntington ex-libris MS en la portada | Huntington 93030 | HEHL	Huntington
+known	Q164508	4	Faulhaber ex-libris a colores guarda fija | Faulhaber ex-libris MS | guarda (Faulhaber) | Fauhaber 1992	Faulhaber person (exec. decision)
+known	Q257012	2	Sharrer (ex-libris) | Sharrer	Harvey L. Sharrer
+known	Q396047	1	BNE Cat. ex-libris	BNE Cat.
+known	Q1071883	2	BNC Cat. | B Catalunya ex-libris	Biblioteca de Catalunya
+known	Q1073066	1	Cat. RAH	RAH Cat.
+skip		9	BU Cat. | UL Cat. | Cat. | Garcia | BNE fichero | BNE R/4795 | Madrid | Faulhaber y Gómez Moreno | Marcos-Marín & Olivetto	no institution named / shelfmark (A4) / compound (A9)
