@@ -16,8 +16,8 @@ for r in csv.DictReader(open('prop_migration/a3_catalogue_search_terms.tsv'),del
 EVID=[(r'ex-?\s?libris|exlibris',      'Q418813'),
       (r'\bsellos?\b|segell',           'Q512065'),
       (r'supra-?libros',                'Q1882378'),
-      (r'\bguarda',                     'Q358912'),
-      (r'escudo|escut',             'Q960940')]
+      (r'\bguarda',                     'Q395036'),
+      (r'escudo|escut',             'Q11233')]
 BARE=re.compile(r'^(?:(?:ex-?libris|sellos?|supra-?libros|ms\.?|MS|y|,|’|\s)+)$', re.I)
 WHOLE={'Ex-libris y sello de la Biblioteca E. F. San Román (CCPBE)':'Ex-libris y sello de la Biblioteca E. F. San Román',
        'Ex-libris y sello de su biblioteca (CCPBE)':'Ex-libris y sello de su biblioteca',

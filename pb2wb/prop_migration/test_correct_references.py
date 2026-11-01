@@ -187,3 +187,21 @@ def test_done_key_for_added_references(tmp_path):
                            [(add1, 'added'), (fix, 'corrected')]))
     done = load_corrected(str(p))
     assert done_key(add1) in done and done_key(fix) in done and done_key(add2) not in done
+
+
+def test_value_swap_keeps_other_values_of_the_property():
+    # A3-style block: catalogue + two pieces of evidence; only the wrong one changes
+    c = Claim().from_json({
+        'mainsnak': _string_snak('P5', 'x'), 'type': 'statement', 'rank': 'normal', 'id': 'Q1$ABC',
+        'references': [{'hash': 'h0', 'snaks-order': ['P129', 'P702', 'P54'], 'snaks': {
+            'P129': [_item_snak('P129', 'Q10')],
+            'P702': [_item_snak('P702', 'Q418813'), _item_snak('P702', 'Q358912')],
+            'P54': [_string_snak('P54', '12')]}}],
+    })
+    assert correct_claim(c, 'Q358912', 'Q395036', '', '', 'P702', 'P702') == 'corrected'
+    new = c.references.references[0]
+    assert _p129_values(new) == ['Q10']
+    from prop_migration.correct_references import _ref_values
+    assert sorted(_ref_values(new, 'P702')) == ['Q395036', 'Q418813']
+    assert any(s.property_number == 'P54' for s in new.snaks)
+    assert verify_claim(c, 'Q358912', 'Q395036', '', '', 'P702', 'P702')

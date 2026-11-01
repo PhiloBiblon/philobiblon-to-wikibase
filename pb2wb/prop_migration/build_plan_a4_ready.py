@@ -17,7 +17,7 @@ QID_FOR = {'Pathfinder': 'Q1071201', 'pathfinder': 'Q1071201', 'Pathfinder: sepa
 FIXED = {'BNE MSS/11311 (IGM)': 'BNE MSS/11311'}             # sheet note says MSS/1211
 NOTE_TYPES = {'annotation', 'annotaton', 'ms'}
 EVID = [(r'ex-?\s?libris|exlibris', 'Q418813'), (r'\bsellos?\b|segell', 'Q512065'),
-        (r'supra-?libros', 'Q1882378'), (r'\bguarda', 'Q358912'), (r'escudo|escut', 'Q960940')]
+        (r'supra-?libros', 'Q1882378'), (r'\bguarda', 'Q395036'), (r'escudo|escut', 'Q11233')]
 BARE = re.compile(r'^(?:(?:ex-?\s?libris|sellos?|supra-?libros|ms\.?|MS|y|,|\s)+)$', re.I)
 
 snap, since = t.latest_snapshot()

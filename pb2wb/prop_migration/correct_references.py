@@ -233,14 +233,14 @@ def cmd_plan(args):
 # apply (FactGrid)
 # ---------------------------------------------------------------------------
 
+def _snak_item_id(snak):
+    dv = snak.datavalue
+    val = dv.get('value', {}) if isinstance(dv, dict) else {}
+    return val.get('id') if isinstance(val, dict) else None
+
+
 def _ref_values(ref, prop=P129):
-    out = []
-    for snak in ref.snaks.get(prop) or []:
-        dv = snak.datavalue
-        val = dv.get('value', {}) if isinstance(dv, dict) else {}
-        if isinstance(val, dict) and val.get('id'):
-            out.append(val['id'])
-    return out
+    return [q for q in (_snak_item_id(s) for s in ref.snaks.get(prop) or []) if q]
 
 
 def _p129_values(ref):
@@ -277,6 +277,17 @@ def correct_claim(claim, old_qid, new_qid, loc, loc_type, old_prop=P129, new_pro
         return 'already' if new_present else 'missing'
 
     old_ref = refs[old_idx]
+    if old_prop == new_prop and not loc:
+        # Value swap (e.g. evidence P702 Guarda-the-town → Guarda-the-fly-leaf): replace just
+        # that snak, keeping the rest of the block — including other values of the property.
+        new_ref = Reference()
+        for snak in old_ref.snaks:
+            if snak.property_number == old_prop and _snak_item_id(snak) == old_qid:
+                new_ref.add(WBItem(value=new_qid, prop_nr=new_prop))
+            else:
+                new_ref.snaks.add(snak)
+        refs[old_idx] = new_ref
+        return 'corrected'
     new_snaks = locator_snaks(loc, loc_type)
     replaced_props = {old_prop, new_prop} | {p for p, _ in new_snaks}
     new_ref = Reference()
