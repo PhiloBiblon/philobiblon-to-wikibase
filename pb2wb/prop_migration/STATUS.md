@@ -2,7 +2,7 @@
 
 Living document. Update the status tables by hand when something changes; refresh
 the numbers with `python prop_migration/task_status.py` (local only, no FactGrid
-requests). Last edited: 2026-11-01.
+requests). Last edited: 2026-11-01 (midday).
 
 ## Usages remaining by group
 
@@ -24,19 +24,18 @@ requests). Last edited: 2026-11-01.
 _Generated 2026-11-01 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken 2026-10-29T14:20 UTC) minus conversions logged since. Groups are assigned by list membership and keywords, so small-group boundaries are approximate._
 <!-- /usage-table -->
 
-## Plan (Max, 2026-10-30)
+## Plan (Max, updated 2026-11-01)
 
 1. **Clean up what Max can do alone** — only work worth ≥100 usages, or small items that
-   are completely ready to go. Everything else is punted to Charles or the long tail.
-2. **New version of the vetting spreadsheet for Charles**, replacing the old one (not a
-   `push`): same columns, only strings still in FactGrid (~10,100 rows), current counts, his
-   entries kept, our candidates in `qid` as `match_type=search`, plus `status` and `example`
-   columns; optional tab "Converted — please check" (B4 surnames ≥10, maybe B3). Max creates
-   an empty Google Sheet and shares it with the service account; `sync_sheet.py seed` fills
-   it; `P721_SHEET_ID` then points to it. Open: example-item column (one SPARQL query)? second tab?
-   Pull of the old sheet 2026-10-31: no changes since 10-20 (`P721-P129.tsv.bak.20261020`).
-3. **Long-tail plan** — sell it to Charles first (`email_to_charles_long_tail_draft.txt`),
-   then Olaf (`email_long_tail_draft.txt` as the starting point).
+   are completely ready to go. Done through 11-01 (A7 top strings and folios, A9, A4/A5 part,
+   evidence-item fix); what's left is punted.
+2. **Freeze the old vetting sheet** — Charles hasn't edited it since 10-20 (pull of 10-31 was
+   identical). Make it read-only (Max: Google Sheets sharing/protection). The regenerated
+   sheet (same columns, ~10,000 open strings, status/example columns, seeded into a new Google
+   Sheet) is on hold — the long-tail plan would replace most of what it would ask.
+3. **Tell Charles the long-tail plan is recommended next** (`email_to_charles_long_tail_draft.txt`,
+   numbers to refresh, plus a line about the read-only sheet); then Olaf
+   (`email_long_tail_draft.txt` as the starting point).
 
 ## Long-tail plan (proposed, not agreed)
 
