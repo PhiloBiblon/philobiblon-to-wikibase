@@ -21,7 +21,7 @@ requests). Last edited: 2026-10-30 (afternoon).
 | A9 | Compounds (X / Y) | 241 | 0.2% | 85.1% |
 | A7 | Long tail, no match | 19,671 | 14.9% | 100.0% |
 
-_Generated 2026-10-31 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken 2026-10-29T14:20 UTC) minus conversions logged since. Groups are assigned by list membership and keywords, so small-group boundaries are approximate._
+_Generated 2026-11-01 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken 2026-10-29T14:20 UTC) minus conversions logged since. Groups are assigned by list membership and keywords, so small-group boundaries are approximate._
 <!-- /usage-table -->
 
 ## Plan (Max, 2026-10-30)
