@@ -103,6 +103,7 @@ a string is identified later, the correction script swaps PhiloBiblon for the re
 | B5 | princeps (563 statements) | Kept as P129 = First publication (Q196098). Charles 10-27: princeps = "information taken from the first edition"; 10-29 "Exactly right" on the statement list. |
 | B6 | Compounds: add references for the other sources (`correction_plan.b6_add.tsv`) | 316 added 2026-10-30 on 311 statements; 6 missing (statements gone); read-back 36 OK. |
 | B5 fix | Evidence items: Guarda the town (Q358912) → Guarda / fly leaf (Q395036); Escudo the currency (Q960940) → Escudo de armas (Q11233) (`correction_plan.evidence_swap.tsv`) | 44 corrected 2026-11-01 (14, then 30 after fixing the skip key). Charles had the right items in the sheet; dismissed by mistake in the 10-30 B1 leftover check. Types of all 54 targets chosen since 10-23 checked (`new_target_types.tsv`): fine. |
+| B1 fix | "Simón" → Salazar y Castro catalogue Q1070775 (off-by-one QID in the sheet, since June; Charles 11-01) → Simón Díaz (1965) Q1068197 (`correction_plan.simon.tsv`) | 114 statements: 106 corrected 2026-11-01, 2 already fixed by hand (Q1039879), 6 reference not found (Q1039879, Q1039487 ×3, Q1039089, Q1039033 — probably edited by Charles while spot-checking). Sheet scanned for other neighbour-row QID shifts: none. |
 | B7 | Missing locators | DHEE pages added to 87 statements 2026-10-28; rest overlaps A3. |
 
 ## C. Infrastructure
