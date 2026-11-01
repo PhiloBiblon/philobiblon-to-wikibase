@@ -2,23 +2,23 @@
 
 Living document. Update the status tables by hand when something changes; refresh
 the numbers with `python prop_migration/task_status.py` (local only, no FactGrid
-requests). Last edited: 2026-10-30 (afternoon).
+requests). Last edited: 2026-11-01.
 
 ## Usages remaining by group
 
 <!-- usage-table -->
 | Group | | Usages left | % of original | Cumulative done |
 |---|---|---:|---:|---:|
-| *Done* | | 111,779 | 84.5% | 84.5% |
-| A8 | Foliation → P1243 | 0 | 0.0% | 84.5% |
-| A8b | Physical descriptions → P1243 | 2 | 0.0% | 84.5% |
-| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 84.5% |
-| A6 | Pipeline-approved, awaiting Charles | 17 | 0.0% | 84.5% |
-| A3 | Catalogue + evidence combos | 94 | 0.1% | 84.6% |
-| A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 84.6% |
+| *Done* | | 111,870 | 84.6% | 84.6% |
+| A8 | Foliation → P1243 | 0 | 0.0% | 84.6% |
+| A8b | Physical descriptions → P1243 | 2 | 0.0% | 84.6% |
+| A8c | Physical notes with a colon → P1243 | 4 | 0.0% | 84.6% |
+| A6 | Pipeline-approved, awaiting Charles | 17 | 0.0% | 84.6% |
+| A3 | Catalogue + evidence combos | 94 | 0.1% | 84.7% |
+| A2 | Held: locator mismatch, DHEE vol. | 43 | 0.0% | 84.7% |
 | held | Held bases (B2 works-vs-people, …) | 44 | 0.0% | 84.7% |
-| A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 84.9% |
-| A9 | Compounds (X / Y) | 241 | 0.2% | 85.1% |
+| A4/A5/A10 | Vetted, other blockers | 364 | 0.3% | 85.0% |
+| A9 | Compounds (X / Y) | 150 | 0.1% | 85.1% |
 | A7 | Long tail, no match | 19,671 | 14.9% | 100.0% |
 
 _Generated 2026-11-01 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken 2026-10-29T14:20 UTC) minus conversions logged since. Groups are assigned by list membership and keywords, so small-group boundaries are approximate._
@@ -28,8 +28,13 @@ _Generated 2026-11-01 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken
 
 1. **Clean up what Max can do alone** — only work worth ≥100 usages, or small items that
    are completely ready to go. Everything else is punted to Charles or the long tail.
-2. **New spreadsheet for Charles** with what's left that needs him (A6 small items, A7
-   "check" picks, B4 surnames with ≥10 statements, A3 leftovers, Cronología 565).
+2. **New version of the vetting spreadsheet for Charles**, replacing the old one (not a
+   `push`): same columns, only strings still in FactGrid (~10,100 rows), current counts, his
+   entries kept, our candidates in `qid` as `match_type=search`, plus `status` and `example`
+   columns; optional tab "Converted — please check" (B4 surnames ≥10, maybe B3). Max creates
+   an empty Google Sheet and shares it with the service account; `sync_sheet.py seed` fills
+   it; `P721_SHEET_ID` then points to it. Open: example-item column (one SPARQL query)? second tab?
+   Pull of the old sheet 2026-10-31: no changes since 10-20 (`P721-P129.tsv.bak.20261020`).
 3. **Long-tail plan** — sell it to Charles first (`email_to_charles_long_tail_draft.txt`),
    then Olaf (`email_long_tail_draft.txt` as the starting point).
 
@@ -50,7 +55,7 @@ a string is identified later, the correction script swaps PhiloBiblon for the re
 | A7 | Long tail, no match (~19,700) | Top 285 strings searched 10-30 (`a7_top_picks.tsv`): 504 converted; left: 117 "check" (2,007 usages; only "Andrés" 157 and "Avenoza 2001" 105 reach 100) and 103 no hit (1,886). Non-source notes ("muerte", "muerte Santillana", "fechas del original y del MS", "lletra", "sello", "fot. parc.") need a modelling decision. Rest → long-tail plan. | Max: Andrés, Avenoza 2001; Charles sheet; long-tail plan |
 | A6 | Pipeline-approved, small items (17) | Places (DMA, Santa Cruz, Vila), "renunció: DHEE" ×4, Castro ×2, BNM 11439 y 12580, Andrés xxvi, DHEE 311, 557. | Charles (email item 1) |
 | A3 | Catalogue + evidence leftovers (94) | 28 'check' picks (`a3_catalogue_picks.tsv`), 22 no hit, 28 author-year references, 9 skipped, 7 long notes (`a8d_excluded.tsv`). Punted (<100). | Charles sheet / long tail |
-| A9 | Compounds (X / Y) (241) | 93 have every part known → could convert with B6's add mode. Punted (<100). | — |
+| A9 | Compounds (X / Y) — parts with no QID (~150) | Waits for the long-tail plan (the note would keep the whole string). | — |
 | A4 | Shelfmark locators and typos | Which property to use. | Max/Olaf |
 | A2 | Vetted, with a locator — held remainder (43) | 28 locator mismatches (`exclude_locator_mismatch.tsv`), 6 "DHEE I:nnn" volume-style bases. Punted. | Charles |
 | A5 | Vetted, but QID blank or malformed | | Charles |
@@ -68,6 +73,7 @@ a string is identified later, the correction script swaps PhiloBiblon for the re
 | A6 Arteaga | vol./page per Charles 10-29 (`plan_arteaga_20261030.tsv`) | 728 converted 2026-10-30. |
 | A7 (part) | Top strings with a settled or single-match QID (`plan_a7_ready_20261030.tsv`) | 504 converted 2026-10-30 (34 bases), 0 errors, 102 spot-checks OK. |
 | A7 (part) | Folio references and folio-led notes → P1243 (`a7_folio_notes.tsv`) | 383 swapped 2026-10-30 (232 bases): 178 es, 98 ca, 10 pt items. 4 naming a source left in A7. |
+| A9 (part) | Compounds whose parts all have QIDs (`plan_a9_20261101.tsv`, then `correction_plan.a9_add.tsv`) | 91 converted 2026-11-01 with the first part's reference (69 bases; 85 spot-checks OK). Second parts: 91 references added 2026-11-01 (read-back 12 OK). Left out: "Zarco / Cuenca 2017" (bad match), "Catalogus 1682 / Högberg 1919" (year given as page). |
 | A8 | fichero; ?/[?] → P155 | 550; 157 (10-27/28). |
 | A8 | Foliation → P1243 (`a8_foliation.tsv`) | 3,321 swapped 2026-10-28, language per item: 3,319 ca, 2 es. |
 | A8b | Physical descriptions → P1243 (`a8b_physical.tsv`) | 1,108 swapped 2026-10-29: 1,025 ca, 77 es, 6 pt. |
