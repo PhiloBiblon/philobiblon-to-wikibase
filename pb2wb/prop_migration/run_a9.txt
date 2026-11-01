@@ -2,46 +2,46 @@ Lilao et al. / Beaujouan
 Gómez Moreno / ISTC
 ISTC / Gómez Moreno
 Zarco / Fernández-Ordóñez 2000 “Transmisión”
-<i>Cronología</i> / princeps
-<i>Cronología</i> 69 / Martz 39
-<i>IGM</i> / Faulhaber 2016
-<i>IGM</i> / Faulhaber 2019
 Boase 2016 / Arteaga I:282
+Cronología / princeps
+Cronología 69 / Martz 39
+IGM / Faulhaber 2016
+IGM / Faulhaber 2019
 Zarco / Avenoza 2018
 Zarco / Conde 1999
 Zarco / Sánchez Parra
-<i>DHEE</i> 1861 / DB~e
-<i>IGM</i> / Accorsi 2011
-<i>IGM</i> / Alvar & Lucía
-<i>IGM</i> / BNE
-<i>IGM</i> / BNE Cat
-<i>IGM</i> / Faulhaber
-<i>IGM</i> / Faulhaber 2015
-<i>IGM</i> / Puig 2005
 Alonso-Cortés / Villacorta 2005
 Arteaga I:145 / DB~e
 Avenoza / Miguel 2014
 Avenoza 2006 / Martín Abad 2001
 Avenoza 2014 / Bautista 2015
 BCol Cat. / Mangas 2020
-BL <i>Cat.</i> / ISTC
+BL Cat. / ISTC
 Bizzarri 1991 / Faulhaber 2015
 Conde 2003 / Faulhaber 2019
-Eubel / <i>DHEE</i> 304
+DHEE 1861 / DB~e
+Eubel / DHEE 304
 Gallardo / Högberg 1919
 González Pascual / Rodgers 1984
 Grove / Dutton 1991:486
-Gómez Moreno / <i>GW</i>
-Gómez Moreno / <i>IGM</i>
 Gómez Moreno / Alvar & Lucía
 Gómez Moreno / Cortijo
+Gómez Moreno / GW
+Gómez Moreno / IGM
 Gómez Moreno 1984 / Kristeller
 Haro ed. 1998 / Bizzarri 2000
 Heredia / Quaritch
 Huntington / Maggs
 Huntington Cat. / Maggs
 Högberg 1919 / Gallardo
-Lilao <i>et al.</i> / Villacorta 2015
+IGM / Accorsi 2011
+IGM / Alvar & Lucía
+IGM / BNE
+IGM / BNE Cat
+IGM / Faulhaber
+IGM / Faulhaber 2015
+IGM / Puig 2005
+Lilao et al. / Villacorta 2015
 Maggs / Huntington
 Martín Abad 1994 [1998] / Gómez Moreno
 Martín Abad 2001 / Magaña

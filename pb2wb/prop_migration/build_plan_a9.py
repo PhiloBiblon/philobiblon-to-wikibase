@@ -37,8 +37,12 @@ for b, n in left.items():
     loc = repair_loc(parts[0], loc)
     if loc_type not in LOC_PROP:
         loc_type, loc = '', ''
-    rows.append((n, b, qid, loc_type, loc))
-rows.sort(key=lambda r: (-r[0], r[1]))
+    rows.append((n, s, qid, loc_type, loc))     # the runner matches stripped bases
+merged = {}
+for n, s, qid, loc_type, loc in rows:           # HTML variants of one basis → one row
+    m = merged.setdefault(s, [0, s, qid, loc_type, loc])
+    m[0] += n
+rows = sorted(merged.values(), key=lambda r: (-r[0], r[1]))
 with open('prop_migration/plan_a9_20261101.tsv', 'w', newline='') as f:
     w = csv.writer(f, delimiter='\t')
     w.writerow(['freq', 'basis', 'qid', 'vetted', 'loc_type', 'loc', 'evidence', 'description'])
