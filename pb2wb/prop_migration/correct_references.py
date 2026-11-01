@@ -327,10 +327,10 @@ def _props(row):
 
 
 def done_key(row):
-    """Key a plan row is skipped by once done; an added reference is keyed by its QID too,
-    since one statement can get several (and may also have had a B1 fix)."""
-    key = (row['guid'], row.get('new_prop') or P129)
-    return key + (row['new_qid'],) if row.get('old_qid') == '' else key
+    """Key a plan row is skipped by once done: statement, property and target. The target
+    matters because one statement can have several corrections on the same property (a B5
+    move to P702, then a fix of that P702 value; several added references)."""
+    return (row['guid'], row.get('new_prop') or P129, row.get('new_qid', ''))
 
 
 def load_corrected(path):

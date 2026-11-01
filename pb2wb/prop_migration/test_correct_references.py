@@ -164,7 +164,7 @@ def test_load_corrected_keys_on_new_prop(tmp_path):
         {'guid': 'g2', 'status': 'corrected', 'new_prop': 'P702'},
         {'guid': 'g3', 'status': 'missing', 'new_prop': 'P702'},
     ]))
-    assert load_corrected(str(p)) == {('g1', 'P129'), ('g2', 'P702')}
+    assert load_corrected(str(p)) == {('g1', 'P129', ''), ('g2', 'P702', '')}
 
 
 def test_add_reference_alongside_existing():
@@ -205,3 +205,9 @@ def test_value_swap_keeps_other_values_of_the_property():
     assert sorted(_ref_values(new, 'P702')) == ['Q395036', 'Q418813']
     assert any(s.property_number == 'P54' for s in new.snaks)
     assert verify_claim(c, 'Q358912', 'Q395036', '', '', 'P702', 'P702')
+
+
+def test_done_key_tells_a_p702_fix_from_the_earlier_move():
+    move = {'guid': 'g1', 'old_qid': 'Q358912', 'new_qid': 'Q358912', 'new_prop': 'P702'}
+    fix = dict(move, new_qid='Q395036')
+    assert done_key(move) != done_key(fix)
