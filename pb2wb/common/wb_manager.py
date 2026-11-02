@@ -1,12 +1,27 @@
+import os
 import time
 
 from wikibaseintegrator import WikibaseIntegrator, wbi_login
 from wikibaseintegrator.wbi_config import config as wbi_config
+from common.factgrid_access import USER_AGENT
 from wikibaseintegrator import wbi_helpers
 from wikibaseintegrator.datatypes import Item as WBItem
 from wikibaseintegrator.models import Claim
 from common.settings import BASE_IMPORT_OBJECTS, TEMP_DICT
 from wikibaseintegrator.wbi_exceptions import MWApiError
+
+
+def _load_env():
+    """Load key=value pairs from .qs_env or .env into os.environ (setdefault)."""
+    for fname in ('.qs_env', '.env'):
+        if os.path.exists(fname):
+            with open(fname) as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        k, v = line.split('=', 1)
+                        os.environ.setdefault(k.strip(), v.strip())
+            return
 
 _WRITE_DELAY = 0.5   # seconds between write calls
 
@@ -28,18 +43,29 @@ PROPERTY_NOTES='P817'
 class WBManager():
 
   def __init__(self):
+    _load_env()
     wb = TEMP_DICT['TEMP_WB']
     wbi_config['MEDIAWIKI_API_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['MEDIAWIKI_API_URL']
     wbi_config['SPARQL_ENDPOINT_URL'] = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_ENDPOINT_URL']
+    wbi_config['USER_AGENT'] = USER_AGENT
     user = BASE_IMPORT_OBJECTS[f'{wb}']['WB_USER']
-    print(f'Using user: {user}')
+    user = os.environ.get('FACTGRID_WB_USER', user)
     password = BASE_IMPORT_OBJECTS[f'{wb}']['WB_PASSWORD']
+    password = os.environ.get('FACTGRID_WB_PASSWORD', password)
+    print(f'Using user: {user}')
     self.prefix = BASE_IMPORT_OBJECTS[f'{wb}']['SPARQL_PREFIX']
+    self._user, self._password = user, password
     login_instance = wbi_login.Login(user, password)
     self.wbi = WikibaseIntegrator(login=login_instance)
 
   def get_wbi(self):
     return self.wbi
+
+  def relogin(self):
+    """Log in again (bot sessions expire after a few hours); returns the new login."""
+    login_instance = wbi_login.Login(self._user, self._password)
+    self.wbi.login = login_instance
+    return login_instance
 
   # create new wikibase property
   def create_wb_p(self, label, lang='en', type='string'):

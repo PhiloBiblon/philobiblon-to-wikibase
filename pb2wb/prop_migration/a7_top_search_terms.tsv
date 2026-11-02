@@ -1,0 +1,254 @@
+action	search_term_or_qid	usages	strings	note
+known	Q165001	106	BnF Cat. | BnF	BnF (no catalogue item)
+known	Q425097	27	fichero RB | Madrid: RB fichero	Fichero (Charles 10-27)
+known	Q1072154	20	Huntington Catalog | Cat. Huntington	Huntington
+known	Q370382	18	Wikidata (2012-)	Wikidata
+known	Q1072181	16	UNC Cat.	A3b pick
+known	Q629842	14	Wikpedia	Wikipedia (typo)
+known	Q899028	13	Christie	Christie's (A3b)
+known	Q164508	12	Faulhabe	Faulhaber person (typo)
+known	Q448534	11	BU Barcelona	A3b pick
+known	Q1073646	10	Uppsala BU Cat.	A3b pick
+known	Q1072148	10	Cat. Brumario	A3b pick
+note		222	muerte | f. 1r | no numerats | muerte Santillana | fot. parc. | ç | lletra | sello | fechas del original y del MS | f. 352v | f. 26r-	not a source
+search	Ms. Zabálburu	266	Ms. Zabálburu | MS Zabálburu	
+search	Andrés	157	Andrés	
+search	Avenoza (2001)	105	Avenoza 2001:27n | Avenoza 2001:26n | Avenoza 2001:28n | Avenoza 2001:25n | Avenoza 2001:24n | Avenoza 2001 | Avenoza 2001:29n | Avenoza 2001:23n	author-year
+search	Fernández (1901)	85	Fernández 1901 | Fernández 1901-07	author-year
+search	Fernández (1902)	67	Fernández 1902	author-year
+search	Perea (2001)	64	Perea 2001:47 | Perea 2001:37 | Perea 2001:48 | Perea 2001:45 | Perea 2001:46	author-year
+search	Els Llibres del Tirant	51	Els Llibres del Tirant | Llibres del Tirant	
+search	catàleg	48	catàleg	
+search	Álvarez de Toledo	35	Álvarez de Toledo	
+search	Sánchez (2009)	34	Sánchez 2009	author-year
+search	Canc. geral	33	Canc. geral | Canc, geral	
+search	Muñoz (2018)	31	Muñoz 2018	author-year
+search	Marcos et al.	31	Marcos et al.	
+search	Catholic Encyclopedia	31	Catholic Encyclopedia	
+search	Paz	29	Paz	
+search	Beltran (1995)	28	Beltran 1995	author-year
+search	Martínez Romero	27	Martínez Romero | Martínez i Romero	
+search	Rodríguez-Moñino	26	Rodríguez-Moñino | Moñino	
+search	Ms. Toledo: Museo de Santa Cruz	25	MS Toledo: Museo de Santa Cruz	
+search	Artiles	25	Artiles	
+search	Severin & García	25	Severin & Garcia | Severin & García	
+search	León: Colegiata, XL	23	León: Colegiata, XL	
+search	Nuevos ingresos	22	Nuevos ingresos	
+search	Massó	22	Massó	
+search	Azáceta xxii	22	Azáceta xxii	
+search	Högberg	21	Högberg	
+search	Herculano	21	Herculano	
+search	Elenco	21	Elenco	
+search	Utrilla	20	Utrilla	
+search	Seniff (1984)	19	Seniff 1984	author-year
+search	Rzepka	19	Rzepka	
+search	Geneall	19	Geneall	
+search	Faulhaber (1991)	19	Faulhaber 1991	author-year
+search	Cossío	19	Cossío	
+search	Casanellas	19	Casanellas	
+search	MSS/8744	19	BNE MSS/8744	shelfmark
+search	Azáceta l	19	Azáceta l	
+search	Índice Salazar	18	Índice Salazar	
+search	Torre (1919)	18	Torre 1919	author-year
+search	Stuart de Rothesay cat.	18	Stuart de Rothesay cat.	
+search	Santos (2015)	18	Santos (2015)	author-year
+search	Mondéjar (1783)	18	Mondéjar 1783	author-year
+search	Cossío (2021)	18	Cossío 2021	author-year
+search	Correia	18	Correia	
+search	Blecua	18	Blecua	
+search	Barbadillo (2016)	18	Barbadillo 2016	author-year
+search	Andrés (1986)	18	Andrés 1986	author-year
+search	Santos e beatos portugueses	17	Santos e beatos portugueses	
+search	San Millán Ms. A 114/5.2	17	San Millán Ms. A 114/5.2	
+search	Rodgers	17	Rodgers	
+search	Miola	17	Miola	
+search	McPheeters (1978)	17	McPheeters 1978	author-year
+search	Marcos Marín & Olivetto	17	Marcos Marín & Olivetto	
+search	MCN	17	MCN	
+search	HSMS	17	HSMS	
+search	García Sánchez-Migallón	17	García Sánchez-Migallón	
+search	Faulhaber (1986)	17	Faulhaber 1986	author-year
+search	Deyermond	17	Deyermond	
+search	Catalán (1962)	17	Catalán 1962	author-year
+search	Casa Ducal	17	Casa Ducal	
+search	CERL	17	CERL	
+search	Arronis	17	Arronis	
+search	X.II.19	16	esc. X.II.19	shelfmark
+search	Saguar	16	Saguar	
+search	Puyol	16	Puyol	
+search	Olivetto (2018)	16	Olivetto 2018	author-year
+search	Molina Piñedo	16	Molina Piñedo	
+search	Molho	16	Molho	
+search	Lomax	16	Lomax	
+search	Glorieux	16	Glorieux	
+search	García-Gallo	16	García-Gallo	
+search	García Cubero	16	García Cubero	
+search	Gago	16	Gago	
+search	Faulhaber: encuad.	16	Faulhaber: encuad.	
+search	Esteve Barba	16	Esteve Barba	
+search	Conde (1985)	16	Conde 1985	author-year
+search	Carriazo Rubio	16	Carriazo Rubio	
+search	Espagnol 260	16	BnF Espagnol 260	shelfmark
+search	Valverde (2020)	15	Valverde 2020	author-year
+search	Toro Pascua	15	Toro Pascua	
+search	Richler (1998)	15	Richler 1998	author-year
+search	Massip	15	Massip	
+search	Lázaro Galdiano Inv. 15135	15	Lázaro Galdiano Inv. 15135	
+search	González & Suárez (2010)	15	González & Suárez 2010	author-year
+search	Ferreira da Silva	15	Ferreira da Silva	
+search	Fernández (1935)	15	Fernández 1935	author-year
+search	Conde & Infantes (2002)	15	Conde & Infantes 2002	author-year
+search	Cañizares (2019)	15	Cañizares 2019	author-year
+search	Bonner - Badia	15	Bonner - Badia	
+search	Bizzarri & Sainz de la Maza	15	Bizzarri & Sainz de la Maza	
+search	MSS/10608	15	BNE MSS/10608	shelfmark
+search	Sánchez Mariana	14	Sánchez Mariana	
+search	Porto: Bibl. Municipal, M-FA-14	14	Porto: Bibl. Municipal, M-FA-14	
+search	Perea Rodríguez	14	Perea Rodríguez	
+search	Monteiro (1997)	14	Monteiro (1997)	author-year
+search	Maguire & Severin (1990)	14	Maguire & Severin 1990	author-year
+search	Hernández Amez	14	Hernández Amez	
+search	Gonzalo Sánchez-Molero	14	Gonzalo Sánchez-Molero	
+search	Fradejas Rueda (2012)	14	Fradejas Rueda 2012	author-year
+search	5-3-20	14	Colombina 5-3-20	shelfmark
+search	Catálogo	14	Catálogo	
+search	Calzado Sobrino	14	Calzado Sobrino	
+search	Cacho	14	Cacho	
+search	Beceiro Pita & Franco Silva (1985)	14	Beceiro Pita & Franco Silva 1985:297	author-year
+search	Vivancos & Vilches (2001)	13	Vivancos & Vilches 2001	author-year
+search	Villapalos (1993)	13	Villapalos 1993	author-year
+search	MSS 158	13	UCM BH MSS 158	shelfmark
+search	Torres Fontes	13	Torres Fontes	
+search	Sánchez González de Herrero	13	Sánchez González de Herrero	
+search	Sáez (2000)	13	Sáez 2000	author-year
+search	Schena	13	Schena	
+search	Paz y Melia	13	Paz y Melia	
+search	Mendes	13	Mendes	
+search	López Estrada	13	López Estrada	
+search	López Drusetta	13	López Drusetta	
+search	Ladero (1984)	13	Ladero 1984:461	author-year
+search	Gomes (2012)	13	Gomes (2012)	author-year
+search	García López	13	García López	
+search	Floriano	13	Floriano	
+search	Fernández-Ordóñez (2000)	13	Fernández-Ordóñez 2000 (“Transmisión”)	author-year
+search	Conde & Infantes	13	Conde & Infantes	
+search	Catálogo general	13	Catálogo general	
+search	Carr	13	Carr	
+search	Capuano (1993)	13	Capuano 1993	author-year
+search	BU Sevilla	13	BU Sevilla	
+search	Alonso (2023)	13	Alonso 2023	author-year
+search	Abboud Haggar (1997)	13	Abboud Haggar 1997	author-year
+search	inv. Clément	12	inv. Clément	
+search	Tamburri & Mugueta	12	Tamburri & Mugueta	
+search	SMU Cat.	12	SMU Cat.	
+search	Romera & Cossío	12	Romera & Cossío	
+search	Pollard (1907)	12	Pollard 1907	author-year
+search	O’Callaghan	12	O’Callaghan	
+search	Olivetto	12	Olivetto	
+search	Ochoa	12	Ochoa	
+search	List & Francke	12	List & Francke	
+search	LLP	12	LLP	
+search	Gómez Centurión	12	Gómez Centurión	
+search	Gutiérrez Cuadrado	12	Gutiérrez Cuadrado	
+search	González Cuenca	12	González Cuenca	
+search	Glasgow Cat.	12	Glasgow Cat.	
+search	Fradejas (2016)	12	Fradejas 2016	author-year
+search	Fradejas 2013-07-06	12	Fradejas 2013-07-06	
+search	Fradejas (2012)	12	Fradejas 2012	author-year
+search	Fradejas (1989)	12	Fradejas 1989	author-year
+search	Fernández Valladares “Otra”	12	Fernández Valladares “Otra”	
+search	Fallows	12	Fallows	
+search	Escudero	12	Escudero	
+search	Cat. Bibl. Castilla-La Mancha	12	Cat. Bibl. Castilla-La Mancha	
+search	Bustos	12	Bustos	
+search	Bordona	12	Bordona	
+search	Bod-Inc online	12	Bod-Inc online	
+search	Bataillon	12	Bataillon	
+search	MSS/174	12	BNM 174	shelfmark
+search	MSS/5988	12	BNE MSS/5988	shelfmark
+search	h.III.3	11	esc. h.III.3	shelfmark
+search	Z.II.4	11	esc. Z.II.4	shelfmark
+search	Whinnom	11	Whinnom	
+search	Vicens Hualde	11	Vicens Hualde	
+search	Valladolid BU Cat.	11	Valladolid BU Cat.	
+search	U. Penn. Franklin	11	U. Penn. Franklin	
+search	Sacchi	11	Sacchi	
+search	SUDOC	11	SUDOC	
+search	Roca	11	Roca	
+search	Reinhardt	11	Reinhardt	
+search	RM-73	11	RAE RM-73	shelfmark
+search	Pérez y Gómez	11	Pérez y Gómez	
+search	Pérez Rosado	11	Pérez Rosado	
+search	Perea (2003)	11	Perea 2003:233	author-year
+search	Olivar	11	Olivar	
+search	Navarro et al.	11	Navarro et al.	
+search	Millennium	11	Millennium	
+search	Martínez Díaz	11	Martínez Díaz	
+search	Madrid: March, 23/7/1	11	Madrid: March, 23/7/1	
+search	MEI Owners	11	MEI Owners	
+search	Kinkade	11	Kinkade	
+search	Keightley	11	Keightley	
+search	González Rolán & Saquero Suárez-Somonte	11	González Rolán & Saquero Suárez-Somonte	
+search	Garcia 78	11	Garcia 78	
+search	Galmés	11	Galmés	
+search	Fundación Medinacela	11	Fundación Medinacela	
+search	Dolphin Book Co.	11	Dolphin Book Co.	
+search	Cat. Mazarine	11	Cat. Mazarine	
+search	Castro y Onís	11	Castro y Onís	
+search	Esp. 216	11	BnF Esp. 216	shelfmark
+search	Berger, II:525	11	Berger, II:525	
+search	Barrero	11	Barrero	
+search	MSS/7673-7674	11	BNE MSS/7673-7674	shelfmark
+search	MSS/18183	11	BNE MSS/18183	shelfmark
+search	MSS/18017	11	BNE MSS/18017	shelfmark
+search	BNB Cat.	11	BNB Cat.	
+search	Avenoza (2002)	11	Avenoza 2002	author-year
+search	Alvar	11	Alvar	
+search	Accorsi	11	Accorsi	
+search	AKOnline	11	AKOnline	
+search	vuit preliminars sense numeració seguits d’altres folis numerats en xifres romanes	10	vuit preliminars sense numeració seguits d’altres folis numerats en xifres romanes	
+search	liber tradens	10	liber tradens	
+search	Z.II.14	10	esc. Z.II.14	shelfmark
+search	Worldcat	10	Worldcat	
+search	West (2013)	10	West 2013	author-year
+search	Ward (1999)	10	Ward 1999	author-year
+search	Vigil Montes	10	Vigil Montes	
+search	Torres Santo Domingo	10	Torres Santo Domingo	
+search	Tilander (1937)	10	Tilander 1937	author-year
+search	Taylor (2018)	10	Taylor 2018	author-year
+search	Ruiz Asensio	10	Ruiz Asensio	
+search	Rivara (1842)	10	Rivara 1842	author-year
+search	Pérez López (2003)	10	Pérez López 2003	author-year
+search	Planas	10	Planas	
+search	Oliveira (2015)	10	Oliveira (2015), p. 23	author-year
+search	Molina (2015)	10	Molina 2015	author-year
+search	Marín Pina	10	Marín Pina	
+search	Martín Abad (2011)	10	Martín Abad 2011	author-year
+search	Lázaro Cat.	10	Lázaro Cat.	
+search	Laskaris	10	Laskaris	
+search	LB1	10	LB1	
+search	Kennedy (2013)	10	Kennedy 2013	author-year
+search	Izquierdo	10	Izquierdo	
+search	Graña (2008)	10	Graña (2008)	author-year
+search	Gago et al. (2014)	10	Gago et al. 2014	author-year
+search	Ferrando Francés (1978)	10	Ferrando Francés 1978: 19	author-year
+search	Fernandes (2019)	10	Fernandes (2019)	author-year
+search	Faulhaber (2022)	10	Faulhaber 2022	author-year
+search	Enc. Britannica	10	Enc. Britannica	
+search	Cortijo (2001)	10	Cortijo 2001	author-year
+search	Conde (2005)	10	Conde 2005	author-year
+search	Celestina ed. Salamanca, 1570	10	Celestina ed. Salamanca, 1570	
+search	Cavallero (1985)	10	Cavallero 1985	author-year
+search	Cat. SUDOC	10	Cat. SUDOC	
+search	Buenos Aires: Nacional, FD 595	10	Buenos Aires: Nacional, FD 595	
+search	Espagnol 80	10	BnF Espagnol 80	shelfmark
+search	Beinecke Cat.	10	Beinecke Cat.	
+search	Beceiro & Franco (1985)	10	Beceiro & Franco 1985:285	author-year
+search	Bautista & Moreira (2021)	10	Bautista & Moreira (2021)	author-year
+search	BU Valladolid	10	BU Valladolid	
+search	BRAH Cat.	10	BRAH Cat.	
+search	RES/35	10	BNE RES/35	shelfmark
+search	MSS/886	10	BNE MSS/886	shelfmark
+search	BM Cat.	10	BM Cat.	
+search	Archibald et al.	10	Archibald et al.	
+skip		48	Avenoza, García, Benítez, Ferrer del Río, Marini 2015 | IGM, Faulhaber | Schiff, IGM	five authors
