@@ -33,19 +33,24 @@ _Generated 2026-11-01 by `task_status.py` from `P721-live.2026-10-29.tsv` (taken
    identical). Make it read-only (Max: Google Sheets sharing/protection). The regenerated
    sheet (same columns, ~10,000 open strings, status/example columns, seeded into a new Google
    Sheet) is on hold — the long-tail plan would replace most of what it would ask.
-3. **Tell Charles the long-tail plan is recommended next** (`email_to_charles_long_tail_draft.txt`,
+3. **Done 11-01: Charles agreed ("Sounds good").** Tell Charles the long-tail plan is recommended next (`email_to_charles_long_tail_draft.txt`,
    numbers to refresh, plus a line about the read-only sheet); then Olaf
    (`email_long_tail_draft.txt` as the starting point).
 
-## Long-tail plan (proposed, not agreed)
+## Long-tail plan (agreed: Charles 11-01; Max: no need to ask Olaf)
 
-For strings with no FactGrid item, replace the P721 qualifier with a reference that keeps
-the text: P129 According to = PhiloBiblon, P73 Note = the original string. Reversible: when
+For every remaining P721 string, replace the qualifier with a reference that keeps the text:
+P129 According to = PhiloBiblon (Q398957), P73 Note = the original string, HTML included (Max 11-01). Only items with a PhiloBiblon ID (P476): other FactGrid projects use P721 too. Reversible: when
 a string is identified later, the correction script swaps PhiloBiblon for the real work.
-- Would cover: A7 (~19,700), B4 wrong-kind references (~1,250 statements, minus the
-  exceptions below), B3 cleared QIDs (~300), B6 parts with no QID (77).
-- Not for non-sources: notes like "muerte" (67+18+…) need their own treatment first.
-- Open for Olaf: P73 inside a reference OK? One PhiloBiblon item, or BETA/BITECA/BITAGAP?
+- Covers **all** remaining P721 (Max 11-01): A7, A6/A3 leftovers, A9 compounds (whole
+  "X / Y" string in the note), non-source notes ("muerte" etc.) included.
+- Already-written wrong references get the same treatment (Max 11-01, option a): B4
+  wrong-kind (~1,150, original string from the run logs; drop exceptions first —
+  "Compilación A" is correct, "1r" → P1243), B3 cleared QIDs (233), B6 parts with no QID (77).
+- Next: read-only checks (Q398957 = PhiloBiblon, P73 datatype); item-based tool (one
+  SPARQL export of all P721 statements + GUIDs, one read/write per item, resumable);
+  5-item live test; line to René about pace (~10k items, 12–15 h); extend
+  correct_references.py to add the P73 note; afterwards the "what remains" sheet for Charles.
 
 ## A. Forward conversion (P721 still in FactGrid)
 
@@ -121,4 +126,4 @@ a string is identified later, the correction script swaps PhiloBiblon for the re
 - **Charles**:
   - Batch email (`email_to_charles_batch_20261029.txt`, 3 items): A6 small items incl. Cronología 565; B3 cleared QIDs; A3 "which work?". May be folded into the new spreadsheet.
   - Long-tail plan (`email_to_charles_long_tail_draft.txt`), first.
-- **Olaf**: nightly write outage still exists, apparently ~1:00 am Berlin time (2026-06-08 7:00–7:44 pm EDT; 2026-10-29 504s on writes from 8:01 pm EDT, intermittent until at least 9 pm; reads fine). What is it, how long? B8 broken sitelinks. Duplicate Dutton items (Q1070186 / Q1078975). Long-tail plan once Charles agrees.
+- **Olaf**: nightly write outage still exists, apparently ~1:00 am Berlin time (2026-06-08 7:00–7:44 pm EDT; 2026-10-29 504s on writes from 8:01 pm EDT, intermittent until at least 9 pm; reads fine). What is it, how long? B8 broken sitelinks. Duplicate Dutton items (Q1070186 / Q1078975). Long-tail plan: FYI only (Max: no need to ask).
